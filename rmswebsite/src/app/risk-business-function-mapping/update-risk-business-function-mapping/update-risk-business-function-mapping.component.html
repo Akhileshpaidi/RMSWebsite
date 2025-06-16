@@ -1,0 +1,167 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self: self-end">
+          <br>
+          <h2 class=" title" style="align-items: center;"> Edit Business Functional Mapping
+            </h2>
+        </div>
+      </div> 
+      <br>
+    
+        <br>
+        <div class="box">
+           <div>
+
+             <dx-drop-down-box 
+            
+             [(value)]="selectedOption1"         
+             [inputAttr]="{ 'aria-label': 'Owner' }"
+             placeholder="Select Business Function Name*"
+             label="Select Business Function Name*"
+             [showClearButton]="true"
+             labelMode="floating"
+             valueExpr="riskBusinessfunctionid"
+             displayExpr="riskname"
+             [(opened)]="isGridBoxOpened"
+             [dataSource]="businessname"
+             (onValueChanged)="getUpdateFormData($event)"
+              >   
+            <div *dxTemplate="let data of 'content'">
+             <dx-data-grid    
+             [dataSource]="businessname"
+             [columns]="gridColumns1"
+               [selection]="{ mode: 'single' }"
+               [hoverStateEnabled]="true"
+               [(selectedRowKeys)]="selectedOption1"
+               [filterRow]="{ visible: true }"
+               [scrolling]="{ mode: 'virtual' }"
+               [showColumnHeaders]="false"
+               height="100%"
+             >
+             <dxo-filter-row [visible]="true"></dxo-filter-row>
+             <dxo-scrolling mode="virtual"></dxo-scrolling>
+             <dxo-header-filter [visible]="true" [allowSearch]="true">
+               <dxo-search [enabled]="true"></dxo-search>
+             </dxo-header-filter>
+             <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+             <dxo-pager
+             [visible]="true"
+             [allowedPageSizes]="[ 10,20, 'all']"
+            
+             [showPageSizeSelector]="true"
+            
+             [showInfo]="true"
+             infoText="Page {0} of  {1} ({2} items)"
+             [showNavigationButtons]="true">
+           </dxo-pager>
+       
+           <dxo-group-panel [visible]="true"></dxo-group-panel>
+             <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+             </dx-data-grid>
+           </div> 
+          </dx-drop-down-box>
+          
+             </div>
+        
+        </div>
+        <br>
+        <form [formGroup]="Departmentlocation"  (ngSubmit)="SubmitUpdateForm()" >
+
+            <div class="row">
+                <div class="box">
+                    <mat-form-field  appearance="fill" class="form-field">
+                        <mat-label>Name of Business</mat-label>
+                        <input matInput #titleinput formControlName="nameofbusiness"  maxlength="250">
+                        <mat-hint align="start" >Min 1 - Max 50 Characters</mat-hint>
+                      <mat-hint align="end">{{titleinput.value.length}}/50</mat-hint>
+                      </mat-form-field>
+
+                      <mat-form-field  appearance="fill" class="form-field">
+                        <mat-label>Business Description</mat-label>
+                        <input matInput #titleinput1 formControlName="Descriptionofbusiness"  maxlength="250">
+                        <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+                      <mat-hint align="end">{{titleinput1.value.length}}/150</mat-hint>
+                      </mat-form-field>
+                </div>
+            </div>
+            <div class="box">
+                <dx-select-box
+                formControlName="departmentname"
+                label="Select Department*"
+                labelMode="floating"
+                valueExpr="department_Master_id"
+                displayExpr="department_Master_name"
+                  [searchEnabled]="true"
+                  [dataSource]="Department" 
+         ></dx-select-box>
+            </div>
+        <h3>
+        <label>  Map to:</label></h3>
+
+        
+         <div class="box">
+          <div>
+         
+        
+        
+           <dx-select-box 
+           formControlName="entity"
+           label="Select Entity*"
+        labelMode="floating"
+        valueExpr="entity_Master_id"
+        displayExpr="entity_Master_Name"
+        [dataSource]="Entity"  
+        [searchEnabled]="true"
+        (onValueChanged)="getunitlocation($event)"
+        selectionMode="single" 
+        placeholder=""
+           > </dx-select-box>
+        
+         
+        </div>
+        
+        
+         <div >
+        
+           <dx-drop-down-box 
+           formControlName="location"
+           [(value)]="selectedOption"         
+           [inputAttr]="{ 'aria-label': 'Owner' }"
+           placeholder="Select  unit  location*"
+           [showClearButton]="true"
+           label="Select   unit  location*"
+           labelMode="floating"
+           [(opened)]="isGridBoxOpened1"
+           valueExpr="unit_location_Master_id"
+           displayExpr="unit_location_Master_name"
+           [dataSource]="location"
+           height="40px" >   
+          <div *dxTemplate="let data of 'content'">
+           <dx-data-grid    
+           [dataSource]="location"
+           [columns]="gridColumns"
+             [selection]="{ mode: 'single' }"
+             [hoverStateEnabled]="true"
+             [(selectedRowKeys)]="selectedOption"
+             [filterRow]="{ visible: true }"
+             [scrolling]="{ mode: 'virtual' }"
+             [showColumnHeaders]="false"
+             height="100%"
+           >
+           </dx-data-grid>
+         </div> 
+        </dx-drop-down-box>
+        
+         </div>
+        
+         </div>
+         <div class="margin-top"></div>
+         <div class="button">
+          <button class="grey-button"  (click)="Cancel()" >Cancel</button>
+           <button class="Custombutton"  >Update</button>
+         </div>
+        </form>
+    </div>
+</div>
+

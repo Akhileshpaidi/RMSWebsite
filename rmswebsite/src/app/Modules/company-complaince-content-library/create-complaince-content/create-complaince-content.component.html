@@ -1,0 +1,1485 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+        <h1>Company Complainces Master Library </h1>
+      </div>
+      <br>
+  
+    <!-- <div class="radio-buttons">
+        <label>
+  
+       </label>
+         <label >
+           <input type="radio" name="selectionType" (change)="setSelectionType('import')" value="import">import Subscribed content
+         </label>
+         <label>
+           <input type="radio" name="selectionType" (change)="setSelectionType('create')" value="create">Create Company content
+         </label>
+       </div> -->
+      <mat-radio-group style="padding-left: 30px;" [(ngModel)]="selectionType" (ngModelChange)="setSelectionType($event)">
+        <mat-radio-button name="selectionType" value="create" style="padding-left: 10px;">Create Company content</mat-radio-button>
+        <mat-radio-button name="selectionType" value="import">import Subscribed content</mat-radio-button>
+      </mat-radio-group>
+      
+       <div><br></div>
+       <form [formGroup]="import" *ngIf="selectionType === 'import'  && isInternalSelection()"  (ngSubmit)="createUser(import.value)" >
+        
+        <br>
+       
+ 
+        <div class="radio-buttons">
+            <label>
+        Content Eligibility:
+           </label>
+           <label >
+            <input type="checkbox" name="selectionType"  value="free">Free content
+          </label>
+          <label>
+            <input type="checkbox" name="selectionType"  value="paid">Paid content
+          </label>
+        </div>
+        <br>
+      
+        <div>
+            <label>
+                 Criteria  Selection:
+                   </label>
+        </div>
+        <br>
+<div >
+   <h3> <label>
+    <!-- <input  type="checkbox"  name="selection"   (change)="setSelection('visible')" value="visible" -->
+    <input type="checkbox" name="selection" (change)="setSelection($event, 'freeText')">
+        Based on Free Text Search
+    </label></h3>
+</div>
+        <div class="row" *ngIf= "based_on_free_text" >
+            <div class="box">
+              <dx-select-box 
+              formControlName="ActnamefreeText"
+              label="Select Act Name"
+              labelMode="floating"
+              valueExpr="actregulatoryid"
+              displayExpr="actregulatoryname"
+              [dataSource]="actnamefreeText"
+              search="true"
+              height="40px"
+              [searchEnabled]="true"
+              selectionMode="single" 
+             placeholder=""
+             disableOptionCentering >
+        </dx-select-box>
+    
+            </div>
+            <div class="box">
+                <dx-select-box 
+                formControlName="categorylaw"
+                label="category of Law"
+                labelMode="floating"
+                search="true"
+                valueExpr="category_of_law_ID"
+                displayExpr="law_Categoryname"
+                [dataSource]="categorylawfreeText"
+                height="40px"
+                [searchEnabled]="true"
+                selectionMode="single" 
+               placeholder=""
+               disableOptionCentering >
+          </dx-select-box>
+              </div>
+            </div>
+
+            <div >
+                <h3> <label>
+                    <input  type="checkbox"  name="selection1"   (change)="setSelection($event, 'jurisdictionSearch')">
+                     Based on Jurisdiction search
+                 </label></h3>
+             </div>
+             <div  *ngIf="based_on_jurisdiction">
+             <div class="row">
+                <div class="box">
+                  <dx-select-box 
+                  formControlName="natureoflaw"
+                  label="Nature  of Law"
+                  labelMode="floating"
+                  valueExpr="law_type_id"
+                  displayExpr="type_of_law"
+                  [dataSource]="naturelawtype"
+                  height="40px"
+                  [searchEnabled]="true"
+                  selectionMode="single" 
+                 placeholder=""
+                 disableOptionCentering >
+            </dx-select-box>
+                </div>
+                <div class="box">
+                  <dx-select-box 
+                  formControlName="regulatoryAuthority"
+                  label="Regulatory Authority"
+                  labelMode="floating"
+                  valueExpr="regulatory_authority_id"
+                  displayExpr="regulatory_authority_name"
+                  [dataSource]="regulatory"
+                  height="40px"
+                  [searchEnabled]="true"
+                  selectionMode="single" 
+                 placeholder=""
+                 disableOptionCentering >
+            </dx-select-box>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="box">
+                  <dx-select-box 
+                  formControlName="jurisdictioncategory"
+                  label="Jurisdiction  category "
+                  labelMode="floating"
+                  valueExpr="jurisdiction_category_id"
+                  displayExpr="jurisdiction_categoryname"
+                  [dataSource]="jurisdiction"
+                  height="40px"
+                  [searchEnabled]="true"
+                  selectionMode="single" 
+                 placeholder=""
+                 disableOptionCentering >
+            </dx-select-box>
+          </div>
+          <div class="box">
+            <dx-select-box 
+            formControlName="country"
+            label="Country Name"
+            labelMode="floating"
+            valueExpr="jurisdiction_country_id"
+            displayExpr="name"
+            [dataSource]="country"
+            height="40px"
+            [searchEnabled]="true"
+            selectionMode="single" 
+           placeholder=""
+           (onValueChanged)="getstate($event)"  disableOptionCentering >
+      </dx-select-box>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="box">
+            <dx-select-box 
+            formControlName="state"
+            label="state /Region "
+            labelMode="floating"
+            valueExpr="id"
+            displayExpr="name"
+            [dataSource]="state"
+            height="40px"
+            [searchEnabled]="true"
+            selectionMode="single" 
+           placeholder=""
+           (onValueChanged)="getdistrict($event)" disableOptionCentering >
+      </dx-select-box>
+          </div>
+          <div class="box">
+            <dx-select-box 
+            formControlName="distict"
+            label="District/Location"
+            labelMode="floating"
+            valueExpr="jurisdiction_location_id"
+            displayExpr="jurisdiction_district"
+            [dataSource]="district"
+            height="40px"
+            [searchEnabled]="true"
+            selectionMode="single" 
+           placeholder=""
+           disableOptionCentering >
+      </dx-select-box>
+          </div>
+        </div>
+      </div>
+        <div >
+                <h3> <label>
+                    <input  type="checkbox"  name="selection2"   (change)="setSelection($event, 'otherFactor')">
+                     Based on other Factor
+                 </label></h3>
+             </div>
+           
+             <div class="row"  *ngIf="based_on_other_factor">
+                <div class="box">
+                  <dx-select-box 
+                  formControlName="business" 
+                  label="Select Business Sector"
+                  labelMode="floating"
+                  valueExpr="businesssectorid"
+                  displayExpr="businesssectorname"
+                  [dataSource]="businesssector"
+                  search="true"
+                  height="40px"
+                  [searchEnabled]="true"
+                  selectionMode="single" 
+                 placeholder=""
+                 disableOptionCentering >
+            </dx-select-box>
+        
+                </div>
+                <div class="box">
+                    <dx-select-box 
+                    formControlName="industry"
+                    label="Select industry type"
+                    labelMode="floating"
+                    search="true"
+                    valueExpr="industrytypeid"
+                    displayExpr="industrytypename"
+                    [dataSource]="typeindustry"
+                    height="40px"
+                    [searchEnabled]="true"
+                    selectionMode="single" 
+                   placeholder=""
+                   disableOptionCentering >
+              </dx-select-box>
+                  </div>
+                </div>
+                <div class="margin-top"></div>
+                <div class="button">
+                  <button class="grey-button"  (click)="Cancel()" >Reset</button>
+                <button  class="Custombutton"  >Search</button>
+                </div>
+   
+       <div class="card-body">
+
+            <dx-data-grid
+              id="dataGrid"
+              [dataSource]="dataSource"
+              [showBorders]="true"
+              [allowColumnResizing]="true"
+              [columnAutoWidth]="true"
+              [allowColumnReordering]="true"
+            >
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+              <dxi-column dataField="id" caption="Select">
+                <dxi-check-box></dxi-check-box>
+              </dxi-column>
+        
+              <dxi-column dataField="globalComplianceId" caption="Global Compliance ID">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-column>
+              <dxi-column dataField="complianceName" caption="Compliance Name">
+              </dxi-column>
+              <dxi-column dataField="actName" caption="Act Name">
+              </dxi-column>
+              <dxi-column dataField="ruleName" caption="Rule Name">
+              </dxi-column>
+              <dxi-column dataField="contentSubscriptionType" caption="Content/Subscription Type">
+              </dxi-column>
+              <dxi-column dataField="companyLibraryStatus" caption="Company Library Status">
+              </dxi-column>
+        
+              <dxo-header-filter [visible]="true" [allowSearch]="true">
+                <dxo-search [enabled]="true"></dxo-search>
+              </dxo-header-filter>
+               <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+               <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+               <dxo-filter-row [visible]="true"></dxo-filter-row>
+               <dxo-search-panel [visible]="true"></dxo-search-panel>
+               <dxo-group-panel [visible]="true"></dxo-group-panel>
+               <dxo-paging [pageSize]="10"></dxo-paging>
+               <dxo-pager
+                 [showPageSizeSelector]="true"
+                 [allowedPageSizes]="[10, 25, 50, 100]"
+                 [showInfo]="true"
+                 [showNavigationButtons]="true"></dxo-pager>
+        
+              <dxo-selection mode="multiple"></dxo-selection>
+        
+              <dxo-summary>
+                <dxi-total-item column="globalComplianceId" summaryType="count">
+                </dxi-total-item>
+              </dxo-summary>
+        
+              <dxo-toolbar>
+                <dxi-item name="exportButton"></dxi-item>
+                <dxi-item name="columnChooserButton"></dxi-item>
+                <dxi-item name="searchPanel"></dxi-item>
+              </dxo-toolbar>
+        
+             
+            </dx-data-grid>
+          <div class="margin-top"></div>
+                <div class="button">
+                  <button class="grey-button"  (click)="Cancel()" >Cancel</button>
+          <button  class="Custombutton"  (click)="saveSelectedCompliances()">Add to Company Complaince Library Master</button>
+                </div>
+      </div>
+    </form>
+
+    <form [formGroup]="createcompliance" *ngIf="selectionType === 'create'">
+
+      <div class="names_act_rule" *ngIf="rule_act && rule_act.length > 0">
+        <div class="row" *ngIf="selectionType === 'create'">
+          <div class="label"><strong>Act Name:</strong> {{ act_rule[0].actname }}</div>
+          <div class="label" style="margin-left: 10px;"><strong>Rule Name:</strong> {{ act_rule[0].rulename }}</div>
+        </div>
+      </div>
+
+      <div class="compliancepreference" *ngIf="visible_compliancepreface">
+        <div label="Compliance Preface" state="chat">
+
+      <div class="row">
+        <div class="box">
+          <dx-select-box 
+            formControlName="Actid"
+            label="Select Act/ Master Regulation Name *"
+            labelMode="floating"
+            valueExpr="actregulatoryid"
+            displayExpr="actregulatoryname"
+            [dataSource]="actname"
+            [searchEnabled]="true"
+            height="40px"
+            selectionMode="single" 
+            placeholder="Act/Master Regulation"
+          (onValueChanged)="getRules($event)">
+        </dx-select-box>
+        <mat-error *ngIf="createcompliance.get('Actid').touched && createcompliance.get('Actid').hasError('required')">Act/ Master Regulation Name Required</mat-error>
+        </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="box">
+          <dx-select-box 
+          formControlName="ruleid"
+          label="Select Rule/ Regulation/ Procedure Name *"
+          labelMode="floating"
+          [searchEnabled]="true"
+          valueExpr="act_rule_regulatory_id"
+          displayExpr="act_rule_name"
+          [dataSource]="rulename"
+          selectionMode="single" 
+         placeholder="Rule/ Regulation/ Procedure"
+         (onValueChanged)="getactruledata($event)">
+    </dx-select-box>
+    <mat-error *ngIf="createcompliance.get('ruleid').touched && createcompliance.get('ruleid').hasError('required')">Rule/ Regulation/ Procedure Name required</mat-error>
+            </div>
+            </div>
+            <br>
+            <div class="button">
+            <button mat-raised-button color="primary" type="button" *ngIf="selectionType === 'create'" (click)="resetForm()">Reset</button>
+          </div>
+            <br>
+            <table class="table1" *ngIf="rule_act && rule_act.length > 0">
+              <tbody>
+                <tr *ngIf="rule_act && rule_act.length > 0"> 
+                  <td>
+                    <strong>Applicability Description of Act Regulatory</strong><br>
+                    <!-- <div class="information-wrapper">
+                      <img src="\assets\images\images (1).jpeg" class="information-icon" alt="Information" (click)="showPopup(rule_act)">
+                      <span (click)="showPopup(rule_act)" class="clickable-span">
+                        {{ 'View More Related Info' }}
+                      </span>
+                      
+                    
+                    </div> -->
+                  </td>
+                  <td>{{rule_act[0].act_description}}</td>
+                </tr>
+                 <tr *ngIf="rule_act && rule_act.length > 0"> 
+                  <td>
+                    <strong>Applicability Description of Rule Regulation/ Procedure</strong><br>
+                    <div class="information-wrapper">
+                      <img src="\assets\images\images (1).jpeg" class="information-icon" alt="Information" (click)="showPopup(rule_act)">
+                      <span (click)="showPopup(rule_act)" class="clickable-span">
+                        {{ 'View More Related Info' }}
+                      </span>
+                      
+                    
+                    </div>
+                  </td>
+                  <td>{{rule_act[0].description}}</td>
+                </tr>
+                <tr *ngFor="let rule of rule_act">
+                  <td><strong>Category of Law</strong></td>
+                  <td>{{ rule.category }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table1" *ngIf="rule_act && rule_act.length > 0 ">
+              <thead>
+                <tr>
+                  <th colspan="4">Jurisdiction Location : </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let rule of rule_act">  
+                  <td><strong>Nature of Law</strong></td>        
+                  <td>{{ rule.lawType }}</td>
+                  <td><strong>Regulatory Authority</strong></td>
+                  <td>{{ rule.regulator }}</td>
+                </tr>
+                <tr *ngFor="let rule of rule_act">
+                  <td><strong>Jurisdiction Category</strong></td>
+                  <td> {{rule.jurisdictionCategory}} </td>
+                  <td><strong>Country Name</strong></td>
+                  <td>{{ rule.countryName }}</td>
+                </tr>
+                <tr *ngFor="let rule of rule_act">
+                  <td><strong>State / Region Name</strong></td>
+                  <td>{{ rule.stateName }}</td>
+                  <td><strong>District / Locality Name</strong></td>
+                  <td>{{ rule.jurisdiction_district }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table1" *ngIf="rule_act && rule_act.length > 0 ">
+              <thead>
+                <tr>
+                  <th colspan="2">Additional References from Bare Act & Rule :</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                      <td><strong>Bare Act Reference(s)</strong></td>
+                      <td>
+                    <ol type="1">
+                      
+                      <!-- <ng-container *ngFor="let detail of rule_act[0].actfiles">
+                        <li>
+                          <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                            [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ detail.filepath }}</a>
+                            <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                            <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
+                          </ng-container>
+                          
+                          <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                            [File Attached] {{ detail.filename }}
+                              <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                                <a [href]="detail.filepath" target="_blank">(View)</a> /
+                              </ng-container>
+                              <a [href]="detail.filepath" download>Download</a>
+                            </ng-container>
+                        </li>
+                      </ng-container> -->
+                    <ng-container *ngFor="let detail of rule_act[0].actfiles">
+                      <li>
+                        <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                          [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ getFileNameFromPath(detail.filepath) }}</a>
+                          <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                          <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
+
+                        </ng-container>
+                        <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                          [File Attached] {{ getFileNameFromPath(detail.filepath) }}
+                          <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                            <a [href]="detail.filepath" target="_blank">(View)</a> /
+                          </ng-container>
+                          <dx-button icon="download"  (click)="download(detail.filepath, detail.fileType)"> </dx-button>
+                        </ng-container>
+                      </li>
+                    </ng-container>
+                    
+                  </ol>
+                </td>
+              </tr>
+                <tr>
+                  <td><strong>Bare Rule Reference(s)</strong></td>
+                  <td>
+                    <ol type="1">
+                      <!-- <ng-container *ngFor="let detail of rule_act[0].actfiles">
+                        <li>
+                          <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                            [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ detail.filepath }}</a>
+                            <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                            <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
+                          </ng-container>
+                          
+                          <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                            [File Attached] {{ detail.filename }}
+                              <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                                <a [href]="detail.filepath" target="_blank">(View)</a> /
+                              </ng-container>
+                              <a [href]="detail.filepath" download>Download</a>
+                            </ng-container>
+                        </li>
+                      </ng-container> -->
+                      <ng-container *ngFor="let detail of rule_act[0].rulefiles">
+                        <li>
+                          <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                            [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ getFileNameFromPath(detail.filepath) }}</a>
+                            <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                            <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
+                          </ng-container>
+                          <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                            [File Attached] {{ getFileNameFromPath(detail.filepath) }}
+                            <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                              <a [href]="detail.filepath" target="_blank">(View)</a> /
+                            </ng-container>
+                            <dx-button icon="download"  (click)="download(detail.filepath, detail.fileType)"> </dx-button>
+                          </ng-container>
+                        </li>
+                      </ng-container>
+                    </ol>
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+            
+        <div class="button">
+
+        <button class="Custombutton"  (click)="addcompliance()" *ngIf="rule_act">Add Compliance Nomenclature</button>
+        </div>
+      </div>
+      </div>
+      <mat-horizontal-stepper labelPosition="bottom" *ngIf="visiblestepper">
+
+      <mat-step label="Compliance Nomenclature" state="chat">
+      <div class="box">
+        <div fxLayoutAlign="center center">
+          <div class="box">
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Add Compliance Name </mat-label>
+              <input matInput #namecompliance maxlength="250" formControlName="Compliance_Name" />
+              <mat-hint align="end">{{namecompliance.value.length}}/250 chrs</mat-hint>
+               <mat-error *ngIf="createcompliance.get('Compliance_Name').touched && createcompliance.get('Compliance_Name').hasError('required')">Compliance Name is required</mat-error>
+              <!-- <mat-error *ngIf="createcompliance.get('Compliance_Name').hasError('minlength')">Compliance Name must be at least 5 characters</mat-error> -->
+              <mat-error *ngIf="createcompliance.get('Compliance_Name').hasError('maxlength')">Compliance Name cannot exceed 250 characters</mat-error> 
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+  <div class="box">
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Add Compliance Description</mat-label>
+          <textarea matInput #descriptioncompliance maxlength="2500" formControlName="compliancedescription" class="scrollable-textarea" required></textarea>
+          <mat-hint align="end">{{descriptioncompliance.value.length}}/2500 chrs</mat-hint>
+          <mat-error *ngIf="createcompliance.get('compliancedescription').touched && createcompliance.get('compliancedescription').hasError('required')">Compliance Description is required</mat-error>
+          <!-- <mat-error *ngIf="createcompliance.get('compliancedescription').hasError('minlength')">Compliance Description must be at least 5 characters</mat-error> -->
+          <mat-error *ngIf="createcompliance.get('compliancedescription').hasError('maxlength')">Compliance Description cannot exceed 2500 characters</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Add Section/ Rule/ Clause/ Regulation Reference </mat-label>
+          <input matInput #sectionrull maxlength="100" formControlName="section_rule" required />
+          <mat-hint align="end">{{sectionrull.value.length}}/100 chrs</mat-hint>
+          <mat-error *ngIf="createcompliance.get('section_rule').touched && createcompliance.get('section_rule').hasError('required')">Section/ Rule/ Clause/ Regulation Reference is required</mat-error>
+          <!-- <mat-error *ngIf="createcompliance.get('section_rule').hasError('minlength')">Section/ Rule/ Clause/ Regulation Reference must be at least 5 characters</mat-error> -->
+          <mat-error *ngIf="createcompliance.get('section_rule').hasError('maxlength')">Section/ Rule/ Clause/ Regulation Reference cannot exceed 100 characters</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="box">
+      <dx-select-box formControlName="typecompliance" label="Select Compliance Type *" labelMode="floating" valueExpr="compliance_type_id" displayExpr="compliance_type_name" [dataSource]="typecompliancename" height="40px" [searchEnabled]="true" selectionMode="single" placeholder="Compliance Type" disableOptionCentering>
+      </dx-select-box>
+      <mat-error *ngIf="createcompliance.get('typecompliance').touched && createcompliance.get('typecompliance').hasError('required')">Compliance Type required</mat-error>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="box">
+      <dx-select-box formControlName="typecompliancerecord" label="Select Compliance Record Type *" labelMode="floating" valueExpr="compliance_record_type_id" displayExpr="compliance_record_name" [dataSource]="compliancerecord" height="40px" [searchEnabled]="true" selectionMode="single" placeholder="Compliance Record Type" disableOptionCentering>
+      </dx-select-box>
+      <mat-error *ngIf="createcompliance.get('typecompliancerecord').touched && createcompliance.get('typecompliancerecord').hasError('required')">Compliance Record Type required</mat-error>
+    </div>
+    <div class="box">
+      <dx-select-box 
+          label="Confirm if Form Number/ Record Name Required ? *"
+          displayExpr="text"
+          valueExpr="text"
+          [dataSource]="data"
+          [inputAttr]="{ 'aria-label': 'id' }"
+          [value]="ChooseOptions[1].id"
+          (onValueChanged)="selectOption($event)"
+          formControlName="formNameRequired">
+      </dx-select-box>
+      <mat-error *ngIf="createcompliance.get('formNameRequired').touched && createcompliance.get('formNameRequired').hasError('required')">Form Number/ Record Name Required</mat-error>
+    </div>
+    </div>
+    <br>
+    <div *ngIf="selectedFormsvisible">
+      <div class="row">
+        <div class="box">
+          <dx-drop-down-box 
+              formControlName="selectedForms"
+              label="Select Form Number/ Record Name/ Reference *"
+              [(value)]="selectedFormIsD"    
+              [(opened)]="isFormGridBoxOpened"
+              [inputAttr]="{ 'aria-label': 'Owner' }"
+              placeholder="Select (Multiple)"
+              [showClearButton]="true"
+              labelMode="floating"
+              valueExpr="statutoryid"
+              displayExpr="statutoryName"
+              [dataSource]="formrecordref"
+              (onValueChanged)="checkSelectedForms($event)"
+              height="40px"
+          >   
+            <div *dxTemplate="let data of 'content'">
+              <dx-data-grid    
+                  [dataSource]="formrecordref"
+                  [columns]="RecordFormNames"
+                  [selection]="{ mode: 'multiple' }"
+                  [hoverStateEnabled]="true"
+                  [(selectedRowKeys)]="selectedFormIsD"
+                  [filterRow]="{ visible: true }"
+                  [scrolling]="{ mode: 'virtual' }"
+                  [showColumnHeaders]="false"
+                  height="100%"
+              >
+              </dx-data-grid>
+            </div> 
+          </dx-drop-down-box>
+          <!-- Display error message only if selectedForms is touched and formNameRequired is set to 'yes' -->
+          <mat-error *ngIf="createcompliance.get('selectedForms').touched && createcompliance.get('formNameRequired').value === 'Yes'&& createcompliance.get('selectedForms').hasError('required')">Form Number/ Record Name/ Reference is required</mat-error>
+        </div>
+      </div>
+    </div>
+    
+              <br>
+              <div *ngIf="showStatutoryFormTable" class="table-container1">
+                <table class="table1">
+                  <thead>
+                    <tr>
+                      <th colspan="5">Statutory Form / Record References :</th>
+                    </tr>
+                    <tr>
+                      <th>Form Number/ Record Name/ Reference</th>
+                      <th>Applicable Section/ Rule/ Regulation Reference</th>
+                      <th>Description of Form/ Record Name/ Number/ Reference</th>
+                      <!-- <th>Support Reference(s)</th> -->
+                      <th>Support References from Bare Act & Rule</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let form of selectedForms">
+                      <td>{{ form.statutoryName }}</td>
+                      <td>{{ form.applicable_section }}</td>
+                      <td>{{ form.description }}</td>
+                      <!-- <td>{{ form.category }}</td> -->
+                      <td>
+                          <ol type="1">
+                          <ng-container *ngFor="let detail of form.categoryDetails">
+                            <li>
+                              <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                                [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ getFileNameFromPath(detail.filepath) }}</a>
+                                <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                                <!-- <label *ngIf="isLinkCopied" style="color:red;">Link copied!</label> -->
+                                <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
+                              </ng-container>
+                              <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                                [File Attached] {{ getFileNameFromPath(detail.filepath) }}
+                                <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                                  <a [href]="detail.filepath" target="_blank">(View)</a> /
+                                </ng-container>
+                                <dx-button icon="download"  (click)="download(detail.filepath, detail.fileType)"> </dx-button>
+                              </ng-container>
+                            </li>
+                          </ng-container>
+                        </ol>
+                      </td>
+                     </tr>
+                  </tbody>
+                </table>
+              </div>
+              <br>
+              <div class="box">
+                <div fxLayoutAlign="center center">
+                  <div class="box">
+                  <mat-form-field appearance="fill" class="form-field">
+      
+                    <mat-label>Add Special Instructions for Statutory Form / Record updation</mat-label>
+                     <input matInput  #specialinstructions maxlength="500"  formControlName="special_instructions"/>
+                    <mat-hint align="end">{{specialinstructions.value.length}}/500 chrs</mat-hint>
+                    <mat-error *ngIf="createcompliance.get('special_instructions').touched && createcompliance.get('special_instructions').hasError('required')">Add Special Instructions for Statutory Form / Record updation</mat-error>
+                    <!-- <mat-error *ngIf="createcompliance.get('special_instructions').hasError('minlength')">Special Instructions for Statutory Form/Record updation must be at least 5 characters</mat-error> -->
+                    <mat-error *ngIf="createcompliance.get('special_instructions').hasError('maxlength')">Special Instructions for Statutory Form/Record updation cannot exceed 500 characters</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              </div>
+              <div class="row">
+                <div class="box">
+                  <dx-select-box
+                    formControlName="groupcompliance"
+                    label="Select Compliance Group"
+                    labelMode="floating"
+                    valueExpr="compliance_group_id"
+                    displayExpr="compliance_group_name"
+                    [dataSource]="complianceGroup"
+                    height="40px"
+                    [searchEnabled]="true"
+                    [showClearButton]="true"
+                    selectionMode="single"
+                    placeholder="Select"
+                    disableOptionCentering
+                  >
+                  </dx-select-box>
+                </div>
+                <div class="box">
+                  <dx-select-box
+                    formControlName="complianceNotified"
+                    label="Select Compliance Notified Status *"
+                    labelMode="floating"
+                    valueExpr="compliance_notified_id"
+                    displayExpr="compliance_notified_name"
+                    [dataSource]="complianceNotifiedStatus"
+                    height="40px"
+                    [searchEnabled]="true"
+                    selectionMode="single"
+                    placeholder="Select"
+                    disableOptionCentering>
+                  </dx-select-box>
+                  <mat-error *ngIf="createcompliance.get('complianceNotified').touched && createcompliance.get('complianceNotified').hasError('required')">Compliance Notified Status required</mat-error>
+                </div>
+                
+              </div>
+      <!-- <div class="button">
+        <button class="grey-button" (click)="backto_compliancepreface()">Back to Compliance Preface</button>
+        <button class="Custombutton" (click)="savenomenclatureData()" type="button">Next</button>
+      </div> -->
+      <div class="button">
+        <button class="grey-button" (click)="backto_compliancepreface()">Back to Compliance Preface</button>
+        <button class="Custombutton" (click)="saveAndGoTocompliancepreface()" type="button">Next</button>
+      </div>
+      </mat-step>
+      <mat-step label="Compliance Chronology Setup" state="chat">
+        <br>
+        <br>
+        <div class="row">
+          <div class="box">
+            <div class="box">
+              <dx-select-box 
+                formControlName="frequency_period" 
+                label="Select Frequency Period *" 
+                labelMode="floating" 
+                valueExpr="frequencyid" 
+                displayExpr="frequencyperiod" 
+                [dataSource]="frequencyperiod" 
+                height="40px" 
+                [searchEnabled]="true" 
+                selectionMode="single" 
+                placeholder="Select" 
+                (onValueChanged)="frequency($event)" 
+                disableOptionCentering
+              >
+              </dx-select-box>
+              <mat-error *ngIf="createcompliance.get('frequency_period').touched && createcompliance.get('frequency_period').hasError('required')">Frequency Period required</mat-error> 
+            </div>
+            
+          </div>
+      </div>
+      <br>
+        <div class="row">
+        <div class="box">
+          <h2>Basis for Defining the Due Date:</h2>
+        </div>
+      </div>
+        <div class="row">
+          <div class="box">
+            <dx-select-box
+              formControlName="originalDueDateDefinedBy"
+              label="Select Original Due Date Defined By *"
+              labelMode="floating"
+              [dataSource]="originalDueDateOptions"
+              height="40px"
+              [searchEnabled]="true"
+              selectionMode="single"
+              placeholder="Select"
+              disableOptionCentering>
+            </dx-select-box>
+             <mat-error *ngIf="createcompliance.get('originalDueDateDefinedBy').touched && createcompliance.get('originalDueDateDefinedBy').hasError('required')">Original Due Date Defined By required</mat-error>
+          </div>
+            </div>
+            
+            <br>
+            <div class="row">
+              <div class="box">
+                <dx-select-box
+                  formControlName="recurrenceOption"
+                  label="Select Recurrence *"
+                  labelMode="floating"
+                  [dataSource]="recurrenceOptions"
+                  height="40px"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  placeholder="Select Option"
+                  disableOptionCentering>
+                </dx-select-box>
+                <mat-error *ngIf="createcompliance.get('recurrenceOption').touched && createcompliance.get('recurrenceOption').hasError('required')">Recurrence Required</mat-error>
+              </div>
+              <div class="box">
+                <dx-select-box
+                  formControlName="frequency_options"
+                  label="Select Frequency *"
+                  labelMode="floating"
+                  [dataSource]="frequencyperiod"
+                  height="40px"
+                  valueExpr="frequencyperiod" 
+                  displayExpr="frequencyperiod" 
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  placeholder="Select Value"
+                  disableOptionCentering>
+                </dx-select-box>
+                <mat-error *ngIf="createcompliance.get('frequency_options').touched && createcompliance.get('frequency_options').hasError('required')">Frequency Required</mat-error>
+              </div>
+              <div class="box">
+                <dx-select-box
+                  formControlName="dueDate"
+                  label="Select Day *"
+                  labelMode="floating"
+                  [dataSource]="days"
+                  height="40px"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  placeholder="Select Value"
+                  disableOptionCentering>
+                </dx-select-box>
+                <mat-error *ngIf="createcompliance.get('dueDate').touched && createcompliance.get('dueDate').hasError('required')">Day Required</mat-error>
+              </div>
+              <div class="box">
+                <dx-select-box
+                  formControlName="periodicityFactor"
+                  label="Periodicity Factor *"
+                  valueExpr="periodicity_FactorID"
+                  displayExpr="periodicity_Factor_Name"
+                  labelMode="floating"
+                  [dataSource]="periodicityFactorOptions"
+                  height="40px"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  placeholder="Select Option"
+                  disableOptionCentering>
+                </dx-select-box>
+                <mat-error *ngIf="createcompliance.get('periodicityFactor').touched && createcompliance.get('periodicityFactor').hasError('required')">Periodicity Factor Required</mat-error>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="box">
+                <dx-select-box
+                  formControlName="complianceYearFactor"
+                  label="Compliance Year Factor *"
+                  labelMode="floating"
+                  [dataSource]="complianceYearFactorOptions"
+                  height="40px"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  placeholder="Select Value"
+                  disableOptionCentering>
+                </dx-select-box>
+                <mat-error *ngIf="createcompliance.get('complianceYearFactor').touched && createcompliance.get('complianceYearFactor').hasError('required')">Compliance Year Factor Required</mat-error>
+              </div>
+              
+              <div class="box">
+                <dx-select-box
+                  formControlName="startMonthForComplianceYear"
+                  label="Start Month for Compliance Year *"
+                  valueExpr="monthID"
+                  displayExpr="month"
+                  labelMode="floating"
+                  [dataSource]="months"
+                  height="40px"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  placeholder="Select Value"
+                  disableOptionCentering>
+                </dx-select-box>
+                <mat-error *ngIf="createcompliance.get('startMonthForComplianceYear').touched && createcompliance.get('startMonthForComplianceYear').hasError('required')" class="error-message">Start Month for Compliance Year Required</mat-error>
+              </div>          
+            </div>
+            <br>
+            <div class="table-container1">
+              <div formArrayName="instances">
+              <!-- <table class="table1">
+                <thead>
+                  <tr>
+                    <th colspan="8">Defining the Scheduler Master :</th>
+                  </tr>
+                  <tr>
+                    <th style="width: 50px;">Interval Instance</th>
+                    <th style="width: 300px;">Select Current Compliance Period</th>
+                    <th style="width: 300px;">Define Year Factor based on periodicity Factor</th>
+                    <th style="width: 300px;">Select Due Dates & Months (Day / Month)</th>
+                    <th style="width: 300px;">Select Next Compliance Period</th>
+                    <th style="width: 300px;">Define Year Factor based on periodicity Factor</th>
+                    <th style="width: 100px;">Confirm if Extended Due Date applies?
+                      <input type="checkbox" [(ngModel)]="extendedDueDateRequired" formControlName="extended_due_date_required" (change)="toggleCheckboxes($event)">
+                    </th>
+                    <th style="width: 300px;" *ngIf="extendedDueDateRequired">Select Extended (Day/ Month)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let instance of instances; let i = index" [formGroupName]="i">
+                    <td>{{ i + 1 }}</td>
+                    <td>
+                      <div class="box">
+                        <dx-select-box formControlName="currentcompliancePeriod" label="Select Current Compliance Period *"
+                          [dataSource]="compliancePeriodOptions.store" displayExpr="mergedColumns"
+                          valueExpr="compliance_period_id" height="40px" [searchEnabled]="true"
+                          selectionMode="single" placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="box">
+                        <dx-select-box formControlName="currentperiodicityFactor" label="Select periodicity Factor *"
+                          [dataSource]="periodicityFactorOptions.store" displayExpr="periodicity_Factor_Name"
+                          valueExpr="periodicity_FactorID" height="40px" [searchEnabled]="true"
+                          selectionMode="single" placeholder="Select Value" disableOptionCentering>
+                          <ng-template #itemTemplate let-item>
+                            <div 
+                              class="dropdown-item"
+                              matTooltip="{{ item.periodicity_Factor_Name }}"
+                              matTooltipPosition="above">
+                              {{ item.periodicity_Factor_Name }}
+                            </div>
+                          </ng-template>
+                        </dx-select-box>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="box">
+                        <div class="column-value">
+                          <dx-select-box formControlName="dueDateDay" [dataSource]="days" height="40px" label="Select Day *"
+                            [searchEnabled]="true" selectionMode="single" placeholder="Select Value"
+                            disableOptionCentering>
+                          </dx-select-box>
+                        </div>
+                        <div class="column-value">
+                          <dx-select-box formControlName="dueDateMonth" [dataSource]="months" height="40px" label="Select Month *" displayExpr="month" valueExpr="monthID"
+                            [searchEnabled]="true" selectionMode="single" placeholder="Select Value"
+                            disableOptionCentering>
+                          </dx-select-box>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="box">
+                        <dx-select-box formControlName="nextCompliancePeriod"
+                          [dataSource]="compliancePeriodOptions.store" height="40px" displayExpr="mergedColumns" label="Select Next Compliance Period *"
+                          valueExpr="compliance_period_id" [searchEnabled]="true" selectionMode="single"
+                          placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="box">
+                        <dx-select-box formControlName="nextperiodicityFactor" label="Select periodicity Factor *"
+                          [dataSource]="periodicityFactorOptions.store" displayExpr="periodicity_Factor_Name"
+                          valueExpr="periodicity_FactorID" height="40px" [searchEnabled]="true"
+                          selectionMode="single" placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="checkbox-box">
+                        <input type="checkbox" formControlName="extendstatus" [(ngModel)]="applyExtendedDueDate[i]" *ngIf="extendedDueDateRequired" (change)="toggleChecked(i)">
+                      </div>
+                    </td>
+                    <td *ngIf="extendedDueDateRequired">
+                      <div class="box">
+                        <dx-select-box formControlName="extendedDueDateDay" label="Select Day *" labelMode="floating"
+                          [dataSource]="days" height="40px" [searchEnabled]="true" selectionMode="single"
+                          placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                        <dx-select-box formControlName="extendedDueDateMonth" label="Select Month *" labelMode="floating" displayExpr="month" valueExpr="monthID"
+                          [dataSource]="months" height="40px" [searchEnabled]="true" selectionMode="single"
+                          placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                      </div>
+                    </td>
+                  </tr>
+               
+  
+                </tbody>
+              </table> -->
+              <table class="table1">
+                <thead>
+                  <tr>
+                    <th colspan="9">Defining the Scheduler Master:</th>
+                  </tr>
+                  <tr>
+                    <th style="width: 50px;">Interval Instance</th>
+                    <th style="width: 300px;">Select Current Compliance Period</th>
+                    <th style="width: 380px;">Define Year Factor based on periodicity Factor</th>
+                    <th style="width: 300px;">Select Due Dates & Months (Day / Month)</th>
+                    <th style="width: 380px;">Define Year Factor based on periodicity Factor</th>
+                    <th style="width: 300px;">Select Next Compliance Period</th>
+                    <th style="width: 380px;">Define Year Factor based on periodicity Factor</th>
+                    <th style="width: 100px;">
+                      Confirm if Extended Due Date applies?
+                      <input type="checkbox" [(ngModel)]="extendedDueDateRequired" formControlName="extended_due_date_required" (change)="toggleCheckboxes($event)">
+                    </th>
+                    <th style="width: 300px;" *ngIf="extendedDueDateRequired">Select Extended (Day/Month)</th>
+                    <!-- <th style="width: 250px;">Effective From and Till Date</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let instance of instances; let i = index" [formGroupName]="i">
+                    <td>{{ i + 1 }}</td>
+                    <td>
+                      <div class="box">
+                        <dx-select-box formControlName="currentcompliancePeriod" label="Select Current Compliance Period *"
+                          [dataSource]="compliancePeriodOptions.store" displayExpr="mergedColumns"
+                          valueExpr="mergedColumns" height="40px" [searchEnabled]="true"
+                          selectionMode="single" placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="box">
+                        <dx-select-box formControlName="current_periodicity_factor" label="Select periodicity Factor *"
+                          [dataSource]="periodicityFactorOptions.store" displayExpr="periodicity_Factor_Name"
+                          valueExpr="periodicity_FactorID" height="40px" [searchEnabled]="true"
+                          selectionMode="single" placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="box">
+                        <div class="column-value">
+                          <dx-select-box formControlName="dueDateDay" [dataSource]="days" height="40px" label="Select Day *"
+                            [searchEnabled]="true" selectionMode="single" placeholder="Select Value"
+                            disableOptionCentering>
+                          </dx-select-box>
+                        </div>
+                        <div class="column-value">
+                          <dx-select-box formControlName="dueDateMonth" [dataSource]="months" height="40px" label="Select Month *" displayExpr="month" valueExpr="monthID"
+                            [searchEnabled]="true" selectionMode="single" placeholder="Select Value"
+                            disableOptionCentering>
+                          </dx-select-box>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="box">
+                        <dx-select-box formControlName="day_month_periodicity_factor" label="Select periodicity Factor *"
+                          [dataSource]="periodicityFactorOptions.store" displayExpr="periodicity_Factor_Name"
+                          valueExpr="periodicity_FactorID" height="40px" [searchEnabled]="true"
+                          selectionMode="single" placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="box">
+                        <dx-select-box formControlName="nextCompliancePeriod"
+                          [dataSource]="compliancePeriodOptions.store" height="40px" displayExpr="mergedColumns" label="Select Next Compliance Period *"
+                          valueExpr="mergedColumns" [searchEnabled]="true" selectionMode="single"
+                          placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="box">
+                        <dx-select-box formControlName="next_periodicity_factor" label="Select periodicity Factor *"
+                          [dataSource]="periodicityFactorOptions.store" displayExpr="periodicity_Factor_Name"
+                          valueExpr="periodicity_FactorID" height="40px" [searchEnabled]="true"
+                          selectionMode="single" placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="checkbox-box">
+                        <input type="checkbox" formControlName="extendstatus" [(ngModel)]="applyExtendedDueDate[i]" *ngIf="extendedDueDateRequired" (change)="toggleChecked(i)">
+                      </div>
+                    </td>
+                    <td *ngIf="extendedDueDateRequired">
+                      <div class="box">
+                        <dx-select-box formControlName="extendedDueDateDay" label="Select Day *" labelMode="floating"
+                          [dataSource]="days" height="40px" [searchEnabled]="true" selectionMode="single"
+                          placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                        <dx-select-box formControlName="extendedDueDateMonth" label="Select Month *" labelMode="floating" displayExpr="month" valueExpr="monthID"
+                          [dataSource]="months" height="40px" [searchEnabled]="true" selectionMode="single"
+                          placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                      </div>
+                    </td>
+                  </tr>
+                    <!-- <td colspan="2">
+                      <div class="box">
+                        <dx-date-box formControlName="effectiveFromDate" label="Enter Date Effective From"
+                          labelMode="floating" height="40px" placeholder="Select" disableOptionCentering>
+                        </dx-date-box>
+                        <div *ngIf="createcompliance.get('effectiveFromDate').touched && createcompliance.get('effectiveFromDate').invalid">
+                          <small class="error-message" *ngIf="createcompliance.get('effectiveFromDate').errors.required">Effective From Date is required.</small>
+                        </div>
+                      </div>
+                      <div class="box">
+                        <dx-date-box formControlName="effectiveToDate" label="Enter Date Effective Till"
+                          labelMode="floating" height="40px" placeholder="Select" disableOptionCentering>
+                        </dx-date-box>
+                        <div *ngIf="createcompliance.get('effectiveToDate').touched && createcompliance.get('effectiveToDate').invalid">
+                          <small class="error-message" *ngIf="createcompliance.get('effectiveToDate').errors.required">Effective Till Date is required.</small>
+                        </div>
+                      </div>
+                    </td> -->
+                  <!-- Static Dropdown Row -->
+                  <tr>
+                    <td></td>     
+                     <td>
+                      <button mat-button color="primary" width="" style="width: fit-content; background-color: rgb(221, 232, 240); color: rgb(45, 46, 51);">
+                        Following Loop
+                      </button>
+                    </td>
+                    <!-- Static dropdown for Column 2 -->
+                    <td>
+                      <div class="box">
+                        <dx-select-box label="Select periodicity Factor" formControlName="loopcurrentperiodicityFactor" height="40px" [dataSource]="periodicityFactorOptions" displayExpr="periodicity_Factor_Name" valueExpr="periodicity_FactorID"  (onValueChanged)="onValueChanged($event, 'loopcurrentperiodicityFactor')"
+                          [searchEnabled]="true" selectionMode="single" placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                      </div>
+                    </td>
+                    <td></td>
+                    <!-- Static dropdown for Column 4 -->
+                    <td>
+                      <div class="box">
+                        <dx-select-box label="Select periodicity Factor" formControlName="loopdayperiodicityFactor" height="40px" [dataSource]="periodicityFactorOptions" displayExpr="periodicity_Factor_Name" valueExpr="periodicity_FactorID"  (onValueChanged)="onValueChanged($event, 'loopdayperiodicityFactor')"
+                          [searchEnabled]="true" selectionMode="single" placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                      </div>
+                    </td>
+                    <td></td>
+                    <!-- Static dropdown for Column 6 -->
+                    <td>
+                      <div class="box">
+                        <dx-select-box label="Select periodicity Factor" formControlName="loopnextperiodicityFactor" height="40px" [dataSource]="periodicityFactorOptions" displayExpr="periodicity_Factor_Name" valueExpr="periodicity_FactorID"  (onValueChanged)="onValueChanged($event, 'loopnextperiodicityFactor')"
+                          [searchEnabled]="true" selectionMode="single" placeholder="Select Value" disableOptionCentering>
+                        </dx-select-box>
+                      </div>
+                    </td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              <div *ngIf="createcompliance.get('instances').hasError('instancesInvalid') || createcompliance.get('loopcurrentperiodicityFactor').hasError('required') ||  createcompliance.get('loopdayperiodicityFactor').hasError('required') ||  createcompliance.get('loopnextperiodicityFactor').hasError('required')">
+                <p class="error-message"> Please Select all fields in Scheduler Master before submitting.</p>
+              </div>
+            </div>
+            <table>
+              <tr>
+                <td colspan="2">
+                  <div class="box" style="width:150px;">
+                    <dx-date-box formControlName="effectiveFromDate" 
+                                 label="Enter Date Effective From" 
+                                 labelMode="floating" 
+                                 height="40px" 
+                                 placeholder="Select" 
+                                 disableOptionCentering>
+                    </dx-date-box>
+                    <div *ngIf="createcompliance.get('effectiveFromDate').touched && createcompliance.get('effectiveFromDate').invalid">
+                      <small class="error-message" *ngIf="createcompliance.get('effectiveFromDate').errors.required">Effective From Date is required.</small>
+                    </div>
+                  </div>
+                  <div class="box" style="width:150px;">
+                    <dx-date-box formControlName="effectiveToDate" 
+                                 label="Enter Date Effective Till"
+                                 labelMode="floating" 
+                                 height="40px" 
+                                 placeholder="Select" 
+                                 disableOptionCentering>
+                    </dx-date-box>
+                    <div *ngIf="createcompliance.get('effectiveToDate').touched && createcompliance.get('effectiveToDate').invalid">
+                      <small class="error-message" *ngIf="createcompliance.get('effectiveToDate').errors.required">Effective Till Date is required.</small>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+            
+              <!-- <table>
+                <td colspan="2">
+                  <div class="box">
+                    <dx-date-box formControlName="effectiveFromDate" label="Enter Date Effective From" 
+                      labelMode="floating" height="40px" placeholder="Select" disableOptionCentering>
+                    </dx-date-box>
+                  </div>
+                  <div class="box">
+                    <dx-date-box formControlName="effectiveToDate" label="Enter Date Effective Till"
+                      labelMode="floating" height="40px" placeholder="Select" disableOptionCentering>
+                    </dx-date-box>
+                  </div>
+                </td>
+              </table> -->
+            </div>
+            
+              
+          
+        <!-- <div class="button">
+          <button class="grey-button" matStepperPrevious>Back</button>
+        <button class="Custombutton" (click)="saveChronologySetupData()" type="button">Next</button>
+        </div> -->
+        <div class="button">
+          <button class="grey-button" matStepperPrevious>Back</button>
+          <button class="Custombutton" (click)="saveAndGoToNextStep()" type="button">Next</button>
+        </div>
+      </mat-step>
+      <mat-step label="Compliance Add-ons" state="chat">
+        <div class="margin-top"></div>
+        <div class="row">
+          <div class="box">
+            <dx-drop-down-box 
+              formControlName="businesssector"
+              label="Select Business Sector"
+              [(value)]="selectedbusinessIDs"  
+              [inputAttr]="{ 'aria-label': 'Owner' }"
+              placeholder="Multi Selection"
+              [showClearButton]="true"
+              labelMode="floating"
+              valueExpr="businesssectorid"
+              displayExpr="businesssectorname"
+              [dataSource]="SelectedBussiness"
+              (onValueChanged)="getindustrytype($event)"
+              height="40px"
+            >   
+              <div *dxTemplate="let data of 'content'">
+                <dx-data-grid    
+                  [dataSource]="SelectedBussiness"
+                  [columns]="bussinessColumns"
+                  [selection]="{ mode: 'multiple' }"
+                  [hoverStateEnabled]="true"
+                  [(selectedRowKeys)]="selectedbusinessIDs"
+                  [filterRow]="{ visible: true }"
+                  [scrolling]="{ mode: 'virtual' }"
+                  [showColumnHeaders]="false"
+                  height="100%"
+                >
+                </dx-data-grid>
+              </div> 
+            </dx-drop-down-box>
+            <!-- <mat-error *ngIf="createcompliance.get('businesssector').invalid && createcompliance.get('businesssector').touched">Business Sector Required</mat-error> -->
+          </div>
+          
+          <div class="box">
+        <dx-drop-down-box 
+    formControlName="industrytype"
+    label="Select Industry Type"
+    [(value)]="selectedindustryIDs"         
+    [inputAttr]="{ 'aria-label': 'Owner' }"
+    placeholder="Multi Selection"
+    [showClearButton]="true"
+    labelMode="floating"
+    valueExpr="industrytypeid"
+    displayExpr="industrytypename"
+    [dataSource]="industryname"
+    height="40px"
+  >   
+    <div *dxTemplate="let data of 'content'">
+      <dx-data-grid    
+        [dataSource]="industryname"
+        [columns]="industryColumns"
+        [selection]="{ mode: 'multiple' }"
+        [hoverStateEnabled]="true"
+        [(selectedRowKeys)]="selectedindustryIDs"
+        [filterRow]="{ visible: true }"
+        [scrolling]="{ mode: 'virtual' }"
+        [showColumnHeaders]="false"
+        height="100%"
+      >
+      </dx-data-grid>
+    </div> 
+  </dx-drop-down-box>
+          </div>
+        </div>
+        <br>
+          <div class="box">
+            <div fxLayoutAlign="center center">
+              <div class="box">
+              <mat-form-field appearance="fill" class="form-field">
+                <mat-label>Any Additional Reference </mat-label>
+                 <textarea matInput  #anyadditionalreference maxlength="250"  formControlName="referenceadditional"  class="scrollable-textarea" ></textarea>
+                <mat-hint align="end">{{anyadditionalreference.value.length}}/250 chrs</mat-hint>
+                <!-- <mat-error *ngIf="createcompliance.get('additionalreference').hasError('minlength')">Additional Reference must be at least 5 characters</mat-error> -->
+              </mat-form-field>
+            </div>
+          </div>
+          </div>
+          <div class="row">
+            <div class="box2">
+             <dx-select-box 
+                  label="Confirm if Penalty Provision Required ? *"
+                  displayExpr="text"
+                  valueExpr="text"
+                  [dataSource]="data"
+                  [inputAttr]="{ 'aria-label': 'id' }"
+                  [value]="ChooseOptions[1].id"
+                  (onValueChanged)="OptionSelected($event)"
+                  formControlName="penaltyprovisionrequired">
+              </dx-select-box>
+            </div>
+          </div>
+          <br>
+          <div *ngIf="selectedpenaltyvisible">
+            <br>
+            <div class="row">
+              <div class="box">
+                <dx-drop-down-box 
+                formControlName="selectedPenalties"
+                label="Select Compliance Penalty *"
+                [(value)]="selectedpenaltyIsD"
+               [(opened)]="isPenaltyGridBoxOpened"       
+                [inputAttr]="{ 'aria-label': 'Owner' }"
+                placeholder=" Multiple Selection"
+                [showClearButton]="true"
+                labelMode="floating"
+                valueExpr="compliancepenaltyid"
+                displayExpr="compliancepenaltyName"
+                [dataSource]="compliancepenalty"
+                (onValueChanged)="Selectedcompliancepenalty($event)"
+                height="40px" >   
+               <div *dxTemplate="let data of 'content'">
+                <dx-data-grid    
+                [dataSource]="compliancepenalty"
+                [columns]="PenaltyNames"
+                  [selection]="{ mode: 'multiple' }"
+                  [hoverStateEnabled]="true"
+                  [(selectedRowKeys)]="selectedpenaltyIsD"
+                  [filterRow]="{ visible: true }"
+                  [scrolling]="{ mode: 'virtual' }"
+                  [showColumnHeaders]="false"
+                  height="100%"
+                >
+                </dx-data-grid>
+              </div> 
+             </dx-drop-down-box>
+             <mat-error *ngIf="createcompliance.get('selectedPenalties').touched && createcompliance.get('penaltyprovisionrequired').value === 'Yes' && createcompliance.get('selectedPenalties').hasError('required')">Form Number/ Record Name/ Reference is required</mat-error>
+      
+              </div>
+            </div>
+          </div>
+          <br>
+          <div *ngIf="showcompliancepenaltyTable" class="table-container1">
+            <table class="table1">
+              <thead>
+                <tr>
+                  <th colspan="7">Compliance Penalty Details :</th>
+                </tr>
+                <tr>
+                  <th>Penalty Category</th>
+                  <th>Applicable Section/ Rule/ Regulation Reference</th>
+                  <th>Penalty Descriptio</th>
+                  <th>Minimum Penalty</th>
+                  <th>Maximum Penalty</th>
+                  <th>Additional References to Penalty Provision</th>
+                  <th>Support Reference(s)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let penalty of selectedPenalties">
+                  <td>{{ penalty.compliancepenaltyName }}</td>
+                  <td>{{ penalty.applicable_section }}</td>
+                  <td>{{ penalty.description }}</td>
+                  <td>{{ penalty.minimum }}</td>
+                  <td>{{ penalty.maximum }}</td>
+                  <td>{{ penalty.additionalreference }}</td>       
+                <td>
+                    <ol type="1">
+                    <ng-container *ngFor="let detail of penalty.categoryDetails">
+                      <li>
+                        <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                          [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ getFileNameFromPath(detail.filepath) }}</a>
+                          <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                          <!-- <label *ngIf="isLinkCopied" style="color:red;">Link copied!</label> -->
+                          <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
+                        </ng-container>
+                        <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                          [File Attached] {{ getFileNameFromPath(detail.filepath) }}
+                          <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                            <a [href]="detail.filepath" target="_blank">(View)</a> /
+                          </ng-container>
+                          <dx-button icon="download"  (click)="download(detail.filepath, detail.fileType)"> </dx-button>
+                        </ng-container>
+                    </ng-container>
+                  </ol>
+                </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <br>
+          <div class="row">
+            <div class="box">
+              <dx-select-box
+                formControlName="suggestedrisk"
+                label="Suggested Risk Classification"
+                labelMode="floating"
+                valueExpr="compliance_risk_classification_id"
+                displayExpr="compliance_risk_classification_name"
+                [dataSource]="suggestedriskList"
+                height="40px"
+                [searchEnabled]="true"
+                [showClearButton]="true"
+                selectionMode="single"
+                placeholder=""
+                disableOptionCentering
+              >
+              </dx-select-box>
+            </div>
+            <div class="box">
+              <dx-select-box
+                formControlName="riskcriteria"
+                label="Risk Classification Criteria *"
+                labelMode="floating"
+                valueExpr="compliance_risk_criteria_id"
+                displayExpr="compliance_risk_criteria_name"
+                [dataSource]="riskcriteriaList"
+                height="40px"
+                [searchEnabled]="true"
+                selectionMode="single"
+                placeholder=""
+                disableOptionCentering
+              >
+              </dx-select-box>
+              <mat-error *ngIf="createcompliance.get('riskcriteria').touched && createcompliance.get('riskcriteria').hasError('required')">Risk Classification Criteria Required</mat-error>
+            </div>
+          </div>
+          <br>
+          <div class="box">
+            <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field class="example-chip-list" appearance="fill">
+          <mat-label>Keywords/tags</mat-label>
+          <mat-chip-list #chipList aria-label="Fruit selection">
+            <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
+              {{tag.name}}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+                   <input #chipListInput
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="addOnBlur"
+                   (matChipInputTokenEnd)="add($event)"
+                   placeholder="Keywords/tags">
+          </mat-chip-list>
+        </mat-form-field>
+        
+      </div>
+      </div>
+      <div></div>
+      </div>
+           
+          <br>
+          <div class="button">
+            <button class="grey-button" matStepperPrevious>Back</button>
+            <button class="Custombutton" (click)="addmorecompliance()">Add more Compliance</button>
+            <button class="Custombutton" (click)="openDialog()">Submit</button>
+          </div>
+          
+      </mat-step>
+      </mat-horizontal-stepper>
+    </form>
+</div>
+</div>
+</div>
+
+

@@ -1,0 +1,109 @@
+
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="title">Loss Event Threat Category (L2)</h1>
+                </div>
+                <div class="card-body">
+                    <div id="app-container">
+                        <dx-data-grid id="dataGrid"
+                        [dataSource]="dataSource"
+                        [showBorders]="true"
+                       
+                        [allowColumnResizing]="true"
+                        [columnAutoWidth]="true"
+                        [allowColumnReordering]="true"
+                        (onExporting)="exportGrid($event)">
+                        <dxi-column dataField="lossEventThreaCategory_L2_id" caption="Loss Event Threat Category (L2)ID">
+                            <dxo-form-item [visible]="false">
+                            </dxo-form-item> 
+                        </dxi-column>
+                       
+
+                        <dxi-column dataField="loss_Event_Threat_Category_id" [width]="500" caption="Select Loss Event Threat Category (L1)">
+                            <dxo-lookup [dataSource]="Getloss_event_threat_category" valueExpr="loss_Event_Threat_Category_id" displayExpr="loss_Event_Threat_Category_Name" ></dxo-lookup>  
+                        </dxi-column>
+                       
+                        <dxi-column dataField="lossEventThreaCategory_L2_Name" caption="Loss Event Threat Category (L2) Name">
+                            <dxi-validation-rule type="required"></dxi-validation-rule>   
+                            <dxi-validation-rule type="stringLength" [max]="50" message="max 50 Characters allowed"></dxi-validation-rule>  
+                        </dxi-column>
+                        <dxi-column dataField="lossEventThreaCategory_L2_Des" [width]="500" caption="Loss Event Threat Category (L2) Description">
+                            <dxo-form-item   editorType="dxTextArea"
+                            [colSpan]="2"
+                            [editorOptions]="{ height: 80 }">
+                            </dxo-form-item>
+                            <dxi-validation-rule type="stringLength" [max]="150" message="max 150 Characters allowed"></dxi-validation-rule>
+
+                        </dxi-column>
+                        <dxi-column dataField="lossEventThreaCategory_L2_show_des" [width]="500" caption="Select to Show Description">
+                            <dxo-lookup [dataSource]="typedata" valueExpr="name" displayExpr="name" ></dxo-lookup>  
+                        </dxi-column>
+                        
+                        <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+                        <dxo-search-panel [visible]="true"></dxo-search-panel>
+                        <dxo-group-panel [visible]="true"></dxo-group-panel>
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-summary>
+                            <dxi-total-item
+                                column="lossEventThreaCategory_L2_id"
+                                summaryType="count">
+                            </dxi-total-item>
+                            
+                        </dxo-summary>
+                        
+
+                        
+                        <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                        <dxo-pager
+                        [visible]="true"
+                        [allowedPageSizes]="[5, 10,20, 'all']"
+                       
+                        [showPageSizeSelector]="true"
+                       
+                        [showInfo]="true"
+                        infoText="Page {0} of  {1} ({2} items)"
+                        [showNavigationButtons]="true"
+                      >
+                      </dxo-pager>
+
+                        <dxo-editing
+                        mode="popup"
+                        [allowUpdating]="true"
+                        [allowDeleting]="true"
+                        [allowAdding]="true">
+                        <dxo-popup
+                        title="Loss Event Threat Category (L2)"
+                        [showTitle]="true"
+                        [width]="700"
+                        [height]="525"
+                       
+                      ></dxo-popup>
+                      </dxo-editing>
+                      <dxo-toolbar>
+                      <dxi-item name="groupPanel"></dxi-item>
+       
+        <dxi-item name="addRowButton" showText="always"></dxi-item>
+        <dxi-item name="exportButton"></dxi-item>
+        <dxi-item name="columnChooserButton"></dxi-item>
+        <dxi-item name="searchPanel"></dxi-item>
+                      </dxo-toolbar>
+                      <dxo-export 
+                      [enabled]="true"
+                      [formats]="['xlsx', 'pdf']"
+                    >
+                    </dxo-export>                   
+                  </dx-data-grid>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

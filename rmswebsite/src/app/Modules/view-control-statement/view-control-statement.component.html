@@ -1,0 +1,94 @@
+<div class="form2 p-4">
+    <div class="row">
+      <div class="box">
+        <dx-select-box 
+          label="Select Control Statement Heading*"
+          labelMode="floating"
+          valueExpr="control_statement_id"
+          displayExpr="control_objective_heading"
+          [dataSource]="controlname"
+          [searchEnabled]="true"
+          height="40px"
+          selectionMode="single"
+          placeholder=""
+          (onValueChanged)="getcontroldetails($event)">
+        </dx-select-box>
+      </div>
+    </div>
+
+    <br />
+    <br />
+    
+    <h2>View Details:</h2>
+    
+    <table class="table1 text-base" *ngFor="let cc of control">
+      <tr class="grid lg:grid-cols-3">
+        <td class="font-semibold">Control Library Seq ID/Version</td>
+        <td class="lg:col-span-2">{{ cc.globalcontrolId }}</td>
+      </tr>
+      <tr class="grid lg:grid-cols-3">
+        <td class="font-semibold">Control Objective/Heading</td>
+        <td class="lg:col-span-2">{{ cc.controlname }}</td>
+      </tr>
+      <tr class="grid lg:grid-cols-3">
+        <td class="font-semibold">Control Brief Description</td>
+        <td class="lg:col-span-2">{{ cc.controldescription }}</td>
+      </tr>
+      <tr class="grid lg:grid-cols-3">
+        <td class="font-semibold">Control Detailed Description</td>
+        <td class="lg:col-span-2">{{ cc.controldetaildesc }}</td>
+      </tr>
+      <tr class="grid lg:grid-cols-3">
+        <td class="font-semibold">No. of Sub-Controls</td>
+        <td class="lg:col-span-2">12 [View list of Sub-Control]</td>
+      </tr>
+      <tr class="grid lg:grid-cols-3">
+        <td class="font-semibold">Mapped to No. of Risks</td>
+        <td class="lg:col-span-2">06</td>
+      </tr>
+      <tr class="grid lg:grid-cols-3">
+        <td class="font-semibold">Used in No. of Risk Registers</td>
+        <td class="lg:col-span-2">05</td>
+      </tr>
+      <tr class="grid lg:grid-cols-3">
+        <td class="font-semibold">Mapped to No. of Business Processes</td>
+        <td class="lg:col-span-2">02</td>
+      </tr>
+      <tr class="grid lg:grid-cols-3">
+        <td class="font-semibold">Mapped to No. of Business Functions</td>
+        <td class="lg:col-span-2">07</td>
+      </tr>
+      <tr class="grid lg:grid-cols-3">
+        <td class="font-semibold">Source References</td>
+        <td class="lg:col-span-2">
+          <ng-container *ngFor="let detail of control[0]?.actfiles">
+            <li>
+              <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                [weblink] 
+                <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ detail.filepath }}</a>
+                <dx-button icon="copy" (onClick)="copyLink(detail.filepath)"></dx-button>
+                <label *ngIf="isLinkCopied" style="color: red;">Link copied!</label>
+              </ng-container>
+              <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                [File Attached] {{ detail.filename }}
+                <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                  <a [href]="detail.filepath" target="_blank">(View)</a> /
+                </ng-container>
+                <dx-button icon="download" ></dx-button>
+                    <!-- (onClick)="download(detail.filepath, detail.fileType)" -->
+              </ng-container>
+            </li>
+          </ng-container>
+        </td>
+      </tr>
+      <tr class="grid lg:grid-cols-3">
+        <td class="font-semibold">Created by/Created on</td>
+        <td class="lg:col-span-2">{{ cc.create }}</td>
+      </tr>
+      <tr class="grid lg:grid-cols-3">
+        <td class="font-semibold">Last Edited by/Edited on</td>
+        <td class="lg:col-span-2">Name/Date</td>
+      </tr>
+    </table>
+  </div>
+  

@@ -1,0 +1,512 @@
+<div class="form">
+<div class="body">
+  <div class="header">
+      <div style="align-self:self-end;">
+          <h1 class="title"> Edit Access</h1>
+      </div>
+  </div>
+  </div>
+  <!-- <div class="radio-buttons">
+    <label>
+      Choose Selection Type:
+    </label>
+      <label >
+        <input type="radio" name="selectionType" (change)="setSelectionType('SelectDocument')" [checked]="selectionType === 'SelectDocument'">  Select Document
+      </label>
+      <label>
+        <input type="radio" name="selectionType"  (change)="setSelectionType('Selectuser')" [checked]="selectionType === 'Selectuser'">  Select User
+      </label>
+    </div>
+
+    <div><br></div>
+  <div class="radioselectionfirst" *ngIf="selectionType === 'SelectDocument'">
+  </div> -->
+   
+            <div class="box" style="width: 1070px;padding-left: 80px;">
+            
+            <dx-select-box 
+            formControlName="Entity_Master_id"
+            label="Select Entity Name*"
+            labelMode="floating"
+            valueExpr="entityid"
+            displayExpr="entityname"
+            [dataSource]="EntityName1"
+            [searchEnabled]="true"
+            selectionMode="single" 
+           placeholder=""
+           (onValueChanged)="getUnitLocation($event)">
+           
+         
+      </dx-select-box>
+     
+   
+
+        <dx-select-box 
+        formControlName="Unit_location_Master_id"
+        label="Select Unit Location*"
+        labelMode="floating"
+        [searchEnabled]="true"
+        valueExpr="unitid"
+        displayExpr="unitname"
+        [dataSource]="UnitMaster"
+        [(value)]="Selectedunit"
+        selectionMode="single" 
+       placeholder=""
+       (onValueChanged)="getgriddata($event)"
+         >
+        
+  </dx-select-box>
+  <!-- (onValueChanged)="getgriddata($event)" -->
+              <!-- <div>
+              <label>
+                Select Document</label>
+                
+              </div> -->
+            </div>
+            <br>
+              <div class="boxNew"  >
+                  <div class="dx-field-value">
+                 <dx-drop-down-box
+                 [deferRendering]="false"
+                 [displayExpr]="gridBox_displayExpr1"
+                  [(value)]="selectedValue"
+                  [(opened)]="isGridBoxOpened" 
+                  valueExpr="doc_User_Access_mapping_id"
+                  [(opened)]="isGridBoxOpened"
+                label="Select Document For Edit Access Document..."
+                width="200%"
+                  placeholder="Select Document For Edit Access Document..."
+                  [inputAttr]="{ 'aria-label': 'Owner' }"
+                  [showClearButton]="true"
+                  [dataSource]="gridDataSource" 
+                  (onValueChanged)="onGridBoxOptionChanged($event)"
+                >
+                  <div *dxTemplate="let data of 'content'">
+                    <dx-data-grid
+                      [dataSource]="gridDataSource"
+                      [columns]="gridColumns"
+                      [hoverStateEnabled]="true"
+                      [(selectedRowKeys)]="selectedValue"
+                      
+                      height="100%"
+                    >
+                      <dxo-selection mode="single"></dxo-selection>
+                      <dxo-filter-row [visible]="true"></dxo-filter-row>
+                      <dxo-scrolling mode="virtual"></dxo-scrolling>
+                      <dxo-header-filter [visible]="true" [allowSearch]="true">
+                        <dxo-search [enabled]="true"></dxo-search>
+                      </dxo-header-filter>
+                      <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                      <dxo-pager
+                      [visible]="true"
+                      [allowedPageSizes]="[ 10,20, 'all']"
+                     
+                      [showPageSizeSelector]="true"
+                     
+                      [showInfo]="true"
+                      infoText="Page {0} of  {1} ({2} items)"
+                      [showNavigationButtons]="true">
+                    </dxo-pager>
+                
+                    <dxo-group-panel [visible]="true"></dxo-group-panel>
+                      <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+                    </dx-data-grid>
+                  </div>
+                </dx-drop-down-box>
+            </div>
+            </div>
+            <br>
+            <br>
+
+            <form [formGroup]="UpdateForm" *ngIf="isFormVisible" (ngSubmit)="SubmitUpdateForm()"> 
+             <div class="box">
+
+            
+
+              <!-- <dx-select-box 
+              label="Select Entity Name*"
+              labelMode="floating"
+              valueExpr="entity_Master_id"
+              displayExpr="entity_Master_Name"
+              [dataSource]="EntityName"
+              formControlName="entityname"
+              selectionMode="single" 
+              (onValueChanged)="selectOption1($event)"
+              >
+           
+        </dx-select-box> -->
+      
+            
+       
+
+          <!-- <dx-select-box 
+          formControlName="unitmastername"
+          label="Select unit Name*"
+          labelMode="floating"
+          valueExpr="unit_location_Master_id"
+          displayExpr="unit_location_Master_name"
+          [dataSource]="UnitMaster"
+          [(value)]="Selectedtopic"
+         (onValueChanged)="getUserData($event)"
+           >
+       
+    </dx-select-box> -->
+
+             </div>
+             <br>
+    <div class="box">     
+      <div class="dx-field-value">
+
+        <!-- <dx-select-box 
+        label="Select User Name*"
+        labelMode="floating"
+        valueExpr="usR_ID"
+       displayExpr="firstname"
+        [dataSource]="Userinfo"  
+        [displayExpr]="gridBox_displayExpr"
+       formControlName="usrname"
+       [(value)]="selectedOption"
+       [searchEnabled]="true"
+       searchExpr="firstname"
+        >
+     
+    </dx-select-box> -->
+     <dx-drop-down-box
+     [(value)]="selectedOption"
+      [(opened)]="isUserBoxOpened"
+      [displayExpr]="gridBox_displayEpxr"
+      valueExpr="user_location_mapping_id"
+      [deferRendering]="false"
+      formControlName="usrname"
+      placeholder="Select User*"
+      [inputAttr]="{ 'aria-label': 'Owner' }"
+      [showClearButton]="true"
+      [dataSource]="Userinfo"
+      (onValueChanged)="getdat($event)"
+    >
+      <div *dxTemplate="let data of 'content'">
+        <dx-data-grid
+        [dataSource]="Userinfo"
+          [columns]="usergridColumns"
+          [hoverStateEnabled]="true"
+          [(selectedRowKeys)]="selectedOption"
+          height="100%"
+        >
+          <dxo-selection mode="single"></dxo-selection>
+          <dxo-filter-row [visible]="true"></dxo-filter-row>
+          <dxo-scrolling mode="virtual"></dxo-scrolling>
+          <dxo-header-filter [visible]="true" [allowSearch]="true">
+            <dxo-search [enabled]="true"></dxo-search>
+          </dxo-header-filter>
+          <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+          <dxo-pager
+          [visible]="true"
+          [allowedPageSizes]="[ 10,20, 'all']"
+         
+          [showPageSizeSelector]="true"
+         
+          [showInfo]="true"
+          infoText="Page {0} of  {1} ({2} items)"
+          [showNavigationButtons]="true">
+        </dxo-pager>
+    
+        <dxo-group-panel [visible]="true"></dxo-group-panel>
+          <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+        </dx-data-grid>
+      </div>
+    </dx-drop-down-box>
+</div>
+    </div>
+    <div><br></div>
+    <div class="box">  
+<!-- <dx-select-box 
+label="Select Document Permission*"
+labelMode="floating"
+valueExpr="doc_perm_rights_id"
+displayExpr="publish_Name"
+[dataSource]="dropdownOptions"  
+formControlName="documentperm"
+[(value)]="selectedOption1"
+showCheckBoxesMode="normal"
+selectionMode="multiple"
+
+>
+
+</dx-select-box> -->
+<div class="dx-field-value">
+
+           <dx-drop-down-box
+           [(value)]="selectedOption12"  
+           [(opened)]="ispermissionBoxOpened2"     
+           [inputAttr]="{ 'aria-label': 'Owner' }"
+            placeholder="Select UserPermission Right(s)"
+            label="Select UserPermission Right(s)"
+            [showClearButton]="true"
+            [dataSource]="dropdownOptions"
+            valueExpr="doc_perm_rights_id"
+            displayExpr="publish_Name"
+            [showClearButton]="true"
+            formControlName="documentperm"
+            
+             >
+             <div *dxTemplate="let data of 'content'">
+              <dx-data-grid
+              [dataSource]="dropdownOptions"
+              [columns]="['publish_Name']"
+              [selection]="{ mode: 'multiple' }"
+              [hoverStateEnabled]="true"
+              [filterRow]="{ visible: false }"
+              [scrolling]="{ mode: 'virtual' }"
+              [height]="200"
+              [showColumnHeaders]="false"
+              [(selectedRowKeys)]="selectedOption12"
+                >
+                </dx-data-grid>
+           
+                 </div>
+                </dx-drop-down-box>
+</div>
+        </div>
+        <div><br></div>
+        <div class="box">
+          
+          <h2 >User Acknowledgement</h2>
+          </div>
+
+          <div class="box">
+                  
+            <label>
+              Provide Validity  of Document 
+              <input type="checkbox" formControlName="validitydocument" (change)="onCheckboxChange6($event)" [(ngModel)]="isPanelVisible6" >
+   
+            </label>
+            <div *ngIf="isPanelVisible6">
+              <div class="box">
+              
+                <dx-date-box
+                formControlName="startDate"
+                placeholder=""
+                label="Select start Date"
+                labelMode="floating"
+                [showClearButton]="true"
+                [useMaskBehavior]="true"
+                displayFormat="dd/MMM/yyyy"
+                type="date"
+                [min]="minDate"
+                [readOnly]="true"
+              ></dx-date-box>
+
+              <dx-date-box
+              formControlName="endDate"
+              placeholder=""
+              label="Select End Date"
+              labelMode="floating"
+              [showClearButton]="true"
+              [useMaskBehavior]="true"
+              displayFormat="dd/MMM/yyyy"
+              type="date"
+              [min]="UpdateForm.get('startDate')?.value"
+            ></dx-date-box>
+              </div>        
+            </div>
+          </div>
+          <br>
+          <div class="box">
+          <!-- <input type="checkbox" (change)="onCheckboxChange($event)" [(ngModel)]="isChecked"> Check me -->
+          <!-- <form [formGroup]="checkboxForm"> -->
+            <label>
+              Request for Acknowledgement <input type="checkbox" formControlName="isChecked" (change)="onCheckboxChange($event)" [(ngModel)]="isPanelVisible"> 
+            </label>
+<br>
+<br>
+          
+            
+            <div *ngIf="isPanelVisible">
+              <!-- Your panel content goes here -->
+              <div class="box">
+             
+                <dx-date-box
+                formControlName="duedate"
+                placeholder=""
+                label="Select Due Date"
+                labelMode="floating"
+                [showClearButton]="true"
+                [useMaskBehavior]="true"
+                displayFormat="dd/MMM/yyyy"
+                type="date"
+                [min]="UpdateForm.get('startDate')?.value"
+                [max]="UpdateForm.get('endDate') ?.value|| null"
+                
+              ></dx-date-box>
+                <!-- <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Select Due Date</mat-label>
+                <input matInput formControlName="duedate"  required type="date" name="name"/>
+                </mat-form-field> -->
+                
+                <!-- OR
+
+                <mat-form-field appearance="outline" class="form-field">
+                  
+                  <mat-label>Enter Timeline(in Days)</mat-label>
+                  <input matInput formControlName="timeline" name="name"  type="number" required />
+                </mat-form-field> -->
+              </div>
+           
+            </div>
+            
+          <!-- </form> -->
+          </div>
+<div><br></div>
+          <div class="box" style="display: flex; justify-content: space-between;"  *ngIf="isPanelVisible">
+            <!-- <input type="checkbox" (change)="onCheckboxChange($event)" [(ngModel)]="isChecked"> Check me -->
+            
+              <label>
+                Optional Reminder
+                <input type="checkbox" formControlName="optionalreminder" (change)="onCheckboxChange1($event)" [(ngModel)]="isPanelVisible1"> 
+              </label>
+<br>
+<br>
+       <div *ngIf="isPanelVisible1 ">
+         <div class="box">
+          <mat-form-field appearance="outline" class="form-field" >
+                  
+           <mat-label>Every </mat-label>
+          <input matInput formControlName="noofdays" name="name"  [min]="1" type="number" />
+         </mat-form-field>
+         <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Time period </mat-label>
+          <mat-select
+        formControlName="timeperiod"
+        (selectionChange)="changeTimePeriod($event)"
+        disableOptionCentering>
+        <mat-option *ngFor="let period of tmperiod" [value]="period.name">{{
+          period.name
+        }}</mat-option>
+      </mat-select>
+        </mat-form-field>
+            </div> 
+            </div>
+          
+             </div>
+
+             <div class="box">
+                  
+              <label>
+                Provide User Track Reminder on Document Reading
+                <input type="checkbox" formControlName="trakstatus" (change)="onCheckboxChange2($event)" [(ngModel)]="isPanelVisible2" >
+     
+              </label>
+<br>
+<br>
+<div *ngIf="isPanelVisible2">
+  <!-- Your panel content goes here -->
+  <div class="box">
+<mat-form-field appearance="outline" class="form-field">
+                  
+  <mat-label>Every</mat-label>
+  <input matInput formControlName="everyday" name="name" [min]="1" type="number" />
+</mat-form-field>
+<mat-form-field appearance="outline" class="form-field">
+  <mat-label>Time period </mat-label>
+  <mat-select
+formControlName="reqtimeperiod"
+(selectionChange)="changereqTimePeriod($event)"
+disableOptionCentering>
+<mat-option *ngFor="let period of requiredtmperiod" [value]="period.name">{{
+  period.name
+}}</mat-option>
+</mat-select>
+</mat-form-field>
+</div> 
+</div>
+            </div>
+           
+        <div class="button">
+          <button class="grey-button"  (click)="Cancel()" >Cancel</button>
+          <button class="Custombutton" type="submit">Update</button>
+        </div>
+
+            </form>
+
+
+<!-- <div class="radioselectionfirst" *ngIf="selectionType === 'Selectuser'">
+  <div class="boxNew"  >
+
+            
+    <div>
+    <label>
+      Select User</label>
+      
+    </div>
+    
+        <div class="dx-field-value">
+       <dx-drop-down-box
+       [deferRendering]="false"
+       [displayExpr]="gridBox_displayExpr2"
+        [(value)]="selectedValue1"
+        [(opened)]="isGridBoxOpened1" 
+        valueExpr="user_location_mapping_id"
+        [(opened)]="isGridBoxOpened1"
+
+      width="306%"
+        placeholder="Select User..."
+        [inputAttr]="{ 'aria-label': 'Owner' }"
+        [showClearButton]="true"
+        [dataSource]="gridDataSource1" 
+       (onValueChanged)="onGridBoxOptionChanged1($event)"
+      >
+        <div *dxTemplate="let data of 'content'">
+          <dx-data-grid
+            [dataSource]="gridDataSource1"
+            [columns]="usergridColumns1"
+            [hoverStateEnabled]="true"
+            [(selectedRowKeys)]="selectedValue1"
+            
+            height="100%"
+          >
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-scrolling mode="virtual"></dxo-scrolling>
+            <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+          </dx-data-grid>
+        </div>
+      </dx-drop-down-box>
+  </div>
+<div><br></div>
+
+<!-- <div class="box">
+
+        <dx-drop-down-box
+             [deferRendering]="false"
+             [displayExpr]="gridBox_displayExpr1"
+             [(value)]="selectedValue"
+             [(opened)]="isGridBoxOpened" 
+              valueExpr="addDoc_id"
+             [(opened)]="isGridBoxOpened"
+               width="306%"
+              placeholder="Select Document..."
+             [inputAttr]="{ 'aria-label': 'Owner' }"
+             [showClearButton]="true"
+            [dataSource]="gridDataSource" 
+            (onValueChanged)="onGridBoxOptionChanged($event)">
+         <div *dxTemplate="let data of 'content'">
+     <dx-data-grid
+       [dataSource]="gridDataSource"
+       [columns]="gridColumns"
+       [hoverStateEnabled]="true"
+       [(selectedRowKeys)]="selectedValue"
+       
+       height="100%"
+     >
+       <dxo-selection mode="single"></dxo-selection>
+       <dxo-filter-row [visible]="true"></dxo-filter-row>
+       <dxo-scrolling mode="virtual"></dxo-scrolling>
+       <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+     </dx-data-grid>
+   </div>
+ </dx-drop-down-box> 
+  </div> -->
+<!-- </div> -->
+
+
+<!-- </div></div>  -->

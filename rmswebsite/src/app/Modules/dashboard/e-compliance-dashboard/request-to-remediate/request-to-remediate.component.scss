@@ -1,0 +1,166 @@
+.table-container {
+  width: calc(100% - 20px); /* Adjust width to accommodate the margin */
+  margin: 10px; /* Apply margin on all sides */
+  overflow-x: auto; /* Allow horizontal scrolling if necessary */
+}
+
+.table {
+  width: 100%;
+  margin: 0; /* Reset margin for the table itself */
+  border-collapse: collapse;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.table th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+  padding-left: 10px;
+}
+.form-container {
+  padding: 10px; /* Padding around the entire form container */
+}
+
+.title-container {
+  text-align: left; /* Align the title to the right */
+  margin-bottom: 10px; /* Space below the title */
+}
+
+.title {
+  margin: 5px; /* Margin around the title */
+  font: bolder;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 20px; /* Space between rows */
+}
+
+.form-field-container {
+  width: 100%; /* Ensure container takes full width */
+}
+
+.date-container {
+  width: 25%; /* Set width to 1/4 of the parent container */
+}
+
+.remarks-container {
+  width: 50%; /* Set width to 1/2 of the parent container */
+}
+
+.date-field {
+  width: 100%; /* Ensure the form field fills its container */
+}
+
+.remarks-field {
+  width: 100%; /* Ensure the form field fills its container */
+}
+
+.button-section {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-button {
+  background-color: rgb(165, 164, 164); /* Light gray for cancel button */
+  color: white;
+  border-radius: 10px; /* Add border radius */
+ // padding: 5px 10px; /* Padding inside the button */
+  border: none;
+  font-size: 15px;
+  margin-right: 10px; /* Margin to the right of the cancel button */
+}
+
+.update-button {
+  background-color: rgb(91, 190, 91); /* Light green for update button */
+  color: white;
+  border-radius: 10px; /* Add border radius */
+ // padding: 5px 10px; /* Padding inside the button */
+  border: none;
+  font-size: 15px;
+}
+.reject-button{
+  background-color: rgb(221, 81, 26); /* Light green for update button */
+  color: white;
+  border-radius: 10px; /* Add border radius */
+ // padding: 5px 10px; /* Padding inside the button */
+  border: none;
+  font-size: 15px;
+}
+.cancel-button:hover, .update-button:hover {
+  opacity: 0.8; /* Add a hover effect */
+}
+.pager-button {
+  background-color: #71c9f1; /* Light gray background for pager buttons */
+  color: white; /* Dark text color */
+  margin-left: 10px; /* Space between pager buttons */
+  margin-right: 10px; /* Space between pager buttons */
+}
+
+.pager-button:hover {
+  background-color: #08b6eb; /* Darker gray background on hover */
+}
+.pager {
+  margin-top: 20px; /* Space above the pager section */
+  text-align: right; /* Align pager text to the right */
+}
+.table1 {
+  width: 100%;
+  border-collapse: collapse; /* Ensures no double borders between cells */
+}
+.table1 td {
+  padding: 8px; /* Adds padding inside each cell */
+  vertical-align: middle; /* Aligns content to the top of the cell */
+  text-align: left; /* Aligns text to the left inside the cell */
+}
+.table th, .table td {
+  padding: 2px;
+  border: 1px solid #c9c6c6;
+  text-align: left;
+}
+.table1 strong {
+  color: #333; /* Sets color for headings */
+}
+.table1 tr:nth-child(even) {
+  background-color: #f9f9f9; /* Alternates row background color for better readability */
+}
+.table1 tr:nth-child(odd) {
+  background-color: #fff; /* Alternates row background color for better readability */
+}
+
+.form-field-row {
+  display: flex;
+  align-items: center;
+}
+
+.remarks-container,
+.symbol-container {
+  margin-right: 10px;
+}
+
+.text-symbol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow {
+  font-size: 48px; /* Adjust size of the bidirectional symbol */
+  line-height: 1;
+}
+
+.symbol-text {
+  font-size: 16px; /* Adjust size of the text */
+}
+
+.top-text {
+  margin-bottom: 5px; /* Add some space between 'As' and the symbol */
+}
+
+.bottom-text {
+  margin-top: 5px; /* Add some space between the symbol and 'Applicable' */
+}

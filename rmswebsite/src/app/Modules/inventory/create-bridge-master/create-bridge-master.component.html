@@ -1,0 +1,346 @@
+<div class="body">
+  <div class="row">
+    <img style="height: 30px" src="../../../../assets//images/Inspection/file-plus.svg" />
+    <h2 class="header">Add Document Attributes</h2>
+  </div>
+  <hr />
+  <form [formGroup]="createAddOnBridgeForm" (ngSubmit)="createAddOnBridge(createAddOnBridgeForm.value)">
+    <!-- <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Bridge Name </mat-label>
+          <input [formControl]="name" matInput name="name" required />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-slide-toggle [checked]="tempStatus" [formControl]="status" (change)="statusToggle($event)">
+            <mat-label>Status</mat-label>
+          </mat-slide-toggle>
+          <textarea matInput hidden></textarea>
+        </mat-form-field>
+      </div>
+    </div> -->
+    <!-- <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Project No</mat-label>
+          <mat-select [formControl]="selectedproject">
+            <mat-option *ngFor="let element of project" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Alternate Route</mat-label>
+          <mat-select [formControl]="selectedtypeofalternativeroute">
+            <mat-option *ngFor="let element of typeofalternativeroute" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div> -->
+    <!-- <div fxLayoutAlign="center center">
+      <div class="box1">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Chainage Of Bridge in meter </mat-label>
+          <input type="number" max="999" min="1" maxlength="3" [formControl]="chainageinmeter" matInput
+            name="chainageinmeter" required />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Chainage Of Bridge in kilo meter </mat-label>
+          <input type="number" max="999" min="1" maxlength="3" [formControl]="chainageinkelometer" matInput
+            name="chainageinkelometer" required />
+        </mat-form-field>
+      </div>
+    </div> -->
+    <!-- <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Carriageway First Digit</mat-label>
+          <mat-select [formControl]="selectedtypeofcarriagewayfirstdigit">
+            <mat-option *ngFor="let element of typeofcarriagewayfirstdigit" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Carriageway Second Digit</mat-label>
+          <mat-select [formControl]="selectedtypeofcarriagewayseconddigit">
+            <mat-option *ngFor="let element of typeofcarriagewayseconddigit" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div> -->
+   
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Select Document Confidentiality</mat-label>
+        <mat-select
+          formControlName="selectedProject"
+          (selectionChange)="selectInspection($event)"
+        >
+          <!-- <mat-option *ngFor="let element of project" [value]="element.id" >{{
+            element.name
+          }}</mat-option> -->
+        </mat-select>
+      </mat-form-field>
+   </div>
+   <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Mobile Number</mat-label>
+        <input matInput formControlName="Remedy" name="Remedy" required />
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Effective Date</mat-label>
+        <input matInput formControlName="Remedy" name="Remedy" required />
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Date of initial creation of Document</mat-label>
+        <input matInput formControlName="Remedy" name="Remedy" required />
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Document internal Number</mat-label>
+        <input matInput formControlName="Remedy" name="Remedy" required />
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Document internal version Number</mat-label>
+        <input matInput formControlName="Remedy" name="Remedy" required />
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Document physical vault location</mat-label>
+        <input matInput formControlName="Remedy" name="Remedy" required />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Document Process Owner</mat-label>
+      <mat-select
+        formControlName="selectedProject"
+        (selectionChange)="selectInspection($event)"
+      >
+        <!-- <mat-option *ngFor="let element of project" [value]="element.id" >{{
+          element.name
+        }}</mat-option> -->
+      </mat-select>
+    </mat-form-field>
+ </div>
+ <div class="box">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Document Approver</mat-label>
+    <mat-select
+      formControlName="selectedProject"
+      (selectionChange)="selectInspection($event)"
+    >
+      <!-- <mat-option *ngFor="let element of project" [value]="element.id" >{{
+        element.name
+      }}</mat-option> -->
+    </mat-select>
+  </mat-form-field>
+</div>
+<div fxLayoutAlign="center center">
+  <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Date of Doc Approval</mat-label>
+      <input matInput formControlName="Remedy" name="Remedy" required />
+    </mat-form-field>
+  </div>
+</div>
+<div fxLayoutAlign="center center">
+  <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Date of Doc last Revision</mat-label>
+      <input matInput formControlName="Remedy" name="Remedy" required />
+    </mat-form-field>
+  </div>
+</div>
+<div class="box">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Publishing Authority type</mat-label>
+    <mat-select
+      formControlName="selectedProject"
+      (selectionChange)="selectInspection($event)"
+    >
+      <!-- <mat-option *ngFor="let element of project" [value]="element.id" >{{
+        element.name
+      }}</mat-option> -->
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="box">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Name of Authority</mat-label>
+    <mat-select
+      formControlName="selectedProject"
+      (selectionChange)="selectInspection($event)"
+    >
+      <!-- <mat-option *ngFor="let element of project" [value]="element.id" >{{
+        element.name
+      }}</mat-option> -->
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="box">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Nature of Document</mat-label>
+    <mat-select
+      formControlName="selectedProject"
+      (selectionChange)="selectInspection($event)"
+    >
+      <!-- <mat-option *ngFor="let element of project" [value]="element.id" >{{
+        element.name
+      }}</mat-option> -->
+    </mat-select>
+  </mat-form-field>
+</div>
+<div fxLayoutAlign="center center">
+  <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Keywords/tags</mat-label>
+      <input matInput formControlName="Remedy" name="Remedy" required />
+    </mat-form-field>
+  </div>
+</div>
+<div class="box">    
+  <div class="button">
+    <button class="grey-button" mat-button (click)="Cancel()">Back to Previous page</button>
+    <button class="Custombutton" mat-button type="submit">Save Draft & Exit</button>
+    <button class="Custombutton" mat-button type="submit">Continue to next section</button>
+    <button class="Custombutton" mat-button type="submit">Discard Draft</button>
+  </div>
+</div>
+</form>
+</div>
+   
+    <!-- <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Type of Bridge</mat-label>
+          <mat-select [formControl]="selectedtypeofbridge">
+            <mat-option *ngFor="let element of typeofbridge" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Foundation of Bridge</mat-label>
+          <mat-select [formControl]="selectedtypeoffoundation">
+            <mat-option *ngFor="let element of typeoffoundation" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Type of Super Structure</mat-label>
+          <mat-select [formControl]="selectedtypeofsuperstructure">
+            <mat-option *ngFor="let element of typeofsuperstructure" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Type of Structure</mat-label>
+          <mat-select [formControl]="selectedtypeofstructure">
+            <mat-option *ngFor="let element of mypeofstructure" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Type of Sub Structure</mat-label>
+          <mat-select [formControl]="selectedtypeofsubstructure">
+            <mat-option *ngFor="let element of typeofsubstructure" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Grade Seperator </mat-label>
+          <input [formControl]="gradeseperator" matInput name="gradeseperator" required />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Landmark</mat-label>
+          <input [formControl]="landmark" matInput name="landmark" required />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Highway Name </mat-label>
+          <input [formControl]="nameofhighway" matInput name="nameofhighway" required />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Highway Number</mat-label>
+          <input type="number" max="999" min="1" maxlength="3" [formControl]="noofhighway" matInput name="noofhighway"
+            required />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Number of Piers </mat-label>
+          <input type="number" max="999" min="1" maxlength="3" [formControl]="noofpiers" matInput name="noofpiers"
+            required />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Traffic Lanes</mat-label>
+          <input type="number" max="999" min="1" maxlength="3" [formControl]="trafficlanes" matInput name="trafficlanes"
+            required />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Latitude </mat-label>
+          <input [formControl]="latitude" matInput name="latitude" required />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Longitude</mat-label>
+          <input [formControl]="longitude" matInput name="longitude" required />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Pincode</mat-label>
+          <input type="number" max="999999" min="100000" maxlength="6" minlength="6" [formControl]="pincode" matInput
+            name="pincode" required />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="button">
+      <button class="Custombutton" mat-button type="submit"> Save & Continue </button>
+    </div>
+  </form>
+</div> -->

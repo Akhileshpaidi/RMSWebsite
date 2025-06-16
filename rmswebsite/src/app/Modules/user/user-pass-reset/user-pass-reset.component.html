@@ -1,0 +1,59 @@
+<div class="body">
+  <h2 class="header">Reset User Password</h2>
+  <form
+    [formGroup]="resetPasswordForm"
+    (ngSubmit)="forgotPass(resetPasswordForm.value)"
+  >
+    <!-- <div class="error" *ngIf="confirmPassword.errors?.['pattern']"> -->
+      <div>
+      Password must contain at least one number, one uppercase, one special character and a lowercase
+      letter and at least 8 characters<br />
+      <!-- Password cannot contain whitespace -->
+    </div>
+    <div class="error" *ngIf="confirmPassword.errors?.['confirmedValidator']">
+      Passwords did not match
+    </div>
+    <div class="error" *ngIf="this.erroMessage?.length > 0">
+      {{ this.erroMessage }}
+    </div>
+
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>New Password</mat-label>
+      <input
+        matInput
+        formControlName="newPassword"
+        [type]="hide ? 'password' : 'text'"
+        name="Password"
+        required
+        type="password"
+      />
+      <mat-icon matSuffix (click)="hide = !hide">{{
+        hide ? "visibility_off" : "visibility"
+      }}</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Confirm Password</mat-label>
+      <input
+        matInput
+        formControlName="confirmPassword"
+        [type]="hide ? 'password' : 'text'"
+        name="cpassword"
+        required
+        type="password"
+      />
+      <mat-icon matSuffix (click)="hide = !hide">{{
+        hide ? "visibility_off" : "visibility"
+      }}</mat-icon>
+    </mat-form-field>
+    <div class="button">
+      <button
+        class="grey-button"
+        [disabled]="resetPasswordForm.invalid"
+        mat-button
+        type="submit"
+      >
+        Reset Password
+      </button>
+    </div>
+  </form>
+</div>

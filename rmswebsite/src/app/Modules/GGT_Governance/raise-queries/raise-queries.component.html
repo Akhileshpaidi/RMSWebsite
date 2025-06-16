@@ -1,0 +1,206 @@
+
+<div class="form">
+  <div class="body">
+
+      <div style="align-self:self-end;">
+      <div class=" card">
+  <h1>Add Query/ Issue</h1>
+<!-- <h1>Raise Queries </h1> -->
+<form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+  <div class="row">
+    <div class="box">
+    
+  <dx-select-box
+  formControlName="queryImportance"
+  label="Select Importance *"
+  labelMode="floating"
+  valueExpr="value"
+  displayExpr="label"
+  [dataSource]="importanceLevels"
+  height="40px"
+  [searchEnabled]="true"
+  selectionMode="single" 
+ placeholder="Select Importance"
+  disableOptionCentering >
+</dx-select-box>
+    <!-- <mat-form-field  appearance="fill" class="form-field">
+      <mat-label>Importance:</mat-label>
+      <mat-select formControlName="queryImportance">
+        <mat-option *ngFor="let option of importanceLevels" [value]="option.value">
+          {{ option.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+  </div>
+    <div class="box">
+  <dx-select-box
+    formControlName="taskid"
+    label="Select Module * "
+    labelMode="floating"
+    valueExpr="task_id"
+    displayExpr="task_name"
+    [dataSource]="tasks"
+    height="40px"
+    [searchEnabled]="true"
+    selectionMode="single" 
+   placeholder="Select Task"
+   (onValueChanged)="onModuleChange($event)"  disableOptionCentering >
+</dx-select-box>
+    <!-- <mat-form-field  appearance="fill" class="form-field">
+      <mat-label>Module:</mat-label>
+      <mat-select formControlName="taskid" (selectionChange)="onModuleChange($event)">
+        <mat-option *ngFor="let module of modules" [value]="module.task_id">
+          {{ module.task_name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+  </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="box">
+    <dx-select-box
+    formControlName="menuItem"
+    label="Select Menu Item *"
+    labelMode="floating"
+    valueExpr="menuItemIndex"
+    displayExpr="menuItemName"
+    [dataSource]="uniqueMenuItems"
+    height="40px"
+    [searchEnabled]="true"
+    selectionMode="single" 
+   placeholder="Select MenuItem "
+   (onValueChanged)="filterComponents()"  disableOptionCentering >
+</dx-select-box>
+    <!-- <mat-form-field  appearance="fill" class="form-field">
+      <mat-label>Main Menu:</mat-label>
+      <mat-select formControlName="menuItem" (selectionChange)="filterComponents()">
+        <mat-option *ngFor="let menu of uniqueMenuItems" [value]="menu.menuItemIndex">
+          {{ menu.menuItemName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+  </div>
+      <div class="box">
+    <dx-select-box
+    formControlName="componentid"
+    label="Select Components *"
+    labelMode="floating"
+    valueExpr="id"
+    displayExpr="name"
+    [dataSource]="filteredComponents"
+    height="40px"
+    [searchEnabled]="true"
+    selectionMode="single" 
+   placeholder="Select Components"
+    disableOptionCentering >
+</dx-select-box>
+    <!-- <mat-form-field  appearance="fill" class="form-field">
+      <mat-label>Components:</mat-label>
+      <mat-select formControlName="componentid">
+        <mat-option *ngFor="let component of filteredComponents" [value]="component.id">
+          {{ component.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+  </div>
+  </div>
+  <br>
+  <div class="box">
+    <dx-select-box
+    formControlName="reportingpersonid"
+    label="Select ReportingPerson *"
+    labelMode="floating"
+    valueExpr="usR_ID"
+    displayExpr="firstname"
+    [dataSource]="reportingperson"
+    height="40px"
+    [searchEnabled]="true"
+    selectionMode="single" 
+   placeholder="Select ReportingPerson"
+    disableOptionCentering >
+</dx-select-box>
+    <!-- <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Reporting Person:</mat-label>
+      <mat-select formControlName="reportingpersonid" (selectionChange)="onReportingPersonChange($event)">
+        <mat-option *ngFor="let user of reportingperson" [value]="user.usR_ID">
+          {{ user.firstname }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+  </div>
+<br>
+  <div class="box">
+    <mat-form-field  appearance="fill">
+      <mat-label>Subject Title:</mat-label>
+      <input matInput #subtitleinput maxlength="100" formControlName="subjectTitle" />
+      <mat-hint align="start">Max 100 Characters</mat-hint>
+      <mat-hint align="end">{{subtitleinput.value.length}}/100</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <!-- <div class="box">
+    <mat-form-field appearance="outline">
+      <mat-label>Issue Details:</mat-label>
+      <textarea matInput #issuedetails maxlength="1500" formControlName="issueDetails"></textarea>
+      <mat-hint align="start">Max 1500 Characters</mat-hint>
+      <mat-hint align="end">{{issuedetails.value.length}}/1500</mat-hint>
+    </mat-form-field>
+  </div> -->
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Issue Details: </mat-label>
+        <textarea  matInput #Obj_Doc minlength="5" maxlength="1500"  
+        formControlName="issueDetails" required style="min-height: 50px;overflow: auto;"
+        (input)="onInput()" ></textarea>
+        <mat-hint align="start">Min 5 - Max 1500 Characters</mat-hint>
+        <mat-hint align="end">{{Obj_Doc.value.length}}/1500</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="box">
+    <mat-label>Attachments :</mat-label>
+            <input #attachments type="file" (change)="onFileSelected($event)" [disabled]="files.length >= 5" class="file-input" multiple />
+          
+            <!-- <ul>
+              <li *ngFor="let file of files; let i = index">
+                {{ file.name }} <button (click)="removeFile(i)" class="remove-btn">Remove</button>
+              </li>
+            </ul> -->
+            <p *ngIf="files.length >= 5" class="error-text">Max 5 uploads allowed</p>
+
+            <table class="file-table" *ngIf="files.length > 0">
+              <thead>
+                <tr>
+                  <th>File Name</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let file of files; let i = index">
+                  <td class="file-name-cell">{{ file.name }}</td>
+                  <td><button (click)="removeFile(i)" class="remove-btn">Remove</button></td>
+                </tr>
+              </tbody>
+            </table>
+
+    <!-- <mat-label>Attachments:</mat-label>
+    <input id="fileInput" type="file" (change)="onFileSelected($event)" [disabled]="files.length >= 5" multiple />
+    <p *ngIf="files.length >= 5" class="error-text">Max 5 uploads allowed</p>
+    <ul>
+      <li *ngFor="let file of files; let i = index">
+        {{ file.name }} <button (click)="removeFile(i)">Remove</button>
+      </li>
+    </ul> -->
+  </div>
+
+  <div>
+    <button type="submit">&nbsp;&nbsp;&nbsp;SUBMIT&nbsp;&nbsp;&nbsp;</button>
+  </div>
+</form>
+  </div>
+  </div>
+</div>
+</div>

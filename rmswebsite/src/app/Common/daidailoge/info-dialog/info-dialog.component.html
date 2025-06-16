@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>Detail View</h1>
+<div mat-dialog-content>
+  <p>
+    <strong [ngStyle]="{'color': getComplianceStageColor(data.complianceStage)}">Entity Name:</strong> 
+    {{ data.item.entityName }}
+  </p>
+  <p>
+    <strong [ngStyle]="{'color': getComplianceStageColor(data.complianceStage)}">Unit Location Name:</strong> 
+    {{ data.item.unitLocationName }}
+  </p>
+  <p>
+    <strong [ngStyle]="{'color': getComplianceStageColor(data.complianceStage)}">Compliance ID:</strong> 
+    {{ data.item.complianceID }}
+  </p>
+  <p>
+    <strong [ngStyle]="{'color': getComplianceStageColor(data.complianceStage)}">Compliance Name:</strong> 
+    {{ data.item.complianceName }}
+  </p>
+  <p>
+    <strong [ngStyle]="{'color': getComplianceStageColor(data.complianceStage)}">Act Name:</strong> 
+    {{ data.item.actName }}
+  </p>
+  <p>
+    <strong [ngStyle]="{'color': getComplianceStageColor(data.complianceStage)}">Rule Name:</strong> 
+    {{ data.item.ruleName }}
+  </p>
+  <p>
+    <strong [ngStyle]="{'color': getComplianceStageColor(data.complianceStage)}">Statutory Form:</strong> 
+    {{ data.item.statutoryForm }}
+  </p>
+  <p>
+    <strong [ngStyle]="{'color': getComplianceStageColor(data.complianceStage)}">Section/Rule/Regulation:</strong> 
+    {{ data.item.sectionRuleRegulation }}
+  </p>
+  <p>
+    <strong [ngStyle]="{'color': getComplianceStageColor(data.complianceStage)}">Compliance Period:</strong> 
+    {{ data.item.compliancePeriod }}
+  </p>
+  <p>
+    <strong [ngStyle]="{'color': getComplianceStageColor(data.complianceStage)}">Risk Classification:</strong> 
+    {{ data.item.riskClassification }}
+  </p>
+</div>
+
+<div mat-dialog-actions class="center-actions">
+  <button mat-button mat-dialog-close class="close-btn">Close</button>
+</div>

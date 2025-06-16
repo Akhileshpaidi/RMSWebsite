@@ -1,0 +1,102 @@
+<div class="form">
+    <div class="header col">
+      <div style="align-self: self-end">
+        <br>
+        <h2 class=" title" style="align-items: center;">View Act Regulatory
+          </h2>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="box">
+          <dx-select-box 
+            label="Select Act/ Master Regulation Name*"
+            labelMode="floating"
+            valueExpr="actregulatoryid"
+            displayExpr="actname"
+            [dataSource]="actname"
+            [searchEnabled]="true"
+            height="40px"
+            selectionMode="single" 
+            placeholder=""
+          (onValueChanged)="getRules($event)">
+        </dx-select-box>
+        </div>
+        </div>
+
+
+        <br>
+        <br>
+        <table class="table1" *ngFor="let rule of act" >
+            <h2><span>
+              View Bare Act Regulation :
+          </span></h2>
+              <tbody>
+                  <ng-container >
+                  <tr   >
+                    <td><strong>ActID Name of Act/Regulation</strong></td>
+                    <td>{{rule.actname}}</td>
+                  </tr>
+                  <tr >
+                    <td><strong>Description of Act/Regulation</strong></td>
+                    <td>{{ rule.actrequlatorydescription  || 'N/A'}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"  class="editbutton">
+                      <button  class="Custombutton" (click)="editAct(rule.actregulatoryid)">Edit</button>
+                    </td>
+                  </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+              <table class="table1" *ngIf="act && act.length > 0">
+                <thead>
+                  <tr>
+                    <th colspan="2">Additional References from Bare Act & Rule :</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                        <td><strong>Bare Act Reference(s)</strong></td>
+                        <td>
+                      <ol type="1">
+                      <ng-container *ngFor="let detail of act[0].actfiles">
+                        <li>
+                          <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                            [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ detail.filepath }}</a>
+                            <!-- <button (click)="copyLink(detail.filepath)"  > <mat-icon>content_copy</mat-icon></button> -->
+                            <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                            <label *ngIf="isLinkCopied" style="color:red;">Link copied!</label>
+                          </ng-container>
+                          <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                            [File Attached] {{ detail.filename }}
+                            <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                              <a [href]="detail.filepath" target="_blank">(View)</a> /
+                            </ng-container>
+                            <!-- <a [href]="detail.filepath" download>Download</a> -->
+                            <dx-button icon="download"  (click)="download(detail.filepath, detail.fileType)"> </dx-button>
+                          </ng-container>
+                        </li>
+                      </ng-container>
+                    </ol>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <table class="table1" *ngFor="let rule of act">
+                <tbody>
+                    <ng-container >
+                    <!-- <tr   >
+                      <td><strong>created By / created On</strong></td>
+                      <td>{{rule.create}}</td>
+                    </tr>
+                    <tr   >
+                      <td><strong>Updated By / Updated On</strong></td>
+                      <td>{{rule.update}}</td>
+                    </tr> -->
+                    </ng-container>
+                </tbody>
+              </table>
+</div>

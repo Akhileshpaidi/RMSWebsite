@@ -1,0 +1,81 @@
+<div class="form">
+  <div class="body">
+    <div class="header">
+      <div style="align-self:self-end;">
+        <div class="card">
+          <div class="card-header">
+            <h1 class="title">Compliance Period</h1>
+          </div>
+          <div class="card-body">
+            <div id="app-container">
+              <dx-data-grid id="dataGrid"
+                            [dataSource]="CompliancePerioddataSource"
+                            [showBorders]="true"
+                            [allowColumnResizing]="true"
+                            [columnAutoWidth]="true"
+                            [allowColumnReordering]="true"
+                            (onExporting)="exportGrid($event)">
+                <dxi-column dataField="compliance_period_id" caption="Compliance Period ID" visible="false">
+                  <dxo-form-item [visible]="false"></dxo-form-item>
+                </dxi-column>
+                <dxi-column dataField="compliance_period_start" caption="Compliance Period Start">
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                  <dxi-validation-rule type="stringLength" [max]="20" message="max 20 Characters allowed"></dxi-validation-rule>
+                </dxi-column>
+                <dxi-column dataField="start_compliance_year_format" caption="Start Compliance Year Format">
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                  <dxo-lookup [dataSource]="optionsdata" displayExpr="text" valueExpr="text"></dxo-lookup>
+                </dxi-column>
+                <dxi-column caption="Join Another Compliance Period" dataField="check_box" editCellTemplate="checkboxTemplate">
+                  <dxo-form-item [visible]="true"></dxo-form-item>
+                </dxi-column>
+                <div *dxTemplate="let data of 'checkboxTemplate'" >
+                  <dx-check-box [value]="data.value"
+                    (onValueChanged)="toggleChecked($event)"
+                    [elementAttr]="{ 'aria-label': 'checked' }">
+                  </dx-check-box>
+                </div>
+                    <br>
+                    <br>
+                
+                <dxi-column dataField="compliance_period_end" caption="Compliance Period End" [allowEditing]="EndCompliance">
+                  <dxi-validation-rule type="stringLength" [max]="20" message="max 20 Characters allowed"></dxi-validation-rule>
+                </dxi-column>
+                <dxi-column dataField="end_compliance_year_format" caption="End Compliance Year Format" [allowEditing]="EndCompliance">
+                  <dxo-lookup [dataSource]="optionsdata" displayExpr="text" valueExpr="text"></dxo-lookup>
+                </dxi-column>
+                <dxi-column dataField="compliance_period_description" [width]="500" caption="Compliance Period Description">
+                  <dxo-form-item editorType="dxTextArea" [colSpan]="2" [editorOptions]="{ height: 80 }"></dxo-form-item>
+                  <dxi-validation-rule type="stringLength" [max]="150" message="max 150 Characters allowed"></dxi-validation-rule>
+                </dxi-column>
+                <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxo-group-panel [visible]="true"></dxo-group-panel>
+                <dxo-selection mode="single"></dxo-selection>
+                <dxo-summary>
+                  <dxi-total-item column="compliance_period_id" summaryType="count"></dxi-total-item>
+                </dxo-summary>
+                <dxo-scrolling rowRenderingMode="virtual"></dxo-scrolling>
+                <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                <dxo-pager [visible]="true" [allowedPageSizes]="[5, 10, 20, 'all']" [showPageSizeSelector]="true" [showInfo]="true" infoText="Page {0} of {1} ({2} items)" [showNavigationButtons]="true"></dxo-pager>
+                <dxo-editing mode="popup" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true">
+                  <dxo-popup title="Add  Compliance Period" [showTitle]="true" [width]="700" [height]="525"></dxo-popup>
+                </dxo-editing>
+                <dxo-toolbar>
+                  <dxi-item name="groupPanel"></dxi-item>
+                  <dxi-item name="addRowButton" showText="always"></dxi-item>
+                  <dxi-item name="exportButton"></dxi-item>
+                  <dxi-item name="columnChooserButton"></dxi-item>
+                  <dxi-item name="searchPanel"></dxi-item>
+                </dxo-toolbar>
+                <dxo-export [enabled]="true" [formats]="['xlsx', 'pdf']"></dxo-export>
+              </dx-data-grid>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

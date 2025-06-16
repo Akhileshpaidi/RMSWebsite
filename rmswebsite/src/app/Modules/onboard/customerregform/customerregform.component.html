@@ -1,0 +1,329 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+        <div class=" card">
+          <div class=" card-header">
+            <h1 class=" title"> Customer Registration Form</h1>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="customerregform">
+ <div>
+
+
+      <dx-form id="form" [(formData)]="customerregform" [colCount]="2">
+        
+          <dxi-item
+            itemType="group"
+            captionTemplate="user"
+            caption="Registered User Details"
+            [colCount]="2"
+          >
+          <!-- <dx-form [(formData)]="customerregform" [colCount]="2">
+          -->
+
+          <dxi-item >
+            <mat-form-field appearance="fill" class="form-field">
+                <mat-label>First Name </mat-label>
+                <input matInput formControlName="first_name"  />
+               
+             </mat-form-field>
+             <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Mobile Number </mat-label>
+              <input matInput formControlName="mobileno" #input name="mobileno" type="tel"  pattern="[0-9]*"
+              maxlength="10"   />
+              <mat-hint *ngIf="!customerregform.get('mobileno')" align="end">{{input.value.length}}/10</mat-hint>
+              <mat-error *ngIf="customerregform.get('mobileno')">
+                  Mobilenumber is required. Length: {{input.value.length}}/10
+              </mat-error>
+             
+           </mat-form-field>
+          </dxi-item>
+          <!-- <dxi-item >
+            
+          
+         
+        </dxi-item> -->
+        
+          <dxi-item >
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="last_name"  />
+             
+           </mat-form-field>
+           <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Email Id</mat-label>
+            <input matInput formControlName="emailid" type="email"  name="emailid" />
+            <mat-error *ngIf="customerregform.get('emailid')">
+             Please include an '@' in the email address
+           </mat-error>
+         </mat-form-field>
+          </dxi-item>
+          <!-- <dxi-item >
+           
+          </dxi-item> -->
+          
+        
+      <!-- </dx-form> -->
+          </dxi-item>
+          <ng-container *ngIf="next1">
+          <dxi-item></dxi-item>
+        </ng-container>
+          <ng-container *ngIf="next">
+        <dxi-item
+          itemType="group"
+          captionTemplate="Billing"
+          caption="Billing Information Details"
+          [colCount]="2"
+        >
+        <!-- <dx-form [(formData)]="customerregform" [colCount]="2"> -->
+        <dxi-item>  
+          <h3> <label>
+            <input type="checkbox"  style="zoom: 1.3;" name="sameentitydetails" formControlName="sameentitydetails" (click)="sameentity($event)">
+           Same as Registered Enitity Details
+          </label></h3>
+        </dxi-item>
+        <dxi-item>
+            <mat-form-field appearance="fill" class="form-field">
+                <mat-label>Organization Name </mat-label>
+                <input matInput formControlName="billing_org_name"  />
+               
+             </mat-form-field>
+        </dxi-item>
+        <dxi-item>
+            <mat-form-field appearance="fill" class="form-field">
+                <mat-label>GST Number</mat-label>
+                <input matInput formControlName="billing_gst_number"  />
+               
+             </mat-form-field>
+        </dxi-item>
+        <dxi-item>
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Address</mat-label>
+            <textarea matInput formControlName="billing_Address"  class="scrollable-textarea"  ></textarea>
+        </mat-form-field>
+        </dxi-item>
+        <dxi-item>
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Country</mat-label>
+          <mat-select required="true" formControlName="billing_country" (selectionChange)="getbillstate($event)" disableOptionCentering>
+   
+
+            <mat-option *ngFor="let option of bill_countryds" [value]="option.jurisdiction_country_id">{{option.name}}</mat-option>
+        </mat-select>
+          </mat-form-field>
+            <!-- <dx-select-box formControlName="billing_country" label="Country Name" labelMode="floating"
+            valueExpr="jurisdiction_country_id" displayExpr="name" [dataSource]="bill_countryds" height="40px"
+            [searchEnabled]="true" selectionMode="single" placeholder="" (onValueChanged)="getbillstate($event)"
+            disableOptionCentering>
+          </dx-select-box> -->
+        </dxi-item>
+        <dxi-item>
+            <!-- <dx-select-box formControlName="billing_state" label="state /Region " labelMode="floating" valueExpr="id"
+            displayExpr="name" [dataSource]="bill_stateds" height="40px" [searchEnabled]="true"
+            selectionMode="single" placeholder=""
+            disableOptionCentering>
+          </dx-select-box> -->
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>State</mat-label>
+          <mat-select required="true" formControlName="billing_state" disableOptionCentering >
+   
+
+            <mat-option *ngFor="let option of bill_stateds" [value]="option.id">{{option.name}}</mat-option>
+        </mat-select>
+          </mat-form-field>
+        </dxi-item>
+      <!-- </dx-form> -->
+        </dxi-item>
+      </ng-container >
+      <!-- </dx-form> -->
+
+    
+        <dxi-item
+          itemType="group"
+          captionTemplate="EnityDetails"
+          caption="Registered Enitity Details"
+          [colCount]="2">
+        <!-- <dx-form [(formData)]="customerregform" [colCount]="2"> -->
+          <dxi-item >
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Organization Name </mat-label>
+              <input matInput formControlName="entity_org_name"  />
+             
+           </mat-form-field>
+            </dxi-item>
+        <dxi-item>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>GST Registered</mat-label>
+          
+          <mat-select 
+          formControlName="gst_registered"
+          disableOptionCentering  required (selectionChange)="gstchange($event)" >
+          <mat-option  [value]="0">Yes</mat-option>
+          <mat-option  [value]="1" >No</mat-option>
+   </mat-select>
+          
+          </mat-form-field>
+         
+        </dxi-item>
+        
+            <!-- <dxi-item>
+             
+            </dxi-item> -->
+            <ng-container  *ngIf="gstyes">
+            <dxi-item>
+              <h3> <label>
+                If GST Registered, Please fill below details </label>
+                    </h3>
+            <mat-form-field appearance="fill" class="form-field" >
+              <mat-label>GST Number</mat-label>
+              <input matInput formControlName="entity_gst_number"  />
+             
+           </mat-form-field>
+          </dxi-item>
+            <dxi-item >
+              <mat-form-field appearance="fill" class="form-field" style="padding-top:75px;">
+                <mat-label>Organization Name </mat-label>
+                <input matInput formControlName="entity_gst_org_name"  />
+               
+             </mat-form-field>
+             <label style="color: red;">As per GST Records</label>
+              </dxi-item>
+              <dxi-item>
+                <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>Address</mat-label>
+                    <textarea matInput formControlName="entity_gst_Address"  class="scrollable-textarea"  ></textarea>
+                </mat-form-field>
+                <label style="color: red;">As per GST Records</label>
+                </dxi-item>
+                <!-- <dxi-item>
+                 
+                </dxi-item> -->
+                <dxi-item>
+                  <h3> <label>
+                    Attach GST Certificate </label>
+                        </h3>
+                  <h4>GST Certificate<span class="required-asterisk">*</span></h4>
+                  <input type="file" [accept]="FileTypes" 
+                  (change)="onFileSelected($event)" #mainFileInput required>
+                </dxi-item>
+            </ng-container>
+                <dxi-item>
+                    <!-- <dx-select-box formControlName="supply_country" label="Country Name" labelMode="floating"
+                    valueExpr="jurisdiction_country_id" displayExpr="name" [dataSource]="countryds" height="40px"
+                    [searchEnabled]="true" selectionMode="single" placeholder="" (onValueChanged)="getstate($event)"
+                    disableOptionCentering>
+                  </dx-select-box> -->
+
+                  <h3> <label>
+                    Place of Supply </label>
+                        </h3>
+                  <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>Country</mat-label>
+                  <mat-select required="true" formControlName="supply_country" disableOptionCentering (selectionChange)="getstate($event)">
+           
+ 
+                    <mat-option *ngFor="let option of countryds" [value]="option.jurisdiction_country_id">{{option.name}}</mat-option>
+                </mat-select>
+                  </mat-form-field>
+                </dxi-item>
+                <dxi-item>
+                  
+                  <mat-form-field appearance="fill" class="form-field" style="padding-top: 45px;">
+                    <mat-label>State</mat-label>
+                  <mat-select required="true" formControlName="supply_state"  disableOptionCentering>
+           
+ 
+                    <mat-option *ngFor="let option of stateds" [value]="option.id">{{option.name}}</mat-option>
+                </mat-select>
+                  </mat-form-field>
+                    <!-- <dx-select-box formControlName="supply_state" label="state /Region " labelMode="floating" valueExpr="id"
+                    displayExpr="name" [dataSource]="stateds" height="40px" [searchEnabled]="true"
+                    selectionMode="single" placeholder=""
+                    disableOptionCentering>
+                  </dx-select-box> -->
+                </dxi-item>
+               
+               
+         
+              <!-- </dx-form> -->
+        </dxi-item>
+        <ng-container *ngIf="next11">
+          <dxi-item></dxi-item>
+        </ng-container>
+      <ng-container *ngIf="next12">
+        <dxi-item
+        itemType="group"
+        captionTemplate="groupuser"
+        caption="Group Admin Details" [colCount]="2"
+      >
+      <!-- <dx-form [(formData)]="customerregform" [colCount]="2"> -->
+      <dxi-item>  <h3> <label>
+        <input type="checkbox"  style="zoom: 1.3;" name="sameuserdetails" formControlName="sameuserdetails" (click)="sameuser($event)">
+       Same as Registered User Details
+      </label></h3></dxi-item>
+      <dxi-item>
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>First Name </mat-label>
+            <input matInput formControlName="grp_admin_first_name"  />
+           
+         </mat-form-field>
+      </dxi-item>
+      <dxi-item>
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="grp_admin_last_name"  />
+           
+         </mat-form-field>
+      </dxi-item>
+      <dxi-item >
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Mobile Number </mat-label>
+            <input matInput formControlName="grp_admin_mobileno" #input1 name="mobileno" type="tel"  pattern="[0-9]*"
+            maxlength="10"   />
+            <mat-hint *ngIf="!customerregform.get('grp_admin_mobileno')" align="end">{{input1.value.length}}/10</mat-hint>
+            <mat-error *ngIf="customerregform.get('grp_admin_mobileno')">
+                Mobilenumber is required. Length: {{input1.value.length}}/10
+            </mat-error>
+           
+         </mat-form-field>
+      </dxi-item>
+      <dxi-item >
+        <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Email Id</mat-label>
+            <input matInput formControlName="grp_admin_emailid" type="email"  name="emailid" />
+            <mat-error *ngIf="customerregform.get('grp_admin_emailid')">
+             Please include an '@' in the email address
+           </mat-error>
+         </mat-form-field>
+      </dxi-item>
+      
+      <!-- </dx-form> -->
+      </dxi-item>
+    </ng-container>
+        <dxi-item
+         
+        >
+        <button  class="Custombutton" (click)="Next()" >Next</button>
+        </dxi-item>
+        <ng-container *ngIf="next12">
+        <dxi-item>
+        <button  class="Custombutton" (click)="Submit()" >Submit</button>
+        </dxi-item>
+      </ng-container>
+      </dx-form>
+ 
+    </div>
+
+
+ 
+      </form>
+
+
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+  

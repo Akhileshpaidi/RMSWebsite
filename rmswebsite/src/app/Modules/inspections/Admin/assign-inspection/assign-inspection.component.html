@@ -1,0 +1,77 @@
+
+<div class=" content">
+  <div class=" row">
+    <div class=" col-md-10">
+      <div class=" card">
+        <div class=" card-header">
+          <h1 class=" title">Document Category</h1>
+        </div>
+        <div class="card-body">
+
+<div id="app-container">
+  <dx-data-grid id="dataGrid"
+    [dataSource]="dataSource"
+    [showBorders]="true"
+   
+    [allowColumnResizing]="true"
+    [columnAutoWidth]="true"
+    [allowColumnReordering]="true"
+    
+    (onExporting)="exportGrid($event)">
+    <dxi-column dataField="docTypeID" caption="Document Type">
+      <dxi-validation-rule type="required"></dxi-validation-rule> 
+      <dxo-lookup [dataSource]="DocumentTypeData" valueExpr="docTypeID" displayExpr="docTypeName" ></dxo-lookup>  
+  </dxi-column>
+    <dxi-column dataField="doc_CategoryID" caption="Document Type">
+      <dxi-validation-rule type="required"></dxi-validation-rule> 
+      <dxo-lookup [dataSource]="DocumentCategoryData" valueExpr="doc_CategoryID" displayExpr="doc_CategoryName" ></dxo-lookup>  
+  </dxi-column>
+   
+  <dxi-column dataField="doc_SubCategoryName" caption="Document SubCategory Name">
+    <dxi-validation-rule type="required"></dxi-validation-rule>   
+</dxi-column>
+<dxi-column dataField="doc_SubCategoryDescription" caption="Description">
+   
+</dxi-column>
+    <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+    <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+    <dxo-selection mode="single"></dxo-selection>
+    <dxo-summary>
+      <dxi-total-item
+          column="doc_CategoryID"
+          summaryType="count">
+      </dxi-total-item>
+      
+  </dxo-summary>
+    <dxo-editing
+      mode="popup"
+      [allowUpdating]="true"
+      [allowDeleting]="true"
+      [allowAdding]="true">
+    </dxo-editing>
+    <dxo-toolbar>
+      <dxi-item name="groupPanel"></dxi-item>
+     
+      <dxi-item name="addRowButton" showText="always"></dxi-item>
+      <dxi-item name="exportButton"></dxi-item>
+      <dxi-item name="columnChooserButton"></dxi-item>
+      <dxi-item name="searchPanel"></dxi-item>
+  </dxo-toolbar>
+
+
+    <dxo-export 
+      [enabled]="true"
+      [formats]="['xlsx', 'pdf']"
+    >
+    </dxo-export>
+  </dx-data-grid>
+  
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

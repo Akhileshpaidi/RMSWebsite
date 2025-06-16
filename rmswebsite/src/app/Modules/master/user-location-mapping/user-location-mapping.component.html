@@ -1,0 +1,197 @@
+<div class="content">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="title">User Location Mapping</h1>
+                </div>
+                <mat-tab-group >
+                    <mat-tab label="Assign User"> 
+
+                <div class="card-body">
+                    <div id="app-container">
+                        <dx-data-grid id="dataGrid"
+                        [dataSource]="dataSource"
+                        [showBorders]="true"
+                       
+                        [allowColumnResizing]="true"
+                        [columnAutoWidth]="true"
+                        [allowColumnReordering]="true"
+                        (onEditorPreparing)="onEditorPreparing($event)"
+                        (onExporting)="exportGrid($event)">
+                        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                       <dxo-header-filter [visible]="true"></dxo-header-filter>
+
+                        <dxi-column dataField="user_location_mapping_id" caption="id" >
+                            <dxo-form-item [visible]="false">
+                            </dxo-form-item>
+                        </dxi-column>
+                        <dxi-column dataField="usR_ID" caption="Select User "
+                        editCellTemplate="selectboxTemplate"
+                        >
+                            <dxi-validation-rule type="required"></dxi-validation-rule>
+                            <dxo-lookup [dataSource]="firstname" valueExpr="usR_ID" displayExpr="firstname" ></dxo-lookup>
+                        </dxi-column>
+                        <dxi-column dataField="entity_Master_id" caption="Select Entity Name "  [setCellValue]="setEntityTypeValue">
+                            <dxi-validation-rule type="required"></dxi-validation-rule> 
+                            <dxo-lookup [dataSource]="typedata" valueExpr="entity_Master_id" displayExpr="entity_Master_Name" ></dxo-lookup>  
+                        </dxi-column>
+                        <dxi-column dataField="unit_location_Master_id" caption="Select Location ">
+                            <dxi-validation-rule type="required"></dxi-validation-rule> 
+                            <dxo-lookup [dataSource]="getFilteredLocations" valueExpr="unit_location_Master_id"  displayExpr="unit_location_Master_name" ></dxo-lookup>  
+                        </dxi-column>
+                     
+                       
+                      <dxi-column dataField="user_location_mapping_start_Date" caption="Start Date" dataType="date">
+                        
+                    </dxi-column>
+                    <dxi-column dataField="user_location_mapping_End_Date" caption="End Date"  dataType="date" >
+                      
+                    </dxi-column>
+                    <dxi-column dataField="rolE_ID" caption="Select  Role "  
+                      
+                            editCellTemplate="checkboxTemplate">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                        <dxo-lookup [dataSource]="role" valueExpr="rolE_ID" displayExpr="rolE_NAME" ></dxo-lookup>
+                    </dxi-column>
+
+
+                    
+                        <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+                        <dxo-search-panel [visible]="true"></dxo-search-panel>
+                        <dxo-group-panel [visible]="true"></dxo-group-panel>
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-summary>
+                            <dxi-total-item
+                                column="user_location_mapping_id"
+                                summaryType="count">
+                            </dxi-total-item>
+                            
+                        </dxo-summary>
+                        <dxo-editing
+                        mode="popup"
+                        [allowUpdating]="true"
+                        [allowDeleting]="true"
+                        [allowAdding]="true">
+                        <dxo-popup
+                        title="Add User Location Mapping"
+                        [showTitle]="true"
+                        [width]="900"
+                        [height]="625"
+                       
+                      ></dxo-popup>
+
+
+                     <dxo-form>
+                        <dxi-item itemType="group" [colCount]="3" [colSpan]="2">
+                            <dxi-item dataField="user_location_mapping_id"></dxi-item>
+                          <dxi-item dataField="usR_ID" caption="Select User "
+                          
+                          ></dxi-item>
+                        
+                        
+                      
+                          <dxi-item dataField="entity_Master_id"></dxi-item>
+                          <dxi-item dataField="unit_location_Master_id"></dxi-item>
+                         
+                        
+                          
+                        </dxi-item>
+                     
+                        <dxi-item itemType="group" [colCount]="4"  [colSpan]="2" *ngIf="userDetailsVisible">
+                         
+                            <dxi-item dataField="name"  
+                           editorType="dxTextBox" [editorOptions]="{ readOnly: true, value: selectedUser?.firstname }"></dxi-item>
+                            <dxi-item  dataField="emailid"  editorType="dxTextBox" [editorOptions]="{ readOnly: true, value: selectedUser?.emailid }"></dxi-item>
+                            <dxi-item dataField="mobilenumber" editorType="dxTextBox" [editorOptions]="{ readOnly: true, value: selectedUser?.mobilenumber }"></dxi-item>
+                            <dxi-item  dataField="department_Master_name"  editorType="dxTextBox" [editorOptions]="{ readOnly: true, value: selectedUser?.department_Master_name }"></dxi-item>
+                            
+                            <dxi-item  dataField="designation"  editorType="dxTextBox" [editorOptions]="{ readOnly: true, value: selectedUser?.designation }"></dxi-item>
+                       
+                            <dxi-item  dataField="entityname"  editorType="dxTextBox" [editorOptions]="{ readOnly: true, value: selectedUser?.entityname }"></dxi-item>
+                            <dxi-item  dataField="unit_location_Master_name"  editorType="dxTextBox" [editorOptions]="{ readOnly: true, value: selectedUser?.unit_location_Master_name }"></dxi-item>
+                       
+                          </dxi-item>
+                        
+                        
+
+                          <dxi-item
+                          itemType="group"
+                         
+                          [colCount]="2"
+                          [colSpan]="2"
+                        >
+                        <dxi-item dataField="user_location_mapping_start_Date"></dxi-item>
+                          <dxi-item dataField="user_location_mapping_End_Date"></dxi-item>
+                    
+                         </dxi-item>
+
+                     
+                        <dxi-item
+                          itemType="group"
+                          caption="Select Roles"
+                          [colCount]="1"
+                          [colSpan]="2"
+                        >
+                          <dxi-item 
+                          dataField="rolE_ID"
+                         
+                          [colSpan]="5"
+                          ></dxi-item>
+                          
+                        </dxi-item>
+                      </dxo-form> 
+
+
+                      </dxo-editing>
+
+                    
+                      <div *dxTemplate="let data of 'selectboxTemplate'">
+                        <dx-select-box
+                       
+                        
+                        valueExpr="usR_ID"
+                        displayExpr="firstname"
+                        [dataSource]="Userinfo"
+                          
+                        (onValueChanged)="onUserSelect($event)"
+                        >
+                      </dx-select-box>
+                       
+                      </div>
+
+                      <div *dxTemplate="let data of 'checkboxTemplate'">
+                        <dx-check-box *ngFor="let role of roleData"
+                        [text]="role.rolE_NAME"
+                        [value]="selectedRoles.includes(role.rolE_ID)"
+                       
+                           >
+                        </dx-check-box>
+                      </div>
+                      <dxo-toolbar>
+                      <dxi-item name="groupPanel"></dxi-item>
+      
+        <dxi-item name="addRowButton" showText="always"></dxi-item>
+        <dxi-item name="exportButton"></dxi-item>
+        <dxi-item name="columnChooserButton"></dxi-item>
+        <dxi-item name="searchPanel"></dxi-item>
+                      </dxo-toolbar>
+                      <dxo-export 
+                      [enabled]="true"
+                      [formats]="['xlsx', 'pdf']"
+                    >
+                    </dxo-export>
+                  </dx-data-grid>
+                    </div>
+                </div>
+                    </mat-tab>
+
+
+            </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</div>
+

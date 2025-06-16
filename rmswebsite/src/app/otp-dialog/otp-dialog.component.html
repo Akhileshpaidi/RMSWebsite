@@ -1,0 +1,11 @@
+
+
+<h2 mat-dialog-title>OTP Validation</h2>
+<div mat-dialog-content>
+  <p>Enter the OTP received on Email:</p>
+  <input matInput [(ngModel)]="enteredOtp" placeholder="OTP" />
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button class="continue-button" (click)="validateOtp()">Continue Reading</button>
+  <button mat-raised-button class="cancel-button" (click)="close()">Cancel</button>
+</div>

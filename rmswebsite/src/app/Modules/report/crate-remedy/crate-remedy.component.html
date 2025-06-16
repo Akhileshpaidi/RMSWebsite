@@ -1,0 +1,175 @@
+<div class="body">
+      <div class="row">
+        <img
+          style="height: 30px"
+          src="../../../../assets//images/plus-circle.svg"
+        />
+        <h2 class="header">Add Remedy</h2>
+      </div>
+      <hr />
+      <form [formGroup]="addRemedyForm" (ngSubmit)="onSubmit(addRemedyForm.value)">
+<!-- 
+      <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Select Document Type</mat-label>
+      <mat-select
+        formControlName="selectedProject"
+        (selectionChange)="selectInspection($event)"
+      >
+        <mat-option *ngFor="let element of project" [value]="element.id" >{{
+          element.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+ </div> -->
+        <!-- <div fxLayoutAlign="center center">
+          <div class="box">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Mobile Number</mat-label>
+              <input matInput formControlName="Remedy" name="Remedy" required />
+            </mat-form-field>
+          </div>
+        </div> -->
+
+        <!-- <div fxLayoutAlign="center center">
+          <div class="box">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Effective Date</mat-label>
+              <input matInput formControlName="Remedy" name="Remedy" required />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayoutAlign="center center">
+          <div class="box">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Date of initial creation of Document</mat-label>
+              <input matInput formControlName="Remedy" name="Remedy" required />
+            </mat-form-field>
+          </div>
+        </div> -->
+        <!-- <div fxLayoutAlign="center center">
+          <div class="box">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Document internal Number</mat-label>
+              <input matInput formControlName="Remedy" name="Remedy" required />
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayoutAlign="center center">
+          <div class="box">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Document internal version Number</mat-label>
+              <input matInput formControlName="Remedy" name="Remedy" required />
+            </mat-form-field>
+          </div>
+        </div> -->
+        <!-- <div fxLayoutAlign="center center">
+          <div class="box">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Document physical vault location</mat-label>
+              <input matInput formControlName="Remedy" name="Remedy" required />
+            </mat-form-field>
+          </div>
+        </div> -->
+        
+      <!-- <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Document Process Owner</mat-label>
+          <mat-select
+            formControlName="selectedProject"
+            (selectionChange)="selectInspection($event)"
+          >
+            <mat-option *ngFor="let element of project" [value]="element.id" >{{
+              element.name
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+     </div> -->
+     
+     <!-- <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Document Approver</mat-label>
+        <mat-select
+          formControlName="selectedProject"
+          (selectionChange)="selectInspection($event)"
+        >
+          <mat-option *ngFor="let element of project" [value]="element.id" >{{
+            element.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+   </div> -->
+   <!-- <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Date of Doc Approval</mat-label>
+        <input matInput formControlName="Remedy" name="Remedy" required />
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Date of Doc last Revision</mat-label>
+        <input matInput formControlName="Remedy" name="Remedy" required />
+      </mat-form-field>
+    </div>
+  </div> -->
+  <!-- <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Publishing Authority type</mat-label>
+      <mat-select
+        formControlName="selectedProject"
+        (selectionChange)="selectInspection($event)"
+      >
+        <mat-option *ngFor="let element of project" [value]="element.id" >{{
+          element.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+ </div> -->
+ <!-- <div class="box">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Name of Authority</mat-label>
+    <mat-select
+      formControlName="selectedProject"
+      (selectionChange)="selectInspection($event)"
+    >
+      <mat-option *ngFor="let element of project" [value]="element.id" >{{
+        element.name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div> -->
+<!-- <div class="box">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Nature of Document</mat-label>
+    <mat-select
+      formControlName="selectedProject"
+      (selectionChange)="selectInspection($event)"
+    >
+      <mat-option *ngFor="let element of project" [value]="element.id" >{{
+        element.name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div> -->
+<!-- <div fxLayoutAlign="center center">
+  <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Keywords/tags</mat-label>
+      <input matInput formControlName="Remedy" name="Remedy" required />
+    </mat-form-field>
+  </div>
+</div> -->
+        <div class="box">    
+          <div class="button">
+            <button class="grey-button" mat-button (click)="Cancel()">Back to Previous page</button>
+            <button class="Custombutton" mat-button type="submit">Save Draft & Exit</button>
+            <button class="Custombutton" mat-button type="submit">Continue to next section</button>
+            <button class="Custombutton" mat-button type="submit">Discard Draft</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    

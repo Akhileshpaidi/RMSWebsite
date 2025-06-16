@@ -1,0 +1,144 @@
+.button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+  }
+  .boxNew {
+    //display: flex;
+    padding-left: 10px; 
+    gap:10px;
+    flex-direction: row;
+    width: 70%;
+  }
+  .boxNew> * {
+    flex: 1 none none;
+    
+  }
+
+  .header{
+    padding-left: 10px;
+    //padding-bottom: 20px;
+    padding-top: 10px;
+  }
+
+  ::ng-deep #form-container {
+    margin: 10px;
+  }
+  
+   
+  .wrapper{
+    padding: 10px;
+    
+  }
+  
+  ::ng-deep .long-title h3 {
+    font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+    font-weight: 200;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .readonly-input {
+    pointer-events: none;
+    background-color: hsl(0, 19%, 93%);
+    color: #333; /* Adjust styles as needed */
+  }
+  .table-container {
+    max-width: 1000px; /* Set the maximum width of the container */
+    margin: 10px; /* Center the container horizontally */
+  }
+  
+  .mat-table {
+    width: 100%; /* Set the width of the table to 100% of its container */
+  }
+
+  .scrollable-textarea {
+    overflow: auto;
+    resize: vertical; /* Optional: Allow vertical resizing */
+    min-height: 100px; /* Optional: Set a minimum height */
+  }
+ 
+::ng-deep .mat-dialog-content.error-message {
+  color: red; /* Set the color for error messages */
+  /* Add any other styling for error messages as needed */
+}
+
+::ng-deep .mat-dialog-content.success-message {
+  color: green; /* Set the color for success messages */
+  /* Add any other styling for success messages as needed */
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+select {
+  display: block;
+  width: 100%; /* Adjust the width as needed */
+  padding: 8px; /* Adjust the padding as needed */
+  margin: 10px 0; /* Adjust the margin as needed */
+  box-sizing: border-box;
+  border: 1px solid #ccc; /* Adjust the border style as needed */
+  border-radius: 4px; /* Adjust the border-radius as needed */
+  font-size: 14px; /* Adjust the font size as needed */
+  color: #333; /* Adjust the text color as needed */
+  background-color: #fff; /* Adjust the background color as needed */
+}
+
+/* Optional: Add styles for hover and focus states */
+select:hover,
+select:focus {
+  border-color: #66afe9; /* Adjust the border color for hover and focus states as needed */
+}
+/* New class for DevExtreme text inputs to match your readonly style */
+.dx-readonly-input {
+  pointer-events: none;
+  background-color: hsl(0, 19%, 93%);
+  color: #333;
+}
+
+/* New class for aligning labels and input fields in form-group */
+.form-group-label {
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* Add a margin to DevExtreme fields within form-group */
+.form-group-devextreme {
+  margin-bottom: 15px;
+}
+
+/* New class for centered titles if needed */
+.center-title {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+/* New class for responsive input group layout */
+@media (max-width: 768px) {
+  .responsive-input-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+
+@media only screen and (max-width: 600px) {
+  .sidebar {
+   overflow: auto;
+  }
+}
+
+

@@ -1,0 +1,83 @@
+<div class="body">
+  <div class="row">
+    <img
+      style="height: 30px"
+      src="../../../../assets//images/plus-circle.svg"
+    />
+    <h2 class="header">Create Authority</h2>
+  </div>
+  <hr />
+  <form (ngSubmit)="selfInspection(selfInspectionForm.value)">
+    <div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Select Authority Type</mat-label>
+          <mat-select [formControl]="selectedBridge">
+            <mat-option *ngFor="let element of selectBridge" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <button
+          class="grey-button"
+          mat-button
+          type="button"
+          (click)="unregisteredBridge()"
+        >
+          Unregistered Bridge
+        </button> -->
+      
+    <!-- <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Select Inspection</mat-label>
+        <mat-select [formControl]="selectedInspection">
+          <mat-option
+            *ngFor="let element of selectInspection"
+            [value]="element.id"
+          >
+            {{ element.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
+
+    <!-- <div class="button">
+      <button class="Custombutton" mat-button type="submit">
+        Start Inspection
+      </button>
+    </div> -->
+    
+   
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Authority Name </mat-label>
+          <input matInput formControlName="name" name="name" required />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+<div fxLayoutAlign="center center">
+  <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+  </div>
+</div>
+
+<!-- <div class="box">
+  <button class="Custombutton" mat-button type="submit">
+    Assign Inspection
+  </button>
+</div> -->
+
+<div class="button">
+  <button class="grey-button" mat-button (click)="Cancel()">Cancel</button>
+  <button class="Custombutton" mat-button type="submit">Save</button>
+</div>
+
+
+
+  
+

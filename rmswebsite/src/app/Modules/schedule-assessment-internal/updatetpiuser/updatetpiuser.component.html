@@ -1,0 +1,284 @@
+
+<div class="form">
+    <div class="body">
+      <div class="row">
+        <img
+          style="height: 30px"
+          src="../../../../assets//images//Dashboard/Users.svg"
+        />
+        <h2 class="header">Update TPA User</h2>
+      </div>
+      <hr />
+      <div class="error" *ngIf="this.forgotPassEROR?.length > 0">
+        {{ this.forgotPassEROR }}
+      </div>
+      <form
+        [formGroup]="updateUserForm"
+        (ngSubmit)="updateUser(updateUserForm.value)"
+      >
+        <div fxLayoutAlign="center center">
+          <div class="box">
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Select Entity Name</mat-label>
+    
+              <mat-select
+                formControlName="entity" (change)="getUnitLocation($event)" disableOptionCentering
+              >
+                <mat-option
+                  *ngFor="let element of EntityName"
+                  [value]="element.entity_Master_id"
+                >
+                  {{ element.entity_Master_Name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+           
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Select Location Name</mat-label>
+    
+              <mat-select
+                formControlName="Location"
+                [(value)]="selectedentity"  disableOptionCentering 
+              >
+                <mat-option
+                  *ngFor="let element of UnitMaster"
+                  [value]="element.unit_location_Master_id"
+                >
+                  {{ element.unit_location_Master_name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+        
+            <dx-select-box 
+            formControlName="country" 
+            [searchEnabled]="true"
+            label="Select TPA Entity Name*"
+            labelMode="floating"
+            valueExpr="tpaenityid"
+            displayExpr="tpaenityname"
+            [dataSource]="TPAEntityName"
+            height="40px"
+            selectionMode="single" 
+           placeholder=""
+           (onValueChanged)="getdat($event)"    >
+      </dx-select-box>
+
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>TPA Description</mat-label>
+        <input matInput formControlName="tpadescription" name="tpadescription"  type="text" readonly/>
+        <mat-error *ngIf="updateUserForm.get('tpadescription')">
+          Tpa description is required
+        </mat-error>
+        </mat-form-field>
+          
+          </div>
+        </div>
+        <div fxLayoutAlign="center center">
+          <div class="box">
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Select Department Name</mat-label>
+    
+              <mat-select formControlName="Department" disableOptionCentering>
+                <mat-option *ngFor="let element of Departmentmaster" [value]="element.department_Master_id"> {{ element.department_Master_name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+            
+           
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Mobile Number</mat-label>
+              <input
+                matInput
+                formControlName="employer"
+                name="mobilenumber"
+                required
+                type="text"
+              />
+            </mat-form-field> -->
+         
+        <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Designation</mat-label>
+              <mat-select formControlName="Designation" name="designation" required>
+                <mat-option *ngFor="let element of designations" [value]="element.name">
+                  {{ element.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="updateUserForm.get('Designation')">
+                Designation is required
+              </mat-error>
+            </mat-form-field> 
+
+               <mat-form-field appearance="outline" class="form-field">
+              <mat-label>User Name </mat-label>
+              <input
+                matInput
+                formControlName="firstname"
+                name="firstname"
+                required
+              />
+            </mat-form-field>
+          </div> 
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Select Role</mat-label>
+    
+              <mat-select
+                formControlName="roles"
+                multiple
+              >
+              <mat-option *ngFor="let element of roles" [value]="element.rolE_ID"  disableOptionCentering >
+                {{ element.rolE_NAME }}
+              </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+          
+        </div>
+    
+        <div fxLayoutAlign="center center">
+          <div class="box">
+          
+            <mat-form-field appearance="outline" class="form-field">
+            
+              <mat-label>Mobile Number</mat-label>
+              <input
+                matInput
+                formControlName="mobilenumber"
+                name="mobilenumber"
+                required
+                type="text"
+                #input
+                max="10"
+            />
+            <mat-hint align="end">{{input.value.length}}/10</mat-hint>
+            </mat-form-field>
+         
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>User Login</mat-label>
+              <input
+                matInput
+                formControlName="username"
+                name="usR_LOGIN"
+                required
+                type="text"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+    
+        <div fxLayoutAlign="center center">
+          <div class="box">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Email Id</mat-label>
+              <input
+                matInput
+                formControlName="emailid"
+                name="emailid"
+                required
+                type="email"
+              />
+              <mat-error *ngIf="updateUserForm.get('emailid')">
+                Please include an '@' in the email address
+              </mat-error>
+            </mat-form-field>
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Select Entity Name</mat-label>
+    
+              <mat-select
+                formControlName="entity" (change)="getUnitLocation($event)"
+              >
+                <mat-option
+                  *ngFor="let element of EntityName"
+                  [value]="element.entity_Master_id"
+                >
+                  {{ element.entity_Master_Name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Country</mat-label>
+              <input
+                matInput
+                formControlName="country"
+                name="country"
+                required
+                type="text"
+                [(ngModel)]="userData.country"
+              />
+            </mat-form-field> -->
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Select Location Name</mat-label>
+    
+              <mat-select
+                formControlName="Location"
+               
+              >
+                <mat-option
+                  *ngFor="let element of UnitMaster"
+                  [value]="element.unit_location_Master_id"
+                >
+                  {{ element.unit_location_Master_name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>State</mat-label>
+              <input
+                matInput
+                formControlName="state"
+                name="state"
+                required
+                type="text"
+                [(ngModel)]="userData.state"
+              />
+            </mat-form-field> -->
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Select Department Name</mat-label>
+    
+              <mat-select
+                formControlName="Department"
+                
+              >
+                <mat-option
+                  *ngFor="let element of Departmentmaster"
+                  [value]="element.department_Master_id"
+                >
+                  {{ element.department_Master_name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>City</mat-label>
+              <input
+                matInput
+                formControlName="city"
+                name="city"
+                required
+                type="text"
+                [(ngModel)]="userData.city"
+              />
+            </mat-form-field> -->
+    
+
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Tpa User Address</mat-label>
+              <input matInput formControlName="address" name="address" type="text" />
+              <mat-error *ngIf="updateUserForm.get('address')">
+                Address is required
+              </mat-error>
+              </mat-form-field>
+          </div>
+        </div>
+    
+        <div class="button">
+          <button
+            class="grey-button"
+            type="button"
+            mat-button
+            (click)="openDialog()"
+          >
+            Reset Password
+          </button>
+          <button class="Custombutton" mat-button type="submit">Update</button>
+        </div>
+      </form>
+    </div>
+    </div>

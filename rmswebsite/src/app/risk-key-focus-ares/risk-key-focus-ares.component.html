@@ -1,0 +1,223 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+        <h1>Key Focus Areas</h1>
+      </div>
+      <form [formGroup]="keyfocus" (ngSubmit)="createUser(keyfocus.value)" >
+        <div class="row">
+            <div class="box">
+                <mat-form-field  appearance="fill" class="form-field">
+                    <mat-label>Key Foucs Area Name </mat-label>
+                    <input matInput  #titleinput  formControlName="keyfousname"  maxlength="250" >
+                    <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+                    <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint> 
+                  </mat-form-field>
+                      </div>
+                      <div class="box">
+                  <mat-form-field  appearance="fill" class="form-field">
+                    <mat-label>Key Foucs Area  Description </mat-label>
+                    <textarea matInput   #titleinput1 formControlName="keyfousdescription" maxlength="2500" ></textarea>
+                    <mat-hint align="start" >Min 1 - Max 500 Characters</mat-hint>
+                    <mat-hint align="end">{{titleinput1.value.length}}/500</mat-hint> 
+          
+          
+                  </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="box">
+                <div>
+                    <dx-select-box 
+             formControlName="entity"
+             label="Select Entity Type*"
+          labelMode="floating"
+          valueExpr="entity_Master_id"
+          displayExpr="entity_Master_Name"
+          [dataSource]="Entity"  
+          [searchEnabled]="true"
+          (onValueChanged)="getunitlocation($event)"
+          selectionMode="single" 
+          placeholder=""
+             > </dx-select-box> 
+                  </div>
+             
+             </div>
+             <div class="box">
+                <dx-select-box 
+                formControlName="location"
+                label="Select  unit  location*"
+                labelMode="floating"
+                valueExpr="unit_location_Master_id"
+                displayExpr="unit_location_Master_name"
+                [searchEnabled]="true"
+                [dataSource]="location"  
+                (onValueChanged)="getdepartment($event)" 
+                selectionMode="single" 
+                  >    </dx-select-box>
+            
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="box">
+                <div>
+                    <dx-select-box 
+                    formControlName="department"
+                    label="Select Department Type *"
+                    labelMode="floating"
+                    valueExpr="department_Master_id"
+                    displayExpr="department_Master_name"
+                    [searchEnabled]="true"
+                    [dataSource]="Department"  
+                    (onValueChanged)="getbusiness($event)"
+                    selectionMode="single" 
+                      ></dx-select-box>
+                  </div>
+             
+             </div>
+             <div class="box">
+             <dx-select-box 
+             formControlName="businessid"
+             label="Select Business Name*"
+          labelMode="floating"
+          valueExpr="riskBusinessfunctionid"
+          displayExpr="riskbusinessname"
+          [dataSource]="business"  
+          [searchEnabled]="true"
+          selectionMode="single" 
+          placeholder=""
+          (onValueChanged)="getbusinessprocesess($event)"
+             > </dx-select-box>
+            </div>
+        </div>
+        <br>
+        <h3>Map To</h3>
+
+<div class="row">
+    <div class="box">
+        
+       <dx-drop-down-box 
+       formControlName="businessProcessid"
+       [(value)]="selectedOption"         
+       [inputAttr]="{ 'aria-label': 'Owner' }"
+       placeholder="Select  Business Process(s)*"
+       label="Select  Business Process(s)*"
+       [showClearButton]="true"
+       labelMode="floating"
+       valueExpr="businessprocessID"
+       displayExpr="businessProcessName"
+       [dataSource]="businessprocess"
+       height="40px" >   
+      <div *dxTemplate="let data of 'content'">
+       <dx-data-grid    
+       [dataSource]="businessprocess"
+       [columns]="gridColumnsbusiness"
+         [selection]="{ mode: 'multiple' }"
+         [hoverStateEnabled]="true"
+         [(selectedRowKeys)]="selectedOption"
+         [filterRow]="{ visible: true }"
+         [scrolling]="{ mode: 'virtual' }"
+         [showColumnHeaders]="false"
+         height="100%"
+       >
+       </dx-data-grid>
+     </div> 
+    </dx-drop-down-box>
+    </div>
+    <div class="box">
+        <dx-select-box 
+        formControlName="bpmaturity"
+        label="Target Maturity Level"
+     labelMode="floating"
+     valueExpr="risk_admin_Iniassimpfactid"
+     displayExpr="risk_admin_Iniassimpfactname"
+     [dataSource]="bpmaturity"  
+     [searchEnabled]="true"
+     selectionMode="single" 
+     placeholder=""
+        > </dx-select-box>
+    </div>
+</div>
+ 
+    <div class="margin-top"></div>
+    <div class="button">
+     <button class="grey-button"  (click)="Cancel()" >Cancel</button>
+      <button class="Custombutton"  >Submit</button>
+    </div>
+   </form>
+
+   <h2><label>View Key Focus Area </label></h2>
+   <div class="card-body1">
+     <div id="app-container">
+         <dx-data-grid id="keyfocusareaid"
+         [dataSource]="dataSource1"
+         [showBorders]="true"
+        
+         [allowColumnResizing]="true"
+         [columnAutoWidth]="true"
+         [allowColumnReordering]="true"
+         (onExporting)="exportGrid($event)">
+         <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+        <dxo-header-filter [visible]="true"></dxo-header-filter>
+        <dxi-column dataField="keyfocusareaid" caption="Key Focus Area ID" [width]="100"></dxi-column>
+        <dxi-column dataField="keyfousname" caption="Key Focus  Name"></dxi-column>
+        <dxi-column dataField="keyfousdescription" caption="Key Focus  Description"></dxi-column>
+        <dxi-column dataField="entity_Master_Name" caption="Entity Name" value="entity_Master_id"></dxi-column>
+        <dxi-column dataField="unit_location_Master_name" caption="Unit Location Name" value="unit_location_Master_id"></dxi-column>
+        <dxi-column dataField="department_Master_name" caption="Department Name" value="department_Master_id"></dxi-column>
+        <dxi-column dataField="riskbusinessname" caption="Business Function Name" value="riskBusinessfunctionid"></dxi-column>
+        <dxi-column dataField="businessProcessName" caption="Business Process Name" value="businessprocessID"></dxi-column>
+        <dxi-column dataField="risk_admin_Iniassimpfactname" caption="Impfact Name" value="risk_admin_Iniassimpfactid"></dxi-column>
+         <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+         <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+         <dxo-filter-row [visible]="true"></dxo-filter-row>
+         <dxo-search-panel [visible]="true"></dxo-search-panel>
+         <dxo-group-panel [visible]="true"></dxo-group-panel>
+         <dxo-selection mode="single"></dxo-selection>
+         <dxo-summary>
+             <dxi-total-item
+                 column="keyfocusareaid"
+                 summaryType="count">
+             </dxi-total-item>
+             
+         </dxo-summary>
+         <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+         <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+         <dxo-pager
+         [visible]="true"
+         [allowedPageSizes]="[5, 10,20, 'all']"
+        
+         [showPageSizeSelector]="true"
+        
+         [showInfo]="true"
+         infoText="Page {0} of  {1} ({2} items)"
+         [showNavigationButtons]="true"
+       >
+       </dxo-pager>
+         <dxo-editing
+                 mode="popup"  
+               
+                 [allowDeleting]="true"
+               ></dxo-editing>
+   
+       <dxo-toolbar>
+       <dxi-item name="groupPanel"></dxi-item>
+   
+   <dxi-item name="addRowButton" showText="always"></dxi-item>
+   <dxi-item name="exportButton"></dxi-item>
+   <dxi-item name="columnChooserButton"></dxi-item>
+   <dxi-item name="searchPanel"></dxi-item>
+       </dxo-toolbar>
+       <dxo-export 
+       [enabled]="true"
+       [formats]="['xlsx', 'pdf']"
+     >
+     </dxo-export>
+   </dx-data-grid>
+     </div>
+   
+   </div>
+      </div></div>
+      

@@ -1,0 +1,220 @@
+
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="title">Residual Risk Rating</h1>
+                </div>
+                <div class="card-body">
+                    <div id="app-container"> 
+                        <dx-data-grid id="dataGrid"
+                        [dataSource]="dataSource"
+                        [showBorders]="true"
+                       
+                        [allowColumnResizing]="true"
+                        [columnAutoWidth]="true"
+                        [allowColumnReordering]="true"
+                        (onExporting)="exportGrid($event)">
+  
+                        <dxi-column dataField="residual_risk_rating_id"  caption="Residual Risk  Rating ID" [visibleIndex]="1" [Width]="100"  >
+                                <dxo-form-item [visible]="false"></dxo-form-item>
+                        </dxi-column>
+                        <dxi-column dataField="residual_risk_rating_name" caption="Residual Risk Rating Name" [visibleIndex]="2" [Width]="120" >
+                            <dxi-validation-rule type="required"></dxi-validation-rule>   
+                            <dxi-validation-rule type="stringLength" [max]="50" message="max 50 Characters allowed"></dxi-validation-rule>  
+                        </dxi-column>
+                        
+                     
+                        <dxi-column dataField="residual_risk_rating_desc" [width]="400" editCellTemplate="dataCellTemplate"  caption="Residual Risk Rating Description" [visibleIndex]="6" [Width]="150" >
+                          
+                        </dxi-column>
+          
+                        <dxi-column dataField="residual_risk_rating_min_rating"  caption="Risk Residual Minimum Value" dataType="number"  [editorOptions]="{min: 1, max: 100}"  [visibleIndex]="3" [Width]="100" 
+                        [validationRules]="[
+                        { type: 'range', min: 1, max: 100 },
+                      ]">
+                      <dxi-validation-rule type="required"></dxi-validation-rule>
+                        </dxi-column>
+
+                        <dxi-column dataField="residual_risk_rating_max_rating"  caption="Risk Residual Maximum Value" dataType="number"  [editorOptions]="{min: 1, max: 100}"  [visibleIndex]="4" [Width]="100" 
+                        [validationRules]="[
+                        { type: 'range', min: 1, max: 100 }, 
+                      ]">
+                      <dxi-validation-rule type="required"></dxi-validation-rule>
+                        </dxi-column>
+                        <!-- <dxi-column 
+                          dataField="residual_risk_rating_min_rating" 
+                          caption="Min Range"
+                      
+                          editCellTemplate="minRangeTemplate">
+                          <dxi-validation-rule type="required"></dxi-validation-rule>
+      </dxi-column>
+  
+  <dxi-column 
+      dataField="residual_risk_rating_max_rating" 
+      caption="Max Range"
+     
+      editCellTemplate="maxRangeTemplate">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column> -->
+  <dxi-column dataField="color_code" cellTemplate="dataCellTemplateforcolorView" [visibleIndex]="5" [Width]="100" 
+   editCellTemplate="dataCellTemplateforcolor"  caption="Colour Reference" >
+   
+   <dxi-validation-rule type="required"></dxi-validation-rule>           
+  </dxi-column>
+  
+  
+  
+                        
+                       
+                       
+                        
+                        
+                        <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+                        <dxo-search-panel [visible]="true"></dxo-search-panel>
+                        <dxo-group-panel [visible]="true"></dxo-group-panel>
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-summary>
+                            <dxi-total-item
+                                column="residual_risk_rating_id"
+                                summaryType="count">
+                            </dxi-total-item>
+                            
+                        </dxo-summary>
+                        
+  
+                        
+                        <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                        <dxo-pager
+                        [visible]="true"
+                        [allowedPageSizes]="[5, 10,20, 'all']"
+                       
+                        [showPageSizeSelector]="true"
+                       
+                        [showInfo]="true"
+                        infoText="Page {0} of  {1} ({2} items)"
+                        [showNavigationButtons]="true"
+                      >
+                      </dxo-pager>
+  
+                        <dxo-editing
+                        mode="popup"
+                        [allowUpdating]="isUpdateIconVisible"
+                        [allowDeleting]="isUpdateIconVisible"
+                        [allowAdding]="true">
+                        <dxo-popup
+                        title="Add Residual Risk Rating"
+                        [showTitle]="true"
+                        [width]="700"
+                        [height]="525"
+                       
+                      ></dxo-popup>
+                      </dxo-editing>
+                      <div class="dx-textarea" *dxTemplate="let data of 'dataCellTemplate'">  
+                        <dx-text-area  
+                          class="dx-texteditor-input"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           b
+                          style="resize: vertical;"
+                          [inputAttr]="{ 'aria-label': 'Notes' }"
+                          [autoResizeEnabled]="true"  
+                          [value]="data.value"  
+                          (onValueChanged)="onValueChanged($event, data)"
+                        ></dx-text-area>  
+                      </div> 
+                      
+                     
+                      <div *dxTemplate="let data of 'minRangeTemplate'">
+              
+                        <dx-number-box   
+                            [(value)]="data.data.residual_risk_rating_min_rating"
+                            [min]="1"
+                            [max]="100"
+                            [showSpinButtons]="true"
+                            (onValueChanged)="onMinValueChanged($event, data.data)">
+                            
+                            <div *ngIf="data.data.residual_risk_rating_min_rating < 1 || data.data.residual_risk_rating_min_rating > 100" class="error-message">
+                              Value must be between 1 and 100
+                            </div>
+                        </dx-number-box>
+                        <br>
+  <br>
+  
+                        <label>Select Range:1-100 </label>
+                        <dx-range-slider
+                        [min]="1"
+                        [max]="100"
+                        [(start)]="data.data.residual_risk_rating_min_rating"
+                        [(end)]="data.data.residual_risk_rating_max_rating"
+                        (onValueChanged)="onRangeValueChanged($event, data.data)">
+                  </dx-range-slider>
+                    </div>
+                    
+                    
+                    <div *dxTemplate="let data of 'maxRangeTemplate'">
+                        <dx-number-box
+                            [(value)]="data.data.residual_risk_rating_max_rating"
+                            [min]="1"
+                            [max]="100"
+                            [showSpinButtons]="true"
+                            (onValueChanged)="onMaxValueChanged($event, data.data)">
+                            <div *ngIf="data.data.residual_risk_rating_max_rating < 1 || data.data.residual_risk_rating_max_rating > 100" class="error-message">
+                              Value must be between 1 and 100
+                            </div>
+                        </dx-number-box>
+  
+                      
+                    </div>
+                    <div *dxTemplate="let data of 'dataCellTemplateforcolorView'">
+                      <button 
+                        class="color-button"
+                        [style.backgroundColor]="data.data.color_code" 
+                        style="border-radius: 50%; width: 40px; height: 40px;">
+                      </button>
+                    </div>
+  
+  
+  
+                      <div class="dx-textarea" *dxTemplate="let data of 'dataCellTemplateforcolor'">  
+                       
+                      
+                        <dx-color-box
+                          [value]="data.data.color_code"
+                          [inputAttr]="{ 'aria-label': 'Color Selector' }"
+                          (onValueChanged)="onValueChangedforcolor($event, data)"
+                        ></dx-color-box>
+                        
+                      
+                    </div>
+  
+                   
+  
+                  
+                 
+  
+                      <dxo-toolbar>
+                      <dxi-item name="groupPanel"></dxi-item>
+       
+        <dxi-item name="addRowButton" showText="always"></dxi-item>
+        <dxi-item name="exportButton"></dxi-item>
+        <dxi-item name="columnChooserButton"></dxi-item>
+        <dxi-item name="searchPanel"></dxi-item>
+  
+  
+                      </dxo-toolbar>
+                      <dxo-export 
+                      [enabled]="true"
+                      [formats]="['xlsx', 'pdf']"
+                    >
+                    </dxo-export>                   
+                  </dx-data-grid>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>

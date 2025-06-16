@@ -1,0 +1,404 @@
+
+<div class="form">
+    <div class="body">
+      <div class="header">
+          <div style="align-self:self-end;">
+              <div class="card">
+                <div style="align-self: self-end">
+                  <h1 class="h1">Mitigation Action Plan</h1>
+                </div>
+           
+          
+          </div></div></div>
+          <br>
+          <br>
+          <br>
+         <div>  <form action="" class="DateFilterBox" [formGroup]="range" *ngIf="MainGrid">
+          <div class="form-fields-container">
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Select Date Type</mat-label>
+              <mat-select [(value)]="selected">
+                <mat-option value="CompletionDate">Assessment Completion Date</mat-option>
+               
+              </mat-select>
+            </mat-form-field>
+        
+          
+            <mat-form-field class="example-form-field" appearance="fill">
+              <mat-label>Enter a date range</mat-label>
+              <mat-date-range-input [rangePicker]="rangePicker">
+                <input matStartDate placeholder="Start date" formControlName="start">
+                <input matEndDate placeholder="End date" formControlName="end">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matIconSuffix [for]="rangePicker" class="custom-toggle-icon"></mat-datepicker-toggle>
+              <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            
+              <mat-date-range-picker #rangePicker>
+                <mat-date-range-picker-actions>
+                  <button mat-button matDateRangePickerCancel>Cancel</button>
+                  <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+                </mat-date-range-picker-actions>
+              </mat-date-range-picker>
+            </mat-form-field>
+            
+            
+            <div >
+            <button mat-raised-button (click)="DateSearchFilter()">Search</button> 
+            </div>
+          </div>
+        </form>
+        
+       
+<mat-button-toggle-group name="favoriteColor" aria-label="Favorite Color" *ngIf="SubGrid" (change)="onToggleChange($event.value)">
+<mat-button-toggle value="1" checked>Mitigation Task Assigned</mat-button-toggle>
+<mat-button-toggle value="2">Unacknowledged Suggestions</mat-button-toggle>
+</mat-button-toggle-group></div>
+        
+          <br>
+          <br>
+          
+         
+   
+          <div style="align-self: self-end">
+            <h2 class="h1" *ngIf="MainGrid">Primary Level</h2>
+            <div class="container">
+              <button class="exitbutton" *ngIf="SubGrid" type="button" (click)="exitPage()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <h2 class="heading" *ngIf="SubGrid">Secondary Level</h2>
+            </div>
+            
+            <span *ngIf="MainGrid">Click a row to get Mitigation Tasks Assigned</span>
+          </div>
+         
+
+          <br>
+          <div *ngIf="selectedToggle==1">
+            <div class="card-body1" *ngIf="SubGrid && showMappedUsersGrid" >
+              <div id="app-container">
+                  <dx-data-grid id="dataGrid"
+                  [dataSource]="dataSource"
+                  [showBorders]="true"
+                 
+                  [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+                 
+                  (onExporting)="exportGrid($event)"
+                 >
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                 <dxo-header-filter [visible]="true"></dxo-header-filter>
+                  <dxi-column dataField="uq_ass_schid" caption="Assessment Id" [width]="100" alignment="center"></dxi-column>
+                  <dxi-column dataField="assessment_name" caption="Assessment Name" ></dxi-column>
+                  <dxi-column dataField="trackerID" caption="Mitigation Tracker Id" alignment="center" ></dxi-column>
+                  <dxi-column dataField="mitigationcreateddate" caption="Mitigation Plan Start Date"  dataType="date" 
+  format="dd-MMM-yyyy" ></dxi-column>
+                  <dxi-column dataField="company_name" caption="Company Name"></dxi-column>
+                  <dxi-column dataField="locationName" caption="Location Name"></dxi-column>
+                  <dxi-column dataField="person_requesting_assess" caption="Name of Assignee"></dxi-column>
+                  <dxi-column dataField="asigneeEmailId" caption="Assignee Email Id"></dxi-column>
+                  <dxi-column dataField="suggestions_id" caption="Mitigation Task Id" ></dxi-column>         
+                  <dxi-column dataField="suggestions" caption="Mitigation Task Details"   ></dxi-column> 
+                  <dxi-column dataField="mitigation_requestedby" caption="Assigned By"   ></dxi-column> 
+                  <dxi-column dataField="notify_management" caption="Management Inputs"   ></dxi-column> 
+                  <dxi-column dataField="assessment_startDate" caption="Mitigation Tentative TimeLine"   dataType="date" 
+  format="dd-MMM-yyyy"    ></dxi-column> 
+                  <dxi-column dataField="assesssment_endDate" caption="Mitigation Completion Date"   dataType="date" 
+  format="dd-MMM-yyyy"  ></dxi-column>
+                  <!-- <dxi-column dataField="assCompletionDate" caption="Assignement Completion Date" dataType="date" 
+  format="dd-MMM-yyyy"></dxi-column> -->
+                  <dxi-column dataField="status" caption="Assignment Task Status"></dxi-column>
+                  
+            
+                  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-search-panel [visible]="true"></dxo-search-panel>
+                  <dxo-group-panel [visible]="true"></dxo-group-panel>
+                  <dxo-selection mode="single"></dxo-selection>
+                  <dxo-summary>
+                      <dxi-total-item
+                          column="user_location_mapping_id"
+                          summaryType="count">
+                      </dxi-total-item>
+                      
+                  </dxo-summary>
+                  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                  <dxo-pager
+                  [visible]="true"
+                  [allowedPageSizes]="[5, 10,20, 'all']"
+                 
+                  [showPageSizeSelector]="true"
+                 
+                  [showInfo]="true"
+                  infoText="Page {0} of  {1} ({2} items)"
+                  [showNavigationButtons]="true"
+                >
+                </dxo-pager>
+                 
+          
+                <dxo-toolbar>
+                <dxi-item name="groupPanel"></dxi-item>
+          
+          <dxi-item name="addRowButton" showText="always"></dxi-item>
+          <dxi-item name="exportButton"></dxi-item>
+          <dxi-item name="columnChooserButton"></dxi-item>
+          <dxi-item name="searchPanel"></dxi-item>
+                </dxo-toolbar>
+                <dxo-export 
+                [enabled]="true"
+                [formats]="['xlsx', 'pdf','csv']"
+              >
+              </dxo-export>
+            </dx-data-grid>
+              </div>
+          
+          </div>
+          </div>
+          
+          <div *ngIf="selectedToggle ==2">
+            <div class="card-body1" *ngIf="SubGrid && showExemptedUsersGrid" >
+              <div id="app-container">
+                  <dx-data-grid id="dataGrid"
+                  [dataSource]="dataSource2"
+                  [showBorders]="true"
+                 
+                  [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+                 
+                  (onExporting)="exportGrid($event)"
+                 >
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                 <dxo-header-filter [visible]="true"></dxo-header-filter>
+                 <dxi-column dataField="assessment_id" caption="Assessment Id" [width]="100" alignment="center"></dxi-column>
+                 <dxi-column dataField="assessment_name" caption="Assessment Name" ></dxi-column>
+                 <dxi-column dataField="suggestions" caption="Mitigation suggestion"></dxi-column>
+                 <dxi-column dataField="name_of_assessor" caption="Suggested By"></dxi-column>
+                 <dxi-column dataField="mitigationcreateddate" caption="Suggested On" dataType="date" 
+  format="dd-MMM-yyyy"></dxi-column>
+                 <dxi-column dataField="status" caption="Mitigation Action status"></dxi-column>
+                 
+              
+                  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-search-panel [visible]="true"></dxo-search-panel>
+                  <dxo-group-panel [visible]="true"></dxo-group-panel>
+                  <dxo-selection mode="single"></dxo-selection>
+                  <dxo-summary>
+                      <dxi-total-item
+                          column="user_location_mapping_id"
+                          summaryType="count">
+                      </dxi-total-item>
+                      
+                  </dxo-summary>
+                  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                  <dxo-pager
+                  [visible]="true"
+                  [allowedPageSizes]="[5, 10,20, 'all']"
+                 
+                  [showPageSizeSelector]="true"
+                 
+                  [showInfo]="true"
+                  infoText="Page {0} of  {1} ({2} items)"
+                  [showNavigationButtons]="true"
+                >
+                </dxo-pager>
+                 
+          
+                <dxo-toolbar>
+                <dxi-item name="groupPanel"></dxi-item>
+          
+          <dxi-item name="addRowButton" showText="always"></dxi-item>
+          <dxi-item name="exportButton"></dxi-item>
+          <dxi-item name="columnChooserButton"></dxi-item>
+          <dxi-item name="searchPanel"></dxi-item>
+                </dxo-toolbar>
+                <dxo-export 
+                [enabled]="true"
+                [formats]="['xlsx', 'pdf','csv']"
+              >
+              </dxo-export>
+            </dx-data-grid>
+              </div>
+          
+          </div>
+          </div>
+
+
+          <div class="card-body1" *ngIf="MainGrid">
+              <div id="app-container">
+                  <dx-data-grid id="dataGrid"
+                  [dataSource]="dataSource1"
+                  [showBorders]="true"
+                 
+                  [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+                  (onSelectionChanged)="onRowSelectionChanged($event)"
+                  (onExporting)="exportGrid($event)">
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                 <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxi-column dataField="uq_ass_schid" caption="Assessment Id" [width]="100" alignment="center"></dxi-column>
+                <dxi-column dataField="assessment_name" caption="Assessment Name" ></dxi-column>
+                <dxi-column dataField="trackerID" caption="Mitigation Tracker Id" alignment="center"></dxi-column>
+                <dxi-column dataField="mitigationcreateddate" caption="Mitigation Plan Start Date"  dataType="date" 
+  format="dd-MMM-yyyy"></dxi-column>
+                <dxi-column dataField="mitigation_requestedby" caption="Mitigation Requested By"></dxi-column>
+                <dxi-column dataField="num_of_Tasks" caption="No. of Tasks Assigned " alignment="center" ></dxi-column>         
+                <dxi-column dataField="num_of_tasks_completed" caption="No. of Tasks Completed" alignment="center"  ></dxi-column> 
+                <dxi-column dataField="status" caption="Mitigation Plan Status"   ></dxi-column> 
+    
+ 
+                 <dxi-column dataField="assessment_startDate" caption="Assessment Start Date" [visible]="false"   dataType="date" 
+  format="dd-MMM-yyyy"  ></dxi-column>
+                 <dxi-column dataField="assesssment_endDate" caption="Assessment End Date" [visible]="false"   dataType="date" 
+  format="dd-MMM-yyyy"  ></dxi-column>
+              
+                 <dxi-column dataField="doctype" caption="Document Type" [visible]="false"></dxi-column>
+                 <dxi-column dataField="docCategory" caption="Document Category" [visible]="false"></dxi-column>
+                 <dxi-column dataField="document_subCategor" caption="Document SubCategory" [visible]="false"></dxi-column>
+                 <dxi-column dataField="assess_type" caption="Assessment Type" [visible]="false"></dxi-column>
+                 <dxi-column dataField="assess_subType" caption="Assessment Sub Type" [visible]="false"></dxi-column>
+                 <dxi-column dataField="name_of_assessor" caption="Name of Assessor" [visible]="false"></dxi-column>
+                 <dxi-column dataField="mitigations_id" caption="Mitigation ID" [visible]="false"></dxi-column>
+              
+                  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-search-panel [visible]="true"></dxo-search-panel>
+                  <dxo-group-panel [visible]="true"></dxo-group-panel>
+                  <dxo-selection mode="single"></dxo-selection>
+                  <dxo-summary>
+                      <dxi-total-item
+                          column="user_location_mapping_id"
+                          summaryType="count">
+                      </dxi-total-item>
+                      
+                  </dxo-summary>
+                  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                  <dxo-pager
+                  [visible]="true"
+                  [allowedPageSizes]="[5, 10,20, 'all']"
+                 
+                  [showPageSizeSelector]="true"
+                 
+                  [showInfo]="true"
+                  infoText="Page {0} of  {1} ({2} items)"
+                  [showNavigationButtons]="true"
+                >
+                </dxo-pager>
+                 
+    
+                <dxo-toolbar>
+                <dxi-item name="groupPanel"></dxi-item>
+  
+  <dxi-item name="addRowButton" showText="always"></dxi-item>
+  <dxi-item name="exportButton"></dxi-item>
+  <dxi-item name="columnChooserButton"></dxi-item>
+  <dxi-item name="searchPanel"></dxi-item>
+                </dxo-toolbar>
+                <dxo-export 
+                [enabled]="true"
+                [formats]="['xlsx', 'pdf','csv']"
+              >
+              </dxo-export>
+            </dx-data-grid>
+              </div>
+
+
+              <!-- <h3> Unacknowledged Mitigation</h3>
+
+               <div id="app-container">
+                  <dx-data-grid id="dataGrid"
+                  [dataSource]="dataSource2"
+                  [showBorders]="true"
+                 
+                  [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+                 >
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                 <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxi-column dataField="uq_ass_schid" caption="Assessment Id" [width]="100" alignment="center"></dxi-column>
+                <dxi-column dataField="assessment_name" caption="Assessment Name" ></dxi-column>
+                <dxi-column dataField="trackerID" caption="Mitigation Tracker Id" alignment="center"></dxi-column>
+                <dxi-column dataField="mitigationcreateddate" caption="Mitigation Plan Start Date"  dataType="date" 
+  format="dd-MMM-yyyy"></dxi-column>
+                <dxi-column dataField="mitigation_requestedby" caption="Mitigation Requested By"></dxi-column>
+                <dxi-column dataField="num_of_Tasks" caption="No. of Tasks Assigned " alignment="center" ></dxi-column>         
+                <dxi-column dataField="num_of_tasks_completed" caption="No. of Tasks Completed" alignment="center"  ></dxi-column> 
+                <dxi-column dataField="status" caption="Mitigation Plan Status"   ></dxi-column> 
+    
+ 
+                 <dxi-column dataField="assessment_startDate" caption="Assessment Start Date" [visible]="false"   dataType="date" 
+  format="dd-MMM-yyyy"  ></dxi-column>
+                 <dxi-column dataField="assesssment_endDate" caption="Assessment End Date" [visible]="false"   dataType="date" 
+  format="dd-MMM-yyyy"  ></dxi-column>
+                 <dxi-column dataField="person_requesting_assess" caption="Mitigation Requesting Assessment" [visible]="false"></dxi-column>
+                 <dxi-column dataField="doctype" caption="Document Type" [visible]="false"></dxi-column>
+                 <dxi-column dataField="docCategory" caption="Document Category" [visible]="false"></dxi-column>
+                 <dxi-column dataField="document_subCategor" caption="Document SubCategory" [visible]="false"></dxi-column>
+                 <dxi-column dataField="assess_type" caption="Assessment Type" [visible]="false"></dxi-column>
+                 <dxi-column dataField="assess_subType" caption="Assessment Sub Type" [visible]="false"></dxi-column>
+                 <dxi-column dataField="name_of_assessor" caption="Name of Assessor" [visible]="false"></dxi-column>
+ 
+ 
+              
+                  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-search-panel [visible]="true"></dxo-search-panel>
+                  <dxo-group-panel [visible]="true"></dxo-group-panel>
+                  <dxo-selection mode="single"></dxo-selection>
+                  <dxo-summary>
+                      <dxi-total-item
+                          column="user_location_mapping_id"
+                          summaryType="count">
+                      </dxi-total-item>
+                      
+                  </dxo-summary>
+                  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                  <dxo-pager
+                  [visible]="true"
+                  [allowedPageSizes]="[5, 10,20, 'all']"
+                 
+                  [showPageSizeSelector]="true"
+                 
+                  [showInfo]="true"
+                  infoText="Page {0} of  {1} ({2} items)"
+                  [showNavigationButtons]="true"
+                >
+                </dxo-pager>
+                 
+    
+                <dxo-toolbar>
+                <dxi-item name="groupPanel"></dxi-item>
+  
+  <dxi-item name="addRowButton" showText="always"></dxi-item>
+  <dxi-item name="exportButton"></dxi-item>
+  <dxi-item name="columnChooserButton"></dxi-item>
+  <dxi-item name="searchPanel"></dxi-item>
+                </dxo-toolbar>
+                <dxo-export 
+                [enabled]="true"
+                [formats]="['xlsx', 'pdf','csv']"
+              >
+              </dxo-export>
+            </dx-data-grid>
+              </div> -->
+          
+  </div>
+
+  
+  
+  </div>
+  </div>
+  

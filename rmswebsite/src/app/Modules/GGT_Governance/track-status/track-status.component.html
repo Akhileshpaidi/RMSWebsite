@@ -1,0 +1,216 @@
+<div class="form">
+  <div class="body">
+    <div class="header">
+      <div style="align-self:self-end;">
+          <div class="card">
+              <div class="card-header">
+                  <h1 class="title"> Track status of Issue/ Query raised</h1>
+              </div>
+              <div class="card-body"> 
+                  <div id="app-container">
+                      <!-- <dx-data-grid id="dataGrid"
+                      [dataSource]="dataSource"
+                      [showBorders]="true"
+                      [allowColumnResizing]="true"
+                      [columnAutoWidth]="true"
+                      [allowColumnReordering]="true"
+                      (onExporting)="exportGrid($event)"
+                      (onRowClick)="onViewClick($event)">
+                      <dxi-column dataField="trackingNo" caption="Tracking ID">
+                          <dxo-form-item [visible]="false">
+                          </dxo-form-item>
+                      </dxi-column>
+                      <dxi-column dataField="subjectTitle" caption="Subject Title">
+                          <dxi-validation-rule type="required" ></dxi-validation-rule>   
+                      </dxi-column>
+                    
+                      <dxi-column dataField="queryImportance" caption="Importance" >
+                        <dxi-validation-rule type="required" ></dxi-validation-rule>   
+                      </dxi-column>
+
+                      <dxi-column dataField="task_name" caption="Module">
+                        <dxi-validation-rule type="required" ></dxi-validation-rule>   
+                      </dxi-column>
+                      
+                      <dxi-column dataField="menu_item" caption="Main Menu">
+                        <dxi-validation-rule type="required" ></dxi-validation-rule>   
+                      </dxi-column>
+
+                      <dxi-column dataField="name" caption="Component">
+                        <dxi-validation-rule type="required" ></dxi-validation-rule>   
+                      </dxi-column>
+
+                      <dxi-column dataField="status" caption="Status">
+                        <dxi-validation-rule type="required" ></dxi-validation-rule>   
+                      </dxi-column>
+
+                      <dxi-column dataField="raisedPersonName" caption="Raised By/ On">
+                        <dxi-validation-rule type="required" ></dxi-validation-rule>   
+                      </dxi-column>
+
+                      <dxi-column dataField="reportingPersonName" caption="Resolved By/ On">
+                        <dxi-validation-rule type="required" ></dxi-validation-rule>   
+                      </dxi-column>
+                    
+                      <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                      
+                      <dxo-header-filter [visible]="true" [allowSearch]="true">
+                        <dxo-search [enabled]="true"></dxo-search>
+                      </dxo-header-filter>
+                      <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                      <dxo-filter-row [visible]="true"></dxo-filter-row>
+                      <dxo-search-panel [visible]="true"></dxo-search-panel>
+                      <dxo-group-panel [visible]="true"></dxo-group-panel>
+                      
+                      <dxo-selection mode="single"></dxo-selection>
+                      <dxo-summary>
+                          <dxi-total-item
+                              column="trackingNo"
+                              summaryType="count">
+                          </dxi-total-item>
+                          
+                      </dxo-summary>
+                      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                      <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                      <dxo-pager
+                      [visible]="true"
+                      [allowedPageSizes]="[5, 10,20, 'all']"
+                     
+                      [showPageSizeSelector]="true"
+                     
+                      [showInfo]="true"
+                      infoText="Page {0} of  {1} ({2} items)"
+                      [showNavigationButtons]="true"
+                    >
+                    </dxo-pager>
+                      <dxo-editing
+                      mode="popup"
+                      [allowUpdating]="false"
+                      [allowDeleting]="false"
+                      [allowAdding]="false">
+                      <dxo-popup
+                      title="Add Department Master"
+                      [showTitle]="true"
+                      [width]="700"
+                      [height]="525"
+                    >    
+                  </dxo-popup>
+                </dxo-editing>
+                   
+                    <dxo-toolbar>
+                    <dxi-item name="groupPanel"></dxi-item>
+  
+      <dxi-item name="exportButton"></dxi-item>
+      <dxi-item name="columnChooserButton"></dxi-item>
+      <dxi-item name="searchPanel"></dxi-item>
+                    </dxo-toolbar>
+                    <dxo-export 
+                    [enabled]="true"
+                    [formats]="['xlsx', 'pdf']"
+                  >
+                  </dxo-export>
+                </dx-data-grid> -->
+
+                <dx-data-grid [columns]="dataGridColumns" [dataSource]="dataSource" [showBorders]="true"
+                [allowColumnResizing]="true"
+                [columnAutoWidth]="true"
+                [allowColumnReordering]="true"
+                (onExporting)="exportGrid($event)">
+
+                <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                      
+                      <dxo-header-filter [visible]="true" [allowSearch]="true">
+                        <dxo-search [enabled]="true"></dxo-search>
+                      </dxo-header-filter>
+                      <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                      <dxo-filter-row [visible]="true"></dxo-filter-row>
+                      <dxo-search-panel [visible]="true"></dxo-search-panel>
+                      <dxo-group-panel [visible]="true"></dxo-group-panel>
+                      
+                      <dxo-selection mode="single"></dxo-selection>
+                      <dxo-summary>
+                          <dxi-total-item
+                              column="trackingNo"
+                              summaryType="count">
+                          </dxi-total-item>
+                          
+                      </dxo-summary>
+                      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                      <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                      <dxo-pager
+                      [visible]="true"
+                      [allowedPageSizes]="[5, 10,20, 'all']"
+                     
+                      [showPageSizeSelector]="true"
+                     
+                      [showInfo]="true"
+                      infoText="Page {0} of  {1} ({2} items)"
+                      [showNavigationButtons]="true"
+                    >
+                    </dxo-pager>
+                      <dxo-editing
+                      mode="popup"
+                      [allowUpdating]="false"
+                      [allowDeleting]="false"
+                      [allowAdding]="false">
+                      <dxo-popup
+                      title="Add Department Master"
+                      [showTitle]="true"
+                      [width]="700"
+                      [height]="525"
+                    >    
+                  </dxo-popup>
+                </dxo-editing>
+                   
+                    <dxo-toolbar>
+                    <dxi-item name="groupPanel"></dxi-item>
+      <dxi-item name="exportButton"></dxi-item>
+      <dxi-item name="columnChooserButton"></dxi-item>
+      <dxi-item name="searchPanel"></dxi-item>
+                    </dxo-toolbar>
+                    <dxo-export 
+                    [enabled]="true"
+                    [formats]="['xlsx', 'pdf']"
+                  >
+                  </dxo-export>
+
+              </dx-data-grid>
+
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<!-- <div class="body">
+    <h1>Track Status </h1>
+    
+        <div class="box">
+        <mat-form-field appearance="outline" class="form-field" style="width: 200px; height: 50px;">
+            <mat-label>List Of Queries:</mat-label>
+            <mat-select disableOptionCentering >
+              <mat-option>All</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field" style="width: 200px; height: 50px;">
+            <mat-label>Reply on Queries:</mat-label>
+            <mat-select disableOptionCentering >
+              <mat-option>All</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      
+            <div class="box" >
+                <mat-form-field appearance="outline" >
+                  
+                    <mat-label>Conclusion</mat-label>
+                    <textarea  style="width: 500px; height: 80px;" matInput ></textarea>
+                  </mat-form-field>
+            </div>
+            <div>
+                <button type="button">&nbsp;&nbsp;&nbsp;Close&nbsp;&nbsp;&nbsp;</button>
+            </div>
+            
+    </div> -->

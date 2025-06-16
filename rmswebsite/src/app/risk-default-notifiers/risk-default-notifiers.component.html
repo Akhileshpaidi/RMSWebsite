@@ -1,0 +1,150 @@
+<div class="form">
+    <div class="body">
+  <div class="header">
+    <div style="align-self:self-end;">
+    <div class=" card">
+      <div class=" card-header">
+        <h1 class=" title">Add Risk Default Notifiers</h1>
+      </div>
+      <div class="card-body">
+
+<div id="app-container">
+<dx-data-grid id="dataGrid"
+  [dataSource]="dataSource"
+  [showBorders]="true"
+ 
+  [allowColumnResizing]="true"
+  [columnAutoWidth]="true"
+  [allowColumnReordering]="true"
+ 
+
+  (onExporting)="exportGrid($event)">
+  <dxi-column dataField="riskDefaultNotifiersID" caption="Risk Default Notifiers ID" >
+    <dxo-form-item [visible]="false">
+  </dxo-form-item></dxi-column>    
+    <dxi-column dataField="entity_Master_id"  caption="Entity Name" [setCellValue]="setDocumentTypeValue" >
+  <dxo-lookup [dataSource]="EntityType"   valueExpr="entity_Master_id" displayExpr="entity_Master_Name" >
+ </dxo-lookup>  
+    </dxi-column>
+    <dxi-column dataField="unit_location_Master_id"  caption="Unit Location Name" [setCellValue]="setUnitlocationValue" >
+       <dxo-lookup [dataSource]="getunitlocation"   valueExpr="unit_location_Master_id" displayExpr="unit_location_Master_name"></dxo-lookup>  
+      </dxi-column>
+      <dxi-column dataField="department_Master_id"  caption="Department Name" >
+        <dxo-lookup [dataSource]="DepartmentDB"   valueExpr="departmentid" displayExpr="department_Master_name"></dxo-lookup>  
+        </dxi-column>
+<dxi-column
+dataField="emailid"
+[width]="300"
+caption="Add User EmailID's By UserName"
+editCellTemplate="emailCellTemplate">
+<!-- <dxi-validation-rule type="required"></dxi-validation-rule>  -->
+</dxi-column>
+<dxi-column
+dataField="additional_emailid_notifiers"
+[width]="300"
+caption="Add Other Notifiers EmailID's "
+editCellTemplate="additionalemailCellTemplate" >
+</dxi-column>
+
+<div *dxTemplate="let data of 'emailCellTemplate'">
+<dx-tag-box
+[value]="data.value"
+  [searchEnabled]="true"
+  valueExpr="emailid" displayExpr="firstname"
+   [dataSource]="userdatalist"
+  [acceptCustomValue]="false"
+ 
+  [inputAttr]="{ 'aria-label': 'User Email IDs' }"
+  (onValueChanged)="data.setValue($event.value)"
+  >
+</dx-tag-box>
+</div>
+<div *dxTemplate="let data1 of 'additionalemailCellTemplate'">
+<dx-tag-box
+[value]="data1.value"
+
+placeholder="Enter Other Notifiers Email Id's"
+  [acceptCustomValue]="true"
+  (onCustomItemCreating)="onCustomItemCreating1($event, data1)"
+  [inputAttr]="{ 'aria-label': 'User Email IDs' }"
+  (onValueChanged)="data1.setValue($event.value)"
+  
+  >
+</dx-tag-box>
+</div>
+
+
+  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+  <dxo-filter-row [visible]="true"></dxo-filter-row>
+  <dxo-search-panel [visible]="true"></dxo-search-panel>
+  <dxo-group-panel [visible]="true"></dxo-group-panel>
+  <dxo-selection mode="single"></dxo-selection>
+  <dxo-summary>
+    <dxi-total-item
+        column="riskDefaultNotifiersID"
+        summaryType="count">
+    </dxi-total-item>
+    
+</dxo-summary>
+<dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+<dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+<dxo-pager
+[visible]="true"
+[allowedPageSizes]="[5, 10,20, 'all']"
+
+[showPageSizeSelector]="true"
+
+[showInfo]="true"
+infoText="Page {0} of  {1} ({2} items)"
+[showNavigationButtons]="true"
+>
+</dxo-pager>
+  <dxo-editing
+    mode="popup"
+    [allowUpdating]="true"
+    [allowDeleting]="true"
+    [allowAdding]="true">
+    <dxo-popup
+      title="Add Risk Default Notifiers"
+      [showTitle]="true"
+      [width]="900"
+      [height]="500"
+    >
+    </dxo-popup>
+  </dxo-editing>
+  <!-- <div class="dx-textarea" *dxTemplate="let data of 'dataCellTemplate'">  
+    <dx-text-area  
+      class="dx-texteditor-input"
+      style="resize: vertical;"
+      [inputAttr]="{ 'aria-label': 'Notes' }"
+      [autoResizeEnabled]="true"  
+      [value]="data.value"  
+      (onValueChanged)="onValueChanged($event, data)"
+    ></dx-text-area>  
+  </div>  -->
+
+  <dxo-toolbar>
+    <dxi-item name="groupPanel"></dxi-item>
+   
+    <dxi-item name="addRowButton" showText="always"></dxi-item>
+    <dxi-item name="exportButton"></dxi-item>
+    <dxi-item name="columnChooserButton"></dxi-item>
+    <dxi-item name="searchPanel"></dxi-item>
+</dxo-toolbar>
+
+
+  <dxo-export 
+    [enabled]="true"
+    [formats]="['xlsx', 'pdf']"
+  >
+  </dxo-export>
+</dx-data-grid>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

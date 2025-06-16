@@ -1,0 +1,301 @@
+<div class="form">
+    <div class="header col">
+        <div style="align-self: self-end"> 
+          <button type="button" class="back" (click)="location.back()"><mat-icon>arrow_back</mat-icon></button>
+          <h2 class=" title" style="align-items: center;">View Risk Register
+            </h2>
+        </div>
+      </div>
+      <br>
+      <div class="form">
+              <div class="RiskDetailsView"  >
+        <form [formGroup]="viewRegisterDetails">
+              <div label="Compliance Preface" state="chat">
+                  <table class="table" >
+                    <tbody>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td colspan="1"><strong>Risk Statement ID : Ver_Risk Statement/Heading</strong></td>        
+                        <td colspan="3">{{ Details.uniqueRiskID }}:{{ Details.riskRegisterMasterID }}<br>{{ Details.nameofRiskDocumentRegister }}</td>
+                      </tr>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">
+                        <td colspan="1"><strong>Risk Description</strong></td>
+                        <td colspan="3">{{ Details.objectiveofRiskDocument }}</td>
+                      </tr>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">
+                        <td colspan="1"><strong>Risk Document ID/Risk Document Name</strong></td>
+                        <td colspan="2">{{ Details.uniqueDocumentID }}/{{ Details.nameofRiskDocumentRegister }}</td>
+                      </tr>
+                     
+                      <tr *ngFor="let Details of SelectedRegisterDetails">
+                        <td><strong>Entity/Unit Location</strong></td>
+                        <td>{{ Details.combinedFields.split(' | ')[0] }} | {{ Details.combinedFields.split(' | ')[1] }}</td>
+                        <td><strong>Department/Business Function</strong></td>
+                        <td>{{ Details.combinedFields.split(' | ')[2] }} | {{Details.riskbusinessname}}</td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th colspan="4" class="header-left">Processs Mapping Details : </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td colspan="1"><strong>Business Process</strong></td>        
+                        <td colspan="3">{{ Details.businessProcessName }}</td>
+                     </tr>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td colspan="1"><strong>Sub-Process Objective</strong></td>
+                        <td colspan="3">{{ Details.businessSubProcessObjective }}</td>
+                      </tr>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">
+                        <td colspan="1"><strong>Business Sub-Process(L1)</strong></td>
+                        <td colspan="3"> {{Details.businessSubProcessL1Name}} </td>
+                     </tr>
+
+                      <tr *ngFor="let Details of SelectedRegisterDetails">
+                        <td colspan="1"><strong>Business Sub-Process(L2)</strong></td>
+                        <td colspan="3">{{ Details.businessSubProcessL2Name  }}</td>
+                      </tr>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">
+                        <td colspan="1"><strong>Business Sub-Process(L3)</strong></td>
+                        <td colspan="3">{{ Details.businessSubProcessL3Name }}</td>
+                      </tr>               
+                       
+                    </tbody>
+                  </table>
+                  <table class="table" >
+                    <thead>
+                      <tr>
+                        <th colspan="4" class="header-left">Risk Mapping Details : </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td><strong>Risk Root Cause</strong></td>        
+                        <td>{{ Details.riskRootCause }}</td>
+                     </tr>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td><strong>Type Of Risk</strong></td>
+                        <td>{{ Details.risk_Admin_typeOfRisk_name }}</td>
+                        <td><strong>Risk Classification</strong></td>
+                        <td>{{ Details.risk_admin_classification_name  }}</td>
+                      </tr>
+                     
+                      <tr *ngFor="let Details of SelectedRegisterDetails">
+                        <td><strong>Risk Category</strong></td>
+                        <td>{{ Details.risk_admin_risk_categorizationName }}</td>
+                        <td><strong>Risk Cause List</strong></td>
+                        <td>{{ Details.risk_admin_causeListName }}</td>
+                      </tr>               
+                       
+                    </tbody>
+                  </table>
+                  <table class="table" >
+                    <thead>
+                      <tr>
+                        <th colspan="4" class="header-left">Risk Characteristics : </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td><strong>Risk Event Frequency</strong></td>  
+                        <td><strong>AML/ComplianceRisk</strong></td>  
+                        <td><strong>Model Risk</strong></td>  
+                        <td><strong>Conduct Risk</strong></td>  
+                        <td><strong>IT and Cyber Security</strong></td>  
+                        <td><strong>Third Party/Outsourcing Risk</strong></td>  
+                     </tr>
+                        <tr *ngFor="let Details of SelectedRegisterDetails">
+                           <td>{{ Details.selectfrequencyperiod }}</td>
+                           <td>{{ Details.amlComplianceRisk }}</td>
+                           <td>{{ Details.modelRisk }}</td>
+                           <td>{{ Details.conductRisk }}</td>
+                           <td>{{ Details.itCyberSecurity }}</td>
+                           <td>{{ Details.thirdPartyOutsourcing }}</td>
+                      </tr>  
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td><strong>Fraud Risk?</strong></td>  
+                        <td><strong>Legal Risk?</strong></td>  
+                        <td><strong>Operational Risk?</strong></td>  
+                        <td><strong>Reputational Risk?</strong></td>  
+                        <td><strong>Financial-Risk Reporting</strong></td>  
+                        <td><strong>Financial-Risk Cost Impact</strong></td>  
+                     </tr>
+                        <tr *ngFor="let Details of SelectedRegisterDetails">
+                           <td>{{ Details.fraudRisk }}</td>
+                           <td>{{ Details.legalRisk }}</td>
+                           <td>{{ Details.operationalRisk }}</td>
+                           <td>{{ Details.reputationalRisk }}</td>
+                           <td>{{ Details.financialRiskReporting }}</td>
+                           <td>{{ Details.riskCostImpact }}</td>
+                      </tr>                
+                       
+                    </tbody>
+                  </table>
+                  <table class="table" >
+                    <thead>
+                      <tr>
+                        <th colspan="4" class="header-left">Risk Rating Parameters : </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Header Row -->
+                      <tr>
+                        <td><strong>Risk Impact Rating</strong></td>
+                        <td><strong>Risk Likelihood Of Occurrence</strong></td>
+                        <td><strong>Inherent Risk Rating</strong></td>
+                        <td><strong>Risk Priority</strong></td>
+                        <td><strong>Risk Intensity</strong></td>
+                      </tr>
+                  
+                      <!-- Data Rows -->
+                      <tr *ngFor="let Details of SelectedRegisterDetails">
+                        <td>
+                          <span [ngStyle]="{'background-color': Details.color_reference}">{{ Details.risk_admin_riskImpactRating_name }}</span>
+                        </td>
+                        <td>
+                          <span [ngStyle]="{'background-color': Details.likeoccfact}">{{ Details.risk_admin_likeoccfact_name }}</span>
+                        </td>
+                        <td>
+                          <span [ngStyle]="{'background-color': Details.inherentRatingColor}">{{ Details.risk_admin_inherRiskRatingLevlname }}</span>
+                        </td>
+                        <td>
+                          <span [ngStyle]="{'background-color': Details.riskPirorityColor}">{{ Details.priorityName }}</span>
+                        </td>
+                        <td>
+                          <span [ngStyle]="{'background-color': Details.riskIntensityColor}">{{ Details.riskInsensityName }}</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table class="table" >
+                    <thead>
+                      <tr>
+                        <th colspan="4" class="header-left">Risk Consequences : </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td><strong>Loss Event Threat Category(L1) </strong></td>
+                        <td>{{ Details.categoryL1Description }}</td>
+                      </tr>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td><strong>Loss Event Threat Category(L2) </strong></td>
+                        <td>{{ Details.categoryL2Description }}</td>
+                      </tr>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td><strong>Loss Event Threat Category(L3) </strong></td>
+                        <td>{{ Details.categoryL3Description }}</td>
+                      </tr>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td><strong>Potential Business Impact</strong></td>
+                        <td>{{ Details.potentialImpactDescription }}</td>
+                      </tr>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td><strong>Suggestive/Priventive Actions</strong></td>
+                        <td>{{ Details.suggestivePriventive }}</td>
+                      </tr>
+                    
+                    </tbody>
+                  </table>
+                  <table class="table" >
+                    <thead>
+                      <tr>
+                        <th colspan="4" class="header-left">Risk Ownership : </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td><strong>Risk Owner</strong></td>
+                        <td>{{ Details.firstname }}</td>
+                        <td><strong>Business Process Owner</strong></td>
+                        <td>{{ Details.firstname }}</td>
+                      </tr>
+                        <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td><strong>Business Process Functiona Head</strong></td>
+                        <td>{{ Details.firstname }}</td>
+                        <td><strong>Business Function Head</strong></td>
+                        <td>{{ Details.firstname }}</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                  <table class="table" >
+                    <thead>
+                      <tr>
+                        <th colspan="4" class="header-left">Risk Review Details : </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <!-- <td><strong>Review Required</strong></td> -->
+                        <td><strong>Repeat Review Frequency?</strong></td>
+                        <td><strong>Interval Value</strong></td>
+                        <td><strong>Frequency Period</strong></td>
+                        <td><strong>Next Review Date</strong></td>
+                        <td><strong>Overdue Reminders</strong></td>
+                        <td><strong>1st Reminder(in days)</strong></td>
+                        <td><strong>2st Reminder(in days)</strong></td>
+                        <td><strong>3st Reminder(in days)</strong></td>
+                         
+                      </tr>
+                      <tr *ngFor="let Details of SelectedRegisterDetails">  
+                        <td>{{ Details.repeatReviewFrequency }}</td>
+                        <td>{{ Details.enterValueforrepeat }}</td>
+                        <td>{{ Details.selectfrequencyperiod }}</td>
+                        <td>{{ Details.startDateNextReview }}</td>
+                        <td>{{ Details.combinedFieldsNotifierStatus4.split(' | ')[0] }} | {{ Details.combinedFieldsNotifierStatus4.split(' | ')[1] }}</td>
+                        <td>{{ Details.combinedFieldsNotifierStatus1.split(' | ')[0] }} | {{ Details.combinedFieldsNotifierStatus1.split(' | ')[1] }}</td>
+                        <td>{{ Details.combinedFieldsNotifierStatus2.split(' | ')[0] }} | {{ Details.combinedFieldsNotifierStatus2.split(' | ')[1] }}</td>
+                        <td>{{ Details.combinedFieldsNotifierStatus3.split(' | ')[0] }} | {{ Details.combinedFieldsNotifierStatus3.split(' | ')[1] }}</td>
+                     
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                  
+                   <table class="table" *ngIf="isVisibleDetails">
+                    <thead>
+                      <tr>
+                        <th colspan="4" class="header-left">Additional References: </th> 
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let Details of SelectedRegisterDetails[0].actfiles">
+                        <td><strong>Risk Statement Reference(s)</strong></td>
+                        <td>
+                          <ol type="1">
+                            <ng-container *ngIf="Details.fileCategory === 'Weblink'">
+                              [weblink] <a [href]="Details.fileCategory" target="_blank" style="padding-right: 50px;">{{ Details.filePath }}</a>
+                              <dx-button icon="copy"  (onClick)="copyLink(Details.filePath)"> </dx-button>
+                            <label *ngIf="isLinkCopied" style="color:red;">Link copied!</label>
+                            </ng-container>
+                  
+                            <ng-container *ngIf="Details.fileCategory === 'FileAttach'">
+                              [File Attached] {{ Details.fileName }}
+                              <ng-container *ngIf="Details.filePath.endsWith('.pdf') || Details.filePath.endsWith('.docx')">
+                                <a [href]="Details.filePath" target="_blank">(View)</a> 
+                                
+                              </ng-container>
+                             <dx-button icon="download" (click)="download(Details.filePath, Details.fileType)" > </dx-button>
+                            </ng-container>
+                  
+                            <li *ngIf="Details.fileCategory === 'Text'">
+                              [Text] {{ Details.filePath }}
+                            </li>
+                          </ol>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table> 
+                  
+                           </div>
+          </form>
+         
+          </div>
+        </div>
+
+</div>

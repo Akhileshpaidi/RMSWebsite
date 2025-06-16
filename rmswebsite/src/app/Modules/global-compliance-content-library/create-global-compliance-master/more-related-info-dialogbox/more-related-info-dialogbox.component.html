@@ -1,0 +1,47 @@
+<div class="dialog-header">
+  <span class="close-button" (click)="closeDialog()" matTooltip="Close">&times;</span>
+
+</div>
+<div class="dialog-content">
+  <table>
+    <thead>
+      <tr>
+        <th colspan="2">Dependent Factors:</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td>Type of Business Organization/ Establishment</td>
+          <td>{{ data.type_of_business || "None"}}</td>
+        </tr>
+        <tr>
+          <td>Specific Business Operations</td>
+          <td>{{ data.bussiness_operations || "None" }}</td>
+        </tr>
+      <tr>
+        <td>No. & Type of Employees/ Workers</td>
+        <td>{{ data.no_of_employees || "None"}}</td>
+      </tr>
+      <tr>
+          <td>Capital Investment of Business Establishment</td>
+          <td>{{ data.bussiness_investment || "None"}}</td>
+        </tr>
+        <tr>
+          <td>Turnover of Business Establishment</td>
+          <td>{{ data.bussiness_turnover || "None"}}</td>
+        </tr>    <tr>
+          <td>Specific Working Conditions</td>
+          <td>{{ data.working_conditions || "None"}}</td>
+        </tr>    <tr>
+          <td>Conditions imposed through Business Registration/ Licence</td>
+          <td>{{ data.bussiness_registration || "None"}}</td>
+        </tr>    <tr>
+          <td>Any Other Factor</td>
+          <td>{{ data.other_factor || "None"}}</td>
+        </tr>
+    </tbody>
+  </table>
+  
+</div>
+
+

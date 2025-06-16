@@ -1,0 +1,164 @@
+<div class="form">
+    <div class="body">
+        <div class="header">
+            <div style="align-self:self-end;">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="title">Risk Impact Rating</h1>
+                    </div>
+                    <div class="card-body"> 
+                        <div id="app-container">
+                            <dx-data-grid id="dataGrid"
+                                [dataSource]="dataSource"
+                                [showBorders]="true"
+                                [allowColumnResizing]="true"
+                                [columnAutoWidth]="true"
+                                [allowColumnReordering]="true"
+                                (onExporting)="exportGrid($event)">
+                                <dxi-column dataField="risk_admin_riskImpactRating_id" caption="Risk Impact Rating ID"  [visibleIndex]="1">
+                                    <dxo-form-item [visible]="false">
+                                    </dxo-form-item>
+                                </dxi-column>
+  
+                                <dxi-column dataField="risk_admin_riskImpactRating_name" caption="Risk Impact Rating Name"  [visibleIndex]="2">
+                                    <dxi-validation-rule type="required"></dxi-validation-rule>
+                                    <dxi-validation-rule type="stringLength" [max]="25" message="max 25 Characters allowed"></dxi-validation-rule>
+                                </dxi-column>
+  
+                                <dxi-column dataField="risk_admin_riskImpactRating_desc" [width]="500" editCellTemplate="dataCellTemplate" caption="Risk Impact Rating Description"  [visibleIndex]="6">
+                                    <dxo-form-item editorType="dxTextArea"
+                                        [colSpan]="2"
+                                        [editorOptions]="{ height: 80 }">
+                                    </dxo-form-item>
+                                    <dxi-validation-rule type="stringLength" [max]="500" message="max 500 Characters allowed"></dxi-validation-rule>
+                                </dxi-column>
+                                <dxi-column    
+                                dataField="risk_admin_riskImpactRating_value" 
+                               caption="Rating Value"
+                                editCellTemplate="SliderRanges"  [visibleIndex]="4"
+                            ><dxi-validation-rule type="required"></dxi-validation-rule>
+                                </dxi-column>
+                               
+                                <dxi-column    
+                                dataField="color_reference" 
+                               caption="color reference"
+                               cellTemplate="colorView"
+                                editCellTemplate="colorRef"  [visibleIndex]="5"
+                            ><dxi-validation-rule type="required"></dxi-validation-rule>
+                                </dxi-column>
+                              
+                               <div *dxTemplate="let data of 'SliderRanges'">
+                              
+                               
+                                <div class="dx-field">
+                                  <div class="dx-field-value">
+                                      
+                                    <dx-slider
+                                      [min]="1"
+                                      [max]="5"
+                                      valueChangeMode="onHandleRelease"
+                                      [(value)]="data.value"
+                                      (onValueChanged)="sliderchange($event,data)"
+                                   ></dx-slider>
+                                  </div>
+                                </div>
+                                <div class="dx-field">
+                                  <div class="dx-field-value">
+                                      <label>Select Range</label>
+                                    <dx-number-box
+                                      [min]="1"
+                                      [max]="5"
+                                      [showSpinButtons]="true"
+                                      [(value)]="data.value"
+                                      (onValueChanged)="sliderchange($event,data)"
+                                      [inputAttr]="{ 'aria-label': 'Slider Value' }"
+                                    ></dx-number-box>
+                                  </div>
+                                </div>
+  
+                                </div>
+                                <div *dxTemplate="let data of 'colorView'">
+                                  <button 
+                                    class="color-button"
+                                    [style.backgroundColor]="data.data.color_reference" 
+                                    style="border-radius: 50%; width: 40px; height: 40px;">
+                                  </button>
+                                </div>
+                              
+  
+                                <div class="dx-field" *dxTemplate="let data of 'colorRef'">
+                                 
+                                    <dx-color-box
+                                    [(value)]="data.data.color_reference"
+                                    (onValueChanged)="onValueChangedforcolor($event, data)"
+                                      [inputAttr]="{ 'aria-label': 'Default mode' }"
+                                    ></dx-color-box>
+                                  
+                                </div>
+                                <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                                <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                                <dxo-group-panel [visible]="true"></dxo-group-panel>
+                                <dxo-selection mode="single"></dxo-selection>
+                                <dxo-summary>
+                                    <dxi-total-item
+                                        column="risk_admin_riskImpactRating_id"
+                                        summaryType="count">
+                                    </dxi-total-item>
+                                </dxo-summary>
+  
+                                <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                                <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                                <dxo-pager
+                                    [visible]="true"
+                                    [allowedPageSizes]="[5, 10, 20, 'all']"
+                                    [showPageSizeSelector]="true"
+                                    [showInfo]="true"
+                                    infoText="Page {0} of  {1} ({2} items)"
+                                    [showNavigationButtons]="true">
+                                </dxo-pager>
+  
+                                <dxo-editing
+                                    mode="popup"
+                                    [allowUpdating]="isUpdateIconVisible"
+                                    [allowDeleting]="isUpdateIconVisible"
+                                    [allowAdding]="true">
+                                    <dxo-popup
+                                        title="ADD Risk Impact Rating"
+                                        [showTitle]="true"
+                                        [width]="700"
+                                        [height]="525">
+                                       
+                                    </dxo-popup>
+                                </dxo-editing>
+                                <div class="dx-textarea" *dxTemplate="let data of 'dataCellTemplate'">  
+                                  <dx-text-area  
+                                    class="dx-texteditor-input"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           b
+                                    style="resize: vertical;"
+                                    [inputAttr]="{ 'aria-label': 'Notes' }"
+                                    [autoResizeEnabled]="true"  
+                                    [value]="data.value"  
+                                    (onValueChanged)="onValueChanged($event, data)"
+                                  ></dx-text-area>  
+                                </div> 
+                                <dxo-toolbar>
+                                    <dxi-item name="groupPanel"></dxi-item>
+                                    <dxi-item name="addRowButton" showText="always"></dxi-item>
+                                    <dxi-item name="exportButton"></dxi-item>
+                                    <dxi-item name="columnChooserButton"></dxi-item>
+                                    <dxi-item name="searchPanel"></dxi-item>
+                                </dxo-toolbar>
+                                <dxo-export
+                                    [enabled]="true"
+                                    [formats]="['xlsx', 'pdf']">
+                                </dxo-export>
+                            </dx-data-grid>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  

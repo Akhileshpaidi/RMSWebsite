@@ -1,0 +1,99 @@
+$space: 1rem;
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #000;
+  margin: 40px;
+  margin-top: 30px;
+  box-sizing: border-box;
+}
+
+.main {
+  padding: 30px;
+  order: 1;
+  width: 100%;
+}
+
+.title {
+  font-size: xx-large;
+  font-weight: 500;
+  text-align: center;
+  color: #556f83;
+}
+
+.metaData {
+  margin: 20px;
+}
+
+.button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+.submit {
+  margin-left: 10px;
+  width: 25%;
+  display: block;
+  font-family: inherit;
+  background: #556f83;
+  color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-top: 20px;
+  margin-right: 40px;
+}
+
+.bordered-table {
+  border-collapse: collapse;
+}
+
+.bordered-table th,
+.bordered-table td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+.heading {
+  text-align: center;
+  border: 1px solid black;
+  background-color: rgb(182, 223, 198);
+  font-size: x-large;
+  font-weight: 500;
+  padding: 10px;
+}
+
+.BridgeDetails {
+  margin-top: 40px;
+}
+
+.content {
+  margin-top: 40px;
+  font-size: large;
+
+}
+
+.content-headng {
+  font-size: x-large;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: start;
+}
+
+tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}

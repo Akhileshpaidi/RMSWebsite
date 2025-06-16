@@ -1,0 +1,306 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+          <h1>Common Assessment Template Rules</h1>
+        </div>
+        <div class="config-settings">
+            <form [formGroup]="configForm"  (ngSubmit)="onSubmit()">
+
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Template Rules</th>
+                          <th>Select</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <tr formGroupName="first">
+                        <td style="display: none;">1</td>
+                        <td>
+                        <label>1</label>
+                        </td>
+                   
+                        <td>
+                            <div class="toggle-group">
+                             <label> Permission for Key Controls:</label>
+                                <br>
+                                <br>
+                                <label> 1(a). Select Testing Design of Control (DOC)</label>
+                                <br>
+                                <br>
+                                <label> 1(b). Whether Change allowed during creation of Assessment Template</label>
+                               
+                                <br>  
+                                <br>  
+                                <label> 1(c). Select Testing Operating Effectiveness (TOE) to be:  </label>
+                                <br>  
+                                <br>  
+                                <label> 1(d).  Whether Change allowed during creation of Assessment Template</label>
+                               
+                                <br>      
+                              </div>
+                        </td>
+                        <td> 
+                          <br>
+                          <dx-select-box
+                          class="keycontrol"
+                          formControlName="keyControls"
+                          placeholder="keyControls(DOC)"
+                          [dataSource]="keyControls"
+                          displayExpr="name"
+                          valueExpr="name"
+                          [searchEnabled]="true">
+                      </dx-select-box>
+                      <br>
+                          <mat-slide-toggle formControlName="keyControlDOCToggle"></mat-slide-toggle>
+                          <br>
+                          <dx-select-box
+                          class="keycontrol12"
+                          formControlName="keyControls12"
+                          placeholder="keyControls(TOE)"
+                          [dataSource]="keyControls12"
+                          displayExpr="name"
+                          valueExpr="name"
+                          [searchEnabled]="true">
+                      </dx-select-box>
+                      <br>
+                          <mat-slide-toggle formControlName="keyControlTOEToggle"></mat-slide-toggle>
+                        </td>
+                      </tr>
+                      <tr formGroupName="second">
+                        <td style="display: none;">2</td>
+                        <td>
+                        <label>2</label>
+                        </td>
+                        <td>
+                            <div class="box">
+                                <mat-form-field  appearance="fill" class="form-field">
+                                  <mat-label>Remarks for Key Control Settings</mat-label>
+                                  <textarea matInput   formControlName="keyRemarks"  ></textarea>
+                                </mat-form-field>
+                            </div>
+                        </td>
+                        <td>
+
+                        </td>
+                      </tr>
+                      <tr formGroupName="third">
+                        <td style="display: none;">3</td>
+                        <td>
+                        <label>3</label>
+                        </td>
+                   
+                        <td>
+                            <div class="toggle-group">
+                             <label>Allow Permission for Non-Key Controls :</label>
+                                <br>
+                                <br>
+                                <label> 3(a).Select Testing Design of Control (DOC) to be: </label>
+                                <br>
+                                <br>
+                                <label> 3(b).Whether Change allowed during creation of Assessment Template  </label>
+                              
+                               
+                                <br>  
+                                <br>  
+                                <label> 3(c). Select Testing Operating Effectiveness (TOE) to be:  </label>
+                                <br>  
+                                <br>  
+                                <label> 3(d).  Whether Change allowed during creation of Assessment Template</label>
+                               
+                                <br>  
+                                <br>  
+                                <label> 3(e). Select Testing General Controls (GEN) to be:  </label>
+                                <br>  
+                                <br>  
+                                <label> 3(f). Whether Change allowed during creation of Assessment Template</label>
+                               
+                                <br>     
+                              </div>
+                        </td>
+                        <td> 
+                    
+                          <br>
+                          <dx-select-box
+                          class="keycontrol"
+                          formControlName="NONkeyControlsDOC"
+                          placeholder="NON-keyControls(DOC)"
+                          [dataSource]="NONkeyControlsDOC"
+                          displayExpr="name"
+                          valueExpr="name"
+                          [searchEnabled]="true">
+                      </dx-select-box>
+                      <br>
+                          <mat-slide-toggle formControlName="NONkeyControlDOCToggle"></mat-slide-toggle>
+                          
+                          <dx-select-box
+                          class="keycontrol12"
+                          formControlName="NONkeyControlsTOE"
+                          placeholder="NON-keyControls(TOE)"
+                          [dataSource]="NONkeyControlsTOE"
+                          displayExpr="name"
+                          valueExpr="name"
+                          [searchEnabled]="true">
+                      </dx-select-box>
+                      <br>
+                          <mat-slide-toggle formControlName="NONkeyControlTOEToggle"></mat-slide-toggle>
+                          
+                          <dx-select-box
+                          class="keycontrol12"
+                          formControlName="NONkeyControlsGEN"
+                          placeholder="NON-keyControls(GEN)"
+                          [dataSource]="NONkeyControlsGEN"
+                          displayExpr="name"
+                          valueExpr="name"
+                          [searchEnabled]="true">
+                      </dx-select-box>
+                      <br>
+                          <mat-slide-toggle formControlName="NONkeyControlGENToggle"></mat-slide-toggle>
+                        </td>
+                      </tr>
+                      <tr formGroupName="fourth">
+                        <td style="display: none;">4</td>
+                        <td>
+                        <label>4</label>
+                        </td>
+                        <td>
+                            <div class="box">
+                                <mat-form-field  appearance="fill" class="form-field">
+                                  <mat-label>Remarks for NON-Key Control Settings</mat-label>
+                                  <textarea matInput   formControlName="NonkeyRemarks"  ></textarea>
+                                </mat-form-field>
+                            </div>
+                        </td>
+                        <td>
+
+                        </td>
+                      </tr>
+                      <tr formGroupName="five">
+                        <td style="display: none;">5</td>
+                        <td>
+                        <label>5</label>
+                        </td>
+                        <td>
+                            <div class="toggle-group">
+                              <br>  
+                              <label> Allow Permission for Risk Register details to be viewed :</label>
+                             <br>
+                              <br>  
+                              <label> Select Risk Register Headers to be viewed:   </label>
+                            </div>
+                        </td>
+                        <td>
+                          <mat-slide-toggle formControlName="Permissionriskregistor"></mat-slide-toggle>
+                          
+                          <dx-select-box
+                          class="keycontrol12"
+                          formControlName="RiskRegisterHeaders"
+                          placeholder="Risk Register Headers"
+                          [dataSource]="RiskRegisterHeaders"
+                          displayExpr="name"
+                          valueExpr="name"
+                          [searchEnabled]="true">
+                      </dx-select-box>
+                        </td>
+                      </tr>
+                      <tr formGroupName="six">
+                        <td style="display: none;">6</td>
+                        <td>
+                        <label>6</label>
+                        </td>
+                        <td>
+                            <div class="toggle-group">
+                              <br>  
+                              <label> Allow Permission for Control Register details to be viewed :</label>
+                             <br>
+                              <br>  
+                              <label> Select Risk Register Headers to be viewed:   </label>
+                            </div>
+                        </td>
+                        <td>
+                          <mat-slide-toggle formControlName="Permissioncontrolregistor"></mat-slide-toggle>
+                          
+                          <dx-select-box
+                          class="keycontrol12"
+                          formControlName="contolRegisterHeaders"
+                          placeholder="Risk Register Headers"
+                          [dataSource]="contolRegisterHeaders"
+                          displayExpr="name"
+                          valueExpr="name"
+                          [searchEnabled]="true">
+                      </dx-select-box>
+                        </td>
+                      </tr>
+                      <tr formGroupName="seven">
+                        <td style="display: none;">7</td>
+                        <td>
+                        <label>7</label>
+                        </td>
+                        <td>
+                            <div class="toggle-group">
+                              <br>  
+                              <label>Allow Duplicate Controls to be mapped for Assessment Template Setup for following situations:</label>
+                             <br>
+                              <br>  
+                              <label> 7(a) .Hybrid Controls </label>
+                              <br>  
+                              <label> 7(b) .Business Process Controls  </label>
+                              <br>  
+                              <label> 7(c) .Risk/Threat specific Controls </label>
+                              <br>  
+                              <label> 7(d) .Control Activity Type </label>
+                            </div>
+                        </td>
+                        <td>
+                          <br>
+                          <br>
+                          <mat-slide-toggle formControlName="DuplicateHybridControls"></mat-slide-toggle>
+                          <mat-slide-toggle formControlName="DuplicateBusinessProcessControls"></mat-slide-toggle>
+                          <mat-slide-toggle formControlName="DuplicateRiskThreatpecificControls"></mat-slide-toggle>
+                          <mat-slide-toggle formControlName="DuplicateControlActivityType"></mat-slide-toggle>
+                        </td>
+                      </tr>
+                      <tr formGroupName="eight">
+                        <td style="display: none;">8</td>
+                        <td>
+                        <label>8</label>
+                        </td>
+                        <td>
+                            <div class="toggle-group">
+                              <br>  
+                              <label>Allow Unmapped Controls to be mapped for Assessment Template Setup for following situations:</label>
+                             <br>
+                              <br>  
+                              <label> 8(a) .Hybrid Controls </label>
+                              <br>  
+                              <label> 8(b) .Business Process Controls  </label>
+                              <br>  
+                              <label> 8(c) .Risk/Threat specific Controls </label>
+                              <br>  
+                              <label> 8(d) .Control Activity Type </label>
+                            </div>
+                        </td>
+                        <td>
+                          <br>
+                          <br>
+                          <mat-slide-toggle formControlName="UnmappedHybridControls"></mat-slide-toggle>
+                          <mat-slide-toggle formControlName="UnmappedBusinessProcessControls"></mat-slide-toggle>
+                          <mat-slide-toggle formControlName="UnmappedRiskThreatpecificControls"></mat-slide-toggle>
+                          <mat-slide-toggle formControlName="UnmappedControlActivityType"></mat-slide-toggle>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+                <div class="margin-top"></div>
+                <div class="button">
+                  <button class="grey-button" type="submit"  >Clear</button>
+
+                  <button class="Custombutton" type="submit">Save Settings</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>

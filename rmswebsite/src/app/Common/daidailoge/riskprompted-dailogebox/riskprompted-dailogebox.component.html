@@ -1,0 +1,26 @@
+
+<!-- <div class="modal">
+    <h2>Risk Action</h2>
+    <p>Do you want to ADD MORE Risk Statements?</p>
+    <button (click)="onCancel()">Cancel</button>
+    <button>Add More</button>
+    <button>Submit</button>
+  </div>
+ 
+  <div *ngIf="showConfirmation" class="confirmation-modal">
+     <p>Select YES to complete the Risk Document/Register or select NO to ADD MORE Risk Statements?</p>
+    <button (click)="confirmCancel(true)">Yes</button>
+    <button (click)="confirmCancel(false)">No</button>
+  </div> -->
+  <!-- Confirmation Modal -->
+
+  
+  <h3>Select YES to complete the Risk  Document/Register, </h3>
+  <h2>or </h2>
+  <p>select NO to ADD MORE Risk Statements?<p>
+    <div mat-dialog-actions>
+      <button class="Yes" mat-button (click)="confirm(true)">Yes</button>
+      <button class="No" mat-button (click)="confirm(false)">No</button>
+    </div>
+
+  

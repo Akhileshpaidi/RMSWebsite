@@ -1,0 +1,92 @@
+/* Assuming this is your dialog component CSS file */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #f2f2f2;
+  text-align: left;
+  padding: 8px;
+}
+
+td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+}
+
+/* Style for the column containing dependent factors */
+th[colspan="2"] {
+  text-align: center;
+}
+
+/* Style for the first column */
+td:nth-child(odd) {
+  font-weight: bold;
+}
+
+/* Style for the second column */
+td:nth-child(even) {
+  /* Add styles as needed */
+}
+
+th[colspan="2"] {
+  text-align: center;
+  font-weight: bold; /* Example: Making font bold */
+  color: #121213; /* Example: Changing text color */
+}
+
+.dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(9, 3, 77, 0.1);
+  z-index: 9999;
+}
+
+// .close-button {
+//   position: relative; /* Change position to relative */
+//   float: right; /* Float the button to the right */
+//   margin-top: -30px; /* Adjust the top margin to position it higher */
+//   margin-right: 10px; /* Adjust the right margin for spacing */
+//   cursor: pointer;
+//   font-size: 35px; /* Increase font size */
+//   color: #343536; /* Change color to a darker shade */
+//   padding: 5px; /* Add padding to make the button visually larger */
+//   transition: color 0.3s;
+// }
+
+// .close-button:hover {
+//   color: #ee0d0d; /* Darken color on hover */
+// }
+
+/* Close button styling */
+.close-button {
+  display: block;
+  //margin: 20px auto 0;
+  margin-top: -5px;
+  margin-bottom: 10px;
+  margin-left: 500px;
+  background-color: #f7f0f0;
+  color: rgb(8, 8, 8);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.close-button:hover {
+  background-color: #ff1f1f;
+   color: rgb(247, 243, 243);
+}
+

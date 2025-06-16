@@ -1,0 +1,134 @@
+<div class="table-container">
+  <table class="table" *ngIf="isVisibleDetails">
+    <tbody>
+      <tr *ngFor="let Details of paginatedData">  
+        <td colspan="2"><strong>Entity Name:  </strong>{{ Details.entityName }}</td>   
+        <td colspan="2"><strong>Unit Location Name: </strong>{{ Details.unitLocationName }}</td> 
+      </tr>
+      <tr *ngFor="let Details of paginatedData">
+        <td colspan="1"><strong>Compliance ID:  </strong>{{ Details.complianceID  || 'N/A' }}</td>   
+        <td colspan="3"><strong>Compliance Name:  </strong>{{ Details.complianceName || 'N/A' }}</td> 
+      </tr>    
+        <tr *ngFor="let Details of paginatedData">  
+        <td colspan="4"><strong>Compliance Description:  </strong>{{ Details.compliance_description || 'N/A'}}</td> 
+      </tr>
+      <tr *ngFor="let Details of paginatedData">
+        <td colspan="2"><strong>Act Name:  </strong>{{ Details.actName || 'N/A' }}</td>   
+        <td colspan="2"><strong>Rule Name:  </strong>{{ Details.ruleName  || 'N/A'}}</td> 
+      </tr>
+      <tr *ngFor="let Details of paginatedData">
+        <td colspan="1"><strong>Section/ Rule/ Regulation: </strong>{{ Details.recurrence || 'N/A' }}</td>   
+        <td colspan="1"><strong>StatutoryForm:  </strong>{{ Details.statutoryForm  || 'N/A'}}</td> 
+        <td colspan="1"><strong>Compliance Period:  </strong>{{Details.compliancePeriod || 'N/A'}}
+          <br>
+          {{Details.recurrence}}
+        </td>   
+        <td colspan="1"><strong>Risk Classification:  </strong>{{ Details.riskClassification || 'N/A' }}</td> 
+      </tr>
+      <tr *ngFor="let Details of paginatedData">
+        <td colspan="1"><strong>Compliance Type:  </strong>{{ Details.complianceType  || 'N/A'}}</td>   
+        <td colspan="1"><strong>Category of Law:  </strong>{{ Details.categoryLaw || 'N/A' }}</td> 
+        <!-- <td colspan="1"><strong>Compliance Due Date:  </strong>{{ getFormattedDate(Details.effective_from) }} - {{ getFormattedDate(Details.effective_till) }}</td>    -->
+        <td colspan="1"><strong>Compliance Due Date: </strong>{{ Details.dueDate | date:'MMM-dd-yyyy' }}</td> 
+        <td colspan="1"><strong>Approved Remedial Comply Date:  </strong>{{ Details.remedialDate || 'N/A' }}</td> 
+      </tr>
+      <tr *ngFor="let Details of paginatedData">
+        <td colspan="1"><strong>Is Authorization Workflow applied?:  </strong>{{ Details.authWorkflow  || 'N/A'}}</td>   
+        <td colspan="1"><strong>Is Audit Workflow applied?:  </strong>{{ Details.auditWorkflow  || 'N/A'}}</td> 
+        <td colspan="1"><strong>Compliance Stage Progress:  </strong>{{ Details.compliance_stage_progress || 'N/A' }}</td>   
+        <td colspan="1"><strong>Compliance Status:  </strong>{{ Details.compliance_status || 'N/A'}}</td> 
+      </tr>
+      <tr *ngFor="let Details of paginatedData">
+        <td colspan="4"><strong>Person Responsible:  </strong>{{ Details.recurrence || 'N/A'}}</td>   
+      </tr>    
+    </tbody>
+  </table>
+    <table class="table"*ngFor="let Details of paginatedData">
+      <thead>
+        <tr>
+          <th colspan="4" class="header-left">Jurisdiction Location :</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Law Type</strong></td>
+          <td>{{ Details.law_type || 'N/A'}}</td>
+          <td><strong>Regulatory Authority</strong></td>
+          <td>{{ Details.regulator || 'N/A'}}</td>
+        </tr>
+        <tr>
+          <td><strong>Jurisdiction Category</strong></td>
+          <td>{{ Details.jurisdiction_category || 'N/A'}}</td>
+          <td><strong>Country Name</strong></td>
+          <td>{{ Details.country_name || 'N/A' }}</td>
+        </tr>
+        <tr>
+          <td><strong>State / Region Name</strong></td>
+          <td>{{ Details.state_name || 'N/A' }}</td>
+          <td><strong>District / Locality Name</strong></td>
+          <td>{{ Details.jurisdiction_district || 'N/A' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pager" *ngIf="totalCompliance > 1">
+      <button mat-button (click)="onPrevious()" class="pager-button" [disabled]="currentIndex === 0">Previous</button>
+      <span>Compliance {{ currentIndex + 1 }} of {{ totalCompliance }}</span>
+      <button mat-button (click)="onNext()" class="pager-button" [disabled]="currentIndex >= totalCompliance - 1">Next</button>
+    </div>
+  </div>
+  <form [formGroup]="requestremidateform">
+  <div class="form-container">
+    <div class="title-container">
+      <h2 class="title">Remediation Plan Request:</h2>
+    </div>
+  
+    <div class="form-field-row">
+      <div class="date-container">
+        <mat-form-field appearance="outline" class="date-field">
+          <mat-label>Proposed Remedial Comply Date</mat-label>
+   <input matInput [matDatepicker]="picker" formControlName="proposedRemedialDate"
+ [min]="dueDate || null" [matDatepickerFilter]="dateFilter" placeholder="Choose a remedial date">
+<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+<mat-datepicker #picker></mat-datepicker>
+   <mat-error *ngIf="requestremidateform.get('proposedRemedialDate')?.hasError('invalidDateRange')">
+     The date must be between today and the due date.
+   </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="form-field-row">
+      <div class="remarks-container">
+        <mat-form-field appearance="outline" class="remarks-field"> 
+           <mat-label>Remediation Reason/Remarks</mat-label>
+          <!-- <strong> <label>Remediation Reason/Remarks</label></strong> -->
+          <textarea matInput #remarks placeholder="Enter remarks (min 10, max 250 characters)" formControlName="remarks" maxlength="250" rows="4"></textarea>
+          <mat-hint align="end">{{ remarks.value.length || 0 }}/250</mat-hint> 
+           <mat-error *ngIf="requestremidateform.get('remarks')?.hasError('required')">
+            Remarks are required.
+          </mat-error>
+          <mat-error *ngIf="requestremidateform.get('remarks')?.hasError('minlength')">
+            Minimum 10 characters required.
+          </mat-error>
+          <mat-error *ngIf="requestremidateform.get('remarks')?.hasError('maxlength')">
+            Maximum 250 characters allowed.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  <br>
+    <div class="box">
+      
+    </div>
+  
+    <!-- Buttons -->
+    <div class="button-section">
+      <button mat-button (click)="onCancel()" class="cancel-button">Cancel</button>
+      <button mat-button (click)="onUpdate()" class="update-button">Update</button>
+    </div>
+
+  </div>
+</form>
+  
+  
+  
+  

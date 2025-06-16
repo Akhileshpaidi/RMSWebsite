@@ -1,0 +1,1470 @@
+<div class="form2 p-4">
+  <div class="header">
+    <h3 class="text-blue-500">Risk & Control Register</h3>
+  </div>
+
+  <div class="body grid lg:grid-cols-8">
+
+    <!-- Stepper -->
+
+      <mat-stepper labelPosition="bottom" [orientation]="isMobile ? 'vertical' : 'horizontal'" class="lg:col-span-6">
+
+        <!-- 1st step i.e Control Statement -->
+
+        <mat-step label="Control Statement" state="chat">
+
+          <!-- Control Statement Search Bar -->
+
+          <div class="flex flex-row justify-between items-center pt-8">
+            <p class="text-xl font-bold">Control Statement</p>
+            <div class="flex flex-row gap-4 justify-center items-center w-1/2">
+              <button matPrefix aria-label="Search" class="h-12 w-12">
+                <mat-icon>search</mat-icon>
+              </button>
+              <mat-form-field>
+                <mat-label>Search Control Statement</mat-label>
+                <input matInput type="search" />
+              </mat-form-field>
+            </div>
+          </div>
+          <p
+            class="flex justify-center items-center text-2xl text-blue-400 font-bold pt-8"
+          >
+            --- OR ---
+          </p>
+
+          <!-- To add control statement -->
+
+          <div class="grid lg:grid-cols-2 gap-4 pt-8">
+            <p class="text-base lg:col-span-2">
+              Create and Add to Control Library
+            </p>
+            <div>
+              <mat-label class="text-gray-400"
+                >Control Objective/Heading<span class="text-red-600 pl-2"
+                  >*</span
+                ></mat-label
+              >
+              <mat-form-field appearance="fill" class="form-field rounded-full">
+                <textarea
+                  matInput
+                  #titleinput1
+                  formControlName="objective"
+                  maxlength="250"
+                  minlength="5"
+                ></textarea>
+                <mat-hint align="start">Min 5 - Max 250 Characters</mat-hint>
+                <mat-hint align="end"
+                  >{{ titleinput1.value.length }}/250</mat-hint
+                >
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-label class="text-gray-400"
+                >Control Brief Description<span class="text-red-600 pl-2"
+                  >*</span
+                ></mat-label
+              >
+              <mat-form-field appearance="fill" class="form-field">
+                <textarea
+                  matInput
+                  #titleinput1
+                  formControlName="briefdesc"
+                  maxlength="500"
+                  minlength="5"
+                ></textarea>
+                <mat-hint align="start">Min 5 - Max 500 Characters</mat-hint>
+                <mat-hint align="end"
+                  >{{ titleinput1.value.length }}/500</mat-hint
+                >
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-label class="text-gray-400"
+                >Control Detailed Description<span class="text-red-600 pl-2"
+                  >*</span
+                ></mat-label
+              >
+              <mat-form-field appearance="fill" class="form-field">
+                <textarea
+                  matInput
+                  #titleinput1
+                  formControlName="detaileddesc"
+                  maxlength="2500"
+                  minlength="5"
+                ></textarea>
+                <mat-hint align="start">Min 5 - Max 2500 Characters</mat-hint>
+                <mat-hint align="end"
+                  >{{ titleinput1.value.length }}/2500</mat-hint
+                >
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- Sub-Control Checkbox -->
+
+          <label class="font-semibold text-base items-center flex">
+            <input
+              type="checkbox"
+              formControlName="checkboxField"
+              (change)="onCheckboxChange($event)"
+              [(ngModel)]="isPanelVisible"
+              class="mx-2 my-6 check"
+            />
+            Add Sub-Control(s)
+          </label>
+
+          <!-- Sub-Control Form -->
+
+          <form *ngIf="isPanelVisible">
+            <div class="flex flex-col gap-4">
+
+              <!-- Headings -->
+
+              <div
+                class="grid lg:grid-cols-8 grid-cols-4 lg:text-base lg:font-medium text-blue-600"
+              >
+                <p class="lg:col-span-3 start">Sub-Control(s)</p>
+                <p class="text-center">Make Dependent</p>
+                <p class="lg:col-span-2 text-center">Map Sub-Control ID</p>
+                <p></p>
+              </div>
+
+              <!-- First Mandatory Sub-Control  -->
+
+              <div class="grid lg:grid-cols-8 grid-cols-4">
+                <div class="lg:col-span-3 col-span-4 start lg:w-10/12">
+                  <mat-label class="text-gray-400"
+                    >Default Sub-Control-0<span class="text-red-600 pl-2"
+                      >*</span
+                    ></mat-label
+                  >
+                  <mat-form-field
+                    appearance="fill"
+                    class="form-field rounded-full"
+                  >
+                    <textarea
+                      matInput
+                      #titleinput1
+                      maxlength="2500"
+                      minlength="5"
+                    ></textarea>
+                    <mat-hint align="end"
+                      >{{ titleinput1.value.length }}/2500</mat-hint
+                    >
+                  </mat-form-field>
+                </div>
+                <p></p>
+                <p></p>
+                <p></p>
+              </div>
+
+              <!-- Additional Sub-Controls -->
+
+              <form [formGroup]="subControlForm">
+                <div formArrayName="fields">
+                  <div
+                    *ngFor="let field of fields.controls; let i = index"
+                    [formGroupName]="i"
+                  >
+                    <div class="grid lg:grid-cols-8 grid-cols-4">
+                      <div class="lg:col-span-3 start lg:w-10/12">
+                        <mat-label class="text-gray-400"
+                          >Sub-Control-{{ i + 1
+                          }}<span class="text-red-600 pl-2">*</span></mat-label
+                        >
+                        <mat-form-field
+                          appearance="fill"
+                          class="form-field rounded-full"
+                        >
+                          <textarea
+                            matInput
+                            #titleinput1
+                            formControlName="additionalsub"
+                            maxlength="2500"
+                            minlength="5"
+                          ></textarea>
+                          <mat-hint align="end"
+                            >{{ titleinput1.value.length }}/2500</mat-hint
+                          >
+                        </mat-form-field>
+                      </div>
+
+                      <!--  Is Dependent ? Checkbox -->
+
+                      <div class="flex justify-center items-center">
+                        <input
+                          type="checkbox"
+                          formControlName="isDependentField"
+                          id="isDependentField{{ i }}"
+                          class="check"
+                        />
+                      </div>
+
+                      <!-- Control ID selection -->
+
+                      <div class="lg:col-span-2 flex items-center justify-center">
+                        <div
+                          *ngIf="field.get('isDependentField')?.value"
+                          class="flex items-center justify-center"
+                        >
+                          <dx-select-box
+                            formControlName="dependentid"
+                            label="Select Control IDs*"
+                            labelMode="floating"
+                            [searchEnabled]="true"
+                            selectionMode="single"
+                            id="dependentid{{ i }}"
+                            class=""
+                          >
+                          </dx-select-box>
+                        </div>
+                      </div>
+
+                      <!-- Remove Button -->
+
+                      <button
+                        class="flex lg:justify-start justify-center items-center lg:text-5xl text-3xl text-red-600 lg:pl-6"
+                        (click)="removeField(i)"
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+              <!-- Adding button and sub-control count -->
+
+              <div class="flex lg:flex-row lg:gap-8 gap-4 items-center lg:ml-40">
+                <button
+                  class="file-input-button w-24 lg:w-36"
+                  type="button"
+                  (click)="addField()"
+                >
+                  Add More
+                </button>
+                <mat-hint align="end" class="text-orange-500 lg:text-base italic"
+                  >{{ 100 - iCount }} more sub-controls can be added</mat-hint
+                >
+              </div>
+            </div>
+          </form>
+
+          <!-- Source of control statement -->
+          <form
+            [formGroup]="source"
+            class="flex flex-col gap-4 my-4 p-4 bg-gray-100/60"
+          >
+            <p class="text-xl font-semibold">Source of Control Statement</p>
+            <div formArrayName="references">
+              <div
+                *ngFor="let reference of references.controls; let key = index"
+                [formGroupName]="key"
+              >
+                <div
+                  class="grid lg:grid-cols-3 lg:justify-center lg:place-content-center lg:gap-6"
+                >
+                  <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>Select Option</mat-label>
+                    <mat-select
+                      formControlName="referenceType"
+                      (selectionChange)="onReferenceTypeChange($event.value, key)"
+                    >
+                      <mat-option value="weblink">Weblink</mat-option>
+                      <mat-option value="file">File Attachment</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field
+                    appearance="fill"
+                    class="form-field"
+                    *ngIf="reference.get('referenceType')?.value === 'weblink'"
+                  >
+                    <mat-label>Weblink</mat-label>
+                    <input formControlName="referencetypeValue" matInput />
+                  </mat-form-field>
+                  <mat-form-field
+                    *ngIf="reference.get('referenceType')?.value === 'file'"
+                    
+                  >
+                    <div class="file-attach-section">
+                      <input
+                      matInput
+                      formControlName="file_attachment"
+                      [value]="reference.get('file_attachment')?.value"
+                      readonly
+                    />
+
+                      <input
+                        type="file"
+                        accept=".pdf,.doc,.docx,image/jpeg,image/png"
+                        (change)="onMainFileSelected($event, key)"
+                      />
+
+                    </div>
+                  </mat-form-field>
+                  <div class="flex lg:justify-start justify-center items-center">
+                    <button
+                      class="text-red-600 underline pb-4"
+                      (click)="removeReferenceField(key)"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex lg:flex-row gap-4 items-center lg:my-4">
+              <button
+                class="file-input-button w-24"
+                type="button"
+                (click)="addReferenceField()"
+              >
+                Add More
+              </button>
+              <mat-hint align="end" class="text-orange-500 italic"
+                >{{ 5 - bCount }} more references can be added</mat-hint
+              >
+            </div>
+          </form>
+
+          <div class="grid lg:grid-cols-3 gap-6 my-10">
+
+            <!-- Control Measure dropdown list -->
+
+            <label class="text-gray-400"
+              >Control Measure<span class="text-red-600 pl-2">*</span>
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+
+            <!-- Internal Control Component dropdown list -->
+
+
+            <label class="text-gray-400"
+              >Internal Control Component<span class="text-red-600 pl-2">*</span>
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+          
+            <!-- Internal Control Principles dropdown list -->
+
+            <label class="text-gray-400"
+              >Internal Control Principles<span class="text-red-600 pl-2">*</span>
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+
+          </div>
+
+          <!-- Bottom Buttons -->
+
+          <div
+            class="flex justify-between lg:items-end lg:justify-end lg:gap-[20px] gap-6"
+          >
+            <button class="grey-button text-black" (click)="Cancel()">
+              Discard
+            </button>
+            <button class="custom-button" matStepperNext type="button">
+              Next
+            </button>
+          </div>
+
+          
+        </mat-step>
+
+        <!-- 2nd step i.e Control Attributes -->
+
+        <mat-step label="Control Attributes" state="chat">
+          <div class="grid lg:grid-cols-3 gap-8 pt-8 lg:justify-center lg:items-center">
+            <p class="text-xl font-bold lg:col-span-3">
+              Control Attributes
+            </p>
+
+            <!-- Control Measure dropdown list -->
+
+            <label class="text-gray-400"
+              >Control Measure<span class="text-red-600 pl-2">*</span>
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+
+            <!-- Internal Control Component dropdown list -->
+
+            <label class="text-gray-400"
+              >Internal Control Component<span class="text-red-600 pl-2">*</span>
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+
+            <!-- Internal Control Principles dropdown list -->
+
+            <label class="text-gray-400"
+              >Internal Control Principles<span class="text-red-600 pl-2">*</span>
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+
+            <!-- Key Control checkbox -->
+
+            <label class="font-semibold items-center flex">
+              <input type="checkbox" class="mx-2 my-6 check" />
+              Key Control ?
+            </label>
+
+            <!-- Nature of Control Occurrence dropdown list -->
+
+            <label class="text-gray-400"
+              >Nature of Control Occurrence<span class="text-red-600 pl-2"
+                >*</span
+              >
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+
+            <!-- Control Dependencies dropdown list -->
+
+            <label class="text-gray-400"
+              >Control Dependencies<span class="text-red-600 pl-2">*</span>
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+
+            <!-- Internal Financial Controls checkbox -->
+
+            <label class="font-semibold items-center flex">
+              <input type="checkbox" class="mx-2 my-6 check" />
+              Internal Financial Controls ?
+            </label>
+
+            <!-- Map Key checkbox -->
+
+            <label class="font-semibold items-center flex">
+              <input type="checkbox" [(ngModel)]="isMapKeyChecked" class="mx-2 my-6 check" />
+              Map Key Assertions ?
+            </label>
+
+              <!-- Dropdown list associated with Map Key (Control Assertion) -->
+
+              <label class="text-gray-400"
+                >Control Assertion Check<span class="text-red-600 pl-2">*</span>
+                <dx-select-box
+                  label="Select from list*"
+                  labelMode="floating"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  [disabled]="!isMapKeyChecked"
+                >
+                </dx-select-box
+              ></label>
+
+            <!-- Control Level dropdown list -->
+
+            <label class="text-gray-400"
+              >Control Level<span class="text-red-600 pl-2">*</span>
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+
+
+            <!-- List of sub-control -->
+
+            <p class="text-lg font-medium lg:col-span-3">
+              Following parameters will apply for every Sub-Control(s) Listed
+            </p>
+            <p class="text-blue-600 font-medium text-base lg:col-span-3">
+              Sub-Control(s)
+            </p>
+
+              <!-- Default Sub-Control-0 -->
+
+              <div>
+                <mat-label class="text-gray-400"
+                  >Default Sub-Control-0<span class="text-red-600 pl-2"
+                    >*</span
+                  ></mat-label
+                >
+                <mat-form-field appearance="fill" class="form-field rounded-full">
+                  <textarea
+                    matInput
+                    #titleinput1
+                    maxlength="2500"
+                    minlength="5"
+                  ></textarea>
+                  <mat-hint align="end"
+                    >{{ titleinput1.value.length }}/2500</mat-hint
+                  >
+                </mat-form-field>
+              </div>
+              <label class="text-gray-400 lg:pb-5"
+                >Nature of Control Performance<span class="text-red-600 pl-2"
+                  >*</span
+                >
+                <dx-select-box
+                  label="Select from list*"
+                  labelMode="floating"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  class="h-[66px]"
+                  class="h-[66px]"
+                >
+                </dx-select-box
+              ></label>
+              <label class="text-gray-400 lg:pb-5"
+                >Control Component<span class="text-red-600 pl-2">*</span>
+                <dx-select-box
+                  label="Select from list*"
+                  labelMode="floating"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  class="h-[66px]"
+                >
+                </dx-select-box
+              ></label>
+
+              <!-- Sub-Control-1 -->
+
+              <div>
+                <mat-label class="text-gray-400"
+                  >Sub-Control-1<span class="text-red-600 pl-2">*</span></mat-label
+                >
+                <mat-form-field appearance="fill" class="form-field rounded-full">
+                  <textarea
+                    matInput
+                    #titleinput1
+                    maxlength="2500"
+                    minlength="5"
+                  ></textarea>
+                  <mat-hint align="end"
+                    >{{ titleinput1.value.length }}/2500</mat-hint
+                  >
+                </mat-form-field>
+              </div>
+              <label class="text-gray-400 lg:pb-5">
+                Nature of Control Performance<span class="text-red-600 pl-2"
+                  >*</span
+                >
+                <dx-select-box
+                  label="Select from list*"
+                  labelMode="floating"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  class="h-[66px]"
+                >
+                </dx-select-box
+              ></label>
+              <label class="text-gray-400 lg:pb-5"
+                >Control Component<span class="text-red-600 pl-2">*</span>
+                <dx-select-box
+                  label="Select from list*"
+                  labelMode="floating"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  class="h-[66px]"
+                >
+                </dx-select-box
+              ></label>
+          </div>
+
+          <!-- Bottom Buttons -->
+
+          <div
+            class="flex justify-between lg:items-end lg:justify-end lg:gap-[20px] gap-6"
+          >
+            <button
+              class="grey-button text-black"
+              matStepperPrevious
+              type="button"
+            >
+              Back
+            </button>
+            <button class="grey-button text-black" (click)="Cancel()">
+              Discard
+            </button>
+            <button class="custom-button" matStepperNext type="button">
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <!-- 3rd step i.e Control Ownership -->
+
+        <mat-step label="Control Ownership" state="chat">
+          <div class="flex flex-col gap-8 lg:w-3/4 pt-8">
+            <p class="text-xl font-bold">Control Ownership</p>
+            
+            <!-- Control Preparer dropdown list -->
+            
+            <label class="text-gray-400"
+              >Control Preparer<span class="text-red-600 pl-2">*</span>
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+
+            <!-- Control Reviewer dropdown list -->
+
+            <label class="text-gray-400"
+              >Control Reviewer<span class="text-red-600 pl-2">*</span>
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+
+            <!-- Control Approver dropdown list -->
+
+            <label class="text-gray-400"
+              >Control Approver<span class="text-red-600 pl-2">*</span>
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+
+
+            <!-- Control Activity Owner dropdown list -->
+
+            <label class="text-gray-400"
+              >Control Activity Owner<span class="text-red-600 pl-2">*</span>
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+          </div>
+
+          <!-- Bottom Buttons -->
+
+          <div
+            class="flex justify-between lg:items-end lg:justify-end lg:gap-[20px] gap-6"
+          >
+            <button
+              class="grey-button text-black"
+              matStepperPrevious
+              type="button"
+            >
+              Back
+            </button>
+            <button class="grey-button text-black" (click)="Cancel()">
+              Discard
+            </button>
+            <button class="custom-button" matStepperNext type="button">
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <!-- 4th step i.e Control Significance -->
+
+        <mat-step label="Control Significance" state="chat">        
+            <p class="text-xl font-bold pt-8">Control Significance</p>
+            <div class="flex lg:flex-row flex-col lg:items-center lg:gap-12 gap-4 pt-8">
+
+              <!-- Frequency of Controls dropdown list -->
+
+              <label class="text-gray-400 lg:w-1/4"
+              >Frequency of Controls Applied<span class="text-red-600 pl-2"
+              >*</span
+              >
+              <dx-select-box
+              label="Select from list*"
+              labelMode="floating"
+              [searchEnabled]="true"
+              selectionMode="single"
+              >
+              </dx-select-box
+              ></label>
+
+              <!-- Control Required checkbox -->
+
+              <label class="font-semibold text-base items-center flex">
+                <input type="checkbox" [(ngModel)]="isReviewRequiredChecked" class="mx-2 my-6 check" />
+                Control Review Frequency Required ?
+              </label>
+            </div>
+
+            <!-- Div based on Control required checkbox -->
+
+            <div
+              class="grid lg:grid-cols-3 gap-8 pt-8 lg:justify-center lg:items-center"
+              [class.disabled]="!isReviewRequiredChecked"
+            >
+
+              <!-- Repeat Review Frequency dropdown list -->
+
+              <label class="text-gray-400"
+                >Repeat Review Frequency <span class="text-red-600 pl-2">*</span>
+                <dx-select-box
+                  [(value)]="repeatReview"
+                  [dataSource]="['Yes', 'No']"
+                  placeholder="Select Yes or No"
+                >
+                </dx-select-box
+              ></label>
+
+              <!-- Value in days for review frequency -->
+
+              <div class="flex flex-col justify-center lg:pt-5">
+                <mat-label class="text-gray-400"
+                  >Enter Values(in days)<span class="text-red-600 pl-2"
+                    >*</span
+                  ></mat-label
+                >
+                <mat-form-field appearance="fill" class="rounded-full">
+                  <input
+                    type="number"
+                    matInput
+                    name="value"
+                    placeholder="Enter Value"
+                    [disabled]="repeatReview === 'No'"
+                  />
+                </mat-form-field>
+              </div>
+
+              <!-- Frequency Period dropdown list -->
+
+              <label class="text-gray-400">
+                Select Frequency Period<span class="text-red-600 pl-2">*</span>
+                <dx-select-box
+                  label="Select from list*"
+                  labelMode="floating"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  [disabled]="repeatReview === 'No'"
+                >
+                </dx-select-box
+              ></label>
+
+              <!-- Start day for next review dropdown list -->
+
+              <label class="text-gray-400"
+                >Enter start date for next review<span class="text-red-600 pl-2"
+                  >*</span
+                >
+                <dx-select-box
+                  label="Select from list*"
+                  labelMode="floating"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  [disabled]="repeatReview === 'No'"
+                >
+                </dx-select-box
+              ></label>
+            </div>
+
+            <!-- Notification Setup Section -->
+
+            <p class="text-lg pt-8 font-semibold" [class.disabled]="!isReviewRequiredChecked">Notification Setup</p>
+            <!-- <div class="grid lg:grid-cols-5 gap-6 lg:justify-center lg:place-items-center lg:pt-4">
+              <p>Select Escalation</p>
+              <p class="text-base">Overdue Reminders</p>
+              <label class="font-semibold text-base">1.<input type="checkbox" class="check2 mx-2"></label>
+              <label class="font-semibold text-base">2.<input type="checkbox" class="check2 mx-2"></label>
+              <label class="font-semibold text-base">3.<input type="checkbox" class="check2 mx-2"></label>
+              <p>Enter Days</p>
+              <div class="flex flex-row gap-1">
+                <dx-drop-down-box class="w-4/5 h-[40px]"></dx-drop-down-box>              
+                  <textarea
+                    matInput
+                    placeholder="Enter Value"
+                    class="h-[40px] text p-2 rounded-sm"                
+                  ></textarea>             
+              </div>
+              <div class="flex flex-row gap-1">
+                <dx-drop-down-box class="w-4/5 h-[40px]"></dx-drop-down-box>              
+                  <textarea
+                    matInput
+                    placeholder="Enter Value"
+                    class="h-[40px] text p-2 rounded-sm"                
+                  ></textarea>
+              
+              </div>
+              <div class="flex flex-row gap-1">
+                <dx-drop-down-box class="w-4/5 h-[40px]"></dx-drop-down-box>              
+                  <textarea
+                    matInput
+                    placeholder="Enter Value"
+                    class="h-[40px] text p-2 rounded-sm"                
+                  ></textarea>             
+              </div>
+              <div class="flex flex-row gap-1">
+                <dx-drop-down-box class="w-4/5 h-[40px]"></dx-drop-down-box>              
+                  <textarea
+                    matInput
+                    placeholder="Enter Value"
+                    class="h-[40px] text p-2 rounded-sm"                
+                  ></textarea>             
+              </div>
+              <p>Default Notifiers</p>
+              <dx-select-box
+                label="Select User*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single">
+              </dx-select-box>
+              <dx-select-box
+                label="Select User*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single">
+              </dx-select-box>
+              <dx-select-box
+                label="Select User*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single">
+              </dx-select-box>
+              <dx-select-box
+                label="Select User*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single">
+              </dx-select-box>
+              
+            </div>  -->
+            <div class="flex lg:flex-row flex-col lg:gap-4 gap-6 self-center text-sm" [class.disabled]="!isReviewRequiredChecked">
+              <div class="flex lg:flex-col flex-row lg:gap-6 justify-between">
+                <p>Select Escalation</p>
+                <p>Enter Days</p>  
+                <p>Default Notifiers</p>
+                <p>Additional Notifiers</p>
+              </div>
+
+              <!-- Overview reminder section -->
+
+              <div class="flex lg:flex-col flex-row lg:gap-6 gap-2 justify-center items-center">
+                <p class="lg:text-base text-sm">Overview Reminders</p>
+
+                <!-- To add days -->
+
+                <div class="flex flex-row justify-end gap-1">
+                  <dx-drop-down-box class="w-1/2 lg:w-4/5 h-[40px]"></dx-drop-down-box>              
+                    <input
+                    type="number"
+                      matInput
+                      placeholder="Enter Value"
+                      class="h-[40px] text p-2 rounded-sm text"
+                    >             
+                </div>
+
+                <!-- To add default notifiers -->
+
+                <dx-select-box
+                  label="Select User *"
+                  labelMode="floating"
+                  [searchEnabled]="true"
+                  selectionMode="single">
+                </dx-select-box>
+
+                <!-- To add additional notifiers  -->
+
+                <input
+                  type="email"
+                  matInput
+                  placeholder="Ex:pat@example.com"
+                  class="h-[40px] p-2 rounded-sm text2"                
+                > 
+              </div>
+
+              <!-- Notification for 1st reminder -->
+
+              <div class="flex lg:flex-col flex-row lg:gap-6 gap-2 justify-center items-center">
+                <label class="font-semibold text-base">1.<input type="checkbox" [(ngModel)]="is1Checked" class="check2 lg:mx-2"></label>
+
+
+                <!-- To add days -->
+
+                <div class="flex flex-row justify-end gap-1 lg:pt-4" [class.disabled]="!is1Checked">
+                  <dx-drop-down-box class="w-2/5 lg:w-4/5 h-[40px]"></dx-drop-down-box>              
+                  <input
+                  type="number"
+                    matInput
+                    placeholder="Enter Value"
+                    class="h-[40px] text p-2 rounded-sm text"    
+                    [disabled]="!is1Checked"            
+                  >                
+                </div>
+
+                <!-- To add default notifiers -->
+
+                <dx-select-box
+                  label="Select User*"
+                  labelMode="floating"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  [disabled]="!is1Checked"              
+                  >
+                </dx-select-box>
+
+                <!-- To add additional notifiers -->
+
+                <input
+                  type="email"
+                  matInput
+                  placeholder="Ex:pat@example.com"
+                  class="h-[40px] p-2 rounded-sm text2"
+                  [class.disabled]="!is1Checked"                           
+                > 
+              </div>
+
+              <!-- Notification for 2nd reminder -->
+
+              <div class="flex lg:flex-col flex-row lg:gap-6 gap-2 justify-center lg:items-center">
+                <label class="font-semibold text-base lg:w-auto">2.<input type="checkbox" [(ngModel)]="is2Checked" class="check2 lg:mx-2"></label>
+
+                <!-- To add days -->
+
+                <div class="flex flex-row justify-end gap-1 lg:pt-4" [class.disabled]="!is2Checked">
+                  <dx-drop-down-box class="w-2/5 lg:w-4/5 h-[40px]"></dx-drop-down-box>              
+                  <input
+                  type="number"
+                    matInput
+                    placeholder="Enter Value"
+                    class="h-[40px] text p-2 rounded-sm text"                
+                  >              
+                </div>
+
+                <!-- To add default notifiers -->
+
+                <dx-select-box
+                  label="Select User*"
+                  labelMode="floating"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  [class.disabled]="!is2Checked"
+                >
+                </dx-select-box>
+
+              <!-- To add additional notifiers -->
+              
+              <input type="email"
+                matInput
+                placeholder="Ex:pat@example.com"
+                class="h-[40px] p-6 rounded-sm text2"
+                [class.disabled]="!is2Checked"               
+              >
+              </div>
+
+              <!-- Notification for 3rd reminder -->
+
+              <div class="flex lg:flex-col flex-row lg:gap-6 gap-2 justify-center lg:items-center">
+                <label class="font-semibold text-base lg:w-auto">3.<input type="checkbox" [(ngModel)]="is3Checked" class="check2 lg:mx-2"></label>
+
+                <!-- To add days -->
+
+                <div class="flex flex-row justify-end gap-1 lg:pt-4" [class.disabled]="!is3Checked">
+                  <dx-drop-down-box class="w-2/5 lg:w-4/5 h-[40px]"></dx-drop-down-box>              
+                  <input
+                  type="number"
+                    matInput
+                    placeholder="Enter Value"
+                    class="h-[40px] text p-2 rounded-sm text"                
+                  >                   
+                </div>
+
+                <!-- To add default notifiers -->
+
+                <dx-select-box
+                  label="Select User*"
+                  labelMode="floating"
+                  [searchEnabled]="true"
+                  selectionMode="single"
+                  [class.disabled]="!is3Checked"
+                  >
+                
+                </dx-select-box>
+
+                <!-- To add additional notifiers -->
+
+                <input
+                  type="email"
+                  matInput
+                  placeholder="Ex:pat@example.com"
+                  class="h-[40px] p-2 rounded-sm text2" 
+                  [class.disabled]="!is3Checked"               
+                > 
+              </div>
+          
+
+            </div>
+
+            <!-- Bottom buttons -->
+
+          <div
+            class="flex justify-between lg:items-end lg:justify-end lg:gap-[20px] gap-6"
+          >
+            <button
+              class="grey-button text-black"
+              matStepperPrevious
+              type="button"
+            >
+              Back
+            </button>
+            <button class="grey-button text-black" (click)="Cancel()">
+              Discard
+            </button>
+            <button class="custom-button" matStepperNext type="button">
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <!-- 5th step i.e Control References -->
+
+        <mat-step label="Control References" state="chat">
+          <p class="text-xl font-bold py-8">Control References</p>
+          <div class="grid grid-cols-3 gap-6 lg:items-center lg:justify-center">
+            <label class="font-semibold text-base items-center flex lg:col-span-2">
+              <input type="checkbox" class="mx-2 my-6 check" />
+              Control References  Required ?
+            </label>
+            <label class="text-gray-400"
+              >Apply Control References to<span class="text-red-600 pl-2">*</span>
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+            <div>
+              <mat-label class="text-gray-400"
+                >Parent Control Brief Description<span class="text-red-600 pl-2"
+                  >*</span
+                ></mat-label
+              >
+              <mat-form-field appearance="fill" class="form-field rounded-full">
+                <textarea
+                  matInput
+                  #titleinput1
+                  formControlName="objective"
+                  maxlength="500"
+                  minlength="5"
+                ></textarea>
+                <mat-hint align="end"
+                  >{{ titleinput1.value.length }}/500</mat-hint
+                >
+              </mat-form-field>
+            </div>
+            <label class="text-gray-400"
+              >Control References Type<span class="text-red-600 pl-2">*</span>
+              <dx-select-box
+                label="Select from list*"
+                labelMode="floating"
+                [searchEnabled]="true"
+                selectionMode="single"
+              >
+              </dx-select-box
+            ></label>
+            <div>
+              <mat-label class="text-gray-400"
+                >Control Reference Details<span class="text-red-600 pl-2"
+                  >*</span
+                ></mat-label
+              >
+              <mat-form-field appearance="fill" class="form-field rounded-full">
+                <textarea
+                  matInput
+                  #titleinput1
+                  formControlName="objective"
+                  maxlength="500"
+                  minlength="5"
+                ></textarea>
+                <mat-hint align="end"
+                  >{{ titleinput1.value.length }}/500</mat-hint
+                >
+              </mat-form-field>
+            </div>
+            <div class="lg:block hidden"></div>
+            <form
+            [formGroup]="source"
+            class="flex flex-col gap-4 my-4 col-span-2"        >
+          
+            <div formArrayName="references">
+              <div
+                *ngFor="let reference of references.controls; let key = index"
+                [formGroupName]="key"
+              >
+                <div
+                  class="grid lg:grid-cols-3 lg:justify-center lg:place-content-center lg:gap-2"
+                >
+                  <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>Select Option</mat-label>
+                    <mat-select
+                      formControlName="referenceType"
+                      (selectionChange)="onReferenceTypeChange($event.value, key)"
+                    >
+                      <mat-option value="weblink">Weblink</mat-option>
+                      <mat-option value="file">File Attachment</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field
+                    appearance="fill"
+                    class="form-field"
+                    *ngIf="reference.get('referenceType')?.value === 'weblink'"
+                  >
+                    <mat-label>Weblink</mat-label>
+                    <input formControlName="referencetypeValue" matInput />
+                  </mat-form-field>
+
+                  <mat-form-field
+                    *ngIf="reference.get('referenceType')?.value === 'file'"
+                    
+                  >
+                    <div class="file-attach-section">
+                      <input
+                      matInput
+                      formControlName="file_attachment"
+                      [value]="reference.get('file_attachment')?.value"
+                      readonly
+                    />
+
+                      <input
+                        type="file"
+                        accept=".pdf,.doc,.docx,image/jpeg,image/png"
+                        (change)="onMainFileSelected($event, key)"
+                      />
+
+                    </div>
+                  </mat-form-field>
+
+                  <div class="flex lg:pl-4 items-center">
+                    <button
+                      class="text-red-600 underline pb-4"
+                      (click)="removeReferenceField(key)"
+                    >
+                      Remove
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="flex lg:flex-row gap-4 items-center lg:my-4">
+              <button
+                class="file-input-button w-24"
+                type="button"
+                (click)="addReferenceField()"
+              >
+                Add More
+              </button>
+              <mat-hint align="end" class="text-orange-500 italic"
+                >{{ 5 - bCount }} more references can be added</mat-hint
+              >
+            </div>
+          </form>
+          </div>
+          <div
+          class="flex justify-between lg:items-end lg:justify-end lg:gap-[20px] gap-6"
+        >
+          <button
+            class="grey-button text-black"
+            matStepperPrevious
+            type="button"
+          >
+            Back
+          </button>
+          <button class="grey-button text-black" (click)="Cancel()">
+            Discard
+          </button>
+          <button class="custom-button" matStepperNext type="button">
+            Next
+          </button>
+        </div>
+        </mat-step>
+
+        <!-- 6th Step i.e Control Exceptions -->
+
+        <mat-step label="Control Exceptions" state="chat">
+          <p class="text-xl font-bold py-8">Control Exceptions</p>
+
+          <!-- Checkbox for Control Exceptions -->
+
+          <label class="font-semibold text-base items-center flex">
+            <input [(ngModel)]="exceptionsRequired" type="checkbox" class="mx-2 my-6 check" />
+            Any Control Exceptions Required ?
+          </label>
+
+          <!-- Form for Control Exceptions -->
+
+          <form [formGroup]="controlExceptionForm" [class.disabled]="!exceptionsRequired">
+            <div formArrayName="exceptions">            
+              <div *ngFor="let exception of exceptions.controls; let i = index"
+                [formGroupName]="i" class="flex flex-col lg:gap-12 gap-4 border border-black p-6 relative rounded-md mb-8">
+                  <p class="lg:absolute lg:top-8 lg:-left-3 p-2 bg-white">{{i+1}}.</p>
+
+                  <!-- Control Exception summary -->
+
+                  <div class="grid lg:grid-cols-2 gap-4">
+                    <mat-form-field
+                    appearance="fill"
+                    class="form-field rounded-full"
+                    
+                    >
+                    <mat-label class="text-gray-400"
+                      >Control Exception Summary<span class="text-red-600 pl-2">*</span></mat-label
+                    >
+                      <textarea
+                        matInput
+                        formControlName="controlsummary"
+                        maxlength="500"
+                        minlength="5"
+                      ></textarea>
+                      <mat-hint align="end"
+                        >{{ titleinput1.value.length }}/500</mat-hint
+                      >
+                    </mat-form-field>
+                    <mat-form-field
+                    appearance="fill"
+                    class="form-field rounded-full"
+                    
+                    >
+                    <mat-label class="text-gray-400"
+                      >Details of Control Exception<span class="text-red-600 pl-2">*</span></mat-label
+                    >
+                      <textarea
+                        matInput
+                        formControlName="controldetails"
+                        maxlength="2500"
+                        minlength="5"
+                      ></textarea>
+                      <mat-hint align="end"
+                        >{{ titleinput1.value.length }}/2500</mat-hint
+                      >
+                    </mat-form-field>
+                  </div>
+
+                  <div class="grid lg:grid-cols-3 gap-4">
+
+                    <!-- Control Exception Approved on date -->
+
+                    <div>
+                      <mat-label class="text-gray-400"
+                      >Control Exception Approved On<span class="text-red-600 pl-2"
+                        >*</span
+                      ></mat-label
+                    >
+                      <mat-form-field appearance="fill">
+                        <mat-label>Select date</mat-label>
+                        <input formControlName="approveddate" matInput [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+
+                    <!-- Control Exception Valid from date -->
+
+                    <div>
+                      <mat-label class="text-gray-400"
+                      >Control Exception Valid From<span class="text-red-600 pl-2"
+                        >*</span
+                      ></mat-label
+                    >
+                      <mat-form-field appearance="fill">
+                        <mat-label>Select date</mat-label>
+                        <input formControlName="validdate" matInput [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+
+                    <!-- Control Exception Valid till date -->
+
+                    <div>
+                      <mat-label class="text-gray-400"
+                      >Control Exception Valid Till<span class="text-red-600 pl-2"
+                        >*</span
+                      ></mat-label
+                    >
+                      <mat-form-field appearance="fill">
+                        <mat-label>Select date</mat-label>
+                        <input formControlName="validtilldate" matInput [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    
+                  </div>
+
+                  <!-- Validity Status -->
+
+                  <div class="lg:w-1/2">
+                    <mat-label class="text-gray-400"
+                      >Validity Status of Control Exception
+                      </mat-label
+                    >
+                    <mat-form-field appearance="fill" class="form-field rounded-full">
+                      <input
+                        matInput
+                        #titleinput1
+                        formControlName="status"
+                        value="asdasd"
+                      >
+                    </mat-form-field>
+                  </div>
+                  <div class="grid lg:grid-cols-2 gap-8">
+
+                    <!-- Upload details -->
+
+                    <div class="flex flex-col">                    
+                    <mat-label>Upload Details of Control Exception</mat-label>
+                      <input
+                        type="file"
+                        accept=".pdf,.doc,.docx,image/jpeg,image/png"
+                        class="bg-gray-100 p-2"
+                        formControlName="uploaddetails"
+                      />
+                    </div>
+
+                    <!-- Upload Approval -->
+
+                    <div class="flex flex-col">                    
+                    <mat-label>Upload Approval of Control Exception</mat-label>
+                      <input
+                        type="file"
+                        accept=".pdf,.doc,.docx,image/jpeg,image/png"
+                        class="bg-gray-100 p-2"
+                        formControlName="uploadapproval"
+                      />
+                    </div>
+                    
+                  </div>
+                  <div class="grid grid-cols-2 gap-4">
+
+                    <!-- Exception Owner -->
+
+                    <label class="text-gray-400"
+                      >Control Exception Owner<span class="text-red-600 pl-2"
+                      >*</span
+                      >
+                      <dx-select-box
+                        label="Select from list *"
+                        labelMode="floating"
+                        [searchEnabled]="true"
+                        selectionMode="single"
+                        formControlName="exceptionowner"
+                        >
+                      </dx-select-box>
+                    </label>
+
+                    <!-- Exception Approver -->
+
+                    <label class="text-gray-400"
+                      >Control Exception Approver<span class="text-red-600 pl-2"
+                      >*</span
+                      >
+                      <dx-select-box
+                        label="Select from list *"
+                        labelMode="floating"
+                        [searchEnabled]="true"
+                        selectionMode="single"
+                        formControlName="exceptionapprover"
+                        >
+                      </dx-select-box>
+                    </label>
+                  </div>
+              </div>                        
+            </div>
+          </form>
+
+          <!-- Button to add fields -->
+
+          <div class="flex lg:flex-row lg:gap-8 gap-4 items-center" [class.disabled]="!exceptionsRequired">
+            <button
+              class="file-input-button w-24 lg:w-36"
+              type="button"
+              (click)="addExceptionField()"  
+              [disabled]="!exceptionsRequired"          
+            >
+              Add More
+            </button>
+            <mat-hint align="end" class="text-orange-500 lg:text-base italic"
+              >{{ 5 - exceptionCount }} more references can be added</mat-hint
+            >
+          </div>
+
+          <!-- Bottom Buttons -->
+
+          <div
+          class="flex justify-between lg:items-end lg:justify-end lg:gap-[20px] gap-6"
+        >
+          <button
+            class="grey-button text-black"
+            matStepperPrevious
+            type="button"
+          >
+            Back
+          </button>
+          <button class="grey-button text-black" (click)="Cancel()">
+            Discard
+          </button>
+          <button class="custom-button" matStepperNext type="button">
+            Next
+          </button>
+        </div>
+        </mat-step>
+        
+      </mat-stepper>
+  </div>
+</div>

@@ -1,0 +1,172 @@
+<div class="form">
+    <div class="header col">
+      <div style="align-self: self-end">
+        <br>
+        <h2 class=" title" style="align-items: center;">View Bare Act – Rules/ Regulations/ Procedures Repository”
+          </h2>
+      </div>
+    </div>
+
+    <br>
+    <form >
+    <div class="row">
+        <div class="box">
+          <dx-select-box 
+            label="Select Act/ Master Regulation Name*"
+            labelMode="floating"
+            valueExpr="actregulatoryid"
+            displayExpr="actregulatoryname"
+            [dataSource]="actname"
+            [searchEnabled]="true"
+            height="40px"
+            selectionMode="single" 
+            placeholder=""
+          (onValueChanged)="getRules($event)">
+        </dx-select-box>
+        </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="box">
+          <dx-select-box 
+         
+          label="Select Rule name *"
+          labelMode="floating"
+          [searchEnabled]="true"
+          valueExpr="act_rule_regulatory_id"
+          displayExpr="act_rule_name"
+          [dataSource]="rulename"
+          [(value)]="SelectedAct"
+          selectionMode="single" 
+         placeholder=""
+         (onValueChanged)="getactruledata($event)" >
+    </dx-select-box>
+            </div>
+            </div>
+<br>
+
+
+
+
+<table class="table1" *ngFor="let rule of act_rule" >
+  <h2><span>
+    View Bare Act – Rules/ Regulations/ Procedures Repository”:
+</span></h2>
+    <tbody>
+        <ng-container >
+        <tr   >
+          <td><strong>ActID Name of Act/Regulation</strong></td>
+          <td>{{rule.actname1}}</td>
+        </tr>
+        <tr >
+          <td><strong>Description of Act/Regulation</strong></td>
+          <td>{{ rule.actdesc || 'N/A'}}</td>
+        </tr>
+        <tr >
+            <td><strong>Rule_id name of Rule/Regulation/Procedur</strong></td>
+            <td>{{rule.rulename}}</td>
+          </tr>
+          <tr >
+            <td><strong>Applicability Description of Rule/Regulation/Procedur</strong></td>
+            <td>{{ rule.actruledesc || 'N/A'}}</td>
+          </tr>
+          <tr >
+            <td><strong>Category of Law</strong></td>
+            <td>{{ rule.category }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+      <table class="table1" *ngFor="let rule of act_rule">
+        <thead>
+            <tr>
+              <th colspan="4">Jurisdiction Location : </th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container >
+            <tr >  
+              <td><strong>Law Type</strong></td>        
+              <td>{{ rule.lawType }}</td>
+              <td><strong>Regulatory Authority</strong></td>
+              <td>{{ rule.regulator }}</td>
+            </tr>
+            <tr >
+              <td><strong>Jurisdiction Category</strong></td>
+              <td> {{rule.jurisdiction}} </td>
+              <td><strong>Country Name</strong></td>
+              <td>{{ rule.countryName || 'N/A' }}</td>
+            </tr>
+            <tr >
+              <td><strong>State / Region Name</strong></td>
+              <td>{{ rule.stateName || 'N/A' }}</td>
+              <td><strong>District / Locality Name</strong></td>
+              <td>{{ rule.jurisdiction_district || 'N/A' }}</td>
+            </tr>
+        </ng-container>
+          </tbody>
+      
+</table>
+<table class="table1" *ngIf="act_rule && act_rule.length > 0">
+  <thead>
+    <tr>
+      <th colspan="2">Additional References from Bare Act & Rule :</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+          <td><strong>Bare Act Reference(s)</strong></td>
+          <td>
+        <ol type="1">
+        <ng-container *ngFor="let detail of act_rule[0].actfiles">
+          <li>
+            <ng-container *ngIf="detail.filecategory === 'Weblink'">
+              [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ detail.filepath }}</a>
+              <!-- <button (click)="copyLink(detail.filepath)"  > <mat-icon>content_copy</mat-icon></button> -->
+              <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+              <label *ngIf="isLinkCopied" style="color:red;">Link copied!</label>
+            </ng-container>
+            
+            <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+              [File Attached] {{ detail.filename }}
+                <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                  <a [href]="detail.filepath" target="_blank">(View)</a> /
+                </ng-container>
+                <dx-button icon="download"  (click)="downloadact(detail.filepath, detail.fileType)"> </dx-button>
+              </ng-container>
+          </li>
+        </ng-container>
+      </ol>
+    </td>
+  </tr>
+    <tr>
+      <td><strong>Bare Rule Reference(s)</strong></td>
+      <td>
+        <ol type="1">
+          <ng-container *ngFor="let detail of act_rule[0].rulefiles">
+            <li>
+              <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ detail.filepath }}</a>
+                <!-- <button (click)="copyLink(detail.filepath)"  > <mat-icon>content_copy</mat-icon></button> -->
+                <dx-button icon="copy"  (onClick)="copyLink1(detail.filepath)"> </dx-button>
+                <label *ngIf="isLinkCopied1" style="color:red;">Link copied!</label>
+              </ng-container>
+              <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                [File Attached] {{ detail.filename }}
+                <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                  <a [href]="detail.filepath" target="_blank">(View)</a> /
+                </ng-container>
+                <dx-button icon="download"  (click)="downloadrule(detail.filepath, detail.fileType)"> </dx-button>
+              
+              </ng-container>
+            </li>
+          </ng-container>
+        </ol>
+      </td>
+     
+    </tr>
+    <!-- Add more rows as needed -->
+  </tbody>
+</table>
+    </form>
+</div>

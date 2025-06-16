@@ -1,0 +1,328 @@
+<!-- <div class="form">
+
+    
+    <div class="header">
+        <div style="align-self:self-end;">
+            <h1 class="title"> Manage Assessment</h1>
+        </div>
+    </div>
+   
+<br>
+<form [formGroup]="Begin_Ass_form">
+
+
+  <div class="boxNew">
+    <div class="label">
+    
+    <dx-drop-down-box style="width: 1000px;"
+    [dropDownOptions]="{width: '1400px'}"
+    [(value)]="gridBoxValue"
+    [(opened)]="isGridBoxOpened"
+    valueExpr="ass_template_id"
+     [deferRendering]="false"
+     [displayExpr]="gridBox_displayExpr"
+     placeholder=" Select Assessment Template"
+     [inputAttr]="{ 'aria-label': 'Owner' }"
+     [showClearButton]="true"
+     [dataSource]="gridDataSource"
+     formControlName="Assessment_id"
+     (onOptionChanged)="onGridBoxOptionChanged($event)"
+    >
+        
+          <div *dxTemplate="let data of 'content'">
+            <dx-data-grid
+            [dataSource]="gridDataSource"
+            [columns]="gridColumns"
+              [hoverStateEnabled]="true"
+              [(selectedRowKeys)]="gridBoxValue"
+          height="100%"
+          width="100%"
+    >
+        
+            
+    <dxo-selection mode="single"></dxo-selection>
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+    <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+            </dx-data-grid>
+          </div>
+        </dx-drop-down-box> 
+      </div>
+</div>
+<br>
+<!-- 
+<div class="box">
+<div class="col-sm-8">
+  <!-- <div *ngFor="let parent of parentRows; let i = index;"> --
+    <div class="col-sm-8" *ngIf="currentIndex < parentRows.length">
+
+<mat-label formControlName="question_id">  {{ parentRows[currentIndex].question_id}}</mat-label>
+
+<mat-label formControlName="question" >  {{ parentRows[currentIndex].question}}</mat-label>
+<br>
+<div *ngFor="let child of  parentRows[currentIndex].beginAssQstnsoptions; let i = index;">
+
+
+<mat-radio-group [value]="defaultValues[currentIndex]">
+<mat-radio-button  value="{{child.questionbank_optionID}}" (change)="setDefaultValueForQuestion(currentIndex, $event.value)" formControlName="user_Selected_Ans" >
+  {{child.options}}
+</mat-radio-button>
+</mat-radio-group>
+
+</div>
+
+</div>
+<br>
+<div class="box">
+<button (click)="previousQuestion()" class="previousbutton" *ngIf="currentIndex > 0">Previous</button>
+
+<button (click)="nextQuestion()" class="Custombutton" *ngIf="currentIndex < parentRows.length - 1">Next</button>
+<button (click)="Review(currentIndex)" class="reviewbutton">Review</button>
+<button (click)="Cancel()" class="grey-button">Cancel</button>
+
+<button (click)="AttemptLater()" class="grey-button1">AttemptLater</button>
+<button (click)="Submit()" class="Save-button" *ngIf="currentIndex === parentRows.length - 1"> Submit</button>
+
+
+
+</div>
+</div>
+<div class="col-sm-2"></div>
+
+<div class="col-sm-1"></div>
+
+<div id="PlaceHolder1" class="rating-row col-sm-1" >
+<div *ngFor="let parent of parentRows; let i = index; ">
+  <button [style.backgroundColor]="parent.backgroundColor" style="flex-basis: calc(33.33% - 1px);width: 20px;margin: 2px;border-radius: 5px;width: 25px;height: 20px;margin: 3px;" (click)="qstnxt(i)">{{parent.question_id}}</button>
+</div>
+</div>
+</div> --
+
+<div *ngIf="beginass">
+  <h2 class="title"> Questions of the Assessment</h2>
+<div class="box " >
+  <div class="col-sm-10" >
+    <!-- <div *ngFor="let parent of parentRows; let i = index;"> --
+      <div class="col-sm-10" *ngIf="currentIndex < parentRows.length">
+
+<mat-label formControlName="question_id" style="font-size: 20px; font-family: inherit; margin-left: 15px;" >  {{ parentRows[currentIndex].question_id}}</mat-label>
+<mat-label style="font-size: 20px;font-family: inherit; ">)</mat-label>
+  <mat-label formControlName="question"  style="font-size: 21px; font-family: inherit;">  {{ parentRows[currentIndex].question}}</mat-label>
+<br>
+<br>
+  <div *ngFor="let child of  parentRows[currentIndex].beginAssQstnsoptions; let i = index;">
+  
+  
+<mat-radio-group [value]="defaultValues[currentIndex]">
+  <mat-radio-button  style="font-size: 20px; font-family: inherit; margin-bottom: 2px; margin-left: 35px;" value="{{child.questionbank_optionID}}" (change)="setDefaultValueForQuestion(currentIndex, $event.value)" formControlName="user_Selected_Ans" >
+    {{child.options}}
+  </mat-radio-button>
+</mat-radio-group>
+
+</div>
+
+</div>
+<br>
+<div class="box">
+<button (click)="previousQuestion()" class="previousbutton" *ngIf="currentIndex > 0">Previous</button>
+
+<button (click)="nextQuestion()" class="Custombutton" *ngIf="currentIndex < parentRows.length - 1">Next</button>
+<button (click)="Review(currentIndex)" class="reviewbutton">Review</button>
+<button (click)="Cancel()" class="grey-button">Exit</button>
+
+<button (click)="AttemptLater()" class="grey-button1">AttemptLater</button>
+
+</div>
+</div>
+<!-- <div class="col-sm -2"></div>--
+
+<div class="col-sm-1">
+
+</div> 
+<div class="col-sm-1 ">
+<div id="PlaceHolder1" class="rating-row col-sm-1 ">
+
+  <div *ngFor="let parent of parentRows; let i = index; ">
+    <button id="no-buttons"  [style.backgroundColor]="parent.backgroundColor" style="flex-basis: calc(33.33% - 1px);border-radius: 5px;width: 40px;height: 35px;" (click)="qstnxt(i)">{{parent.question_id}}</button>
+  </div>
+ 
+</div>
+
+
+<button (click)="Submit()" class="Save-button1" *ngIf="currentIndex === parentRows.length - 1"> Submit</button>
+</div>
+</div>
+</div>
+</form>
+
+</div> -->
+
+
+<!-- ------------------------New ----------------------------- -->
+<div class="form">
+
+  <div class="header">
+       <div style="align-self:self-end;">
+           <h1 class="title" > My Assessments</h1>
+       </div>
+   </div>
+  
+<br>
+
+
+ <div class="boxNew" *ngIf="beginass1" >
+   <div class="label">
+   
+   <dx-drop-down-box style="width: 500px;"
+   [dropDownOptions]="{width: '1400px'}"
+   [(value)]="gridBoxValue"
+   [(opened)]="isGridBoxOpened"
+   valueExpr="schedule_Assessment_id"
+    [deferRendering]="false"
+    [displayExpr]="gridBox_displayExpr"
+    placeholder=" Select Assessment Template"
+    [inputAttr]="{ 'aria-label': 'Owner' }"
+    [showClearButton]="true"
+    [dataSource]="gridDataSource"
+    formControlName="Assessment_id"
+    (onOptionChanged)="onGridBoxOptionChanged($event)"
+   >
+       
+         <div *dxTemplate="let data of 'content'">
+           <dx-data-grid
+           [dataSource]="gridDataSource"
+           [columns]="gridColumns"
+             [hoverStateEnabled]="true"
+             [(selectedRowKeys)]="gridBoxValue"
+         height="100%"
+         width="100%"
+            [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+   >
+       
+           
+   <dxo-selection mode="single"></dxo-selection>
+   <dxo-filter-row [visible]="true"></dxo-filter-row>
+   <dxo-scrolling mode="virtual"></dxo-scrolling>
+   <dxo-header-filter [visible]="true" [allowSearch]="true">
+     <dxo-search [enabled]="true"></dxo-search>
+   </dxo-header-filter>
+   <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+   <dxo-pager
+   [visible]="true"
+   [allowedPageSizes]="[ 10,20, 'all']"
+  
+   [showPageSizeSelector]="true"
+  
+   [showInfo]="true"
+   infoText="Page {0} of  {1} ({2} items)"
+   [showNavigationButtons]="true">
+ </dxo-pager>
+
+ <dxo-group-panel [visible]="true"></dxo-group-panel>
+   <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+
+                </dx-data-grid>
+         </div>
+       </dx-drop-down-box> 
+     </div>
+</div>
+
+<div class="box" *ngIf="beginass" >
+<div class="col-sm-10 form">
+<!-- <div> -->
+<h2 class="title" > Questions of the Assessment</h2>
+<div class="box" >
+<div class="col-sm-10" >
+ <!-- <div *ngFor="let parent of parentRows; let i = index;"> -->
+   <div class="col-sm-10" *ngIf="currentIndex < parentRows.length">
+
+<mat-label formControlname="question_id" style="margin-left: 15px;visibility: hidden;" >  {{parentRows[currentIndex].question_id}}</mat-label>
+<mat-label formControlname="question_id1" style="margin-left: 15px;" >  {{ currentIndex+1}}</mat-label>
+<mat-label >)</mat-label>
+<mat-label formControlname="question" style=" margin-left: 10px;" >  {{ parentRows[currentIndex].question}}</mat-label>
+<br>
+<div *ngIf="parentRows[currentIndex].show_hint==1&&parentRows[currentIndex].question_hint!=''">
+<mat-label style="color: rgb(81, 22, 219);font-size: medium;margin-left: 50px;"> (Hint : {{parentRows[currentIndex].question_hint}})</mat-label>
+</div>
+<br>
+<div  *ngFor="let child of  parentRows[currentIndex].beginAssQstnsoptions; let i = index;">
+
+
+<mat-radio-group [value]="defaultValues[currentIndex]" *ngIf="parentRows[currentIndex].response_type!=2">
+<mat-radio-button  style="margin-left: 35px;" value="{{child.optionId}}" (change)="setDefaultValueForQuestion(currentIndex, $event.value,parentRows[currentIndex].question_id)" formControlName="user_Selected_Ans" >
+ {{child.options}}
+</mat-radio-button>
+</mat-radio-group>
+
+
+</div>
+<br>
+<div *ngIf="parentRows[currentIndex].response_type==2">
+  <mat-form-field appearance="fill" class="form-field">  
+    <textarea   name="TextFieldAnswer" matInput   [(ngModel)]="parentRows[currentIndex].TextFieldAnswer"  style="border: 1px; margin-left: 20px;" (ngModelChange)="onTextareaChange($event,parentRows[currentIndex].question_id,currentIndex)" ></textarea>
+  </mat-form-field>
+
+  </div>
+<br>
+<div  class="box" *ngIf="parentRows[currentIndex].base64!=''">
+<!-- <img [src]="sanitizedImage" alt="Image Description" width="50" height="200"  [hidden]="isImageHidden"> -->
+<img [src]="sanitizedImages[currentIndex]" alt="Sanitized Image" width="50" height="150"  >
+
+
+</div>
+
+<div class="col-sm-1">
+<div class="box">
+ <!-- <button (click)="previousQuestion()" class="previousbutton" *ngIf="currentIndex > 0">Previous</button>
+ 
+ <button (click)="nextQuestion()" class="Custombutton" *ngIf="currentIndex < parentRows.length - 1">Next</button>
+ <button (click)="Review(currentIndex)" class="reviewbutton">Review</button>
+ <button (click)="Cancel()" class="grey-button">Exit</button>
+ 
+ <button (click)="AttemptLater()" class="grey-button1">AttemptLater</button>
+
+ <button (click)="Submit()" class="Save-button" *ngIf="currentIndex === parentRows.length - 1"> Submit</button>
+  -->
+
+  <button (click)="previousQuestion()" class="previousbutton" *ngIf="currentIndex > 0">Previous</button>
+ 
+ <button (click)="nextQuestion()" class="Custombutton" *ngIf="currentIndex < parentRows.length - 1">Next</button>
+ <button (click)="Review(currentIndex)" class="reviewbutton">Review</button>
+
+ 
+ <button (click)="AttemptLater()" class="grey-button1">AttemptLater</button>
+ <button (click)="Cancel()" class="grey-button2">Exit</button>
+ <button (click)="Submit()" class="Save-button" *ngIf="currentIndex === parentRows.length - 1"> Submit</button>
+ </div>
+</div> 
+</div>
+
+
+<br>
+
+</div>
+
+</div>
+</div>
+
+<div class="col-sm-1">
+<div id="PlaceHolder1" class="rating-row col-sm-1 scrollable-content" >
+
+ <div *ngFor="let parent of parentRows; let i = index; " style="height: 50px;">
+   <!-- <button id="no-buttons"  [style.backgroundColor]="parent.backgroundColor" style="flex-basis: calc(33.33% - 1px);border-radius: 5px;width: 40px;height: 35px;" (click)="qstnxt(i)">{{i+1}}</button> -->
+   <button id="no-buttons"  [style.backgroundColor]="parent.backgroundColor" style="flex-basis: calc(33.33% - 1px);border-radius: 5px;width: 40px;height: 35px;" (click)="qstnxt(i)">{{i+1}}</button>
+  </div>
+
+</div>
+
+
+
+</div>
+</div>
+<br>
+<br>
+</div>
+
+

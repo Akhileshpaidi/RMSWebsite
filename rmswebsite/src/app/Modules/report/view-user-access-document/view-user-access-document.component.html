@@ -1,0 +1,173 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+          <div style="align-self:self-end;">
+              <h1 class="title"> View User  Access Documents</h1>
+          </div>
+      </div>
+    
+      <div class="box" style="width: 1070px;padding-left: 80px;">
+            
+        <dx-select-box 
+        formControlName="Entity_Master_id"
+        label="Select Entity Name*"
+        labelMode="floating"
+        valueExpr="entityid"
+        displayExpr="entityname"
+        [dataSource]="EntityName1"
+        [searchEnabled]="true"
+        selectionMode="single" 
+       placeholder=""
+       (onValueChanged)="getUnitLocation($event)">
+       
+     
+  </dx-select-box>
+ 
+
+
+    <dx-select-box 
+    formControlName="Unit_location_Master_id"
+    label="Select Unit Location*"
+    labelMode="floating"
+    [searchEnabled]="true"
+    valueExpr="unitid"
+    displayExpr="unitname"
+    [dataSource]="UnitMaster"
+    [(value)]="Selectedunit"
+    selectionMode="single" 
+   placeholder=""
+   (onValueChanged)="getgriddatauser($event)"
+     >
+    
+</dx-select-box>
+<!-- (onValueChanged)="getgriddata($event)" -->
+          <!-- <div>
+          <label>
+            Select Document</label>
+            
+          </div> -->
+        </div>
+        <br>
+    
+      <div class="box"  >
+
+        <div class="dx-field-value">
+ 
+        <dx-drop-down-box
+        [(value)]="selectedOption"
+         [(opened)]="isUserBoxOpened1"
+         [displayExpr]="gridBox_displayEpxr"
+         valueExpr="user_location_mapping_id"
+         [deferRendering]="false"
+         width="100%"
+         label="Select User"
+         placeholder="Select User*"
+         [inputAttr]="{ 'aria-label': 'Owner' }"
+         [showClearButton]="true"
+         [dataSource]="Userinfo"
+         (onValueChanged)="getgriddata($event)"
+       >
+         <div *dxTemplate="let data of 'content'">
+           <dx-data-grid
+           [dataSource]="Userinfo"
+             [columns]="usergridColumns"
+             [hoverStateEnabled]="true"
+             [(selectedRowKeys)]="selectedOption"
+             height="100%"
+           >
+             <dxo-selection mode="single"></dxo-selection>
+             <dxo-filter-row [visible]="true"></dxo-filter-row>
+             <dxo-scrolling mode="virtual"></dxo-scrolling>
+             <dxo-header-filter [visible]="true" [allowSearch]="true">
+              <dxo-search [enabled]="true"></dxo-search>
+            </dxo-header-filter>
+            <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+            <dxo-pager
+            [visible]="true"
+            [allowedPageSizes]="[ 10,20, 'all']"
+           
+            [showPageSizeSelector]="true"
+           
+            [showInfo]="true"
+            infoText="Page {0} of  {1} ({2} items)"
+            [showNavigationButtons]="true">
+          </dxo-pager>
+      
+          <dxo-group-panel [visible]="true"></dxo-group-panel>
+            <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+           </dx-data-grid>
+         </div>
+       </dx-drop-down-box>
+   </div>
+      </div>
+      <br>
+    
+
+<br>
+<br>
+
+      <div class="box">
+        <div id="grid" style="width: 200px;">
+          <dx-data-grid
+         
+            id="doc_user_permission_mapping_pkid"
+            [dataSource]="gridDataSource"
+            key="doc_user_permission_mapping_pkid"
+            valueExpr="doc_user_permission_mapping_pkid"
+            [showBorders]="true"
+            [allowColumnReordering]="true"
+           
+            [wordWrapEnabled]="true"
+            [columnAutoWidth]="true"
+          >
+     
+          <dxo-header-filter [visible]="true" [allowSearch]="true">
+            <dxo-search [enabled]="true"></dxo-search>
+          </dxo-header-filter>
+          <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+          <dxo-pager
+          [visible]="true"
+          [allowedPageSizes]="[5, 10,20, 'all']"
+         
+          [showPageSizeSelector]="true"
+         
+          [showInfo]="true"
+          infoText="Page {0} of  {1} ({2} items)"
+          [showNavigationButtons]="true">
+        </dxo-pager>
+    
+        <dxo-group-panel [visible]="true"></dxo-group-panel>
+          <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxi-column dataField="document_Id" caption="Document_Id" valueExpr="document_Id"
+            displayExpr="Document_Id" ></dxi-column>
+            <dxi-column dataField="versionControlNo" caption="Version ControlNot" valueExpr="versionControlNo"
+            displayExpr="versionControlNo" ></dxi-column>
+            <dxi-column dataField="addDoc_id"  valueExpr="addDoc_id" [visible]="false"
+            displayExpr="addDoc_id"></dxi-column>
+            <dxi-column caption="Name of Document" dataField="title_Doc" valueExpr="addDoc_id"
+            displayExpr="title_Doc"></dxi-column>
+            <dxi-column dataField="docTypeName"  caption="Document Type Name"  valueExpr="docTypeID"
+            displayExpr="docTypeName"></dxi-column>
+            <dxi-column dataField="doc_CategoryName" caption="Category" valueExpr="Doc_CategoryID"
+            displayExpr="doc_CategoryName"></dxi-column>
+            <dxi-column dataField="doc_SubCategoryName" caption="Sub-Category" valueExpr="doc_SubCategoryID"
+            displayExpr="doc_SubCategoryName"></dxi-column>
+           
+           
+            <dxi-column dataField="authorityTypeName" caption="Authority Type" valueExpr="authorityTypeID"
+            displayExpr="authorityTypeName"></dxi-column>
+            <dxi-column dataField="authorityName" caption="Authority Name" valueExpr="authoritynameID"
+            displayExpr="authorityName"></dxi-column>
+            <dxi-column dataField="natureOf_Doc_Name" caption="Document Classifcation" valueExpr="natureOf_Doc_id"
+            displayExpr="natureOf_Doc_Name" ></dxi-column>
+            <dxi-column dataField="keywords_tags" caption="Keywords_tags" valueExpr="keywords_tags" [visible]="false"
+            displayExpr="keywords_tags" ></dxi-column>
+            
+            <dxi-column dataField="publish_Name" caption="UserPermissions" valueExpr="doc_perm_rights_id"
+            displayExpr="publish_Name" ></dxi-column>
+          </dx-data-grid>
+        </div>
+        </div>
+    </div>
+</div>

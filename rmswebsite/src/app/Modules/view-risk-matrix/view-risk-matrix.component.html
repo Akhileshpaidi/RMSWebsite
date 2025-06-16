@@ -1,0 +1,85 @@
+<div class="form2 p-4">
+  <div class="header">
+    <h3 class="text-blue-500">View Risk Matrix</h3>
+  </div>
+  <div class="body">
+    <div class="grid grid-cols-2 gap-8 py-6 lg:w-4/5">
+      <label class="text-gray-400"
+        >Entity Name<span class="text-red-600 pl-2">*</span>
+        <dx-select-box
+          label="Select from list*"
+          labelMode="floating"
+          [searchEnabled]="true"
+          selectionMode="single"
+        >
+        </dx-select-box
+      ></label>
+      <label class="text-gray-400"
+        >Unit Location<span class="text-red-600 pl-2">*</span>
+        <dx-select-box
+          label="Select from list*"
+          labelMode="floating"
+          [searchEnabled]="true"
+          selectionMode="single"
+        >
+        </dx-select-box
+      ></label>
+      <label class="text-gray-400"
+        >Department Name<span class="text-red-600 pl-2">*</span>
+        <dx-select-box
+          label="Select from list*"
+          labelMode="floating"
+          [searchEnabled]="true"
+          selectionMode="single"
+        >
+        </dx-select-box
+      ></label>
+      <label class="text-gray-400"
+        >Business Function<span class="text-red-600 pl-2">*</span>
+        <dx-select-box
+          label="Select from list*"
+          labelMode="floating"
+          [searchEnabled]="true"
+          selectionMode="single"
+        >
+        </dx-select-box
+      ></label>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th colspan="2" rowspan="2"></th>
+          <th colspan="3">Risk Appetite</th>
+        </tr>
+        <tr>
+          <th class="risk-averse">Risk Averse</th>
+          <th class="risk-neutral">Risk Neutral</th>
+          <th class="risk-aggressive">Risk Aggressive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th rowspan="4" class="vertical-header">Business Process</th>
+        </tr>
+        <tr>
+          <td class="bp">BP-1</td>
+          <td>RR-3</td>
+          <td></td>
+          <td>RR-1</td>
+        </tr>
+        <tr>
+          <td class="bp">BP-2</td>
+          <td></td>
+          <td>RR-2</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="bp">BP-3</td>
+          <td></td>
+          <td></td>
+          <td>RR-1</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

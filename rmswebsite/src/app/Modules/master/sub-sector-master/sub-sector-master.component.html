@@ -1,0 +1,71 @@
+<div class="content">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="title">Sub Sector Master</h1>
+                </div>
+                <div class="card-body">
+                    <div id="app-container">
+                        <dx-data-grid id="dataGrid"
+                        [dataSource]="dataSource"
+                        [showBorders]="true"
+                       
+                        [allowColumnResizing]="true"
+                        [columnAutoWidth]="true"
+                        [allowColumnReordering]="true"
+                        (onExporting)="exportGrid($event)">
+                        <dxi-column dataField="subSectorMasterID" caption="Sub Sector MasterID" ></dxi-column>                     
+
+                        <dxi-column dataField="sectorID" caption="Select Sector Name">
+                            <dxi-validation-rule type="required"></dxi-validation-rule> 
+                            <dxo-lookup [dataSource]="typedata" valueExpr="sectorID" displayExpr="sectorName" ></dxo-lookup>  
+                        </dxi-column>
+                        <dxi-column dataField="subSectorName" caption="Sub SectorName"></dxi-column>                     
+                        <dxi-column dataField="description" caption="Description"></dxi-column>             
+                        
+                        <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+                        <dxo-search-panel [visible]="true"></dxo-search-panel>
+                        <dxo-group-panel [visible]="true"></dxo-group-panel>
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-summary>
+                            <dxi-total-item
+                                column="subSectorMasterID"
+                                summaryType="count">
+                            </dxi-total-item>
+                            
+                        </dxo-summary>
+                        <dxo-editing
+                        mode="popup"
+                        [allowUpdating]="true"
+                        [allowDeleting]="true"
+                        [allowAdding]="true">
+                        <dxo-popup
+                        title="Add Sub_Sector Master"
+                        [showTitle]="true"
+                        [width]="700"
+                        [height]="525"
+                       
+                      ></dxo-popup>
+                      </dxo-editing>
+                      <dxi-item name="groupPanel"></dxi-item>
+       <dxo-toolbar>
+        <dxi-item name="addRowButton" showText="always"></dxi-item>
+        <dxi-item name="exportButton"></dxi-item>
+        <dxi-item name="columnChooserButton"></dxi-item>
+        <dxi-item name="searchPanel"></dxi-item>
+                      </dxo-toolbar>
+                      <dxo-export 
+                      [enabled]="true"
+                      [formats]="['xlsx', 'pdf']"
+                    >
+                    </dxo-export>
+                  </dx-data-grid>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,133 @@
+<div class="form">
+  <div class=" content">
+      <div class=" row">
+        <div class=" col-md-10">
+          <div class=" card">
+            <div class=" card-header">
+              <h1 class=" title">Assessment Results</h1>
+            </div>
+            <div class="row ">
+      <div class="col-sm-3">
+              <label> Select Assessment Template</label>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-5">
+              <dx-drop-down-box style="width: 700px;"
+              [dropDownOptions]="{width: '1400px'}"
+              [(value)]="gridBoxValue"
+              [(opened)]="isGridBoxOpened"
+              valueExpr="ass_template_id"
+               [deferRendering]="false"
+               [displayExpr]="gridBox_displayExpr"
+               placeholder="Select a Template"
+               [inputAttr]="{ 'aria-label': 'Owner' }"
+               [showClearButton]="true"
+               [dataSource]="gridDataSource"
+               (onOptionChanged)="onGridBoxOptionChanged($event)"
+          
+              >
+                  >
+                    <div *dxTemplate="let data of 'content'">
+                      <dx-data-grid
+                      [dataSource]="gridDataSource"
+                      [columns]="gridColumns"
+                        [hoverStateEnabled]="true"
+                        [(selectedRowKeys)]="gridBoxValue"
+                    height="100%"
+                    width="100%"
+              >
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+                        <dxo-scrolling mode="virtual"></dxo-scrolling>
+                        <dxo-header-filter [visible]="true" [allowSearch]="true">
+                          <dxo-search [enabled]="true"></dxo-search>
+                        </dxo-header-filter>
+                        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                        <dxo-pager
+                        [visible]="true"
+                        [allowedPageSizes]="[ 10,20, 'all']"
+                       
+                        [showPageSizeSelector]="true"
+                       
+                        [showInfo]="true"
+                        infoText="Page {0} of  {1} ({2} items)"
+                        [showNavigationButtons]="true">
+                      </dxo-pager>
+                  
+                      <dxo-group-panel [visible]="true"></dxo-group-panel>
+                        <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+                    
+                                     </dx-data-grid>
+                    </div>
+                  </dx-drop-down-box>
+                </div>
+              </div>
+            <div class="card-body">
+              <style>
+                #app-container {
+                  width: 100%; 
+                  height: 500px; 
+                }
+              
+                #dataGrid {
+                  width: 95%; 
+                  height: 100%; 
+                }
+              </style>
+    <div id="app-container">
+      <dx-data-grid id="dataGrid"
+        [dataSource]="dataSource"
+        [showBorders]="true"
+     
+        [allowColumnResizing]="true"
+        [columnAutoWidth]="true"
+        [allowColumnReordering]="true"
+        
+        (onExporting)="exportGrid($event)">
+        <dxi-column dataField="UserAss_Ans_DetailsID" [visible]="false" [width]="400" >
+          <dxo-form-item [visible]="false">
+          </dxo-form-item>
+        </dxi-column>
+        <dxi-column dataField="question_id" caption="QuestionID" >
+          <dxi-validation-rule type="required"></dxi-validation-rule> 
+          
+      </dxi-column>
+        <dxi-column dataField="question" caption="Questions">
+          <dxi-validation-rule type="required"></dxi-validation-rule> 
+           
+      </dxi-column>
+      <dxi-column dataField="user_Selected_Ans" caption="User Selected Answer" >
+          
+    </dxi-column>
+    <dxi-column dataField="correct_answer" caption="Correct Answer"  >
+          
+    </dxi-column>
+    <dxi-column dataField="isAnswerCorrect" caption="Correct/Wrong"  >
+     
+    </dxi-column>
+    <dxi-column dataField="ref_to_governance_control" caption="Reference">
+          
+    </dxi-column>
+   
+      
+        <!-- <dxo-filter-row [visible]="true"></dxo-filter-row> -->
+        <!-- <dxo-search-panel [visible]="true"></dxo-search-panel> -->
+        <!-- <dxo-group-panel [visible]="true"></dxo-group-panel> -->
+        <!-- <dxo-selection mode="single"></dxo-selection> -->
+        <dxo-summary>
+          <dxi-total-item
+              column="UserAss_Ans_DetailsID"
+              summaryType="count">
+          </dxi-total-item>
+          
+      </dxo-summary>
+        
+      </dx-data-grid>
+      
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+  </div>

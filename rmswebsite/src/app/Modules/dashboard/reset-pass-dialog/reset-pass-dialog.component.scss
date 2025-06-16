@@ -1,0 +1,32 @@
+.grey-button {
+    align-items: center !important;
+    width: 100%;  }
+  .button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+  }
+
+  .error{
+    margin-bottom: 15px;
+    /* margin-top: -20px; */
+    color: red;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    background: #f2dede;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    width: auto;
+  }
+  .body {
+    margin: 10px;
+  }
+  form {
+    padding: 10px;
+  }
+  h2{
+    text-align-last: center;
+  }

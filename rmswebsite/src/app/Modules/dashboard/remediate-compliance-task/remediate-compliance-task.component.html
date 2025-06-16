@@ -1,0 +1,348 @@
+<mat-tab-group class="custom-tab-group">
+  <mat-tab label="Compliance Dashboard" class="custom-tab">Content for Compliance Dashboard</mat-tab>
+  <mat-tab label="Compliance Calendar" class="custom-tab">Content for Compliance Calendar</mat-tab>
+  <mat-tab label="Compliance List" class="custom-tab">
+    <br>
+    <div class="row">
+      <!-- Department Drop-down (50% width) -->
+      <div class="department-container">
+        <dx-drop-down-box 
+          formControlName="department"
+          [(value)]="selectedOption3"
+          [inputAttr]="{ 'aria-label': 'Owner' }"
+          placeholder="Select Department*"
+          [showClearButton]="true"
+          labelMode="floating"
+          valueExpr="locationdepartmentmappingid"
+          displayExpr="departmentname"
+          [dataSource]="department"
+          searchEnabled="true"
+          (onValueChanged)="searchComplianceTasks()">
+          
+          <div *dxTemplate="let data of 'content'">
+            <dx-data-grid
+              [dataSource]="department"
+              [selection]="{ mode: 'multiple' }"
+              [hoverStateEnabled]="true"
+              [columns]="EntityUnitLocationDepartmentColumns"
+              [(selectedRowKeys)]="selectedOption3"
+              [filterRow]="{ visible: true }"
+              [scrolling]="{ mode: 'virtual' }"
+              [showColumnHeaders]="true">
+            </dx-data-grid>
+          </div>
+        </dx-drop-down-box>
+      </div>
+    
+      <!-- Show Data Select Box (33% width) -->
+      <div class="show-data-container">
+        <dx-select-box 
+        label="Show data for"
+        valueExpr="id"
+        displayExpr="text"
+        [dataSource]="ShowDatafords"
+        selectionMode="single"
+        [searchEnabled]="true"
+        [(value)]="selectedDays"
+        (onValueChanged)="onDaysChanged($event)"
+        formControlName="ShowDatafor">
+      </dx-select-box>
+      
+      </div>
+    
+      <div class="Custombutton">
+        <button class="button" (click)="onRefresh()">Refresh</button>
+      </div>
+    </div>
+    
+    
+<br>
+<div class="container">
+<div class="row mb-3">
+<div class="col">
+<h2>List Of Compliance Task Scheduled</h2>
+</div>
+</div>
+<div class="row">
+<div class="col-md-12 d-flex align-items-center custom-row">
+<p class="custom-text mb-0">Search Result: Showing <strong>{{complianceCount}}</strong> Compliance's</p>
+
+<mat-form-field appearance="fill" class="custom-search">
+  <mat-label>Search</mat-label>
+  <input matInput placeholder="Search" [(ngModel)]="searchText">
+  <button mat-icon-button matSuffix (click)="resetSearch()">
+    <mat-icon>clear</mat-icon>
+  </button>
+  <button mat-icon-button matSuffix (click)="performSearch()">
+    <mat-icon>search</mat-icon>
+  </button>
+</mat-form-field>
+
+<mat-form-field class="custom-select">
+  <mat-label>Select Action</mat-label>
+  <mat-select [(ngModel)]="selectedOption" (selectionChange)="onSelectionChange($event)">
+    <mat-option value="0">Select Action</mat-option>
+    <mat-option value="1">APPROVED TO REMEDIATE</mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
+</div>
+</div>
+        <div class="row">
+          <div class="col-md-12 d-flex align-items-center custom-row"><strong>Filters:</strong></div>
+          <div class="example-button-container">
+              <button mat-raised-button
+                      [ngClass]="{'highlight-button': SelectedStage('ExtensionApplied')}"
+                      style="background-color: rgb(157, 191, 241);"
+                      (click)="selectStage('ExtensionApplied')">Extension Applied</button>
+            
+              <button mat-raised-button
+                      [ngClass]="{'highlight-button': SelectedStage('RemediationApplied')}"
+                      style="background-color: rgb(235, 144, 91);"
+                      (click)="selectStage('RemediationApplied')">Remediation Applied</button>
+          
+              <button mat-raised-button
+                      style="background-color: rgb(244, 245, 247);"
+                      (click)="clearFilters()">Clear</button>
+            </div>
+    </div>
+    <br>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <!-- <mat-checkbox (change)="toggleAll($event)" [checked]="isAllSelected()" [indeterminate]="isSomeSelected()"></mat-checkbox> -->
+        </th>
+        <td mat-cell *matCellDef="let item">
+          <!-- <mat-checkbox (change)="onCheckboxChange($event, item)" [checked]="isSelected(item)"></mat-checkbox> -->
+          <mat-radio-button (change)="onRadioChange(item)" [checked]="isSelected(item)">
+          </mat-radio-button>
+        </td>
+      </ng-container>
+    
+          <ng-container matColumnDef="matCardColumn">
+            <th mat-header-cell *matHeaderCellDef> Compliance Task Details </th>
+            <td mat-cell *matCellDef="let item">
+              <mat-card class="menu-item-card shadow-button">
+                <mat-card-content class="card-content">
+                  <div class="flex-container">
+                    <div class="flex-item">
+                        <p><strong [ngStyle]="{'color': getComplianceStageColor(item.complianceStage)}">Entity Name:</strong> 
+                          {{ item.entityName?.toString().slice(0, 25)}}<span *ngIf="item.entityName.length > 35">...</span>
+                      </p>
+                    </div>
+                    <div class="flex-item">
+                      <p><strong [ngStyle]="{'color': getComplianceStageColor(item.complianceStage)}">Unit Location Name:</strong> 
+                        {{ item.unitLocationName?.toString().slice(0, 25)}}<span *ngIf="item.unitLocationName.length > 25">...</span>
+                      </p>
+                    </div>
+                    <div class="flex-item">
+                      <p><strong [ngStyle]="{'color': getComplianceStageColor(item.complianceStage)}">Compliance ID:</strong> 
+                        {{ item.complianceID?.toString().slice(0, 25)}}<span *ngIf="item.complianceID.length > 25">...</span>
+                      </p>
+                    </div>
+                    <div class="flex-item">
+                      <p><strong [ngStyle]="{'color': getComplianceStageColor(item.complianceStage)}">Compliance Name:</strong> 
+                        {{ item.complianceName?.toString().slice(0, 25)}}<span *ngIf="item.complianceName.length > 25">...</span>
+                      </p>
+                    </div>
+                    <div class="flex-item">
+                      <p><strong [ngStyle]="{'color': getComplianceStageColor(item.complianceStage)}">Act Name:</strong> 
+                        {{ item.actName?.toString().slice(0, 25)}}<span *ngIf="item.actName.length > 25">...</span>
+                      </p>
+                    </div>
+                    <div class="flex-item">
+                      <p><strong [ngStyle]="{'color': getComplianceStageColor(item.complianceStage)}">Rule Name:</strong> 
+                        {{ item.ruleName?.toString().slice(0, 25)}}<span *ngIf="item.ruleName.length > 25">...</span>
+                      </p>
+                    </div>
+                    <div class="flex-item">
+                      <p><strong [ngStyle]="{'color': getComplianceStageColor(item.complianceStage)}">Statutory Form:</strong> 
+                        {{ item.statutoryForm?.toString().slice(0, 25)}}<span *ngIf="item.statutoryForm.length > 25">...</span>
+                      </p>
+                    </div>
+                    <div class="flex-item">
+                      <p><strong [ngStyle]="{'color': getComplianceStageColor(item.complianceStage)}">Section/Rule/Regulation:</strong> 
+                        {{ item.sectionRuleRegulation?.toString().slice(0, 25)}}<span *ngIf="item.sectionRuleRegulation.length > 25">...</span>
+                      </p>
+                    </div>
+                    <div class="flex-item">
+                      <p><strong [ngStyle]="{'color': getComplianceStageColor(item.complianceStage)}">Compliance Period:</strong> 
+                        {{ item.compliancePeriod?.toString().slice(0, 25)}}<span *ngIf="item.compliancePeriod.length > 25">...</span>
+                      </p>
+                    </div>
+                    <div class="flex-item">
+                      <p><strong [ngStyle]="{'color': getComplianceStageColor(item.complianceStage)}">Risk Classification:</strong> 
+                        {{ item.riskClassification?.toString().slice(0, 25)}}<span *ngIf="item.riskClassification.length > 25">...</span>
+                      </p>
+                    </div>
+                    <div class="flex-item">
+                      <button mat-icon-button class="corner-icon-button" (click)="openInfoDialog(item)">
+                        <mat-icon class="blue-info-icon">info</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+              
+            </td>
+          </ng-container>
+      <!-- <ng-container matColumnDef="dueDate">
+        <th mat-header-cell *matHeaderCellDef> Due Date </th>
+        <td mat-cell *matCellDef="let item"> {{ item.dueDate }} </td>
+      </ng-container> -->
+      <ng-container matColumnDef="dueDate">
+        <th mat-header-cell *matHeaderCellDef>Due Date</th>
+        <td mat-cell *matCellDef="let item">
+          <div class="due-container">
+            <div class="due-date">{{ item.dueDate | date:'dd' }}</div>
+            <div class="due-month">{{ item.dueDate | date:'MMM' }}</div>
+            <div class="due-year">{{ item.dueDate | date:'yyyy' }}</div>
+            <div class="additional-text">{{ getDaysStatus(item.dueDate) }} Days Left</div>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="compliaanceType">
+        <th mat-header-cell *matHeaderCellDef> Compliance Type </th>
+        <td mat-cell *matCellDef="let item"> {{ item.complianceType }} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="remedialDate">
+        <th mat-header-cell *matHeaderCellDef> Remedial Comply Date </th>
+        <td mat-cell *matCellDef="let item">
+          <div class="due-container" *ngIf="item.remedialDate; else noDate">
+            <div class="due-date">{{ item.remedialDate | date:'dd' }}</div>
+            <div class="due-month">{{ item.remedialDate | date:'MMM' }}</div>
+            <div class="due-year">{{ item.remedialDate | date:'yyyy' }}</div>
+            <div class="additional-text">{{ getDaysStatus(item.remedialDate) }}</div>
+          </div>
+          <ng-template #noDate>
+            <div class="due-container" style="font: bold;">---</div>
+          </ng-template>
+        </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="categoryLaw">
+        <th mat-header-cell *matHeaderCellDef> Category of Law </th>
+        <td mat-cell *matCellDef="let item"> {{ item.categoryLaw }} </td>
+      </ng-container>
+      <ng-container matColumnDef="complianceStage">
+        <th mat-header-cell *matHeaderCellDef> Compliance Stage Progress </th>
+        <td mat-cell *matCellDef="let item">
+          <div class="stage-badge" [ngStyle]="getCellStyle(item.complianceStage)">
+            {{ item.complianceStage }}
+          </div>
+        </td>
+      </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+     </mat-tab>
+
+<div class="form">
+  <mat-tab-group>
+    
+      <mat-tab label="Compliance Dashboard" >
+          <br>
+          <div class="row" style="height: 50px;" >
+
+              <dx-select-box 
+          label="Entity Name"
+          valueExpr="id"
+          displayExpr="text"
+          
+          selectionMode="single" 
+      [searchEnabled]="true"
+      placeholder=""
+          formControlName="EntityName">
+          
+        </dx-select-box>
+      
+            <dx-select-box 
+        label="Unit Location Master"
+        valueExpr="id"
+        displayExpr="text"
+        
+        selectionMode="single" 
+      [searchEnabled]="true"
+      placeholder=""
+        formControlName="UnitLocationName">
+        
+      </dx-select-box>
+      
+      <dx-select-box 
+        label="Deparment Master"
+        valueExpr="id"
+        displayExpr="text"
+        
+        selectionMode="single" 
+      [searchEnabled]="true"
+      placeholder=""
+        formControlName="DeparmentName">
+        
+      </dx-select-box>
+      
+      <dx-select-box 
+        label="Show Data Type"
+        valueExpr="id"
+        displayExpr="text"
+        
+        selectionMode="single" 
+      [searchEnabled]="true"
+      placeholder=""
+        formControlName="ShowDataTyp">
+        
+      </dx-select-box>
+      
+          <button style="margin: 2px;" class="Custombutton"  matSteppersave type="submit" >Refresh</button>
+      
+      </div>
+      
+      </mat-tab>
+      <mat-tab label="Compliance Calender"> 
+          <br>
+          <div class="row" style="height: 50px;" >
+
+              <dx-select-box 
+          label="Entity Name"
+          valueExpr="id"
+          displayExpr="text"
+          
+          selectionMode="single" 
+      [searchEnabled]="true"
+      placeholder=""
+          formControlName="EntityName">
+          
+        </dx-select-box>
+      
+            <dx-select-box 
+        label="Unit Location Master"
+        valueExpr="id"
+        displayExpr="text"
+        
+        selectionMode="single" 
+      [searchEnabled]="true"
+      placeholder=""
+        formControlName="UnitLocationName">
+        
+      </dx-select-box>
+      
+      <dx-select-box 
+        label="Deparment Master"
+        valueExpr="id"
+        displayExpr="text"
+        
+        selectionMode="single" 
+      [searchEnabled]="true"
+      placeholder=""
+        formControlName="DeparmentName">
+        
+      </dx-select-box>
+      
+     
+          <button style="margin: 2px;" class="Custombutton"  matSteppersave type="submit" >Refresh</button>
+      
+      </div>
+    
+           </mat-tab> 
+          
+

@@ -1,0 +1,146 @@
+/* Overlay */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Dialog box */
+.dialog-box {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 80%;
+    overflow-y: auto;
+}
+
+/* Title */
+.dialog-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Message */
+.dialog-message {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Confirm button */
+.dialog-confirm-btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* Cancel button */
+.dialog-cancel-btn {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.mat-dialog-actions {
+    justify-content: center;
+}
+
+button.mat-button {
+
+          background: #556f83;
+          color: white;
+    
+}
+.center {
+    text-align: center !important;
+}
+
+  .success-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px; /* Adjust as needed */
+    height: 60px; /* Adjust as needed */
+    border-radius: 50%;
+    border: 2px solid green; /* Set border to create the green circle */
+    margin: 0 auto 10px auto; /* Set margin to auto for horizontal centering */
+  }
+  
+  .success-icon {
+    font-size: 36px;
+    color: green; /* Set tick mark color to green */
+  }
+  .dialog-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .center {
+    text-align: center;
+    font-size: 1em;
+
+  }
+  
+  .globalID {
+    font-size: 1.0em;
+    //font-weight: bold;
+    // color: #180f03;
+    //padding: 10px;
+    // border: 1px solid #080808;
+    // border-radius: 5px;
+    // background-color: #f1f9ff;
+   // margin-top: 20px;
+  }
+  
+  mat-dialog-content {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  mat-dialog-actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+//     button[mat-button] {
+//       background-color: #138a08;
+//       color: white;
+//       padding: 10px 20px;
+//       border-radius: 5px;
+//       border: none;
+//       cursor: pointer;
+//       transition: background-color 0.3s ease;
+//     }
+  
+//     button[mat-button]:hover {
+//       background-color: #0056b3;
+//     }
+  
+  
+  

@@ -1,0 +1,1326 @@
+.form-container {
+    display: flex;
+    gap: 16px; /* Space between the fields */
+  }
+  
+  mat-form-field {
+    flex: 1; /* Grow to fill available space */
+  }
+  .form-container {
+    display: flex;
+    justify-content: center; /* Center horizontally if needed */
+    margin: 20px 0; /* Adjust margins as needed */
+  }
+  
+  .half-width {
+    width: 50%; /* Adjust width as needed */
+  }
+  
+  
+  /* color-slider.component.css */
+  .slider-container {
+    position: relative;
+    width: 300px; /* Adjust width as needed for a smaller slider */
+    margin: 20px auto; /* Center the slider horizontally */
+  }
+  
+  .mat-slider {
+    width: 100%; /* Make slider width relative to container */
+    height: 20px; /* Medium height */
+  }
+  
+  .mat-slider-thumb {
+    width: 24px; /* Medium thumb size */
+    height: 24px;
+    border-radius: 50%;
+  }
+  
+  .color-ranges {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .color-block {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%);
+    text-align: center;
+    line-height: 20px;
+    color: #000;
+    font-size: 12px;
+  }
+  
+  .color-box {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .color-code {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  
+  
+  
+  .color-palette {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between chambers */
+  }
+  
+  
+  /* CSS to reduce the size of color boxes */
+  .color-palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px; /* Adjust space between color boxes */
+  }
+  
+  .color-box {
+    width: 40px; /* Reduced width */
+    height: 40px; /* Reduced height */
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .color-box .color-code {
+    font-size: 12px; /* Adjust font size if needed */
+    color: #fff; /* Contrast text color */
+    margin: 0;
+  }
+  
+  .selected-color {
+    margin-top: 16px;
+    padding: 8px;
+    border-radius: 4px;
+    color: #fff;
+    border: 1px solid #ccc;
+  }
+  .slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .chamber {
+    display: flex;
+    gap: 10px; /* Space between color boxes in a chamber */
+  }
+  
+  .color-box {
+    width: 100px; /* Adjust size as needed */
+    height: 100px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-align: center;
+    color: #fff;
+    font-size: 12px; /* Optional: adjust size based on the box size */
+  }
+  
+  .color-box.selected {
+    border: 1px solid #000000;
+  }
+  
+  .selected-color {
+    width: 150px;
+    height: 50px;
+    border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-weight: bold;
+  }
+  
+  /* Container for form and color palette */
+  .form-container {
+    // margin: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Space between form elements */
+    flex: 1; /* Allow the form container to take available space */
+  }
+  
+  /* Container for color palette */
+  .color-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  /* Adjust size and spacing of color boxes */
+  .color-palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px; /* Adjust space between color boxes */
+  }
+  
+  .color-box {
+    width: 40px; /* Adjust width */
+    height: 40px; /* Adjust height */
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .color-box .color-code {
+    font-size: 8px; /* Adjust font size */
+    color: #fff; /* Contrast text color */
+    margin: 0;
+  }
+  
+  .selected-color {
+    margin-top: 16px;
+    padding: 8px;
+    border-radius: 4px;
+    color: #fff;
+  }
+  
+  /* Slider container */
+  .slider-container {
+    // margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Space between slider and color box */
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+     /* Space between rows */
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    /* Space between columns */
+  }
+  
+  .form-group {
+    display: flex;
+    gap: 16px; /* Space between form fields */
+    flex: 1;
+  }
+  
+  
+  .container {
+    padding: 16px;
+  }
+  
+  .row {
+    display: flex;
+  
+    margin-bottom: 16px;
+  }
+  
+  .form-group {
+    display: flex;
+  
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  }
+  
+  .form-container {
+    flex: 1;
+  }
+  
+  .half-width {
+    flex: 1;
+  }
+  
+  .slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px; /* Space between slider and color box */
+  }
+  
+  .color-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* Space between color palette and selected color */
+  }
+  
+  .color-palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px; /* Space between color boxes */
+  }
+  
+  .color-box {
+    width: 40px; /* Adjust width */
+    height: 40px; /* Adjust height */
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .color-box .color-code {
+    font-size: 12px; /* Adjust font size */
+    color: #fff; /* Contrast text color */
+    margin: 0;
+  }
+  
+  .selected-color {
+    padding: 8px;
+    text-align: center;
+    color: #fff; /* Ensure text is visible */
+    border: 1px solid #ccc;
+  }
+  .button-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns buttons to the right end */
+    padding: 16px; /* Adjust padding as needed */
+  }
+  
+  .button-wrapper {
+    display: flex;
+    gap: 8px; /* Space between buttons */
+  }
+  
+  .btn {
+    padding: 8px 16px; /* Button padding */
+    border: none;
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer;
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Font weight */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transitions for hover effects */
+  }
+  
+  .submit-btn {
+    background-color: #28a745; /* Green background for submit */
+    color: #fff; /* White text color */
+  }
+  
+  .submit-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+  .edit-btn {
+    background-color: #ffc107; /* Yellow background for edit */
+    color: #fff; /* White text color */
+  }
+  
+  .edit-btn:hover {
+    background-color: #e0a800; /* Darker yellow on hover */
+  }
+  
+  .view-btn {
+    background-color: #007bff; /* Blue background for view */
+    color: #fff; /* White text color */
+  }
+  
+  .view-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  .table {
+    width: 100%;
+    margin-top: 25px;
+  }
+  
+  .body {
+    padding: 30px;
+    padding-top: 20px;
+  }
+  .h1 {
+    font-size: revert;
+    font-weight: 500;
+  }
+  
+  
+  .img {
+    height: 20px;
+    // margin-left: 80px;
+    cursor: pointer;
+  
+  }
+  
+  //Toggle button
+  ::ng-deep {
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+      background-color: #37d111 !important;
+    }
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+      background-color: #d9d9d9 !important;
+    }
+  
+    mat-header-cell,
+    mat-cell {
+      justify-content: center;
+      text-align-last: center;
+      overflow: inherit !important;
+      text-align: center;
+    }
+  }
+  
+  .filter-input {
+    width: 98%;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .gray-text {
+    color: #b9b9b9;
+  }
+  
+  // DevExpress Grid styles Opeb
+  
+  .employee-photo {
+    height: 140px;
+    float: left;
+    padding: 0 20px 20px 0;
+  }
+  
+  .employee-notes {
+    text-align: justify;
+    white-space: normal;
+  }
+  
+  #dataGrid {
+    height: 500px;
+  }
+  
+  #app-container {
+    width: 850px;
+    position: relative;
+    margin: 2%;
+  }
+  
+  .content{
+    margin : 30px;
+  }
+  
+  
+  #selected-employee {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  //dev express GRID style close
+  .button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+  }
+  
+  
+  .header{
+    padding-left: 10px;
+    //padding-bottom: 20px;
+    padding-top: 10px;
+  }
+  
+  ::ng-deep #form-container {
+    margin: 10px;
+  }
+  
+   
+  .wrapper{
+    padding: 10px;
+    
+  }
+  
+  ::ng-deep .long-title h3 {
+    font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+    font-weight: 200;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .readonly-input {
+    pointer-events: none;
+    background-color: hsl(0, 19%, 93%);
+    color: #333; /* Adjust styles as needed */
+  }
+  .table-container {
+    max-width: 1000px; /* Set the maximum width of the container */
+    margin: 10px; /* Center the container horizontally */
+  }
+  
+  .mat-table {
+    width: 100%; /* Set the width of the table to 100% of its container */
+  }
+  
+  .scrollable-textarea {
+    overflow: auto;
+    resize: vertical; /* Optional: Allow vertical resizing */
+    min-height: 100px; /* Optional: Set a minimum height */
+  }
+  
+  ::ng-deep .mat-dialog-content.error-message {
+  color: red; /* Set the color for error messages */
+  /* Add any other styling for error messages as needed */
+  }
+  
+  ::ng-deep .mat-dialog-content.success-message {
+  color: green; /* Set the color for success messages */
+  /* Add any other styling for success messages as needed */
+  }
+  
+  .loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  }
+  select {
+  display: block;
+  width: 100%; /* Adjust the width as needed */
+  padding: 8px; /* Adjust the padding as needed */
+  margin: 10px 0; /* Adjust the margin as needed */
+  box-sizing: border-box;
+  border: 1px solid #ccc; /* Adjust the border style as needed */
+  border-radius: 4px; /* Adjust the border-radius as needed */
+  font-size: 14px; /* Adjust the font size as needed */
+  color: #333; /* Adjust the text color as needed */
+  background-color: #fff; /* Adjust the background color as needed */
+  }
+  
+  /* Optional: Add styles for hover and focus states */
+  select:hover,
+  select:focus {
+  border-color: #66afe9; /* Adjust the border color for hover and focus states as needed */
+  }
+  
+  @media only screen and (max-width: 600px) {
+  .sidebar {
+   overflow: auto;
+  }
+  }
+  .suggestion-container {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px; /* Adjust margin as needed */
+  }
+  
+  .remarks-container {
+  flex: 1; /* Make mat-form-field take available space */
+  margin-right: 8px; /* Adjust margin as needed */
+  }
+  
+  .delete-button {
+  background-color: #ff0000; /* Set your desired background color */
+  color: #ffffff; /* Set your desired text color */
+  border: none;
+  
+  padding: 10px; /* Adjust padding to increase button size */
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 8px; 
+  }
+  .add-button {
+  background-color: #4caf50; /* Set your desired background color */
+  color: #fff; /* Set your desired text color */
+  border: none;
+  padding: 10px 20px; /* Adjust padding for the button size */
+  font-size: 16px; /* Set your desired font size */
+  cursor: pointer;
+  border-radius: 5px; /* Adjust border-radius for rounded corners */
+  }
+  
+  .add-button:hover {
+  background-color: #45a049; /* Change background color on hover */
+  }
+  ::ng-deep #data-grid-demo {
+  min-height: 700px;
+  }
+  
+  ::ng-deep #gridDeleteSelected {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  margin: 1px;
+  top: 0;
+  }
+  
+  ::ng-deep #gridDeleteSelected .dx-button-text {
+  line-height: 0;
+  }
+  
+  
+  .options-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px); /* Apply blur effect */
+  -webkit-backdrop-filter: blur(8px); /* For Safari */
+  z-index: 9999; /* ensure it appears above other elements */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .options-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  width: 300px; /* adjust as needed */
+  }
+  
+  .options-container button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  }
+  
+  .options-container button:hover {
+  background-color: #e0e0e0;
+  }
+  
+  
+  .table {
+  width: 100%;
+  margin-top: 25px;
+  }
+  
+  .body {
+  padding: 30px;
+  padding-top: 20px;
+  }
+  .h1 {
+  font-size: revert;
+  font-weight: 500;
+  }
+  
+  
+  .img {
+  height: 20px;
+  // margin-left: 80px;
+  cursor: pointer;
+  
+  }
+  
+  //Toggle button
+  ::ng-deep {
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #37d111 !important;
+  }
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #d9d9d9 !important;
+  }
+  
+  mat-header-cell,
+  mat-cell {
+    justify-content: center;
+    text-align-last: center;
+    overflow: inherit !important;
+    text-align: center;
+  }
+  }
+  
+  .filter-input {
+  width: 98%;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  font-size: 16px;
+  }
+  
+  .gray-text {
+  color: #b9b9b9;
+  }
+  
+  // DevExpress Grid styles Opeb
+  
+  .employee-photo {
+  height: 140px;
+  float: left;
+  padding: 0 20px 20px 0;
+  }
+  
+  .employee-notes {
+  text-align: justify;
+  white-space: normal;
+  }
+  
+  #dataGrid {
+  height: 500px;
+  }
+  
+  #app-container {
+  width: 850px;
+  position: relative;
+  margin: 2%;
+  }
+  
+  .content{
+  margin : 30px;
+  }
+  
+  
+  #selected-employee {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  }
+  //dev express GRID style close
+  .button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  gap: 20px;
+  }
+  
+  
+  .header{
+  padding-left: 10px;
+  //padding-bottom: 20px;
+  padding-top: 10px;
+  }
+  
+  ::ng-deep #form-container {
+  margin: 10px;
+  }
+  
+  
+  .wrapper{
+  padding: 10px;
+  
+  }
+  
+  ::ng-deep .long-title h3 {
+  font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+  font-weight: 200;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
+  }
+  
+  .readonly-input {
+  pointer-events: none;
+  background-color: hsl(0, 19%, 93%);
+  color: #333; /* Adjust styles as needed */
+  }
+  .table-container {
+  max-width: 1000px; /* Set the maximum width of the container */
+  margin: 10px; /* Center the container horizontally */
+  }
+  
+  .mat-table {
+  width: 100%; /* Set the width of the table to 100% of its container */
+  }
+  
+  .scrollable-textarea {
+  overflow: auto;
+  resize: vertical; /* Optional: Allow vertical resizing */
+  min-height: 100px; /* Optional: Set a minimum height */
+  }
+  
+  ::ng-deep .mat-dialog-content.error-message {
+  color: red; /* Set the color for error messages */
+  /* Add any other styling for error messages as needed */
+  }
+  
+  ::ng-deep .mat-dialog-content.success-message {
+  color: green; /* Set the color for success messages */
+  /* Add any other styling for success messages as needed */
+  }
+  
+  .loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  }
+  select {
+  display: block;
+  width: 100%; /* Adjust the width as needed */
+  padding: 8px; /* Adjust the padding as needed */
+  margin: 10px 0; /* Adjust the margin as needed */
+  box-sizing: border-box;
+  border: 1px solid #ccc; /* Adjust the border style as needed */
+  border-radius: 4px; /* Adjust the border-radius as needed */
+  font-size: 14px; /* Adjust the font size as needed */
+  color: #333; /* Adjust the text color as needed */
+  background-color: #fff; /* Adjust the background color as needed */
+  }
+  
+  /* Optional: Add styles for hover and focus states */
+  select:hover,
+  select:focus {
+  border-color: #66afe9; /* Adjust the border color for hover and focus states as needed */
+  }
+  
+  @media only screen and (max-width: 600px) {
+  .sidebar {
+  overflow: auto;
+  }
+  }
+  .suggestion-container {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 8px; /* Adjust margin as needed */
+  }
+  
+  .remarks-container {
+  flex: 1; /* Make mat-form-field take available space */
+  margin-right: 8px; /* Adjust margin as needed */
+  }
+  
+  .delete-button {
+  background-color: #ff0000; /* Set your desired background color */
+  color: #ffffff; /* Set your desired text color */
+  border: none;
+  
+  padding: 10px; /* Adjust padding to increase button size */
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 8px; 
+  }
+  .add-button {
+  background-color: #4caf50; /* Set your desired background color */
+  color: #fff; /* Set your desired text color */
+  border: none;
+  padding: 10px 20px; /* Adjust padding for the button size */
+  font-size: 16px; /* Set your desired font size */
+  cursor: pointer;
+  border-radius: 5px; /* Adjust border-radius for rounded corners */
+  }
+  
+  .add-button:hover {
+  background-color: #45a049; /* Change background color on hover */
+  }
+  
+  .action-button {
+  padding: 8px 16px; /* Adjust padding as needed */
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  border: none; /* Remove button border */
+  border-radius: 4px; /* Apply border radius for rounded corners */
+  cursor: pointer; /* Show pointer cursor on hover */
+  }
+  
+  /* Hover effect for the action button */
+  .action-button:hover {
+  background-color: #0056b3; /* Darken background color on hover */
+  }
+  
+  
+  //grid css classes
+  $space: 1rem;
+  
+  .table {
+  width: 100%;
+  margin-top: 25px;
+  }
+  .button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  gap: 20px;
+  }
+  .buttonModified {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  }
+  
+  .body {
+  padding: 30px;
+  padding-top: 20px;
+  }
+  .h1 {
+  font-size: revert;
+  font-weight: 500;
+  }
+  
+  .img {
+  height: 20px;
+  cursor: pointer;
+  }
+  
+  ::ng-deep {
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #37d111 !important;
+  }
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #d9d9d9 !important;
+  }
+  // .mat-select-arrow-wrapper{
+  //   margin-right: 30px !important;
+  // }
+  
+  mat-header-cell,
+  mat-cell {
+    justify-content: center;
+  }
+  .mat-slide-toggle {
+    margin-left: 10px;
+  }
+  }
+  .filter-input {
+  width: 98%;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  font-size: 16px;
+  }
+  
+  .gray-text {
+  color: #b9b9b9;
+  }
+  
+  .boxNew {
+  display: flex;
+  padding-left: 30px;
+  gap:0px;
+  flex-direction: row;
+  width: 60%;
+  }
+  .boxNew> * {
+  flex: 1 1 160px;
+  
+  }
+  
+  
+  
+  
+  .table {
+  width: 100%;
+  margin-top: 25px;
+  }
+  .button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  gap: 20px;
+  }
+  
+  .checkboxBorder{
+  border-style: solid ;
+  border-width: 2px;
+  border-color: gray;  
+  
+  }
+  
+  .body {
+  padding: 30px;
+  padding-top: 20px;
+  }
+  .h1 {
+  font-size: revert;
+  font-weight: 500;
+  }
+  
+  .img {
+  height: 20px;
+  cursor: pointer;
+  }
+  
+  ::ng-deep {
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #37d111 !important;
+  }
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #d9d9d9 !important;
+  }
+  // .mat-select-arrow-wrapper{
+  //   margin-right: 30px !important;
+  // }
+  
+  mat-header-cell,
+  mat-cell {
+    justify-content: center;
+  }
+  .mat-slide-toggle {
+    margin-left: 10px;
+  }
+  }
+  .filter-input {
+  width: 98%;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  font-size: 16px;
+  }
+  
+  .gray-text {
+  color: #b9b9b9;
+  }
+  
+  /* Add this CSS in your component's style file or your global styles */
+  
+  .mat-radio-button {
+  margin-right: 100px; /* Adjust the margin between radio buttons */
+  }
+  
+  /* Style the radio button label text */
+  .mat-radio-button-label {
+  font-size: 23px; /* Adjust the font size */
+  }
+  
+  /* Style the radio button when it is checked */
+  .mat-radio-checked .mat-radio-inner-circle {
+  background-color: #2196F3; /* Change the background color when checked */
+  border-color: #2196F3; /* Change the border color when checked */
+  }
+  
+  /* Style the radio button label text when it is checked */
+  .mat-radio-checked .mat-radio-label-content {
+  color: #2196F3; /* Change the text color when checked */
+  }
+  .exitbutton {
+  margin-left: 30px;
+  display: block;
+  width: 20%;
+  font-family: inherit;
+  background: linear-gradient(119.62deg,#000046,rgba(224, 35, 28, 0.725));
+  color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+  margin-top: $space * 2;
+  
+  &:hover,
+  &:focus {
+  background-color: #6a6a6a;
+  }
+  
+  }
+  .custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd; /* Border color */
+  }
+  
+  /* Style for the header row */
+  .header-row {
+  background-color: #f2f2f2; /* Header row background color */
+  }
+  
+  /* Style for the data rows */
+  .data-row {
+  border-bottom: 1px solid #ddd; /* Border between rows */
+  }
+  
+  /* Style for cells */
+  .mat-cell {
+  padding: 8px; /* Adjust cell padding */
+  }
+  
+  /* Optional: Style for sticky header */
+  .mat-header-cell.sticky {
+  background-color: #fff; /* Sticky header background color */
+  border-bottom: 1px solid #ddd; /* Border below sticky header */
+  }
+  .Custom_button {
+  margin-left: 10px;
+  display: block;
+  width: 15%;
+  font-family: inherit;
+  background: linear-gradient(119.62deg,#000046,rgba(28, 224, 204, 0.725));
+  color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+  margin-top: $space * 2;
+  
+  &:hover,
+  &:focus {
+  background-color: #6a6a6a;
+  }
+  }
+  .Custom_button::before {
+  content: "\002B"; /* Unicode for the plus symbol */
+  margin-left: 5px; /* Adjust the margin as needed */
+  }
+  
+  .container {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  }
+  
+  .view-button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  }
+  
+  .view-grid-button {
+  background-color: #27ae60;
+  color: #fff;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  }
+  
+  .Delete-grid-button {
+    background-color: red;
+    color: #fff;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    }
+  .container1 {
+  display: flex;
+  justify-content: flex-end; /* Align items to the end (right side) */
+  }
+  .view-grid-buttonAdd {
+  background-color: #27ae60;
+  color: #fff;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 50px;
+  width: 150px;
+  font-size: medium; /* Set the font size for the text */
+  }
+  
+  .view-grid-buttonAdd::before {
+  content: "+"; /* Unicode character for the plus symbol */
+  font-size: 24px; /* Adjust the size of the plus symbol */
+  margin-right: 5px; /* Optional: Add some spacing between the symbol and the text */
+  }
+  
+  /* Your component CSS */
+  .popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Adjust the transparency as needed */
+  backdrop-filter: blur(5px); /* Adjust the blur intensity as needed */
+  z-index: 1;
+  }
+  
+  .popup {
+  z-index: 2;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: start;
+  position: relative;
+  max-width: 100%; /* Set a maximum width for the popup */
+  margin: auto;
+  width:50%; /* Center horizontally */
+  max-height: 100%;
+  height: 80%;
+  overflow: auto;
+  }
+  
+  .popup-button {
+  
+  margin-top: 10px; /* Adjust the distance between button and content */
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  width: inherit;
+  cursor: pointer;
+  position: inherit;
+  bottom: 10px; /* Adjust the distance from the bottom */
+  left: 50%;
+  
+  
+  }
+  
+  .popup-buttonback-button {
+  
+  margin-top: 10px; /* Adjust the distance between button and content */
+  padding: 10px;
+  background-color:gray;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  width: inherit;
+  cursor: pointer;
+  position: inherit;
+  bottom: 10px; /* Adjust the distance from the bottom */
+  left: 50%;
+  
+  
+  }
+  
+  /* Hide the grid filter symbols */
+  .dx-datagrid-filter-row {
+  display: none;
+  }
+  .popup-content {
+  margin-bottom: 10px; /* Adjust the gap between <strong> and <button> */
+  }
+  
+  
+  
+  
+  .popup-content-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Adjust the number of columns as needed */
+  grid-gap: 10px;
+  /* Adjust the gap between columns */
+  }
+  
+  .popup-content {
+  margin-bottom: 15px;
+  }
+  
+  .popup-content label {
+  display: block;
+  margin-bottom: 5px;
+  }
+  
+  .popup-content input,
+  .popup-content textarea {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width:100%; 
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+  }
+  
+  .popup-content textarea {
+  resize: vertical;
+  }
+  
+  .popup-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  justify-content: flex-end;
+  cursor: pointer;
+  }
+  
+  .popup-button:hover {
+  background-color: #0056b3;
+  }
+  
+  //popup button 
+  .button-container {
+  justify-content: flex-end;
+  display: flex; /* Use flexbox to arrange buttons horizontally */
+  }
+  
+  .button-container button {
+  justify-content: flex-end;
+  margin-right: 10px; /* Add margin between buttons for spacing */
+  }
+  
+  .popup-content-container {
+  display: flex; /* Use flexbox to arrange items horizontally */
+  }
+  
+  .popup-content {
+  flex: 1; /* Let each content container take equal space */
+  margin-right: 10px; /* Add some space between content items */
+  }
+  
+  .popup-content:last-child {
+  margin-right: 0; /* Remove margin from the last content item */
+  }
+  .checkbox-large {
+  transform: scale(1.5); /* Adjust the scale factor as needed */
+  }
+  ::ng-deep .custom-height-slider {
+  height: 75px;
+  }
+  
+  ::ng-deep .dx-field > .dx-rangeslider {
+  flex: 1;
+  }
+  .color-button {
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Makes the button round */
+  cursor: pointer;
+  }
+  
+  .color-button.default {
+  background-color: gray; /* Default color */
+  }
+  
+  
+  
+  
+  

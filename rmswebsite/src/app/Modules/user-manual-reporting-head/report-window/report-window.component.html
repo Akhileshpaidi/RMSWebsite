@@ -1,0 +1,167 @@
+<h1>Report Window </h1>
+<div class="container">
+<div>
+    <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Compliance Name</mat-label>
+    <input  matInput type="text" />
+  </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Compliance Description</mat-label>
+    <input  matInput type="text" />
+  </mat-form-field>
+  </div>
+
+<br>
+
+<div >
+  <mat-form-field appearance="outline" class="form-field">
+   <mat-label>Stage of Compliance:</mat-label>
+<mat-select disableOptionCentering>
+<mat-option>All</mat-option>
+</mat-select>
+</mat-form-field>
+</div>
+<div >
+  <mat-form-field appearance="outline" class="form-field">
+   <mat-label>Risk category:</mat-label>
+<mat-select disableOptionCentering>
+<mat-option>All</mat-option>
+</mat-select>
+</mat-form-field>
+</div>
+<div >
+  <mat-form-field appearance="outline" class="form-field">
+   <mat-label>Frequency:</mat-label>
+<mat-select disableOptionCentering>
+<mat-option>All</mat-option>
+</mat-select>
+</mat-form-field>
+</div>
+
+   <div >
+ <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Acts Name:</mat-label>
+    <input  matInput type="text" />
+  </mat-form-field>
+  </div>
+
+<div >
+  <mat-form-field appearance="outline" class="form-field">
+   <mat-label>Nature of Law:</mat-label>
+<mat-select disableOptionCentering>
+<mat-option>All</mat-option>
+</mat-select>
+</mat-form-field>
+</div>
+<div >
+  <mat-form-field appearance="outline" class="form-field">
+   <mat-label>Type of Compliance:</mat-label>
+<mat-select disableOptionCentering>
+<mat-option>All</mat-option>
+</mat-select>
+</mat-form-field>
+</div>
+
+<div >
+  <mat-form-field appearance="outline" class="form-field">
+   <mat-label>Unit type: </mat-label>
+<mat-select disableOptionCentering>
+<mat-option>All</mat-option>
+</mat-select>
+</mat-form-field>
+</div>
+<div >
+  <mat-form-field appearance="outline" class="form-field">
+   <mat-label>Units: </mat-label>
+<mat-select disableOptionCentering>
+<mat-option>All</mat-option>
+</mat-select>
+</mat-form-field>
+</div>
+
+<div >
+  <mat-form-field appearance="outline" class="form-field">
+   <mat-label>Department:</mat-label>
+<mat-select disableOptionCentering>
+<mat-option>All</mat-option>
+</mat-select>
+</mat-form-field>
+</div>
+
+
+    <div>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>From Date</mat-label>
+      <input  matInput   type="date" >
+   
+      </mat-form-field>
+         
+        </div>
+        <div>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>To Date</mat-label>
+          <input  matInput   type="date" >
+       
+          </mat-form-field>
+        </div>
+       
+        <div>
+    <button type="button" (click)="generateReport()">Generate report</button>
+    <button type="button" (click)="resetForm()">Reset</button>
+    
+</div>
+  </div>
+
+  <div *ngIf="reportData">
+    <table>
+      <thead>
+        <tr>
+          <th>Compliance Name</th>
+          <th>Compliance Description</th>
+          <th>Stage of Compliance</th>
+          <th>Risk category</th>
+          <th>Frequency</th>
+          <th>Acts Name</th>
+          <th>Nature of Law</th>
+          <th>Type of Compliance</th>
+          <th>Unit type</th>
+          <th>Units</th>
+          <th>Department</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of reportData">
+          <td>{{ item.id }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.value }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.value }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.value }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.value }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.value }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+<!--  
+<div class="container">
+ 
+  <button mat-raised-button (click)="exportToPDF()">Export to PDF</button>
+  <button mat-raised-button (click)="exportToExcel()">Export to Excel</button>
+</div> -->
+
+
+
+
+
+
+
+

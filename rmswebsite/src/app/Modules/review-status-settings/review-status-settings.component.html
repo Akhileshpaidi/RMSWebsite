@@ -1,0 +1,90 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+        <h1>Review Status Settings</h1>
+      </div>
+  
+      <div class="config-settings">
+        <form [formGroup]="configForm" (ngSubmit)="onSubmit()" >
+
+            <table class="config-table">
+              <thead>
+                <tr>
+                  <th>Review Status ID</th>
+                  <th>Review Status Names</th>
+                 </tr>
+              </thead> 
+              <tbody>     
+                  
+                <tr>
+                  <td>
+                    1
+                  </td>
+                  <td>Expired</td>
+                  <td>
+                    <div class="time-parameters" >
+                      <input matInput type="number" formControlName="compliancePeriod" min="0" placeholder="Days">
+                    </div>
+                  </td>
+                  
+                </tr>
+          
+                <tr>
+                  <td>
+                   2
+                  </td>
+                  <td>Take Immediate Action</td>
+                  <td>
+                    <div class="time-parameters">
+                      <input  matInput type="number" width="550px" formControlName="Immediatedays" min="0" max="30" placeholder="Days">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="time-parameters">
+                      <input  matInput type="number" formControlName="Immediatedays2" min="0" max="30" placeholder="Days">
+                    </div>
+                  </td>
+                </tr>
+          
+                <tr>
+                  <td>
+                    3
+                  </td>
+                  <td>Expiring Soon</td>
+                 
+                    <td>
+                        <div class="time-parameters">
+                          <input  matInput type="number" formControlName="expiringdays" min="31" max="60" placeholder="Days">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="time-parameters">
+                          <input  matInput type="number" formControlName="expiringdays2" min="31" max="60" placeholder="Days">
+                        </div>
+                      </td>
+                 
+                </tr>
+                <tr>
+                    <td>
+                      4
+                    </td>
+                    <td>Not Due</td>
+                    <td>
+                          <div class="time-parameters">
+                            <input  matInput type="number" formControlName="Notdue" min="61"  placeholder="Days">
+                          </div>
+                        </td>
+                     </tr>
+              
+              </tbody>
+              </table>
+             
+               <div class="button">
+              <!-- <button  class="grey-button"  (onclick)="clear()"> clear</button> -->
+              <button class="Custombutton" type="submit" >Save</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,40 @@
+<form [formGroup]="mitigationForm">
+    <div class="box">
+            
+     <mat-label style="display: contents;font-size: larger;font-weight: bold;">Question</mat-label>
+     <mat-label formControlName="question">  {{  mitigationForm.controls.question.value}}</mat-label>
+
+
+</div>
+<br>
+<div class="box">
+
+
+     <mat-label style="display: contents;font-size: larger;font-weight: bold;">Correct Answer</mat-label>
+
+        <mat-label formControlName="correct_answer">  {{  mitigationForm.controls.correct_answer.value}}</mat-label>
+
+    
+     </div>
+
+<br>
+    <div class="col-sm-1">
+   <mat-label style="display: contents;font-size: larger;font-weight: bold;">Name of the Users</mat-label>
+   </div>
+   <br>
+   <div class="box" *ngFor="let child of mitigationForm.controls.firstname.value; let i = index;">
+
+    <mat-label>  {{i+1}})</mat-label>
+ <mat-label  style="margin-right: 800px;" formControlName="firstname">  {{ child}}</mat-label>
+
+     <!-- <input matInput [value]="i + 1" class="readonly-input" readonly />  
+
+     <input matInput [value]="child" style="margin-right: 550px;" class="readonly-input" readonly />
+     -->
+ 
+ 
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true" style="width: 120px; margin-left: auto;margin-right: auto;" class="Custombutton" >Ok</button>
+</div>
+</form>

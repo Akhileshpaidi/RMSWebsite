@@ -1,0 +1,214 @@
+<div class="form">
+    <div class="header col">
+      <div style="align-self: self-end">
+        <br>
+        <h2 class=" title" style="align-items: center;">View Act –Rules/ Regulations/ Procedures Repository
+          </h2>
+      </div>
+    </div>
+
+    <br>
+    <form >
+      <div class="row">
+        <div class="box">
+          <dx-select-box 
+            label="Select Act/ Master Regulation Name*"
+            labelMode="floating"
+            valueExpr="actregulatoryid"
+            displayExpr="actregulatoryname"
+            [dataSource]="actname"
+            [searchEnabled]="true"
+            height="40px"
+            selectionMode="single" 
+            placeholder=""
+          (onValueChanged)="getRules($event)">
+        </dx-select-box>
+        </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="box">
+          <dx-select-box 
+         
+          label="Select Rule name *"
+          labelMode="floating"
+          [searchEnabled]="true"
+          valueExpr="act_rule_regulatory_id"
+          displayExpr="act_rule_name"
+          [dataSource]="rulename"
+          [(value)]="SelectedAct"
+          selectionMode="single" 
+         placeholder=""
+         (onValueChanged)="getactruledata($event)" >
+    </dx-select-box>
+            </div>
+            </div>
+<br>
+
+
+
+
+<table class="table1" *ngFor="let rule of act_rule" >
+  <h2><span>
+   View Act –Rules/ Regulations/ Procedures Repository:
+</span></h2>
+    <tbody>
+        <ng-container >
+        <tr   >
+          <td><strong>ActID Name of Act/Regulation</strong></td>
+          <td>{{rule.actname1}}</td>
+        </tr>
+        <!-- <tr >
+          <td><strong>Description of Act/Regulation</strong></td>
+          <td>{{ rule.actruledesc}}</td>
+        </tr> -->
+        <tr >
+            <td><strong>Rule_id name of Rule/Regulation/Procedur</strong></td>
+            <td>{{rule.rulename}}</td>
+          </tr>
+          <tr >
+            <td><strong>Applicability Description of Rule/Regulation/Procedur</strong></td>
+            <td>{{ rule.actruledesc ||'N/A'}}</td>
+          </tr>
+          <tr >
+            <td><strong>Category of Law</strong></td>
+            <td>{{ rule.category }}</td>
+          </tr>
+          <tr >
+            <td><strong>Is this Data Imported?</strong></td>
+            <td>{{ rule.isImportedData}}</td>
+          </tr>
+          <tr *ngIf="rule.isImportedData == 'No'">
+            <td colspan="2"  class="editbutton">
+              <button  class="Custombutton" (click)="editAct(rule.actruleid)">Edit</button>
+            </td>
+          </tr>
+          <tr *ngIf="rule.isImportedData !== 'No'">
+            <td colspan="2">
+              <label class="labelmesage blink">* IT IS AN IMPORTED DATA. IT CANNOT BE EDITED </label>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+      <table class="table1" *ngFor="let rule of act_rule">
+        <thead>
+            <tr>
+              <th colspan="4">Jurisdiction Location : </th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container >
+            <tr >  
+              <td><strong>Law Type</strong></td>        
+              <td>{{ rule.lawType }}</td>
+              <td><strong>Regulatory Authority</strong></td>
+              <td>{{ rule.regulator }}</td>
+            </tr>
+            <tr >
+              <td><strong>Jurisdiction Category</strong></td>
+              <td> {{rule.jurisdiction}} </td>
+              <td><strong>Country Name</strong></td>
+              <td>{{ rule.countryName || 'N/A'}}</td>
+            </tr>
+            <tr >
+              <td><strong>State / Region Name</strong></td>
+              <td>{{ rule.stateName ||'N/A' }}</td>
+              <td><strong>District / Locality Name</strong></td>
+              <td>{{ rule.jurisdiction_district ||'N/A' }}</td>
+            </tr>
+        </ng-container>
+          </tbody>
+      
+</table>
+<table class="table1" *ngFor="let rule of act_rule">
+  <thead>
+    <tr>
+      <th colspan="4">Dependent Factors : </th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container >
+    <tr >  
+      <td><strong>Type of Business Organization/ Establishment</strong></td>        
+      <td>{{ rule.businesstype}}</td>
+      <td><strong>Specific Business Operations</strong></td>
+      <td>{{ rule.operations}}</td>
+    </tr>
+    <tr >  
+      <td><strong> No. & Type of Employees/ Workers</strong></td>        
+      <td>{{ rule.noofemployees}}</td>
+      <td><strong> Capital Investment of Business Establishment</strong></td>
+      <td>{{ rule.investment}}</td>
+    </tr>
+    <tr >  
+      <td><strong>Turnover of Business Establishment</strong></td>        
+      <td>{{ rule.turnover}}</td>
+      <td><strong>Specific Working Conditions</strong></td>
+      <td>{{ rule.workconditions }}</td>
+    </tr>
+    <tr >  
+      <td><strong>Conditions imposed through Business Registration/ Licence</strong></td>        
+      <td>{{ rule.registration}}</td>
+      <td><strong>Any Other Factor</strong></td>
+      <td>{{ rule.other }}</td>
+    </tr>
+
+ 
+    </ng-container>
+  </tbody>
+</table>
+<table class="table1" *ngIf="act_rule && act_rule.length > 0">
+  <thead>
+    <tr>
+      <th colspan="2">Additional References from  Rule :</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr>
+      <td><strong>Bare Rule Reference(s)</strong></td>
+      <td>
+        <ol type="1">
+          <ng-container *ngFor="let detail of act_rule[0].rulefiles">
+            <li>
+              <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ detail.filepath }}</a>
+                <!-- <button  (click)="copyLink(detail.filepath)"  > <mat-icon>content_copy</mat-icon></button> -->
+                  <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                <label *ngIf="isLinkCopied" style="color:red;">Link copied!</label>
+              </ng-container>
+              <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                [File Attached] {{ detail.filename }}
+                <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                  <a [href]="detail.filepath" target="_blank">(View)</a> /
+                </ng-container>
+                <!-- <a [href]="detail.filepath" download>Download</a> -->
+                <dx-button icon="download"  (click)="download(detail.filepath, detail.fileType)"> </dx-button>
+              </ng-container>
+            </li>
+          </ng-container>
+        </ol>
+      </td>
+     
+    </tr>
+    <!-- Add more rows as needed -->
+  </tbody>
+</table>
+<table class="table1" *ngFor="let rule of act_rule">
+  <tbody>
+      <ng-container >
+      <tr   >
+        <td><strong>created By / created On</strong></td>
+        <td>{{rule.create}}</td>
+      </tr>
+      <tr   >
+        <td><strong>Updated By / Updated On</strong></td>
+        <td>{{rule.update}}</td>
+      </tr>
+      </ng-container>
+  </tbody>
+</table>
+    </form>
+</div>
+

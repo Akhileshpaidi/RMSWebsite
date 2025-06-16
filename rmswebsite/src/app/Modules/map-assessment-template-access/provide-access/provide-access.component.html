@@ -1,0 +1,250 @@
+<div class="form">
+  <div class="header col">
+  <div style="align-self: self-end">
+
+
+    <div class="header">
+        <div style="align-self:self-end;">
+            <h1 class="title"> Assessment Template Provide Access</h1>
+        </div>
+    </div>
+   
+<br>
+
+       
+            
+            
+                  
+            
+
+
+    <div class="boxNew">
+
+     <div>
+                <label>
+                  Select Assessment Template</label>
+                  
+                </div>
+                
+                    <div class="dx-field-value">
+      <dx-drop-down-box style="width: 1000px;"
+      [dropDownOptions]="{width: '1400px'}"
+      [(value)]="gridBoxValue"
+      [(opened)]="isGridBoxOpened"
+      valueExpr="ass_template_id"
+       [deferRendering]="false"
+       [displayExpr]="gridBox_displayExpr"
+       placeholder=" Select Assessment Template"
+       [inputAttr]="{ 'aria-label': 'Owner' }"
+       [showClearButton]="true"
+       [dataSource]="gridDataSource"
+     
+       (onOptionChanged)="onGridBoxOptionChanged($event)">
+          
+            <div *dxTemplate="let data of 'content'">
+              <dx-data-grid
+              [dataSource]="gridDataSource"
+              [columns]="gridColumns"
+                [hoverStateEnabled]="true"
+                [(selectedRowKeys)]="gridBoxValue"
+            height="100%"
+            width="100%"
+      >
+          
+              
+      <dxo-selection mode="multiple"></dxo-selection>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-scrolling mode="virtual"></dxo-scrolling>
+      <dxo-header-filter [visible]="true" [allowSearch]="true">
+       <dxo-search [enabled]="true"></dxo-search>
+     </dxo-header-filter>
+     <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+     <dxo-pager
+     [visible]="true"
+     [allowedPageSizes]="[ 10,20, 'all']"
+    
+     [showPageSizeSelector]="true"
+    
+     [showInfo]="true"
+     infoText="Page {0} of  {1} ({2} items)"
+     [showNavigationButtons]="true">
+   </dxo-pager>
+
+   <dxo-group-panel [visible]="true"></dxo-group-panel>
+     <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+    </dx-data-grid>
+              
+            </div>
+          </dx-drop-down-box> 
+        </div>
+</div>
+<form [formGroup]="Ass_ProvideAccess_form" (ngSubmit)="ProvideAccessSave()" >
+                <br>
+                  <div class="box">
+            
+                    
+                        <dx-select-box 
+                        formControlName="Entity_Master_id"
+                        label="Select Entity Name*"
+                        labelMode="floating"
+                        valueExpr="entity_Master_id"
+                        displayExpr="entity_Master_Name"
+                        [dataSource]="EntityName"
+                          
+                        selectionMode="single" 
+                       placeholder=""
+                       (onValueChanged)="getUnitLocation($event)">
+                       
+                     
+                  </dx-select-box>
+                      
+          
+                  <dx-select-box 
+                  formControlName="Unit_location_Master_id"
+                  label="Select Unit Location*"
+                  labelMode="floating"
+                  valueExpr="unit_location_Master_id"
+                  displayExpr="unit_location_Master_name"
+                  [dataSource]="UnitMaster"
+                  [(value)]="Selectedunit"
+                  selectionMode="single" 
+                 placeholder=""
+                 (onValueChanged)="getUserData($event)"
+                   >
+               
+            </dx-select-box>
+                      </div>
+                      <br>
+                      <div class="box">
+                        <!-- <dx-select-box 
+                        label="Select User Name*"
+                        labelMode="floating"
+                        valueExpr="usR_ID"
+                       displayExpr="firstname"
+                        [dataSource]="Userinfo"  
+                       
+                       formControlName="usrname"
+                       [(value)]="selectedOption"
+                        >
+                     
+                    </dx-select-box> -->
+
+
+                    <dx-drop-down-box
+                    [(value)]="selectedOption"         
+                    [inputAttr]="{ 'aria-label': 'Owner' }"
+                     placeholder="Select User(s) Name*"
+                     [showClearButton]="true"
+                     [dataSource]="Userinfo"
+                     valueExpr="user_location_mapping_id"
+                     displayExpr="firstname"
+                     [displayExpr]="gridBox_displayExpr1"
+                     [showClearButton]="true"
+                     formControlName="usrname"
+                     
+                      >
+                      <div *dxTemplate="let data of 'content'">
+                       <dx-data-grid
+                       [dataSource]="Userinfo"
+                       [columns]="usergridColumns1"
+                       [selection]="{ mode: 'multiple' }"
+                       [hoverStateEnabled]="true"
+                       [filterRow]="{ visible: false }"
+                       [scrolling]="{ mode: 'virtual' }"
+                       [height]="300"
+                       [showColumnHeaders]="false"
+                       [(selectedRowKeys)]="selectedOption"
+                         >
+                         <dxo-selection mode="multiple"></dxo-selection>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-scrolling mode="virtual"></dxo-scrolling>
+            <dxo-header-filter [visible]="true" [allowSearch]="true">
+              <dxo-search [enabled]="true"></dxo-search>
+            </dxo-header-filter>
+            <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+            <dxo-pager
+            [visible]="true"
+            [allowedPageSizes]="[ 10,20, 'all']"
+           
+            [showPageSizeSelector]="true"
+           
+            [showInfo]="true"
+            infoText="Page {0} of  {1} ({2} items)"
+            [showNavigationButtons]="true">
+          </dxo-pager>
+      
+          <dxo-group-panel [visible]="true"></dxo-group-panel>
+            <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+        
+                         </dx-data-grid>
+                          </div>
+                         </dx-drop-down-box>
+
+
+
+
+
+
+
+
+                    <dx-drop-down-box
+                    [(value)]="selectedRowKeys"         
+                    [inputAttr]="{ 'aria-label': 'Owner' }"
+                     placeholder="Select UserPermission Right(s)"
+                     [showClearButton]="true"
+                     [dataSource]="dropdownOptions"
+                     valueExpr="ass_User_PermissionListid"
+                     displayExpr="assUserPermissionName"
+                     [showClearButton]="true"
+                     formControlName="documentperm"
+                     
+                      >
+                      <div *dxTemplate="let data of 'content'">
+                       <dx-data-grid
+                       [dataSource]="dropdownOptions"
+                       [columns]="['assUserPermissionName']"
+                       [selection]="{ mode: 'single' }"
+                       [hoverStateEnabled]="true"
+                       [filterRow]="{ visible: false }"
+                       [scrolling]="{ mode: 'virtual' }"
+                       [height]="120"
+                       [showColumnHeaders]="false"
+                       [(selectedRowKeys)]="selectedRowKeys"
+                         >
+                         </dx-data-grid>
+                          </div>
+                         </dx-drop-down-box>
+
+
+
+
+
+                    
+                       
+                          </div>
+                          <br>
+              <div class="box">
+                <!-- <input type="checkbox" (change)="onCheckboxChange($event)" [(ngModel)]="isChecked"> Check me -->
+                <form >
+                  <!-- <label>
+                      Grant User Permission Right
+                    <input type="checkbox" formControlName="isCheckedUsertrack"  (change)="onCheckboxChange($event)">
+         
+                  </label> -->
+    <br>
+    <br>
+
+                  
+                </form>
+                </div>
+                <div class="button">
+                  <button class="grey-button">Cancel</button>
+                  <button class="Custombutton" type="submit">Notify</button>
+                </div>
+      </form>
+</div>
+  </div>
+</div>
+
+
+

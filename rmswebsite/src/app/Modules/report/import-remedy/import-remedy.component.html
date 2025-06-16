@@ -1,0 +1,30 @@
+<div class="body">
+  <div class="row">
+    <img
+      style="height: 25px; margin-top: 2px"
+      src="../../../../assets//images/Inspection/download1.svg"
+    />
+    <h2 class="header">Import Remedies</h2>
+  </div>
+  <hr />
+  <form
+    [formGroup]="remedyForm"
+    (ngSubmit)="onFormSubmit(remedyForm.value)"
+  >
+    <div class="main">
+      <mat-selection-list formControlName="selectedremedys">
+        <mat-list-option
+          *ngFor="let remedy of remedies; let remIndex = index"
+          [value]="remedy"
+        >
+          {{ remIndex + 1 }} {{ remedy.text }}
+        </mat-list-option>
+      </mat-selection-list>
+
+      <div class="button box">
+        <button class="grey-button" (click)="exit()" type="button">Close</button>
+        <button class="Custombutton" mat-button type="submit">Import</button>
+      </div>
+    </div>
+  </form>
+</div>

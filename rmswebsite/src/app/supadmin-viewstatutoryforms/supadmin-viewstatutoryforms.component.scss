@@ -1,0 +1,77 @@
+.boxNew {
+    display: flex;
+    padding-left: 20px;
+    gap:0px;
+    flex-direction: row;
+    width: 50%;
+  }
+  .boxNew> * {
+    flex: 1 1 160px;
+    padding-left: 1px;
+    padding-right: 20px;
+  }
+  .title{
+    padding-left: 30px;
+    padding-top: 20px;
+  }
+  .button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+    padding-right: 25px;
+  }
+  .box{
+    padding-left: 20px;
+    padding-right: 10px;
+    width: 95%;
+   }
+  // .box{
+  //   padding-left: 20px;
+  //   padding-top: 20px;
+  //   padding-bottom: 20px;
+  //   max-width: 75%;
+  // }
+  .radio-buttons1 {
+    padding-left: 450px;
+    margin-left: 196px;
+    
+  }
+  
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd; /* Border color */
+    }
+  
+  
+    .table1 {
+      width: 95%;
+      border-collapse: collapse;
+      margin-left: 10px;
+     // margin-right: 10px;
+  }
+  
+  .table1 th,
+  .table1 td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+  }
+  
+  .table1 th {
+      background-color: #f2f2f2;
+  }
+    
+  .mat-table {
+    width: 100%; /* Set the width of the table to 100% of its container */
+  }
+  $space: 1rem;
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd; /* Border color */
+    }
+    .Custombutton{
+     margin-left: 70%;
+    }

@@ -1,0 +1,347 @@
+import { Component, ElementRef, OnInit, ViewChild  } from '@angular/core';
+import { ChangeDetectorRef, NgZone } from '@angular/core';
+import {BASE_URL} from 'src/app/core/Constant/apiConstant';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SessionService } from 'src/app/core/Session/session.service';
+import CustomStore from 'devextreme/data/custom_store';
+import { DaidailogeComponent } from 'src/app/Common/daidailoge/daidailoge.component';
+import { MatDialog } from '@angular/material/dialog';
+//import { ExitNav } from 'src/app/assessment-service.service';
+
+
+const URL = BASE_URL;
+  const headers = new HttpHeaders();
+  headers.append('Content-Type', 'text/plain');
+
+@Component({
+  selector: 'app-edit-compliance-penalty',
+  templateUrl: './edit-compliance-penalty.component.html',
+  styleUrls: ['./edit-compliance-penalty.component.scss']
+})
+export class EditCompliancePenaltyComponent {
+  actname: any;
+  compliancespenatlyid:any;
+  rulename: any;
+  penalty:any;
+  UpdateForm:FormGroup;
+  maxReferences: number = 5;
+  userdata: any;
+  files: File[] = []; 
+  actid:any;
+SelectedAct:any;
+replacedFiles:any=[];
+  erroMessage: any;
+
+
+  constructor(private route: ActivatedRoute,private router: Router,private http: HttpClient,
+    private ref: ChangeDetectorRef,  public dialog: MatDialog,
+    private session: SessionService,
+     private zone: NgZone,
+    private formBuilder: FormBuilder,
+
+){
+  this.UpdateForm = this.formBuilder.group({
+    ruleid:['',Validators.required],
+    actid:['',Validators.required],
+    penalty:['',Validators.required],
+    applicationselectionrule:[''],
+    penaltydesc:['',Validators.required],
+    maxpenalty:[''],
+    minpenalty:[''],
+    additionalrefernce:[''],
+    references: this.formBuilder.array([])
+  })
+}
+ngOnInit(): void {
+  this.route.queryParams.subscribe(queryParams => {
+    this.compliancespenatlyid = queryParams['compliancespenatlyid']; // Make sure this key matches the one in editAct
+    console.log(queryParams['compliancespenatlyid']);
+    //alert(queryParams['actregulatoryid']);
+    this.retrieveFiles(this.compliancespenatlyid);
+  });
+  
+  
+  let user: any = this.session.getUser();
+   
+  this.userdata = JSON.parse(user);
+  
+  console.log("userid", this.userdata.profile.userid);
+  
+  this.actname={
+    paginate: true,
+    store: new CustomStore({
+        key: 'actregulatoryid',
+        loadMode: 'raw',
+        load:()=>{return new Promise((resolve, reject) => {
+          this.http.get(URL + '/Actregulatory/GetActregulatory', {headers})
+            .subscribe(res => {
+             (resolve(res));
+  
+            }, (err) => {
+              reject(err);
+            });
+      });
+      },
+    }),
+   };
+
+   this.penalty={
+    paginate: true,
+    store: new CustomStore({
+        key: 'Value',
+        loadMode: 'raw',
+        load:()=>{return new Promise((resolve, reject) => {
+          this.http.get(URL + '/penaltycategory/GetpenaltycategoryDetails', {headers})
+            .subscribe(res => {
+             (resolve(res));
+  
+            }, (err) => {
+              reject(err);
+            });
+      });
+      },
+    }),
+   };
+  }
+  getRules(event: any) {
+    console.log("selected Act : ", event.value);
+    this.actid = event.value;
+    //alert(this.actid)
+     this.SelectedAct=null;  
+    this.rulename={
+      paginate: true,
+      store: new CustomStore({
+        key: 'act_rule_regulatory_id',
+        loadMode: 'raw',
+        load:()=>{return new Promise((resolve, reject) => {
+          this.http.get(URL + '/rulesandregulatory/GetrulesandregulatoryByID/'+this.actid,{headers})
+            .subscribe(res => {
+             (resolve(res));
+  
+            }, (err) => {
+              reject(err);
+            });
+      });
+      },
+    }),
+      
+    };
+   }
+  retrieveFiles(compliancespenatlyid: any): void {
+    this.http.get(`${BASE_URL}/penaltycompliance/GetpenaltycomplianceDetailsnyid/${compliancespenatlyid}`)
+    .subscribe((data: any) => {
+      if (Array.isArray(data) && data.length > 0) {
+        //alert(JSON.stringify(data))
+        console.log(data)
+    
+        const pubList = data[0];
+      //  alert(JSON.stringify(pubList.rulefiles))
+        this.UpdateForm.controls['actid'].setValue(pubList.actid);
+        this.UpdateForm.controls['ruleid'].setValue(pubList.ruleid);
+        this.UpdateForm.controls['penalty'].setValue(pubList.penalty);
+        this.UpdateForm.controls['applicationselectionrule'].setValue(pubList.penaltysectrule);
+        this.UpdateForm.controls['penaltydesc'].setValue(pubList.desc);
+        this.UpdateForm.controls['maxpenalty'].setValue(pubList.maxpen);
+        this.UpdateForm.controls['minpenalty'].setValue(pubList.minpen);
+        this.UpdateForm.controls['additionalrefernce'].setValue(pubList.addref);
+
+        if (Array.isArray(pubList.penaltyFiles)) {
+          pubList.penaltyFiles.forEach((file: any) => {
+            this.addReferenceField(file);
+          });
+        }
+      } else {
+        // Handle empty response or other cases
+      }
+    }, error => {
+      console.error('Error occurred while retrieving data:', error);
+    });
+  }
+  get references(): FormArray {
+    return this.UpdateForm.get('references') as FormArray;
+    }
+    
+    addReferenceField(file?: any): void {
+      if (this.references.length < this.maxReferences) {
+        const referenceGroup = this.formBuilder.group({
+          compliance_filepenalty_id: [file ? file.compliance_filepenalty_id : null],
+          referenceType: [file ? (file.filecategory === 'Weblink' ? 'weblink' : 'file') : ''],
+          referencetypeValue: [file && file.filecategory === 'Weblink' ? file.filepath : ''],
+          file_attachment: [file && file.filecategory === 'FileAttach' ? file.filename : ''],
+          isNew: [!file] 
+        });
+    
+        this.references.push(referenceGroup);
+      } else {
+        alert('You can add up to 5 references only.');
+      }
+    }
+    
+    
+    
+  removeReferenceField(index: number,compliance_filepenalty_id:any): void {
+   
+    if (compliance_filepenalty_id == 0){
+      this.references.removeAt(index);
+    }
+    if (compliance_filepenalty_id !== 0) {
+    // If bare_act_id is not 0, make an HTTP POST request to remove the file
+     this.http.post(`${BASE_URL}/penaltycategory/removepenaltycategory/${compliance_filepenalty_id}`, {})
+      .subscribe(
+        (data: any) => {
+          // Handle the response data if needed
+          this.references.removeAt(index);
+          console.log('File removed successfully:', data);
+        },
+        (error) => {
+          // Handle errors that occur during the HTTP request
+          console.error('Error occurred while removing file:', error);
+        }
+      );
+    }  else{
+    //this.references.removeAt(index);
+     }
+       // this.references.removeAt(index);
+    }
+    
+    onReferenceTypeChange(type: string, index: number): void {
+    const control = this.references.at(index);
+    
+    if (type === 'weblink') {
+      control.get('referencetypeValue')?.setValidators(Validators.required);
+      control.get('filepath')?.clearValidators();
+    } else if (type === 'file') {
+      control.get('referencetypeValue')?.clearValidators();
+      control.get('filepath')?.setValidators(Validators.required);
+    }
+    
+    control.get('referencetypeValue')?.updateValueAndValidity();
+    control.get('filepath')?.updateValueAndValidity();
+    }
+    
+    onMainFileSelected(event: Event, index: number): void {
+    const fileInput = event.target as HTMLInputElement;
+    const file = fileInput.files?.[0];
+    if (file) {
+      this.references.at(index).get('file_attachment')?.setValue(file.name);
+      this.files[index] = file; // Store the file object
+
+      if(this.references.at(index).get('compliance_filepenalty_id')?.value!=0){
+        this.replacedFiles.push(this.references.at(index).get('compliance_filepenalty_id')?.value)
+      }
+    }
+    }
+    onweblink(event:any,index:number){
+      this.replacedFiles.push(this.references.at(index).get('compliance_filepenalty_id')?.value)
+
+    }
+    showInvalidFieldsAlert() {
+      let invalidFields = '';
+      if (this.UpdateForm.controls['actid'].invalid) {
+        invalidFields += '- act Name\n';
+      }
+      if (this.UpdateForm.controls['ruleid'].invalid) {
+        invalidFields += '- act_rule_name\n';
+      }
+    
+      if (this.UpdateForm.controls['penalty'].invalid) {
+        invalidFields += '- penalty Category\n';
+      }
+      if (this.UpdateForm.controls['penaltydesc'].invalid) {
+        invalidFields += '- penalty Description\n';
+      }
+      if (invalidFields) {
+        this.dialog.open(DaidailogeComponent, {
+          width: '550px',
+          data: {
+            message: `Please provide valid information for the following fields:\n${invalidFields}`,
+          },
+        });
+      }
+    
+     }
+    SubmitUpdateForm(): void {
+      if(this.UpdateForm.invalid){
+        this.showInvalidFieldsAlert();
+        return;
+      }
+      if (this.UpdateForm.valid) {
+        console.log(this.UpdateForm.value);
+        //alert(JSON.stringify(this.UpdateForm.value));
+    
+        const formData = new FormData();
+        formData.append('actid', this.UpdateForm.value.actid);
+        formData.append('ruleid', this.UpdateForm.value.ruleid);
+        formData.append('penalty', this.UpdateForm.value.penalty);
+        formData.append('applicationselectionrule', this.UpdateForm.value.applicationselectionrule);
+        formData.append('penaltydesc', this.UpdateForm.value.penaltydesc);
+        formData.append('maxpenalty', this.UpdateForm.value.maxpenalty);
+        formData.append('minpenalty', this.UpdateForm.value.minpenalty);
+        formData.append('additionalrefernce', this.UpdateForm.value.additionalrefernce);
+        formData.append('updatedby', this.userdata.profile.userid);
+   
+    
+        const weblinkValues: string[] = [];
+        const referencesArray = this.references as FormArray;
+        console.log(referencesArray);
+    
+        referencesArray.controls.forEach((control, index) => {
+          const referenceType = control.get('referenceType')?.value;
+          const referencetypeValue = control.get('referencetypeValue')?.value;
+    
+          if (referenceType === 'weblink' && referencetypeValue) {
+            weblinkValues.push(referencetypeValue);
+          } else if (referenceType === 'file') {
+            const file = this.files[index];
+            if (file) {
+              formData.append(`fileAttach[${index}]`, file);
+            }
+          }
+        });
+    
+        if (weblinkValues.length > 0) {
+          formData.append('weblink', weblinkValues.join(';'));
+        }
+    
+       // alert('About to submit form data to API. Confirm?');
+    
+        this.http.post(`${BASE_URL}/penaltycompliance/Updatepenaltycompliance`, formData, {
+          params: new HttpParams().set('compliancespenatlyid', this.compliancespenatlyid)
+        })
+        .subscribe(response => {
+          this.replacedFiles.forEach((compliance_filepenalty_id:any)=>{
+            this.http.post(`${BASE_URL}/penaltycategory/removepenaltycategory/${compliance_filepenalty_id}`, {})
+            .subscribe(
+              (data: any) => {
+                console.log('File removed successfully:', data);
+              },
+              (error) => {
+                console.error('Error occurred while removing file:', error);
+              }
+            );});
+
+            this.erroMessage ="Compliance Penalty Updated  successfully";
+            const dialogRef = this.dialog.open(DaidailogeComponent, {
+              width: '400px',
+              data: { message: this.erroMessage }
+            });
+          //alert('Compliance Penalty Updated  successfully!');
+          this.router.navigate(['/dashboard/Actregulation/viewcompliancepenalty']);
+        }, error => {
+          console.error('Error:', error);
+          alert('An error occurred while submitting the form.');
+        });
+      } else {
+        alert('Form is invalid. Please check the fields and try again.');
+      }
+    }
+    Cancel(): void {
+      // Implement cancel functionality if needed
+      this.router.navigate(['/dashboard/Actregulation//viewcompliancepenalty']);
+    }
+    Back(){
+      this.router.navigate(['/dashboard/Actregulation//viewcompliancepenalty']);
+    }
+}

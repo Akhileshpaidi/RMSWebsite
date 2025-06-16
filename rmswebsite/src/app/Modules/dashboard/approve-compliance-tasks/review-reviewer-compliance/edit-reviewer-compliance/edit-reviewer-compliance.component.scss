@@ -1,0 +1,218 @@
+.table-container {
+  width: calc(100% - 20px); /* Adjust width to accommodate the margin */
+  margin: 10px; /* Apply margin on all sides */
+  overflow-x: auto; /* Allow horizontal scrolling if necessary */
+}
+
+.table {
+  width: 100%;
+  margin: 0; /* Reset margin for the table itself */
+  border-collapse: collapse;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.table th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+  padding-left: 10px;
+}
+.form-container {
+  padding: 1px; /* Padding around the entire form container */
+}
+
+.title-container {
+  text-align: left; /* Align the title to the right */
+  margin-bottom: 5px; /* Space below the title */
+}
+
+.title {
+  margin: 5px; /* Margin around the title */
+  font: bolder;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 20px; /* Space between rows */
+}
+
+.form-field-container {
+  width: 100%; /* Ensure container takes full width */
+}
+
+.date-container {
+  width: 25%; /* Set width to 1/4 of the parent container */
+}
+
+.remarks-container {
+  width: 50%; /* Set width to 1/2 of the parent container */
+}
+
+.date-field {
+  width: 100%; /* Ensure the form field fills its container */
+}
+
+.remarks-field {
+  width: 100%; /* Ensure the form field fills its container */
+}
+
+.button-section {
+  margin-top: 5px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 5px;
+  margin-right: 20px;
+}
+
+.edit-button {
+  background-color: rgb(25, 129, 199); /* Light gray for cancel button */
+  color: white;
+  border-radius: 10px; /* Add border radius */
+ // padding: 5px 10px; /* Padding inside the button */
+  border: none;
+  font-size: 15px;
+  margin-right: 50px; /* Margin to the right of the cancel button */
+  margin-left: 60px; 
+}
+.cancel-button {
+  background-color: rgb(165, 164, 164); /* Light gray for cancel button */
+  color: white;
+  border-radius: 10px; /* Add border radius */
+ // padding: 5px 10px; /* Padding inside the button */
+  border: none;
+  font-size: 15px;
+  margin-right:80px; /* Margin to the right of the cancel button */
+  margin-left: 80px; 
+}
+.update-button {
+  background-color: rgb(91, 190, 91); /* Light green for update button */
+  color: white;
+  border-radius: 10px; /* Add border radius */
+ // padding: 5px 10px; /* Padding inside the button */
+  border: none;
+  font-size: 15px;
+}
+.reject-button{
+  background-color: rgb(221, 81, 26); /* Light green for update button */
+  color: white;
+  border-radius: 10px; /* Add border radius */
+ // padding: 5px 10px; /* Padding inside the button */
+  border: none;
+  font-size: 15px;
+}
+.cancel-button:hover, .update-button:hover, .edit-button:hover {
+  opacity: 0.8; /* Add a hover effect */
+}
+.pager-button {
+  background-color: #71c9f1; /* Light gray background for pager buttons */
+  color: white; /* Dark text color */
+  margin-left: 10px; /* Space between pager buttons */
+  margin-right: 10px; /* Space between pager buttons */
+}
+
+.pager-button:hover {
+  background-color: #08b6eb; /* Darker gray background on hover */
+}
+.pager {
+  margin-top: 10px; /* Space above the pager section */
+  text-align: right; /* Align pager text to the right */
+}
+.text-color{
+  color: #e76f0d;
+  margin-top: 10px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.table th, .table td {
+  padding: 2px;
+  border: 1px solid #c9c6c6;
+  text-align: left;
+}
+
+.form-field-row {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Align items vertically */
+}
+
+.mat-form-field {
+  flex: 1; /* Allow the form field to grow and fill available space */
+}
+
+
+
+.uploaded-attachments-table {
+  margin-top: 20px; /* Add spacing above the attachments table */
+}
+
+.mat-elevation-z8 {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Ensure there's a nice shadow */
+}
+
+.form-field-row {
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.remarks-container,
+.symbol-container {
+  margin-right: 10px;
+}
+
+.text-symbol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow {
+  font-size: 48px; /* Adjust size of the bidirectional symbol */
+  line-height: 1;
+}
+
+.symbol-text {
+  font-size: 16px; /* Adjust size of the text */
+}
+
+.top-text {
+  margin-bottom: 5px; /* Add some space between 'As' and the symbol */
+}
+
+.bottom-text {
+  margin-top: 5px; /* Add some space between the symbol and 'Applicable' */
+}
+
+.date-field {
+  width: 100%; /* Ensure the date field takes full width of its container */
+}
+
+.mat-form-field {
+  width: 50%; /* Ensure the form field takes full width */
+}
+.uploaded-attachments-table {
+  width: 85%; /* Overall width of the table */
+}
+
+.attachment-table {
+  border-collapse: collapse; /* Ensures borders do not overlap */
+  width: 100%; /* Ensures the table takes the full width of its container */
+}
+
+.attachment-table th.mat-header-cell,
+.attachment-table td.mat-cell {
+  padding: 10px; /* Adds padding for better spacing */
+  text-align: left; /* Ensures text is left-aligned */
+}
+
+.attachment-table th {
+  background-color: #f1f1f1; /* Optional: Set background color for headers */
+}
+
+.attachment-link {
+  margin-left: 2px;
+  width: 10%;
+  display: inline-block;
+  color: rgb(16, 118, 214);
+  text-decoration: underline;
+}

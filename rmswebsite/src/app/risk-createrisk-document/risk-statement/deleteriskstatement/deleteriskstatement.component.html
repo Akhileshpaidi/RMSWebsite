@@ -1,0 +1,90 @@
+<div class="form">
+  <form [formGroup]="Statement" >
+           <table class="table1" *ngFor="let rule of Risk" >
+          <h2><span>
+            Delete Risk Statement
+        </span></h2>
+                 <tbody>
+                <ng-container >
+                <tr   >
+                  <td><strong>Risk Statement</strong></td>
+                  <td>{{rule.riskStatementName}}</td>
+                </tr>
+                <tr >
+                  <td><strong>Description Of risk Statement</strong></td>
+                  <td>{{ rule.riskDescription || 'N/A'}}</td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+            <br>
+            <table class="table1" *ngIf="Risk && Risk.length > 0">
+              <thead>
+                <tr>
+                  <th colspan="2">Additional References from Risk Statement</th>
+                </tr>
+              </thead>
+              <tbody> 
+                <tr>
+                      <td><strong>Risk Statement Reference(s)</strong></td>
+                      <td>
+                    <ol type="1">
+                    <ng-container *ngFor="let detail of Risk[0].actfiles">
+                      <li>
+                        <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                          [weblink] <a [href]="detail.filecategory" target="_blank" style="padding-right: 50px;">{{ detail.filePath }}</a>
+                          <dx-button icon="copy"  (onClick)="copyLink(detail.filePath)"> </dx-button>
+                          <label *ngIf="isLinkCopied" style="color:red;">Link copied!</label>
+                        </ng-container>
+                        <ng-container *ngIf="detail.filecategory === 'Text'">
+                          [Text] {{ detail.filePath }}
+                        </ng-container>
+                        <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                          [File Attached] {{ detail.fileName }}
+                          <ng-container *ngIf="detail.filePath.endsWith('.pdf') || detail.filePath.endsWith('.docx')">
+                            <a [href]="detail.filePath" target="_blank">(View)</a> /
+                          </ng-container>
+                         <dx-button icon="download"  (click)="download(detail.filePath, detail.fileType)"> </dx-button>
+                        </ng-container>
+                      </li>
+                    </ng-container>
+                  </ol>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <table class="table1" *ngFor="let rule of Risk">
+              <tbody>
+                  <ng-container >
+                  <tr   >
+                    <td><strong>created By / created On</strong></td>
+                    <td>{{rule.createdBy}}</td>
+                  </tr>
+                  <tr   >
+                    <td><strong>Updated By / Updated On</strong></td>
+                    <td>{{rule.createdOn}}</td>
+                  </tr>
+                  </ng-container>
+              </tbody>
+              
+            </table>
+            <br>
+            <div class="row">
+              <div class="box">
+              <mat-form-field appearance="fill" class="remarks-container" >
+                <mat-label>Reason to Deactivate the Risk Statement</mat-label>
+                <textarea matInput formControlName="DisableReason"  class="scrollable-textarea"   ></textarea>
+            </mat-form-field>
+            <div></div>
+          </div>
+          </div>
+        
+            <div class="button">
+              <button class="grey-button"  (click)="Back()" >Back</button>
+              <button class="Custombutton" (click)="onButtonClick()">Deactivate</button>
+            </div>
+        
+        
+          
+          </form>
+</div>

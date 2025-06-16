@@ -1,0 +1,225 @@
+
+<div class="form">
+    <div class="body">
+      <div class="header">
+          <div style="align-self:self-end;">
+              <div class="card">
+                <div style="align-self: self-end">
+                  <h1 class="h1">List of Assessment Templates Access Mapping</h1>
+                </div>
+           
+          
+          </div></div></div>
+          <br>
+          <br>
+          <br>
+          <div class="DateFilterBox" *ngIf="MainGrid">
+            <div> <mat-label>Select Date :</mat-label></div>
+           <div>
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>From Date</mat-label>
+              <input matInput  type="date" [(ngModel)]="oneMonthAgo" [max]="today" />
+            </mat-form-field>
+           </div>
+           <div> <mat-form-field appearance="fill" class="form-field">
+            <mat-label>To Date</mat-label>
+            <input matInput  type="date" [(ngModel)]="today" [max]="today" />
+          </mat-form-field></div>
+          <div>
+            <button (click)="DateSearchFilter()"> Search</button> 
+          </div>
+          
+          
+           
+            </div>
+            
+          <br>
+          
+          <div style="align-self: self-end">
+            <h2 class="h1" *ngIf="MainGrid">Primary Level</h2>
+            <div class="container">
+              <button class="exitbutton" *ngIf="SubGrid" type="button" (click)="exitPage()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <h2 class="heading" *ngIf="SubGrid">Secondary Level</h2>
+            </div>
+            
+            <span *ngIf="MainGrid">Click a row to get Accessors Details</span>
+          </div>
+         
+          <br>
+<br>
+          <br>
+          <div class="card-body1" *ngIf="MainGrid" >
+              <div id="app-container">
+                  <dx-data-grid id="dataGrid"
+                  [dataSource]="dataSource1"
+                  [showBorders]="true"
+                 
+                  [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+                 
+                  (onExporting)="exportGrid($event)"
+                  (onSelectionChanged)="onRowSelectionChanged($event)">
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                 <dxo-header-filter [visible]="true"></dxo-header-filter>
+                 <dxi-column dataField="ass_template_id" caption="Assessment Template Id" [width]="100" alignment="center"></dxi-column>
+                 <dxi-column dataField="assessment_name" caption="Assessment Template Name" value="usR_ID"></dxi-column>
+                 <dxi-column dataField="verson_no" caption="Version_no" alignment="center"  ></dxi-column> 
+                 <dxi-column dataField="competency_Name" caption="Competency skill level" ></dxi-column>
+                 <dxi-column dataField="type_Name" caption="Assessment Type" ></dxi-column>
+                 <dxi-column dataField="subType_Name" caption="Assessment Sub Type "></dxi-column>
+                 <dxi-column dataField="total_questions" caption="No. of Questions" alignment="center" ></dxi-column>                
+                <dxi-column dataField="total_estimated_time" caption="Total Attempt Time" alignment="center" ></dxi-column>
+              <dxi-column dataField="firstname" caption="Name of Creator"   ></dxi-column>
+              <dxi-column dataField="status" caption="Template Status"   ></dxi-column> 
+              <dxi-column dataField="companyName" caption="Mapped Company Name"   ></dxi-column> 
+              <dxi-column dataField="companyLocation" caption="Mapped Location"   ></dxi-column> 
+              <dxi-column dataField="usersCount" caption="No.of Mapped Assessors"  alignment="center" ></dxi-column> 
+    <dxi-column dataField="user_names" caption="Names.of Mapped Assessors"  ></dxi-column> 
+
+              <dxi-column dataField="created_date" caption="Date of Creation" [visible]="false"  dataType="date" 
+  format="dd-MMM-yyyy"  ></dxi-column>
+              <dxi-column dataField="updated_date" caption="Date Last Edited on" [visible]="false"  dataType="date" 
+  format="dd-MMM-yyyy"  ></dxi-column>   
+              <dxi-column dataField="assessment_description" caption="Assessment Template Description" [visible]="false"></dxi-column>   
+              <dxi-column dataField="show_hint" caption="Applicability of Show Hint" [visible]="false"></dxi-column>
+              <dxi-column dataField="show_explaination" caption="Applicability of Explaination " [visible]="false"></dxi-column>
+             
+              
+                  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-search-panel [visible]="true"></dxo-search-panel>
+                  <dxo-group-panel [visible]="true"></dxo-group-panel>
+                  <dxo-selection mode="single"></dxo-selection>
+                  <dxo-summary>
+                      <dxi-total-item
+                          column="user_location_mapping_id"
+                          summaryType="count">
+                      </dxi-total-item>
+                      
+                  </dxo-summary>
+                  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                  <dxo-pager
+                  [visible]="true"
+                  [allowedPageSizes]="[5, 10,20, 'all']"
+                 
+                  [showPageSizeSelector]="true"
+                 
+                  [showInfo]="true"
+                  infoText="Page {0} of  {1} ({2} items)"
+                  [showNavigationButtons]="true"
+                >
+                </dxo-pager>
+                 
+    
+                <dxo-toolbar>
+                <dxi-item name="groupPanel"></dxi-item>
+  
+  <dxi-item name="addRowButton" showText="always"></dxi-item>
+  <dxi-item name="exportButton"></dxi-item>
+  <dxi-item name="columnChooserButton"></dxi-item>
+  <dxi-item name="searchPanel"></dxi-item>
+                </dxo-toolbar>
+                <dxo-export 
+                [enabled]="true"
+                [formats]="['xlsx', 'pdf','csv']"
+              >
+              </dxo-export>
+            </dx-data-grid>
+              </div>
+          
+  </div>
+
+
+  <div class="card-body1" *ngIf="SubGrid" >
+    <div id="app-container">
+        <dx-data-grid id="dataGrid"
+        [dataSource]="gridDataSource1"
+        [showBorders]="true"
+       
+        [allowColumnResizing]="true"
+        [columnAutoWidth]="true"
+        [allowColumnReordering]="true"
+       
+        (onExporting)="exportGrid($event)"
+       >
+        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+       <dxo-header-filter [visible]="true"></dxo-header-filter>
+       <dxi-column dataField="ass_template_id" caption="Assessment Template Id" [width]="100"></dxi-column>
+       <dxi-column dataField="assessment_name" caption="Assessment Template Name" value="usR_ID"></dxi-column>
+        <dxi-column dataField="verson_no" caption="Version_no" alignment="center"  ></dxi-column> 
+       <dxi-column dataField="competency_Name" caption="Competency skill level" value="entity_Master_id"></dxi-column>
+       <dxi-column dataField="type_Name" caption="Assessment Type" value="unit_location_Master_id"></dxi-column>
+       <dxi-column dataField="subType_Name" caption="Assessment Sub Type "></dxi-column>
+       <dxi-column dataField="total_questions" caption="No. of Questions"></dxi-column>                
+      <dxi-column dataField="total_estimated_time" caption="Total Attempt Time"  value="user_location_mapping_start_Date"></dxi-column>
+    <dxi-column dataField="firstname" caption="Name of Creator"   ></dxi-column>
+    <dxi-column dataField="status" caption="Template Status"   ></dxi-column> 
+    <dxi-column dataField="companyName" caption="Mapped Company Name"   ></dxi-column> 
+    <dxi-column dataField="companyLocation" caption="Mapped Location"   ></dxi-column> 
+    <dxi-column dataField="userName" caption="Mapped Assessor"   ></dxi-column> 
+<dxi-column dataField="assUserPermissionName" caption="Accessibility User Permissions"   ></dxi-column>
+
+    <dxi-column dataField="CreatedDate" caption="Date Of Mapping" [visible]="false"></dxi-column>
+    <dxi-column dataField="updated_date" caption="Date Last Edited on" [visible]="false"></dxi-column>   
+    <dxi-column dataField="doc_Confidentiality" caption="Assessment Template Description" [visible]="false"></dxi-column>   
+    <dxi-column dataField="email" caption="Email ID" [visible]="false"></dxi-column> 
+    <dxi-column dataField="assessment_description" caption="Assessment Template Description" [visible]="false"></dxi-column> 
+    <dxi-column dataField="show_hint" caption="Applicability of Show Hint" [visible]="false"></dxi-column>
+    <dxi-column dataField="show_explaination" caption="Applicability of Explaination " [visible]="false"></dxi-column>
+   
+    
+        <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-search-panel [visible]="true"></dxo-search-panel>
+        <dxo-group-panel [visible]="true"></dxo-group-panel>
+        <dxo-selection mode="single"></dxo-selection>
+        <dxo-summary>
+            <dxi-total-item
+                column="user_location_mapping_id"
+                summaryType="count">
+            </dxi-total-item>
+            
+        </dxo-summary>
+        <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+        <dxo-pager
+        [visible]="true"
+        [allowedPageSizes]="[5, 10,20, 'all']"
+       
+        [showPageSizeSelector]="true"
+       
+        [showInfo]="true"
+        infoText="Page {0} of  {1} ({2} items)"
+        [showNavigationButtons]="true"
+      >
+      </dxo-pager>
+       
+
+      <dxo-toolbar>
+      <dxi-item name="groupPanel"></dxi-item>
+
+<dxi-item name="addRowButton" showText="always"></dxi-item>
+<dxi-item name="exportButton"></dxi-item>
+<dxi-item name="columnChooserButton"></dxi-item>
+<dxi-item name="searchPanel"></dxi-item>
+      </dxo-toolbar>
+      <dxo-export 
+      [enabled]="true"
+      [formats]="['xlsx', 'pdf','csv']"
+    >
+    </dxo-export>
+  </dx-data-grid>
+    </div>
+
+</div>
+  </div>
+  </div>
+  

@@ -1,0 +1,171 @@
+.body {
+  margin: 30px;
+}
+
+$space: 1rem;
+
+.submit {
+  margin-left: 10px;
+  width: 25%;
+  display: block;
+  font-family: inherit;
+  background: #556f83;
+  color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+}
+
+.button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+.sectioneading {
+  font-size: large;
+  font-weight: 500 !important;
+  margin-top: 20px !important;
+}
+
+.Tab {
+  margin-left: 10px;
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+::ng-deep {
+  .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: #37d111 !important;
+  }
+
+  .mat-radio-button.mat-accent .mat-radio-inner-circle,
+  .mat-radio-button.mat-accent
+    .mat-radio-ripple
+    .mat-ripple-element:not(.mat-radio-persistent-ripple),
+  .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
+  .mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+    background-color: #37d111 !important;
+  }
+}
+
+.margin-top {
+  margin-top: 30px;
+}
+
+.sectionNAme {
+  background: #f5f5f5;
+  border-radius: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.createButton {
+  width: 100px;
+  height: min-content;
+}
+
+h1 {
+  margin: unset !important;
+}
+
+.h1 {
+  padding: 5px;
+}
+
+.h2 {
+  font-weight: 590;
+}
+
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn {
+  border: 2px solid #25c17a;
+  color: rgb(255, 255, 255);
+  background-color: #25c17a;
+  padding: 20px 20px;
+  border-radius: 8px;
+  font-size: 10px;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.image-preview {
+  position: relative;
+  display: inline-block;
+}
+
+.remove-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-top: 20px;
+}
+
+.image-cell {
+  width: 200px;
+  height: 200px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.image-cell {
+  width: 200px;
+  height: 200px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.image-cell {
+  position: relative;
+}
+
+.remove-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  color: green;
+  background-color: white;
+}

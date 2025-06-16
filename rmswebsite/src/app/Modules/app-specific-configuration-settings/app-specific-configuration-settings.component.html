@@ -1,0 +1,109 @@
+<div class="form">
+  <div class="body">
+    <div class="header">
+      <div style="align-self:self-end;">
+        <h1>App Specific Configuration Settings</h1>
+      </div>
+
+      <div class="config-settings">
+        <form [formGroup]="configForm" (ngSubmit)="onSubmit()">
+          <table class="config-table">
+            <thead>
+              <tr>
+                <th>Grant Permissions</th>
+                <th>Configuration Settings</th>
+                <th>Set Parameters</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr formGroupName="first">
+                <td style="display: none;">first</td>
+                <td>
+                  <mat-slide-toggle formControlName="schedulerEnabled"></mat-slide-toggle>
+                </td>
+                <td>Set Scheduler run cycle (Frequency)</td>
+                <td>
+                  <div class="time-parameters" *ngIf="configForm.get('first.schedulerEnabled').value">
+                    <label>
+                      <input type="radio" formControlName="timeOption" value="fixedTime">
+                      Fixed time:
+                    </label>
+                    <div *ngIf="configForm.get('first.timeOption').value === 'fixedTime'" formGroupName="fixedDaysAndTime">
+                      <input type="number" formControlName="fixedDays" min="1" max="365"> @ Day(s) 
+                      <input type="time" formControlName="fixedTimeHour" >
+
+                      
+                    </div>
+                    <label>
+                      <input type="radio" formControlName="timeOption" value="realTime">
+                      Real-time: After change of every activity affecting scheduler
+                    </label>
+                   
+                  </div>
+                </td>
+              </tr>
+
+              <tr formGroupName="second">
+                <td style="display: none;">second</td>
+                <td>
+                  <mat-slide-toggle formControlName="compliancePeriodEnabled"></mat-slide-toggle>
+                </td>
+                <td>Set Period for which Compliance Line Item should be generated for at every run cycle</td>
+                <td>
+                  <div class="time-parameters" *ngIf="configForm.get('second.compliancePeriodEnabled').value">
+                    <input matInput type="number" formControlName="compliancePeriod" min="1" placeholder="Days" max="365">@ Day(s) 
+                  </div>
+                </td>
+              </tr>
+
+              <tr formGroupName="third">
+                <td style="display: none;">third</td>
+                <td>
+                  <mat-slide-toggle formControlName="updateDaysEnabled"></mat-slide-toggle>
+                </td>
+                <td>Number of Days before which option to 'UPDATE' will not be activated</td>
+                <td>
+                  <div class="time-parameters" *ngIf="configForm.get('third.updateDaysEnabled').value">
+                    <input matInput type="number" formControlName="updateDays" min="1" placeholder="Days" max="365">@ Day(s) 
+                  </div>
+                </td>
+              </tr>
+
+              <tr formGroupName="fourth">
+                <td style="display: none;">fourth</td>
+                <td>
+                  <mat-slide-toggle formControlName="editReviewEnabled"></mat-slide-toggle>
+                </td>
+                <td>Permission to 'EDIT' the Compliance Updation Information at the time of 'Review Activity' stage</td>
+                <td></td>
+              </tr>
+
+              <tr formGroupName="fivth">
+                <td style="display: none;">fivth</td>
+                <td>
+                  <mat-slide-toggle formControlName="editApprovalEnabled"></mat-slide-toggle>
+                </td>
+                <td>Permission to 'EDIT' the Compliance Updation Information at the time of 'Approval Activity' stage</td>
+                <td></td>
+              </tr>
+
+              <tr formGroupName="sixth">
+                <td style="display: none;">sixth</td>
+                <td>
+                  <mat-slide-toggle formControlName="editAuditEnabled"></mat-slide-toggle>
+                </td>
+                <td>Permission to 'EDIT' the Compliance Updation Information at the time of 'Audit Activity' stage</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="margin-top"></div>
+          <div class="button">
+            <button class="grey-button" (click)="clear()">Clear</button>
+            <button class="Custombutton" type="submit">Save Settings</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

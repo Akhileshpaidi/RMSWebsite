@@ -1,0 +1,103 @@
+<div style="display: flex; align-items: center;">
+  <button (click)="goBack()" class="back-button">🔙 Back</button>
+  <div style="margin-left: 25px;">
+  <h2>View Query/ Issue Details</h2>
+</div>
+</div>
+
+
+<div class="query-container">
+  <h3>Details of Query/ Issue Raised:</h3>
+  <table>
+    <tr>
+      <td><b>Tracking ID:</b> </td>
+      <td> {{ queryData.trackingNo }}</td>
+      <td><b>Status:</b></td>
+      <td> {{ queryData.status }}</td>
+    </tr>
+    <tr>
+      <td><b>Importance:</b></td>
+      <td> {{ queryData.queryImportance }}</td>
+      <td><b>Module:</b> </td>
+      <td> {{ queryData.task_name }}</td>
+    </tr>
+    <tr>
+      <td><b>Main Menu:</b></td>
+      <td> {{ queryData.menu_item }}</td>
+      <td><b>Component:</b></td>
+      <td> {{ queryData.name }}</td>
+    </tr>
+    <tr>
+      <td><b>Subject Title:</b></td>
+      <td colspan="3"> {{ queryData.subjectTitle }}</td>
+    </tr>
+    <tr>
+      <td><b>Issue Details:</b></td>
+      <td colspan="3"> {{ queryData.issueDetails }}</td>
+    </tr>
+    <tr>
+        <td><b>Attachments:</b></td>
+        <td colspan="3">
+          <div *ngFor="let file of fileList; let i = index">
+            {{ i+1 }}. {{ file.fileName }}
+            <button (click)="downloadFile(file.raisequeryfilesid)" style="color: blue;">(Download)</button>
+            <!-- <button (click)="downloadFile(file.raisequeryfilesid, file.fileName)">Download</button> -->
+            <!-- <a href="{{ file.url }}" target="_blank">Download</a> -->
+          </div>
+          <!-- <div *ngFor="let file of queryData.filesdata; let i = index">
+            {{ i+1 }}. <a href="{{ file.url }}" target="_blank">Download</a>
+          </div> -->
+        </td>
+      </tr>
+      <tr>
+        <td><b>Issue Raised By/ On:</b></td>
+        <td> {{ queryData.raisedPersonName }}/{{queryData.createdDate}}</td>
+        <td><b>Reporting Person:</b></td>
+        <td> {{ queryData.reportingPersonName }}</td>
+      </tr>
+  </table>
+
+  <h3>Details of Query/ Issue Resolved:</h3>
+  <table class="details-table">
+    <tr>
+      <td><b>Resolution Category:</b> </td>
+      <td>  {{ queryData.resolutionCategory }} </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Resolution Details:</b></td>
+      <td colspan="3"> {{ queryData.resolutionDetails }}</td>
+    </tr>
+    <tr>
+      <td ><b>Attachments:</b></td>
+      <td colspan="3">
+        <div *ngFor="let file of fileListReview; let i = index">
+          {{ i+1 }}. {{ file.fileName }}
+          <button (click)="downloadReviewFile(file.reviewqueryfilesid)" style="color: blue;">(Download)</button>
+        </div>
+        <!-- <div *ngFor="let file of queryData.resolutionfiles; let i = index">
+          {{ i + 1 }}. 
+          <span>{{ file }}</span> 
+          <a [href]="getDownloadUrl(file)" download target="_blank">Download</a>
+        </div> -->
+      </td>
+    </tr>
+    
+    
+    <!-- <tr>
+      <td colspan="2"><b>Attachments:</b></td>
+      <td colspan="3"> 
+        <div *ngFor="let file of queryData.resolutionfiles; let i = index">
+          {{ i+1 }}. <a href="{{ file.url }}" target="_blank">Download</a>
+        </div>
+      </td>
+    </tr> -->
+    <tr>
+      <td><b>Issue Handled By/ On:</b></td>
+      <td>  {{ queryData.reportingPersonName }} / {{ queryData.resolutionQueryDate ? queryData.resolutionQueryDate : 'N/A' }}</td>
+      <td><b>Issue Raised By:</b></td>
+      <td>  {{ queryData.raisedPersonName }}</td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,131 @@
+<div class="body">
+    <h1>Notification Center</h1>
+   
+    
+    <mat-form-field *ngIf="!selectedMail" class="custom-select">
+      <mat-label>Filter</mat-label>
+      <mat-select [(value)]="selectedFilter" (selectionChange)="onFilterChange($event)" >
+        <mat-option *ngFor="let option of filterOptions" [value]="option">{{ option }}</mat-option>
+      </mat-select>
+      <!-- <mat-icon class="filter-icon" >filter_list</mat-icon> -->
+       
+      
+     
+    </mat-form-field> 
+    <mat-form-field  class="custom-select">
+      <mat-label>Filter</mat-label>
+      <mat-select [(value)]="selectedFilter" (selectionChange)="onFilterChange($event)" >
+        <mat-option *ngFor="let option of filterOptions" [value]="option">{{ option }}</mat-option>
+      </mat-select>
+      <!-- <mat-icon class="filter-icon" >filter_list</mat-icon> -->
+       
+      
+     
+    </mat-form-field> 
+
+  
+      <mat-tab-group animationDuration="1000ms">
+        <mat-tab label="Inbox">
+          <!-- Inbox View -->
+          <div *ngIf="!selectedMail; else mailDetailTemplate">
+            <div class="mail-container">
+              <ng-container *ngIf="(inboxMailList?.length ?? 0) > 0; else noMailsTemplate">
+                <div *ngFor="let mail of inboxMailList; let i = index" class="mail-card">
+                  <div class="mail-row">
+                    <!-- Checkbox -->
+                    <!-- <input type="checkbox" [(ngModel)]="mail.selected" class="checkbox" /> -->
+        
+                    <!-- Star Icon (Toggleable) -->
+                    <span
+                      class="star"
+                      [ngClass]="{ 'starred': mail.favourite }"
+                      (click)="toggleStar(i,mail)">
+                      ★
+                    </span>
+        
+                    <!-- Sender -->
+                    <div class="from">{{ mail.senderName }}</div>
+        
+                    <!-- Subject and Body -->
+                    <div class="subjectBody" (click)="mailOpen(mail)">
+                      <strong>{{ mail.subject }}</strong> - 
+                      <span [innerHTML]="getSafeHtmlRemove(mail?.body)"></span>
+                    </div>
+        
+                    <!-- Sent Date -->
+                    <div class="time">{{ mail.created_at }}</div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        
+          <!-- Mail Details View -->
+          <ng-template #mailDetailTemplate>
+            <div class="mail-body-container">
+              <h2>{{ selectedMail?.subject }}</h2>
+              <p><strong>From:</strong> {{ selectedMail?.senderName }}</p>
+              <p><strong>Sent On:</strong> {{ selectedMail?.created_at }}</p>
+              <hr />
+              <div class="mail-body" [innerHTML]="getSafeHtml(selectedMail?.body)"></div>
+              
+
+              <button (click)="mailClose()" class="back-button">Back to Inbox</button>
+            </div>
+          </ng-template>
+        
+          <!-- No Mails Template -->
+          <ng-template #noMailsTemplate>
+            <h2>No Mails are Available</h2>
+          </ng-template>
+        </mat-tab>
+        
+        <mat-tab label="Outbox">
+          <!-- Outbox View -->
+          <div *ngIf="!selectedMailOutbox; else mailDetailTemplateOutBox">
+            <div class="mail-container">
+              <ng-container *ngIf="(outboxMailList ?.length ?? 0) > 0; else noMailsTemplate">
+                <div *ngFor="let mail of outboxMailList ; let i = index" class="mail-card">
+                  <div class="mail-row">
+                   
+                    <!-- Sender -->
+                    <div class="from">To: {{ mail.receiverName}}</div>
+        
+                    <!-- Subject and Body -->
+                    <div class="subjectBody" (click)="mailOpenOutbox(mail)">
+                      <strong>{{ mail.subject }}</strong> - <span [innerHTML]="getSafeHtmlRemove(mail?.body)"></span>
+                    </div>
+        
+                    <!-- Sent Date -->
+                    <div class="time">{{ mail.created_at }}</div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        
+         
+          <!-- outBox mail details View -->
+          <ng-template #mailDetailTemplateOutBox>
+            <div class="mail-body-container">
+              <h2>{{ selectedMailOutbox?.subject }}</h2>
+              <p><strong>To:</strong> {{ selectedMailOutbox?.receiverName }}</p>
+              <p><strong>Sent On:</strong> {{ selectedMailOutbox?.created_at }}</p>
+              <hr />
+              <div class="mail-body" [innerHTML]="getSafeHtml(selectedMailOutbox?.body)"></div>
+              <button (click)="mailCloseOutbox()" class="back-button">Back to Outbox</button>
+            </div>
+          </ng-template>
+        
+          <!-- No Mails Template -->
+          <ng-template #noMailsTemplate>
+            <h3>No Mails are Available</h3>
+          </ng-template>
+        </mat-tab>
+  
+     
+    </mat-tab-group>
+    
+
+  
+</div>

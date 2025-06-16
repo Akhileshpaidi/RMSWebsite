@@ -1,0 +1,362 @@
+.table {
+  width: 100%;
+  margin-top: 25px;
+}
+.button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  gap: 20px;
+  
+}
+.checkboxBorder{
+  border-style: solid ;
+  border-width: 2px;
+  border-color: gray;  
+  
+}
+
+.body {
+  padding: 30px;
+  padding-top: 20px;
+}
+.h1 {
+  font-size: revert;
+  font-weight: 500;
+}
+
+.img {
+  height: 20px;
+  cursor: pointer;
+}
+
+::ng-deep {
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #37d111 !important;
+  }
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #d9d9d9 !important;
+  }
+  // .mat-select-arrow-wrapper{
+  //   margin-right: 30px !important;
+  // }
+
+  mat-header-cell,
+  mat-cell {
+    justify-content: center;
+  }
+  .mat-slide-toggle {
+    margin-left: 10px;
+  }
+}
+.filter-input {
+  width: 98%;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.gray-text {
+  color: #b9b9b9;
+}
+
+:host .dx-fieldset {
+  height: 500px;
+}
+.upload-container {
+  margin: 0 auto;
+  max-width: 600px; /* You can adjust this as needed */
+  padding: 5px;
+}
+
+.table {
+  margin-top: 10px;
+}
+
+.main-upload-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.file-upload-input {
+  flex-grow: 1;
+}
+
+.file-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.support-files-section {
+  margin-top: 20px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+.required-asterisk {
+  color: red;
+}
+
+.file-section {
+  margin-bottom: 20px;
+}
+
+.file-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc; /* Separation line for each file */
+}
+
+.file-details, .files-display {
+  background: #f5f5f5;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.button-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+  .col-md-6 {
+    width: 100%;
+  }
+}
+.circle-box {
+  // width: 5vw; /* 20% of the viewport width */
+  // height: 5vw; /* Make it a perfect circle */
+  // border-radius: 50%;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Makes the button round */
+  cursor: pointer;
+  //background-color: blue;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(1vw + 10px); /* Responsive text size */
+  text-align: center;
+}
+.circle-box2 {
+  // width: 5vw; /* 20% of the viewport width */
+  // height: 5vw; /* Make it a perfect circle */
+  // border-radius: 50%;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Makes the button round */
+  cursor: pointer;
+  //background-color: blue;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(1vw + 10px); /* Responsive text size */
+  text-align: center;
+}
+.circle-box3 {
+  // width: 5vw; /* 20% of the viewport width */
+  // height: 5vw; /* Make it a perfect circle */
+  // border-radius: 50%;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Makes the button round */
+  cursor: pointer;
+  //background-color: blue;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(1vw + 10px); /* Responsive text size */
+  text-align: center;
+}
+/* Specific styles for each risk type */
+.inherent-risk-box {
+  background-color: blue; /* Fixed color for Inherent Risk */
+}
+// .circle-box span {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+// }
+
+.file-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.file-input-button {
+  cursor: pointer;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+
+.file-input-button input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.hide-step {
+  display: none;
+}
+.mat-step-header:nth-of-type(1){ //for example, to remove the second step
+  display:none;
+}
+.back{
+  width: 3%;
+  display: block;
+  height: 30px;
+  font-family: inherit;
+  background-color: #556f83;
+  color: #fff;
+  border: 0;
+  border-radius: 1rem* 0.25;
+  cursor: pointer;
+  font-weight: 500;.button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  gap: 20px;
+}
+.boxNew {
+  //display: flex;
+  padding-left: 10px; 
+  gap:10px;
+  flex-direction: row;
+  width: 70%;
+}
+.boxNew> * {
+  flex: 1 none none;
+  
+}
+
+.header{
+  padding-left: 10px;
+  //padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+::ng-deep #form-container {
+  margin: 10px;
+}
+
+ 
+.wrapper{
+  padding: 10px;
+  
+}
+
+::ng-deep .long-title h3 {
+  font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+  font-weight: 200;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.readonly-input {
+  pointer-events: none;
+  background-color: hsl(0, 19%, 93%);
+  color: #333; /* Adjust styles as needed */
+}
+.table-container {
+  max-width: 1000px; /* Set the maximum width of the container */
+  margin: 10px; /* Center the container horizontally */
+}
+
+.mat-table {
+  width: 100%; /* Set the width of the table to 100% of its container */
+}
+
+.scrollable-textarea {
+  overflow: auto;
+  resize: vertical; /* Optional: Allow vertical resizing */
+  min-height: 100px; /* Optional: Set a minimum height */
+}
+
+::ng-deep .mat-dialog-content.error-message {
+color: red; /* Set the color for error messages */
+/* Add any other styling for error messages as needed */
+}
+
+::ng-deep .mat-dialog-content.success-message {
+color: green; /* Set the color for success messages */
+/* Add any other styling for success messages as needed */
+}
+
+.loading-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(255, 255, 255, 0.8);
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 1000;
+}
+select {
+display: block;
+width: 100%; /* Adjust the width as needed */
+padding: 8px; /* Adjust the padding as needed */
+margin: 10px 0; /* Adjust the margin as needed */
+box-sizing: border-box;
+border: 1px solid #ccc; /* Adjust the border style as needed */
+border-radius: 4px; /* Adjust the border-radius as needed */
+font-size: 14px; /* Adjust the font size as needed */
+color: #333; /* Adjust the text color as needed */
+background-color: #fff; /* Adjust the background color as needed */
+}
+
+/* Optional: Add styles for hover and focus states */
+select:hover,
+select:focus {
+border-color: #66afe9; /* Adjust the border color for hover and focus states as needed */
+}
+
+@media only screen and (max-width: 600px) {
+.sidebar {
+ overflow: auto;
+}
+}
+
+
+
+
+  letter-spacing: inherit;
+}

@@ -1,0 +1,232 @@
+<div class="form">
+  <div class="body">
+    <div class="header">
+      <div style="align-self:self-end;">
+        <h1 class="title"> Select Upload File Configurations</h1>
+        <mat-horizontal-stepper labelPosition="bottom">
+          <mat-step label="Main Document(s)" state="phone">
+
+            <form  [formGroup]="form" class="form-container" fxLayout="column" fxLayoutAlign="start stretch">
+<div class="boxNew">
+  <div class="label">
+    <label>
+      Enter Size Limit (MB)</label>  
+    </div>
+    <div class="box1">
+      <mat-form-field appearance="outline" class="form-field">
+        <input matInput formControlName="sizelimit" required />
+      </mat-form-field>
+    
+    </div>
+</div>
+    <div class="boxNew">
+      <div class="label1">
+      <label>
+        Select File Type</label>
+        
+      </div>
+          <div class="box1">
+            <mat-form-field>
+              <mat-select formControlName="allowedFileTypes" multiple (selectionChange)="onFileTypeChange()" placeholder="Select File Type">
+                <mat-select-trigger>
+                  {{ selectedFiltereddataNames.length ? selectedFiltereddataNames.join(', ') : 'Select File Type' }}
+                </mat-select-trigger>
+                <mat-option *ngFor="let data of filteredData | keyvalue" [value]="data.key">
+                  {{ data.value.CompanyName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+</div>
+
+                <div class="button">
+                  <button class="grey-button" (click)="onCancel()">Cancel</button>
+                  <button class="Custombutton" (click)="onSubmit()">Save</button>
+                  <button class="Custombutton" matStepperNext>Next</button>
+                </div>
+                <br>
+                <br>
+                <div class="card-body">
+                  <div id="app-container">
+                      <dx-data-grid id="dataGrid"
+                      [dataSource]="dataSource"
+                      [showBorders]="true"
+                     
+                      [allowColumnResizing]="true"
+                      [columnAutoWidth]="true"
+                      [allowColumnReordering]="true"
+                      (onExporting)="exportGrid($event)">
+                    <dxi-column dataField="sizelimit" caption="Size Limit">
+                      <dxi-validation-rule type="required"></dxi-validation-rule>   
+                    </dxi-column>
+                    <dxi-column dataField="allowedFileTypes" caption="File Types">
+                    </dxi-column>
+                    <!-- <dxo-column
+                    dataField="allowedFileTypes" caption="File Types" [lookup]="{ dataSource: filteredData,valueExpr: 'CompanyName',displayExpr: 'CompanyName'}">
+                  </dxo-column> -->
+                      
+                      <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                      <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                      <dxo-filter-row [visible]="true"></dxo-filter-row>
+                      <dxo-search-panel [visible]="true"></dxo-search-panel>
+                      <dxo-group-panel [visible]="true"></dxo-group-panel>
+                      <dxo-selection mode="single"></dxo-selection>
+                      <dxo-summary>
+                          <dxi-total-item
+                              column="admin_config_id"
+                              summaryType="count">
+                          </dxi-total-item>
+                          
+                      </dxo-summary>
+                      <!-- <dxo-editing
+                      mode="popup"
+                      [allowUpdating]="true"
+                      [allowDeleting]="true"
+                      [allowAdding]="true">
+                      <dxo-popup
+                      title="Upload File Category"
+                      [showTitle]="true"
+                      [width]="700"
+                      [height]="525"
+                     
+                    ></dxo-popup>
+                    </dxo-editing> -->
+                    <dxi-item name="groupPanel"></dxi-item>
+     <dxo-toolbar>
+      <!-- <dxi-item name="addRowButton" showText="always"></dxi-item> -->
+      <dxi-item name="exportButton"></dxi-item>
+      <dxi-item name="columnChooserButton"></dxi-item>
+      <dxi-item name="searchPanel"></dxi-item>
+                    </dxo-toolbar>
+                    <dxo-export 
+                    [enabled]="true"
+                    [formats]="['xlsx', 'pdf']"
+                  >
+                  </dxo-export>
+                </dx-data-grid>
+                  </div>
+              </div>
+            </form>
+              </mat-step>
+
+              <mat-step label="Support Document(s)" state="phone">
+                <form  [formGroup]="form1" class="form-container" fxLayout="column" fxLayoutAlign="start stretch">
+                <div class="boxNew">
+                  <div class="label">
+                    <label>
+                      No.of Documents</label>  
+                    </div>
+                    <div class="box1">
+                      <mat-form-field appearance="outline" class="form-field">
+                        <input matInput formControlName="noOfDocuploaded" required />
+                      </mat-form-field>
+                    
+                    </div>
+                </div>
+                <div class="boxNew">
+                  <div class="label2">
+                    <label>
+                     Size Limit</label>  
+                    </div>
+                    <div class="box1">
+                      <mat-form-field appearance="outline" class="form-field">
+                        <input matInput formControlName="sizelimit" required />
+                      </mat-form-field>
+                    
+                    </div>
+                </div>
+                <div class="boxNew">
+                  <div class="label3">
+                  <label>
+                    Select File Type</label>
+                    
+                  </div>
+            <div class="box1">
+                            <mat-form-field>
+                            <mat-select formControlName="allowedFileTypes" multiple (selectionChange)="onFileTypeChange1()" placeholder="Select File Type">
+                              <mat-select-trigger>
+                                {{ selectedFiltereddataNames1.length ? selectedFiltereddataNames1.join(', ') : 'Select File Type' }}
+                              </mat-select-trigger>
+                              <mat-option *ngFor="let data1 of filteredData1 | keyvalue" [value]="data1.key">
+                                {{ data1.value.FileType }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>     
+                      </div>
+            
+            </div>
+            <div class="button">
+              <button class="grey-button" matStepperPrevious>Back</button>
+              <button class="Custombutton" (click)="onCancel1()">Cancel</button>
+              <button class="Custombutton" (click)="onSubmit1()">Save</button>
+            </div>
+            <br>
+            <br>
+            <div class="card-body">
+              <div id="app-container">
+                  <dx-data-grid id="dataGrid1"
+                  [dataSource]="dataSource1"
+                  [showBorders]="true"
+                 
+                  [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+                  (onExporting)="exportGrid1($event)">
+                  <dxi-column dataField="noOfDocuploaded" caption="No.of Documents">
+                    <dxi-validation-rule type="required"></dxi-validation-rule>   
+                </dxi-column>
+                <dxi-column dataField="sizelimit" caption="Size Limit">
+                </dxi-column>
+                <dxi-column dataField="allowedFileTypes" caption="File Type">
+                </dxi-column>
+                  
+                  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-search-panel [visible]="true"></dxo-search-panel>
+                  <dxo-group-panel [visible]="true"></dxo-group-panel>
+                  <dxo-selection mode="single"></dxo-selection>
+                  <dxo-summary>
+                      <dxi-total-item
+                          column="admin_config_id"
+                          summaryType="count">
+                      </dxi-total-item>
+                      
+                  </dxo-summary>
+                  <!-- <dxo-editing
+                  mode="popup"
+                  [allowUpdating]="true"
+                  [allowDeleting]="true"
+                  [allowAdding]="true">
+                  <dxo-popup
+                  title="Upload File Category"
+                  [showTitle]="true"
+                  [width]="700"
+                  [height]="525"
+                 
+                ></dxo-popup>
+                </dxo-editing> -->
+                <dxi-item name="groupPanel"></dxi-item>
+ <dxo-toolbar>
+  <!-- <dxi-item name="addRowButton" showText="always"></dxi-item> -->
+  <dxi-item name="exportButton"></dxi-item>
+  <dxi-item name="columnChooserButton"></dxi-item>
+  <dxi-item name="searchPanel"></dxi-item>
+                </dxo-toolbar>
+                <dxo-export 
+                [enabled]="true"
+                [formats]="['xlsx', 'pdf']"
+              >
+              </dxo-export>
+            </dx-data-grid>
+              </div>
+          </div>
+          </form>
+              </mat-step>
+              </mat-horizontal-stepper>
+            </div>
+          </div>
+        </div>
+      
+

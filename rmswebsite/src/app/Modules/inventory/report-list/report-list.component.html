@@ -1,0 +1,187 @@
+<div class="body">
+  <div class="header col">
+    <div style="align-self: self-end">
+      <h1 class="h1">Add Document</h1>
+    </div>
+    <div style="text-align: -webkit-right">
+      <!-- <button class="createButton" (click)="createReport()">
+        Generate New Report
+      </button> -->
+    </div>
+  </div>
+
+  <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Select Document Type</mat-label>
+      <mat-select
+        formControlName="selectedProject"
+        (selectionChange)="selectBridge($event)"
+      >
+        <mat-option *ngFor="let element of project" [value]="element.id" >{{
+          element.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+ </div>
+ <div>
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Select Document category</mat-label>
+    <mat-select
+      formControlName="selectedBridge"
+      (selectionChange)="selectInspection($event)"
+    >
+      <mat-option *ngFor="let element of bridge" [value]="element.id"
+        >{{ element.name }} -- {{ element.buid }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+</div>
+<div>
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Select Document Sub category</mat-label>
+    <mat-select
+      formControlName="selectedBridge"
+      (selectionChange)="selectInspection($event)"
+    >
+      <mat-option *ngFor="let element of bridge" [value]="element.id"
+        >{{ element.name }} -- {{ element.buid }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+</div>
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Title of Document </mat-label>
+        <input matInput formControlName="name" name="name" required />
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Sub Title of Document </mat-label>
+        <input matInput formControlName="name" name="name" required />
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Objective of Document </mat-label>
+        <input matInput formControlName="name" name="name" required />
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Select Option</mat-label>
+    
+    <mat-select
+      formControlName="selectedProject"
+      (selectionChange)="selectBridge($event)"
+    >
+      <mat-option *ngFor="let element of project" [value]="element.id">{{
+        element.name
+      }}</mat-option>
+    </mat-select>
+   
+  </mat-form-field>
+  <div class="table">
+    <mat-table #table [dataSource]="dataSource">
+      <!-- SrNo Column -->
+      <ng-container matColumnDef="srno">
+        <mat-header-cell *matHeaderCellDef> Sr No </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index">
+          {{ paginator.pageIndex * paginator.pageSize + i + 1 }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="reportname">
+        <mat-header-cell *matHeaderCellDef> Report Name </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.reportname }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef> Created By </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.name }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="view">
+        <mat-header-cell *matHeaderCellDef> View </mat-header-cell>
+        <mat-cell class="hover-hand" *matCellDef="let element" (click)="viewReport(element)">
+          view
+        </mat-cell>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+        <mat-cell *matCellDef="let element" (click)="editReport(element)">
+          <img class="img" src="../../../../assets//images//Table/edit-3.svg" />
+        </mat-cell>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.date }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="time">
+        <mat-header-cell *matHeaderCellDef> Time </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          {{ element.time }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Remove Column -->
+      <ng-container matColumnDef="remove">
+        <mat-header-cell *matHeaderCellDef> Remove </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button
+            class="trash"
+            mat-button
+            type="button"
+            (click)="openDialog(element)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#556f83"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-trash-2"
+            >
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path
+                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+              ></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+    </mat-paginator>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+          <div style="align-self:self-end;">
+              <div class="card">
+                <div style="align-self: self-end">
+                  <h1 class="h1">View Assessment Template Rules </h1>
+                </div>
+<div class="card-body1">
+    <div id="app-container">
+        <dx-data-grid id="dataGrid"
+        [dataSource]="dataSource1"
+        [showBorders]="true"
+       
+        [allowColumnResizing]="true"
+        [columnAutoWidth]="true"
+        [allowColumnReordering]="true"
+       
+        (onExporting)="exportGrid($event)">
+        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+       <dxo-header-filter [visible]="true"></dxo-header-filter>
+       <dxi-column dataField="assessmenttemplateid" caption="Assessment  Template ID" visible="false" [width]="100"></dxi-column>
+       
+       <dxi-column dataField="configuration" caption="configuration">
+        <ng-template dxTemplate="cellTemplate" let-data>
+            {{ data.value === 0 ? null : data.value }}
+          </ng-template>
+       </dxi-column>
+       <dxi-column dataField="remarks" caption="Remarks"></dxi-column>
+       <dxi-column dataField="togglecontrols" caption="Togglecontrols" >
+        <ng-template dxTemplate="cellTemplate" let-data>
+            {{ data.value === 1 ? 'True' : data.value === 0 ? 'False' : null }}
+          </ng-template>
+       </dxi-column>
+       <dxi-column dataField="controls" caption="Controls">
+        <ng-template dxTemplate="cellTemplate" let-data>
+            {{ data.value === 0 ? null : data.value }}
+          </ng-template>
+       </dxi-column>
+      
+
+
+    
+        <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-search-panel [visible]="true"></dxo-search-panel>
+        <dxo-group-panel [visible]="true"></dxo-group-panel>
+        <dxo-selection mode="single"></dxo-selection>
+        <dxo-summary>
+            <dxi-total-item
+                column="assessmenttemplateid"
+                summaryType="count">
+            </dxi-total-item>
+            
+        </dxo-summary>
+        <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+        <dxo-paging [enabled]="true" [pageSize]="30"></dxo-paging>
+        <dxo-pager
+        [visible]="true"
+        [allowedPageSizes]="[5, 10,20, 'all']"
+       
+        [showPageSizeSelector]="true"
+       
+        [showInfo]="true"
+        infoText="Page {0} of  {1} ({2} items)"
+        [showNavigationButtons]="true"
+      >
+      </dxo-pager>
+  
+
+      <dxo-toolbar>
+      <dxi-item name="groupPanel"></dxi-item>
+
+<dxi-item name="addRowButton" showText="always"></dxi-item>
+<dxi-item name="exportButton"></dxi-item>
+<dxi-item name="columnChooserButton"></dxi-item>
+<dxi-item name="searchPanel"></dxi-item>
+      </dxo-toolbar>
+      <dxo-export 
+      [enabled]="true"
+      [formats]="['xlsx', 'pdf']"
+    >
+    </dxo-export>
+  </dx-data-grid>
+    </div>
+
+</div>
+
+</div>
+</div>
+</div>

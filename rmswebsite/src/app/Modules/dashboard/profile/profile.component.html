@@ -1,0 +1,270 @@
+<div class="body">
+  <div class="row">
+    <img
+      style="height: 30px"
+      src="../../../../assets//images//Dashboard/Users.svg"
+    />
+
+    <h2 class="header">Profile Page</h2>
+  </div>
+  <hr />
+
+  <form [formGroup]="createUserForm" >
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>User Name </mat-label>
+          <input
+            matInput
+            formControlName="firstname"
+            name="firstname"
+            required
+            type="text"
+            [(ngModel)]="user.profile.firstname"
+            
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>User login</mat-label>
+          <input
+            matInput
+            formControlName="userlogin"
+            name="usR_LOGIN"
+            required
+            type="text"
+            [(ngModel)]="user.profile.userlogin"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>mobilenumber</mat-label>
+          <input
+            matInput
+            formControlName="employer"
+            name="mobilenumber"
+            required
+            type="text"
+            [(ngModel)]="user.profile.mobilenumber"
+
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label> Email Address</mat-label>
+          <input
+            matInput
+            required
+            type="email"
+            formControlName="email"
+            name="emailid"
+            required
+            [(ngModel)]="user.profile.useremailid"
+          />
+        </mat-form-field>
+        <!-- <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Employee ID</mat-label>
+          <input
+            matInput
+            formControlName="employeeId"
+            name="employeeId"
+            required
+            [(ngModel)]="user.profile.employeeid"
+          />
+        </mat-form-field> -->
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Entity Name</mat-label>
+          <input
+            matInput
+            formControlName="country"
+            name="entity_Master_Name"
+            required
+            [(ngModel)]="user.profile.country"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Unit Location Name</mat-label>
+          <input
+            matInput
+            formControlName="state"
+            name="unit_location_Master_name"
+            required
+            [(ngModel)]="user.profile.state"
+          />
+        </mat-form-field>
+        <!-- <mat-form-field appearance="outline" class="form-field">
+          <mat-label>City</mat-label>
+          <input
+            matInput
+            formControlName="city"
+            name="city"
+            required
+            [(ngModel)]="user.profile.city"
+          />
+        </mat-form-field> -->
+       
+      </div>
+    </div>
+
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label> Department Name</mat-label>
+          <input
+            matInput
+            required
+            type="email"
+            formControlName="departmentName"
+            name="department_Master_name"
+            required
+            [(ngModel)]="user.profile.departmentName"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label> User Role</mat-label>
+          <input
+            matInput
+            required
+            type="text"
+            formControlName="role"
+            name="role"
+            required
+            [(ngModel)]="user.profile.roles"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="button">
+      <button class="Custombutton" mat-button (click)="openDialog()">
+        Update Password
+      </button>
+
+      <!-- <button class="Custombutton" mat-button type="submit">
+        Save Details
+      </button> -->
+    </div>
+  </form>
+  <div>
+  <br>  
+  </div>
+  <div class="card-body1">
+    <div id="app-container">
+        <dx-data-grid id="dataGrid"
+        [dataSource]="dataSource1"
+        [showBorders]="true"
+       
+        [allowColumnResizing]="true"
+        [columnAutoWidth]="true"
+        [allowColumnReordering]="true"
+       >
+        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+       <dxo-header-filter [visible]="true"></dxo-header-filter>
+       <dxi-column dataField="user_location_mapping_id" caption="User Location Mapping ID" [width]="100"></dxi-column>
+       
+       <dxi-column dataField="name" caption="User Name" value="usR_ID"></dxi-column>
+       <dxi-column dataField="entityname" caption="Entity Name" value="entity_Master_id"></dxi-column>
+       <dxi-column dataField="unit_location_Master_name" caption="Unit Location Name" value="unit_location_Master_id"></dxi-column>
+       <dxi-column dataField="roleNames" caption="Role Names"></dxi-column>
+       <dxi-column dataField="taskname" caption="Modules"></dxi-column>
+       <!-- <dxi-column dataField="user_location_mapping_status" caption="Mapping Status" [visible]="false"></dxi-column> -->
+       
+      <!-- <dxi-column dataField="user_location_mapping_start_Date" caption="Start Date" dataType="date" value="user_location_mapping_start_Date">
+        
+    </dxi-column>
+    <dxi-column dataField="user_location_mapping_End_Date" caption="End Date"  dataType="date" >
+      
+    </dxi-column> -->
+
+
+
+    
+        <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-search-panel [visible]="true"></dxo-search-panel>
+        <dxo-group-panel [visible]="true"></dxo-group-panel>
+        <dxo-selection mode="single"></dxo-selection>
+        <dxo-summary>
+            <dxi-total-item
+                column="user_location_mapping_id"
+                summaryType="count">
+            </dxi-total-item>
+            
+        </dxo-summary>
+        <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+       
+
+      <dxo-toolbar>
+      <dxi-item name="groupPanel"></dxi-item>
+<dxi-item name="columnChooserButton"></dxi-item>
+<dxi-item name="searchPanel"></dxi-item>
+      </dxo-toolbar>
+    
+  </dx-data-grid>
+    </div>
+
+</div>
+<br>
+<!-- ********** -->
+
+<div class="card-body" >
+        <h2>User Manual Documents</h2>
+  <div id="app-container">
+      <dx-data-grid
+      id="dataGrid"
+      key="helpdeskID"
+      formControlName="Viewhelpdesk"
+      [dataSource]="view_Hepl_Desk"
+      [showBorders]="true"
+      [allowColumnResizing]="true"
+      [columnAutoWidth]="true"
+      [rowAlternationEnabled]="true"
+      [allowColumnReordering]="true"
+      [columns]="GridColumns"
+      [height]="400"> 
+      <dxo-header-filter [visible]="true" [allowSearch]="true">
+       <dxo-search [enabled]="true"></dxo-search>
+     </dxo-header-filter>
+      <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+      <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-search-panel [visible]="true"></dxo-search-panel>
+      <dxo-group-panel [visible]="true"></dxo-group-panel>
+      <dxo-paging [pageSize]="5"></dxo-paging>
+      <dxo-pager
+        [showPageSizeSelector]="true"
+        [allowedPageSizes]="[10, 25, 50, 100]"
+        [showInfo]="true"
+        [showNavigationButtons]="true"></dxo-pager>
+      
+        <div *dxTemplate="let data of 'serialNumberTemplate'">
+          <span>{{ data.rowIndex + 1 }}</span> <!-- This generates the serial number starting from 1 -->
+        </div>
+      <dxo-toolbar>
+        <dxi-item name="exportButton"></dxi-item>
+        <dxi-item name="columnChooserButton"></dxi-item>
+        <dxi-item name="searchPanel"></dxi-item>
+      </dxo-toolbar>
+     
+      <div *dxTemplate="let data of 'viewButtonTemplate'">
+        <button  class="view-gridbutton" (click)="download(data.data)"  >Download</button>
+         
+    </div>
+    
+    </dx-data-grid>
+    
+
+
+      </div>
+               </div>
+
+
+</div>

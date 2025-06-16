@@ -1,0 +1,48 @@
+.body {
+  margin: 30px;
+}
+
+form {
+  padding: 30px;
+}
+
+.Custombutton {
+  align-items: center !important;
+}
+
+.button {
+  margin-top: 20px;
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+.grey-button {
+  margin-top: 10px;
+}
+
+.addRow {
+  background: #4ceea4;
+}
+
+.box1 {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 30px;
+
+}
+
+::ng-deep {
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #37d111 !important;
+  }
+
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #d9d9d9 !important;
+  }
+
+  .mat-select-arrow-wrapper {
+    margin-right: 30px !important;
+  }
+}

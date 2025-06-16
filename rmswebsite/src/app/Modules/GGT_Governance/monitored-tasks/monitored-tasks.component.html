@@ -1,0 +1,199 @@
+
+<h1>Monitored Tasks </h1>
+
+
+<div class="container">
+  <div>
+          <!-- <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Select Entity</mat-label>
+          <input  matInput   type="text">
+       
+          </mat-form-field> -->
+          <dx-select-box 
+          formControlName="country" 
+          label="Select Entity*"
+          labelMode="floating"
+          valueExpr="entity_Master_id"
+          displayExpr="entity_Master_Name"
+          [dataSource]="EntityName"
+          height="40px"
+          selectionMode="single" 
+         placeholder=""
+         (onValueChanged)="getUnitLocation($event)"  >
+    </dx-select-box>
+        </div>
+
+        <div>
+          <dx-select-box 
+          formControlName="state"
+          label="Select Unit Location*"
+          labelMode="floating"
+          valueExpr="unit_location_Master_id"
+          displayExpr="unit_location_Master_name"
+          [dataSource]="UnitMaster"
+          height="40px"
+          selectionMode="single" 
+          [(value)]="selectedentity"
+         placeholder="" disableOptionCentering >
+    </dx-select-box>
+        </div>
+<div >
+<dx-select-box 
+label="Select Document Type"
+labelMode="floating"
+valueExpr="docTypeID"
+displayExpr="docTypeName"
+[dataSource]="DocumentTypeData"  
+(onValueChanged)="getDocTypes($event)"
+selectionMode="single" 
+ 
+placeholder=""
+formControlName="DocTypeID">
+ >    </dx-select-box>
+</div>
+
+<div >
+<dx-select-box 
+label="Category"
+labelMode="floating"
+valueExpr="doc_CategoryID"
+displayExpr="doc_CategoryName"
+[dataSource]="Documentcategory"  
+(onValueChanged)="getsubDocTypes($event)"
+selectionMode="single" 
+placeholder=""
+
+formControlName="Doc_CategoryID">
+
+>
+
+</dx-select-box>
+</div>
+
+<div >
+<dx-select-box 
+label="Sub Category"
+labelMode="floating"
+valueExpr="doc_SubCategoryID"
+displayExpr="doc_SubCategoryName"
+[dataSource]="Documentsubcategory"  
+selectionMode="single" 
+placeholder=""
+formControlName="Doc_SubCategoryID">
+
+>
+</dx-select-box>
+</div>
+
+
+<div>
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>To Date</mat-label>
+  <input  matInput   type="date" >
+
+  </mat-form-field>
+</div>
+<div>
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>From Date</mat-label>
+  <input  matInput   type="date" >
+
+  </mat-form-field>
+</div>
+<div >
+<dx-select-box
+formControlName="AuthorityTypeID"
+label="Authority Type"
+labelMode="floating"
+valueExpr="authorityTypeID"
+displayExpr="authorityTypeName"
+[dataSource]="AuthorityTypeData"
+selectionMode="single" 
+placeholder=""
+(onValueChanged)="getAuthorityNamebyId($event)" >
+</dx-select-box>
+</div>
+
+<div >
+<dx-select-box 
+formControlName="AuthoritynameID"
+label="Name of Authority *"
+labelMode="floating"
+valueExpr="authoritynameID"
+displayExpr="authorityName"
+[dataSource]="AuthorityNameData"
+selectionMode="single" 
+placeholder=""
+>
+</dx-select-box>
+</div>
+<div>
+<dx-select-box 
+formControlName="natureOf_Doc_id"
+label="Nature of Document *"
+labelMode="floating"
+valueExpr="natureOf_Doc_id"
+displayExpr="natureOf_Doc_Name"
+[dataSource]="NatureOfDocument"
+selectionMode="single" 
+placeholder=""
+> 
+</dx-select-box>
+</div>
+<div>
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Nature of Confidentiality
+  </mat-label>
+  <input  matInput   type="text" >
+
+  </mat-form-field>
+  
+</div>
+<div></div>
+<div>
+<button type="button">Refresh</button>
+<button type="button">Reset</button>
+<button type="button">Export</button>
+</div>
+
+</div>
+<div class="body">
+<div class="cards">
+
+<br/>
+<div class="col" >
+<mat-card class="DocCount">
+  <mat-card-header fxLayoutAlign="center">
+
+  </mat-card-header>
+  <mat-card-subtitle fxLayoutAlign="center">
+    Documents Pending Acknowledgement 
+  </mat-card-subtitle>
+</mat-card>
+<mat-card class="bridgCount">
+  <mat-card-header fxLayoutAlign="center">
+   
+  </mat-card-header>
+  <mat-card-subtitle fxLayoutAlign="center">
+    Documents Pending Reading
+  </mat-card-subtitle>
+</mat-card>
+<mat-card class="userCount">
+  <mat-card-header fxLayoutAlign="center">
+   
+  </mat-card-header>
+  <mat-card-subtitle fxLayoutAlign="center">
+    Average Reading Time 
+  </mat-card-subtitle>
+</mat-card>
+<mat-card class="inspectionCount">
+  <mat-card-header fxLayoutAlign="center">
+   
+  </mat-card-header>
+  <mat-card-subtitle fxLayoutAlign="center">
+    Complete Reading
+  </mat-card-subtitle>
+</mat-card>
+</div>
+</div>
+</div>

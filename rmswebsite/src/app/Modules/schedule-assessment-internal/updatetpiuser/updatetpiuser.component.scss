@@ -1,0 +1,18 @@
+.body {
+    margin: 30px;
+  }
+  form {
+    padding: 30px;
+  }
+  
+  .button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 10px;
+  }
+  .Custombutton {
+    align-items: center !important;
+    width: 25%;
+  }
+  

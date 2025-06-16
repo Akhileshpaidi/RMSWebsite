@@ -1,0 +1,187 @@
+<div class="table-container">
+    <table class="table" *ngIf="paginatedData.length > 0">
+      <tbody>
+        <tr>  
+          <td colspan="2"><strong>Entity Name:  </strong>{{ paginatedData[0].entityName || 'N/A'}}</td>   
+          <td colspan="2"><strong>Unit Location Name: </strong>{{ paginatedData[0].unitLocationName || 'N/A'}}</td> 
+        </tr>
+        <tr>
+          <td colspan="1"><strong>Compliance ID:  </strong>{{ paginatedData[0].complianceID  || 'N/A'}}</td>   
+          <td colspan="3"><strong>Compliance Name:  </strong>{{ paginatedData[0].complianceName || 'N/A'}}</td> 
+        </tr>    
+          <tr>  
+          <td colspan="4"><strong>Compliance Description:  </strong>{{ paginatedData[0].recurrence || 'N/A'}}</td> 
+        </tr>
+        <tr>
+          <td colspan="2"><strong>Act Name:  </strong>{{ paginatedData[0].actName || 'N/A'}}</td>   
+          <td colspan="2"><strong>Rule Name:  </strong>{{ paginatedData[0].ruleName || 'N/A'}}</td> 
+        </tr>
+        <tr>
+          <td colspan="1"><strong>Section/ Rule/ Regulation: </strong>{{ paginatedData[0].recurrence || 'N/A' }}</td>   
+          <td colspan="1"><strong>StatutoryForm:  </strong>{{ paginatedData[0].statutoryForm || 'N/A'}}</td> 
+          <td colspan="1"><strong>Compliance Period:  </strong>{{paginatedData[0].compliancePeriod || 'N/A'}}
+            <br>
+            {{paginatedData[0].recurrence}}
+          </td>   
+          <td colspan="1"><strong>Risk Classification:  </strong>{{ paginatedData[0].riskClassification || 'N/A'}}</td> 
+        </tr>
+        <tr>
+          <td colspan="1"><strong>Compliance Type:  </strong>{{ paginatedData[0].complianceType || 'N/A'}}</td>   
+          <td colspan="1"><strong>Category of Law:  </strong>{{ paginatedData[0].categoryLaw || 'N/A'}}</td> 
+          <td colspan="1"><strong>Compliance Due Date:  </strong>{{ paginatedData[0].dueDate | date:'MMM-dd-yyyy'}}</td>   
+          <td colspan="1"><strong>Approved Remedial Comply Date:  </strong>{{ paginatedData[0].remedialDate | date:'MMM-dd-yyyy'}}</td> 
+        </tr>
+        <tr>
+          <td colspan="1"><strong>Is Authorization Workflow applied?:  </strong>{{ paginatedData[0].authWorkflow || 'N/A'}}</td>   
+          <td colspan="1"><strong>Is Audit Workflow applied?:  </strong>{{ paginatedData[0].auditWorkflow || 'N/A'}}</td> 
+          <td colspan="1"><strong>Compliance Stage Progress:  </strong>{{ paginatedData[0].compliance_stage_progress || 'N/A'}}</td>   
+          <td colspan="1"><strong>Compliance Status:  </strong>{{ paginatedData[0].compliance_status || 'N/A'}}</td> 
+        </tr>
+        <tr>
+          <td colspan="4"><strong>Person Responsible:  </strong>{{ paginatedData[0].recurrence || 'N/A'}}</td>   
+        </tr>    
+      </tbody>
+    </table>
+      <table class="table" *ngIf="paginatedData.length > 0">
+        <thead>
+          <tr>
+            <th colspan="4" class="header-left">Jurisdiction Location :</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Law Type</strong></td>
+            <td>{{ paginatedData[0].law_type || 'N/A'}}</td>
+            <td><strong>Regulatory Authority</strong></td>
+            <td>{{ paginatedData[0].regulator || 'N/A'}}</td>
+          </tr>
+          <tr>
+            <td><strong>Jurisdiction Category</strong></td>
+            <td>{{ paginatedData[0].jurisdiction_category || 'N/A'}}</td>
+            <td><strong>Country Name</strong></td>
+            <td>{{ paginatedData[0].country_name || 'N/A' }}</td>
+          </tr>
+          <tr>
+            <td><strong>State / Region Name</strong></td>
+            <td>{{ paginatedData[0].state_name || 'N/A' }}</td>
+            <td><strong>District / Locality Name</strong></td>
+            <td>{{ paginatedData[0].jurisdiction_district || 'N/A' }}</td>
+          </tr>
+        </tbody>
+      </table>
+        <div class="pager" *ngIf="totalCompliance > 1">
+          <button mat-button (click)="onPrevious()" class="pager-button" [disabled]="currentIndex === 0">Previous</button>
+          <span>Compliance {{ currentIndex + 1 }} of {{ totalCompliance }}</span>
+          <button mat-button (click)="onNext()" class="pager-button" [disabled]="currentIndex >= totalCompliance - 1">Next</button>
+        </div>
+      </div>
+      <div class="form-container">
+        <div class="title-container">
+          <h2 class="title">Compliance Update Information:</h2>
+          <table class="table1" *ngFor="let Details of paginatedData">
+            <tbody>
+              <tr>
+                <td><strong>Applicability Status</strong></td>
+                <td></td>
+                <td><strong>Actual Compliance Date</strong></td>
+                <td></td>
+                <td><strong>Compliance Updation Date</strong></td>
+                <td></td>
+                <td><strong>Compliance Audit Due Date</strong></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>{{ Details.applicability_status === 1 ? 'Yes' : 'No' }}</td>
+                <td></td>
+                <td>{{ Details.actual_complied_date | date: 'dd-MM-yyyy' }}</td>
+                <td></td>
+                <td>{{ Details.complainceUpdatedDate | date: 'dd-MM-yyyy' }}</td>
+                <td></td>
+                <td>{{ Details.complainceUpdatedDate | date: 'dd-MM-yyyy' }}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td colspan="6"><strong>Support Attachment(s):</strong></td>
+              </tr>
+              <tr>
+                <td colspan="8">
+                  <ng-container *ngIf="Details.files && Details.files.length > 0; else noFiles">
+                    <ol style="margin-left: 20px;">
+                      <li *ngFor="let attachment of Details.files" style="white-space: nowrap;">
+                        <span style="margin-left: 10px; width: 40%; display: inline-block;">   {{ attachment.attachmentNature }} </span>
+                        <a [href]="attachment.filePath" target="_blank" class="attachment-link">  View Attachment </a>
+                       </li>
+                    </ol>
+                  </ng-container>
+                  <ng-template #noFiles>
+                    <p>N/A</p>
+                  </ng-template>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Amount Involved/ Paid</strong></td>
+                <td></td>
+                <td><strong>Penalty/ Interest Paid</strong></td>
+                <td></td>
+                <td><strong>Updation Remarks</strong></td>
+                <td></td>
+                <td><strong>Review Remarks</strong></td>
+                <td></td>
+                <td><strong>Approver Remarks</strong></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>{{ Details.amount_paid || 'N/A'}}</td>
+                <td></td>
+                <td>{{ Details.penalty_paid || 'N/A'}}</td>
+                <td></td>
+                <td>{{ Details.updation_remarks || 'N/A'}}</td>
+                <td></td>
+                <td>{{ Details.updation_remarks || 'N/A'}}</td>
+                <td></td>
+                <td>{{ Details.updation_remarks || 'N/A'}}</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+    
+      <!-- *ngIf="rejectremark" -->
+      <form [formGroup]="Auditform">
+        <!-- <div class="button-section">
+          <button mat-button (click)="edit()" class="edit-button">Edit</button>
+        </div> -->
+      <div class="form-container" >
+        <div class="title-container">
+          <h2 class="title">Compliance Audit Information:</h2>
+        </div>
+        <div class="form-section">
+          <div class="form-field-row">
+            <div class="form-field-container remarks-container">
+              <mat-form-field appearance="outline" class="remarks-field" visible="false">
+                <mat-label>Audit Remarks</mat-label>
+                <textarea matInput placeholder="Enter remarks (max 250 characters)" #AuditorRemarks formControlName="AuditorRemarks" maxlength="250" rows="4"></textarea>
+                <mat-hint align="end">{{ Auditform.controls['AuditorRemarks'].value?.length || 0 }}/250</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <!-- Buttons -->
+        <div class="button-section">
+          <button mat-raised-button (click)="onReject()" class="reject-button">{{totalCompliance >1 ? "Reject All" : "Reject"}}</button>
+          <button mat-button (click)="onCancel()" class="cancel-button">Cancel</button>
+          <button mat-raised-button (click)="onUpdate()" class="update-button">{{totalCompliance >1 ? "Confirm All" : "Confirm"}}</button>
+        </div>
+    </div>
+      </form>
+      
+      
+      
+      
+      
+      
+      
+      
+      

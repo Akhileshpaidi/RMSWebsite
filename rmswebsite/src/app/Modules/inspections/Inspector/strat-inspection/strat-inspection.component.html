@@ -1,0 +1,510 @@
+<div class="body">
+  <div class="row">
+    <h2 class="header">Inspection Form</h2>
+  </div>
+  <hr />
+  <form
+    [formGroup]="inspectioForm"
+    (ngSubmit)="submitInspection(inspectioForm.value)"
+  >
+    <div class="progressBar">
+      <mat-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="inspectioForm">
+          <form [formGroup]="inspectioForm">
+            <ng-template matStepLabel>General Details</ng-template>
+            <h1>Basic Details</h1>
+
+            <div fxLayoutAlign="center center">
+              <div class="box">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Inspection Name </mat-label>
+                  <input
+                    matInput
+                    formControlName="inspectionname"
+                    name="inspectionname"
+                    [(ngModel)]="inspectionData.inspectionname"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Bridge Name </mat-label>
+                  <input
+                    matInput
+                    formControlName="bridgename"
+                    name="bridgename"
+                    [(ngModel)]="inspectionData.bridgename"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxLayoutAlign="center center">
+              <div class="box">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>BUID</mat-label>
+                  <input
+                    matInput
+                    formControlName="buid"
+                    name="buid"
+                    [(ngModel)]="inspectionData.buid"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Next Review Date </mat-label>
+                  <input
+                    matInput
+                    formControlName="nextreviewdate"
+                    name="nextreviewdate"
+                    [(ngModel)]="inspectionData.nextreviewdate"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayoutAlign="center center">
+              <div class="box">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Start Date</mat-label>
+                  <input
+                    matInput
+                    formControlName="startdate"
+                    name="startdate"
+                    [(ngModel)]="inspectionData.startdate"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>End Date </mat-label>
+                  <input
+                    matInput
+                    formControlName="enddate"
+                    name="enddate"
+                    [(ngModel)]="inspectionData.enddate"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayoutAlign="center center">
+              <div class="box">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Description</mat-label>
+                  <input
+                    matInput
+                    formControlName="description"
+                    name="description"
+                    [(ngModel)]="inspectionData.description"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="button">
+              <button
+                type="button"
+                class="submit"
+                (click)="draftInspection(inspectioForm.value)"
+                matStepperNext
+              >
+                Next
+              </button>
+            </div>
+          </form>
+        </mat-step>
+        <!-- Section Loop  -->
+        <div formArrayName="section">
+          <div
+            *ngFor="let section of inspectionData.section; let secIndex = index"
+          >
+            <div [formGroupName]="secIndex">
+              <mat-step
+                [stepControl]="inspectioForm"
+                label="{{ section.sectionname }}"
+              >
+                <!-- sub section loop  -->
+                <div formArrayName="subsection">
+                  <div
+                    *ngFor="
+                      let subsection of inspectionData.section[secIndex]
+                        .subsection;
+                      let subsecIndex = index
+                    "
+                  >
+                    <div [formGroupName]="subsecIndex">
+                      <h1>{{ subsection.subsectionname }}</h1>
+                      <!-- question loop  -->
+                      <div formArrayName="questions">
+                        <div
+                          *ngFor="
+                            let question of inspectionData.section[secIndex]
+                              .subsection[subsecIndex].questions;
+                            let questionindex = index
+                          "
+                        >
+                          <div fxLayoutAlign="center center">
+                            <div [formGroupName]="questionindex" class="box">
+                              <div
+                                *ngIf="question.questiontype == 1"
+                                class="text"
+                              >
+                                <mat-label>
+                                  {{ questionindex + 1 }}
+                                  <span class="Tab"></span
+                                  >{{ question.question }}
+                                  <span *ngIf="question.mandatory == 0">*</span>
+                                </mat-label>
+                                <mat-form-field
+                                  appearance="outline"
+                                  class="form-field"
+                                  name="response"
+                                >
+                                  <input
+                                    formControlName="response"
+                                    [(ngModel)]="question.response"
+                                    matInput
+                                    [required]="question.mandatory == 0"
+                                  />
+                                </mat-form-field>
+                              </div>
+                              <div
+                                *ngIf="question.questiontype == 2"
+                                class="list"
+                              >
+                                <label id="example-radio-group-label">
+                                  {{ questionindex + 1 }}
+                                  <span class="Tab"></span
+                                  >{{ question.question }}
+                                  <span *ngIf="question.mandatory == 0">*</span>
+                                </label>
+                                <mat-radio-group
+                                  aria-labelledby="example-radio-group-label"
+                                  class="example-radio-group"
+                                  formControlName="response"
+                                >
+                                  <mat-radio-button
+                                    class="example-radio-button"
+                                    *ngFor="
+                                      let options of inspectionData.section[
+                                        secIndex
+                                      ].subsection[subsecIndex].questions[
+                                        questionindex
+                                      ].options
+                                    "
+                                    [checked]="options.key == question.response"
+                                    [value]="options.key"
+                                  >
+                                    {{ options.value }}
+                                  </mat-radio-button>
+                                </mat-radio-group>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="image-upload-section">
+                          <button
+                            mat-raised-button
+                            color="primary"
+                            style="
+                              width: 200px;
+                              height: 200px;
+                              margin-right: 20px;
+                              background-color: #25c17a;
+                              color: white;
+                            "
+                            type="button"
+                            (click)="fileInput.click()"
+                          >
+                            <mat-icon>add_photo_alternate</mat-icon>
+                            <br />
+                            Select Images
+                          </button>
+                          <button
+                            mat-raised-button
+                            type="button"
+                            style="
+                              width: 200px;
+                              height: 200px;
+                              background-color: #25c17a;
+                              color: white;
+                            "
+                            (click)="onUploadClicked(secIndex)"
+                          >
+                            <mat-icon>cloud_upload</mat-icon>
+                            <br />
+                            Upload Images
+                          </button>
+                          <input
+                            #fileInput
+                            id="file-input"
+                            type="file"
+                            multiple
+                            style="display: none"
+                            (change)="onFileSelected()"
+                          />
+                        </div>
+
+                        <div class="image-grid">
+                          <div
+                            *ngFor="let image of selectedImages"
+                            class="image-cell"
+                          >
+                            <button
+                              mat-icon-button
+                              color="warn"
+                              class="remove-button"
+                              (click)="removeImage(image)"
+                            >
+                              <mat-icon>close</mat-icon>
+                            </button>
+                            <img [src]="image" width="200" height="200" (click)="onImageClicked(image)" />
+                          </div>
+                        </div>
+
+                        <ng-template #imageDialog let-image>
+                          <div mat-dialog-content>
+                            <img
+                              [src]="image"
+                              style="max-width: 100%; max-height: 100%"
+                            />
+                          </div>
+                          <div mat-dialog-actions>
+                            <button mat-button (click)="dialogRef.close()">
+                              Close
+                            </button>
+                          </div>
+                        </ng-template>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- image loop  -->
+                
+                  <div class="image-grid">
+                    <div *ngFor="let file of inspectionData.section[secIndex].files; let filesIndex = index" class="image-cell">
+                      <img [src]="file.fileurl" width="200" height="200" (click)="onImageClicked(file.fileurl)" />
+                    </div>
+                  </div>
+
+                
+
+                <div class="button">
+                  <button
+                    (click)="draftInspection(inspectioForm.value)"
+                    class="grey-button"
+                    matStepperPrevious
+                  >
+                    Back
+                  </button>
+                  <button
+                    class="submit"
+                    type="button"
+                    matStepperNext
+                    (click)="draftInspection(inspectioForm.value)"
+                  >
+                    Next
+                  </button>
+                </div>
+              </mat-step>
+            </div>
+          </div>
+        </div>
+        <!-- </div> -->
+        <mat-step>
+          <ng-template matStepLabel>Preview</ng-template>
+          <div class="formData">
+            <div class="margin-top"></div>
+            <hr />
+            <div class="header col">
+              <div style="align-self: self-end">
+                <h1 class="h2">Survey Summary</h1>
+              </div>
+              <div style="text-align: -webkit-right">
+                <button
+                  type="button"
+                  (click)="exportform()"
+                  class="grey-button"
+                >
+                  Export
+                </button>
+              </div>
+            </div>
+            <div id="contentToConvert">
+              <form [formGroup]="inspectioForm" style="margin-top: 30px">
+                <ng-template matStepLabel>General Details</ng-template>
+                <div class="sectionNAme header col">
+                  <div style="align-self: self-end">
+                    <h1 class="h1">Basic Details</h1>
+                  </div>
+                </div>
+                <div fxLayoutAlign="center center" style="margin-top: 30px">
+                  <div class="box">
+                    <mat-form-field appearance="outline" class="form-field">
+                      <mat-label>Inspection Name </mat-label>
+                      <input
+                        matInput
+                        formControlName="inspectionname"
+                        name="inspectionname"
+                        [(ngModel)]="inspectionData.inspectionname"
+                        readonly
+                      />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="form-field">
+                      <mat-label>Bridge Name </mat-label>
+                      <input
+                        matInput
+                        formControlName="bridgename"
+                        name="bridgename"
+                        [(ngModel)]="inspectionData.bridgename"
+                        readonly
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div fxLayoutAlign="center center">
+                  <div class="box">
+                    <mat-form-field appearance="outline" class="form-field">
+                      <mat-label>BUID</mat-label>
+                      <input
+                        matInput
+                        formControlName="buid"
+                        name="buid"
+                        [(ngModel)]="inspectionData.buid"
+                        readonly
+                      />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="form-field">
+                      <mat-label>Next Review Date </mat-label>
+                      <input
+                        matInput
+                        formControlName="nextreviewdate"
+                        name="nextreviewdate"
+                        [(ngModel)]="inspectionData.nextreviewdate"
+                        readonly
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div fxLayoutAlign="center center">
+                  <div class="box">
+                    <mat-form-field appearance="outline" class="form-field">
+                      <mat-label>Start Date</mat-label>
+                      <input
+                        matInput
+                        formControlName="startdate"
+                        name="startdate"
+                        [(ngModel)]="inspectionData.startdate"
+                        readonly
+                      />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="form-field">
+                      <mat-label>End Date </mat-label>
+                      <input
+                        matInput
+                        formControlName="enddate"
+                        name="enddate"
+                        [(ngModel)]="inspectionData.enddate"
+                        readonly
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div fxLayoutAlign="center center">
+                  <div class="box">
+                    <mat-form-field appearance="outline" class="form-field">
+                      <mat-label>Description</mat-label>
+                      <input
+                        matInput
+                        formControlName="description"
+                        name="description"
+                        [(ngModel)]="inspectionData.description"
+                        readonly
+                      />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </form>
+              <div
+                *ngFor="
+                  let section of inspectionData.section;
+                  let secIndex = index
+                "
+              >
+                <div class="margin-top"></div>
+
+                <div class="sectionNAme header col">
+                  <div style="align-self: self-end">
+                    <h1 class="h1">{{ section.sectionname }}</h1>
+                  </div>
+                </div>
+
+                <div class="margin-top"></div>
+
+                <div
+                  *ngFor="
+                    let subsection of section.subsection;
+                    let subsecIndex = index
+                  "
+                >
+                  <h2>
+                    {{ subsecIndex + 1 }} <span>)</span>
+                    {{ subsection.subsectionname }}
+                  </h2>
+                  <div
+                    *ngFor="
+                      let questions of subsection.questions;
+                      let questionindex = index
+                    "
+                  >
+                    <h3>
+                      {{ questionindex + 1 }} <span>)</span>
+                      {{ questions.question }}
+                      <span *ngIf="questions.mandatory == 0">*</span>
+                    </h3>
+
+                    <div *ngIf="questions.questiontype !== 2">
+                      <h3>Answer: {{ questions.response }}</h3>
+                    </div>
+
+                    <div *ngIf="questions.questiontype == 2">
+                      <mat-radio-group
+                        disabled="true"
+                        aria-labelledby="example-radio-group-label"
+                        class="example-radio-group"
+                      >
+                        <mat-radio-button
+                          class="example-radio-button"
+                          disabled="true"
+                          *ngFor="
+                            let options of inspectionData.section[secIndex]
+                              .subsection[subsecIndex].questions[questionindex]
+                              .options
+                          "
+                          [checked]="options.key == questions.response"
+                          [value]="options.key"
+                        >
+                          {{ options.value }}
+                        </mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                  </div>
+                </div>
+
+                
+              </div>
+            </div>
+          </div>
+          <div class="button">
+            <button class="grey-button" (click)="draft(inspectioForm.value)">
+              Draft
+            </button>
+            <button class="submit" type="submit">Submit</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </div>
+  </form>
+</div>

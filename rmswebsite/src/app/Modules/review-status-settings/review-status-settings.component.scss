@@ -1,0 +1,169 @@
+// .config-settings {
+//     max-width: 600px;
+//     margin: 0 auto;
+//     padding: 20px;
+//   }
+
+form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+  }
+
+//   .form-group label {
+//     margin-left: 1em;
+//   }
+
+//   .time-parameters {
+//     display: flex;
+//     flex-direction: column;
+//     margin-left: 1em;
+//   }
+
+//   button {
+//     align-self: flex-end;
+//   }
+// .form {
+//     display: flex;
+//     flex-direction: column;
+//     width: 600px; /* Adjust width as needed */
+//     margin: 0 auto; /* Center the form horizontally */
+//     border: 1px solid #ddd;
+//     border-radius: 4px;
+//     padding: 1rem;
+//   }
+
+.body {
+  padding: 30px;
+  padding-top: 20px;
+}
+.header-row {
+  background-color: #f2f2f2; /* Header row background color */
+}
+//   .header {
+//     display: flex;
+//     justify-content: flex-end; /* Align title to the right */
+//     padding-bottom: 0.5rem;
+//     border-bottom: 1px solid #ddd;
+//   }
+
+//   .app-title {
+//     font-size: 1.2rem;
+//     font-weight: bold;
+//     margin-bottom: 0.5rem; /* Add some space below the title */
+//   }
+
+  .config-settings {
+    flex-grow: 1; /* Allow the settings to fill the remaining space */
+  }
+
+//   .form-group {
+//     margin-bottom: 1rem; /* Add spacing between groups */
+//   }
+
+  .form-group label {
+    display: block; /* Display labels on their own line */
+    margin-bottom: 0.25rem; /* Add space below labels */
+    font-weight: bold;
+  }
+
+  .form-group input[type="radio"] {
+    margin-right: 0.5rem; /* Add spacing after radio buttons */
+  }
+
+  .time-parameters {
+    margin-left: 1.5rem; /* Indent time parameters for clarity */
+  }
+
+  .time-parameters label {
+    display: inline-block; /* Display labels inline */
+    margin-right: 1rem; /* Add spacing between labels */
+  }
+
+  .mat-slide-toggle {
+    margin-bottom: 0.5rem; /* Add space below slide toggles */
+  }
+
+  .button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+  }
+  /* General table styling */
+.config-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+/* Table header styling */
+.config-table th {
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 12px 15px;
+  border-bottom: 2px solid #ddd;
+}
+
+/* Table row styling */
+.config-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Alternate row coloring for better readability */
+.config-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Styling for mat-slide-toggle (assuming default Material theme) */
+mat-slide-toggle {
+  display: flex;
+  align-items: center;
+}
+
+mat-slide-toggle .mat-slide-toggle-thumb {
+  background-color: #3f51b5; /* Primary color */
+}
+
+mat-slide-toggle .mat-slide-toggle-bar {
+  background-color: #e0e0e0; /* Disabled color */
+}
+
+mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: #3f51b5; /* Primary color when checked */
+}
+
+mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: #c5cae9; /* Lighter primary color */
+}
+
+/* Styling for the input fields within the time-parameters div */
+.time-parameters {
+  margin-top: 10px;
+}
+
+.time-parameters label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.time-parameters input[type="number"],
+.time-parameters input[type="time"] {
+  padding: 5px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 175px;
+}
+
+.time-parameters input[type="radio"] {
+  margin-right: 5px;
+}

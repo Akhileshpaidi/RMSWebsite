@@ -1,0 +1,215 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self: self-end">
+          <br>
+          <h2 class=" title" style="align-items: center;">Create User Activity Workgroup
+            </h2>
+        </div>
+      </div>
+      <br>
+      <form [formGroup]="createworkgroup"    (ngSubmit)="onSave(createworkgroup.value)" >
+
+
+        
+        <div class="row">
+            <div class="box">
+                <mat-form-field  appearance="fill" class="form-field">
+                  <mat-label>Name of User Workgroup Mapping</mat-label>
+                  <input matInput #titleinput formControlName="name"  maxlength="50">
+                  <mat-hint align="start" >Min 1 - Max 50 Characters</mat-hint>
+                <mat-hint align="end">{{titleinput.value.length}}/50</mat-hint>
+                </mat-form-field>
+             
+              </div>
+              
+                <div class="box">
+                  <mat-form-field  appearance="fill" class="form-field">
+                    <mat-label>Description of User Workgroup Mapping </mat-label>
+                    <textarea matInput #titleinput formControlName="userdesc"  maxlength="150"></textarea>
+                    <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+                <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint>
+                  </mat-form-field>
+                </div>
+            </div>
+            <br>
+            <div class="box">
+            
+                  <dx-drop-down-box
+                  formControlName="activity"
+                  [(value)]="selectedOption3"
+                  [inputAttr]="{ 'aria-label': 'Owner' }"
+                  placeholder="Select Activity*"
+                  [showClearButton]="true"
+                  labelMode="floating"
+                  valueExpr="activity_Workgroup_id"
+                  displayExpr="name_ActivityWorkgroup"
+                  [dataSource]="activity"
+                  searchEnabled="true"
+                  height="40px" >
+                 <div *dxTemplate="let data of 'content'">
+                  <dx-data-grid
+                  [dataSource]="activity"
+                    [selection]="{ mode: 'single' }"
+                    [hoverStateEnabled]="true"
+                    [columns]="gridColumns3"
+                    [(selectedRowKeys)]="selectedOption3"
+                    [filterRow]="{ visible: true }"
+                    [scrolling]="{ mode: 'virtual' }"
+                    [showColumnHeaders]="true"
+                    height="220%"
+                  >
+                  <dxo-selection mode="single"></dxo-selection>
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-scrolling mode="virtual"></dxo-scrolling>
+                  <dxo-header-filter [visible]="true" [allowSearch]="true">
+                    <dxo-search [enabled]="true"></dxo-search>
+                  </dxo-header-filter>
+                  <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+                  <dxo-pager
+                  [visible]="true"
+                  [allowedPageSizes]="[5,10,20, 'all']"
+                 
+                  [showPageSizeSelector]="true"
+                 
+                  [showInfo]="true"
+                  infoText="Page {0} of  {1} ({2} items)"
+                  [showNavigationButtons]="true">
+                </dxo-pager>
+            
+                <dxo-group-panel [visible]="true"></dxo-group-panel>
+                  <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+                  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                  </dx-data-grid>
+                </div>
+  
+                </dx-drop-down-box>
+                    
+            </div>
+<br>
+<br>
+
+
+            <div><h3><label>
+              Map Compliance User(s)
+            </label></h3></div>
+            <br>
+            
+            <div class="box">
+            
+              <dx-drop-down-box
+              formControlName="user"
+              [(value)]="selectedOption4"
+              [inputAttr]="{ 'aria-label': 'Owner' }"
+              placeholder="Select User(s)*"
+              [showClearButton]="true"
+              labelMode="floating"
+              valueExpr="usR_ID"
+              displayExpr="firstname"
+              [dataSource]="username"
+              searchEnabled="true"
+              height="40px" >
+             <div *dxTemplate="let data of 'content'">
+              <dx-data-grid
+              [dataSource]="username"
+                [selection]="{ mode: 'multiple' }"
+                [hoverStateEnabled]="true"
+                [columns]="gridColumns4"
+                [(selectedRowKeys)]="selectedOption4"
+                [filterRow]="{ visible: true }"
+                [scrolling]="{ mode: 'virtual' }"
+                [showColumnHeaders]="true"
+                height="280%"
+              >
+              </dx-data-grid>
+            </div>
+
+            </dx-drop-down-box>
+                
+        </div>
+
+            <div class="button"> 
+                <button class="grey-button"  (click)="Cancel()" >Cancel</button>         
+                <button  class="Custombutton"   >Save</button>
+             </div>
+      </form>
+      <br>
+      <br>
+<div><h3>
+  <label>View User Workgroup Mapping</label>
+</h3></div>
+
+<div class="grid-wrapper">
+      <div class="card-body1">
+        <div id="app-container">
+            <dx-data-grid id="user_workgroup_mapping_id"
+            [dataSource]="dataSource1"
+            [showBorders]="true"
+           
+            [allowColumnResizing]="true"
+            [columnAutoWidth]="true"
+            [allowColumnReordering]="true"
+            (onExporting)="exportGrid($event)">
+            <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+           <dxo-header-filter [visible]="true"></dxo-header-filter>
+           <dxi-column dataField="user_workgroup_mapping_id" caption="user workgroup mapping id" [width]="100"></dxi-column>
+             <dxi-column dataField="user_workgroup_mapping_name" caption="user workgroup mapping name" ></dxi-column>
+             <dxi-column dataField="user_workgroup_mapping_desc" caption="user workgroup mapping Description" ></dxi-column>
+            <dxi-column dataField="useractivitymappingunigueid" caption="userActivityid" ></dxi-column>
+ 
+          <dxi-column dataField="firstNames" caption="user(s)" value="usR_ID"></dxi-column>
+          <dxi-column dataField="unigueActivityid" caption="Activity Workgroup id" ></dxi-column>
+
+          <dxi-column dataField="name_ActivityWorkgroup" caption="ActivityWorkgroup" value="activity_Workgroup_id"></dxi-column>
+          <dxi-column dataField="rolE_NAME" caption="Role" value="roLE_ID"></dxi-column>
+           <dxi-column dataField="entity_Master_Name" caption="Entity Name" value="entity_Master_id"></dxi-column>
+           <dxi-column dataField="unit_location_Master_name" caption="Unit Location Name" value="unit_location_Master_id"></dxi-column>
+           <dxi-column dataField="department_Master_name" caption="Department Name" value="department_Master_id"></dxi-column>
+            <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+            <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-search-panel [visible]="true"></dxo-search-panel>
+            <dxo-group-panel [visible]="true"></dxo-group-panel>
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-summary>
+                <dxi-total-item
+                    column="user_workgroup_mapping_id"
+                    summaryType="count">
+                </dxi-total-item>
+                
+            </dxo-summary>
+            <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+            <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+            <dxo-pager
+            [visible]="true"
+            [allowedPageSizes]="[5, 10,20, 'all']"
+           
+            [showPageSizeSelector]="true"
+           
+            [showInfo]="true"
+            infoText="Page {0} of  {1} ({2} items)"
+            [showNavigationButtons]="true"
+          >
+          </dxo-pager>
+        
+      
+          <dxo-toolbar>
+          <dxi-item name="groupPanel"></dxi-item>
+      
+      <dxi-item name="addRowButton" showText="always"></dxi-item>
+      <dxi-item name="exportButton"></dxi-item>
+      <dxi-item name="columnChooserButton"></dxi-item>
+      <dxi-item name="searchPanel"></dxi-item>
+          </dxo-toolbar>
+          <dxo-export 
+          [enabled]="true"
+          [formats]="['xlsx', 'pdf']"
+        >
+        </dxo-export>
+      </dx-data-grid>
+        </div>
+      
+      </div>
+    </div>
+    </div>
+</div>

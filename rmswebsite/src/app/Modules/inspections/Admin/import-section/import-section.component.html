@@ -1,0 +1,47 @@
+<div class="body">
+  <div class="row">
+    <img
+      style="height: 25px; margin-top: 2px"
+      src="../../../../assets//images/Inspection/download1.svg"
+    />
+    <h2 class="header">Import Section</h2>
+  </div>
+  <hr />
+  <form
+    [formGroup]="questionForm"
+    (ngSubmit)="onFormSubmit(questionForm.value)"
+  >
+    <div class="main">
+      <div fxLayoutAlign="center center">
+        <div class="box">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Select Inspection</mat-label>
+            <mat-select
+              formControlName="selectedInspection"
+              (selectionChange)="importsection($event)"
+            >
+              <mat-option
+                *ngFor="let element of selectInspection"
+                [value]="element.id"
+              >
+                {{ element.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Select Section</mat-label>
+            <mat-select formControlName="selectedSection">
+              <mat-option *ngFor="let e of selectSection" [value]="e.secsrno">
+                {{ e.sectext }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="button box">
+      <button class="grey-button" mat-button (click)="close()">Close</button>
+      <button class="Custombutton" mat-button type="submit">Import</button>
+    </div>
+  </form>
+</div>

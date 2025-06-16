@@ -1,0 +1,398 @@
+<div class="form">
+    <div class="header col">
+      <div style="align-self: self-end">
+        <br>
+        <h2 class=" title" style="align-items: center;">View Global Compliance Master :
+          </h2>
+      </div>
+    </div>
+
+    <br>
+           <div class="card-body" *ngIf="isComplianceListVisible">
+             <form [formGroup]="viewglobalcompliance">
+             <div id="app-container">
+                 <dx-data-grid
+                 id="dataGrid"
+                 key="create_compliance_id"
+                 formControlName="complianceid"
+                 [dataSource]="view_global_compliance"
+                 [showBorders]="true"
+                 [allowColumnResizing]="true"
+                 [columnAutoWidth]="true"
+                 [rowAlternationEnabled]="true"
+                 (onSelectionChanged)="handleSelectionChanges($event)"
+                 [allowColumnReordering]="true"
+                 [columns]="GridColumns"
+                 [height]="800">  <!-- Set the height to a fixed value -->
+                 <dxo-header-filter [visible]="true" [allowSearch]="true">
+                  <dxo-search [enabled]="true"></dxo-search>
+                </dxo-header-filter>
+                 <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                 <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                 <dxo-filter-row [visible]="true"></dxo-filter-row>
+                 <dxo-search-panel [visible]="true"></dxo-search-panel>
+                 <dxo-group-panel [visible]="true"></dxo-group-panel>
+                 <dxo-paging [pageSize]="10"></dxo-paging>
+                 <dxo-pager
+                   [showPageSizeSelector]="true"
+                   [allowedPageSizes]="[10, 25, 50, 100]"
+                   [showInfo]="true"
+                   [showNavigationButtons]="true"></dxo-pager>
+                 
+                 <dxo-summary>
+                   <dxi-total-item column="serialNumber" summaryType="count"></dxi-total-item>
+                 </dxo-summary>
+                 
+                 <dxo-toolbar>
+                   <dxi-item name="exportButton"></dxi-item>
+                   <dxi-item name="columnChooserButton"></dxi-item>
+                   <dxi-item name="searchPanel"></dxi-item>
+                 </dxo-toolbar>
+                 
+                 <div *dxTemplate="let data of 'viewButtonTemplate'">
+                   <button class="view-grid-button" (click)="onViewButtonClick(data.data)">View</button>
+                 </div>
+               </dx-data-grid>
+               
+
+
+                 </div>
+                </form>
+              </div>
+ <div class="complianceDetailsView" *ngIf="isVisibleDetails">
+  <form [formGroup]="viewComplianceDetails">
+        <div label="Compliance Preface" state="chat">
+            <table class="table" *ngIf="isVisibleDetails">
+              <tbody>
+                <tr *ngFor="let Details of SelectedComplianceDetails">  
+                  <td colspan="1"><strong>Global Compliance ID_Compliance Name : Ver</strong></td>        
+                  <td colspan="3">{{ Details.global_compliance_id }}:{{ Details.version_no }}<br>{{ Details.compliance_name }}</td>
+                </tr>
+                <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td colspan="1"><strong>Compliance Description</strong></td>
+                  <td colspan="3">{{ Details.compliance_des }}</td>
+                </tr>
+                <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td colspan="1"><strong>Name of Act/ Regulation</strong></td>
+                  <td colspan="3">{{ Details.act_name }}</td>
+                  <!-- <td  class="no-left-border">
+                    <div class="information-wrapper">
+                      <img src="\assets\images\images (1).jpeg" class="information-icon" alt="Information" (click)="showPopup(SelectedComplianceDetails)">
+                      <span (click)="showPopup(SelectedComplianceDetails)" class="clickable-span">
+                        {{ '(View More Related Info)' }}
+                      </span>
+                    </div>
+                  </td> -->
+                </tr>
+                <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td colspan="1"><strong>Name of Rule/ Regulation/ Procedure</strong></td>
+                  <td colspan="2" class="no-right-border">{{ Details.rule_name }}</td>
+                  <td  class="no-left-border">
+                    <div class="information-wrapper">
+                      <img src="\assets\images\images (1).jpeg" class="information-icon" alt="Information" (click)="showPopup(SelectedComplianceDetails)">
+                      <span (click)="showPopup(SelectedComplianceDetails)" class="clickable-span">
+                        {{ '(View More Related Info)' }}
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td><strong>Section/ Rule/ Clause/Regulation Reference</strong></td>
+                  <td>{{ Details.section_rule_regulation_ref }}</td>
+                  <td><strong>Category of Law</strong></td>
+                  <td>{{ Details.category }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table" *ngIf="isVisibleDetails">
+              <thead>
+                <tr>
+                  <th colspan="4" class="header-left">Jurisdiction Location : </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let Details of SelectedComplianceDetails">  
+                  <td><strong>Nature of Law</strong></td>        
+                  <td>{{ Details.law_type }}</td>
+                  <td><strong>Regulatory Authority</strong></td>
+                  <td>{{ Details.regulator }}</td>
+                </tr>
+                <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td><strong>Jurisdiction Category</strong></td>
+                  <td> {{Details.jurisdiction_category}} </td>
+                  <td><strong>Country Name</strong></td>
+                  <td>{{ Details.country_name || 'N/A'}}</td>
+                </tr>
+                <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td><strong>State / Region Name</strong></td>
+                  <td>{{ Details.state_name || 'N/A'}}</td>
+                  <td><strong>District / Locality Name</strong></td>
+                  <td>{{ Details.jurisdiction_district || 'N/A'}}</td>
+                </tr>               
+                 <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td><strong>Compliance Type</strong></td>
+                  <td>{{ Details.compliance_type_name }}</td>
+                  <td><strong>Compliance Record Type</strong></td>
+                  <td>{{ Details.compliance_record_type }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table" *ngIf="isVisibleDetails">
+              <thead>
+                <tr>
+                  <th colspan="4" class="header-left">Statutory Form / Record References :</th>
+                </tr>
+                <tr>
+                  <th>Form Number/ Record Name/ Reference</th>
+                  <th>Applicable Section/ Rule/ Regulation Reference</th>
+                  <th>View Description</th>
+                  <th>Support References(s)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let Details of SelectedComplianceDetails[0].statutoryFormDetails">
+                  <td>{{ Details.statutoryName }}</td>
+                  <td>{{ Details.applicable_section }}</td>
+                  <td>{{ Details.description }}</td>
+                  <td>
+                      <ol type="1">
+                        <ng-container *ngFor="let detail of Details.statutoryDetails">
+                          <li>
+                            <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                              [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ getFileNameFromPath(detail.filepath) }}</a>
+                              <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                              <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
+                            </ng-container>
+                            <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                              [File Attached] {{ getFileNameFromPath(detail.filepath) }}
+                              <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                                <a [href]="detail.filepath" target="_blank">(View)</a> /
+                              </ng-container>
+                              <dx-button icon="download"  (click)="download(detail.filepath, detail.fileType)"> </dx-button>
+                            </ng-container>
+                          </li>
+                        </ng-container> 
+                        <!-- <ng-container *ngFor="let detail of Details.categoryDetails">
+                          <li>
+                            <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                              [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ detail.filepath }}</a>
+                              <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                              <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
+                            </ng-container>
+                            
+                            <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                              [File Attached] {{ detail.filename }}
+                                <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                                  <a [href]="detail.filepath" target="_blank">(View)</a> /
+                                </ng-container>
+                                <a [href]="detail.filepath" download>Download</a>
+                              </ng-container>
+                          </li>
+                        </ng-container> -->
+                    </ol>
+                  </td>
+                 </tr>
+                 <tr *ngFor="let Details of SelectedComplianceDetails">  
+                  <td colspan="2"><strong>Special Instructions for Statutory Form / Record Updation</strong></td>        
+                  <td colspan="2">{{ Details.special_instr_for_statutory || 'N/A'  }}</td>
+                </tr>
+                <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td><strong>Compliance Group</strong></td>
+                  <td> {{Details.compliance_group || 'N/A' }} </td>
+                  <td><strong>Compliance Notified Status</strong></td>
+                  <td>{{ Details.compliance_notified_status }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table" *ngIf="isVisibleDetails">
+              <thead>
+                <tr>
+                  <th colspan="4" class="header-left">Compliance Chronology Details : </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let Details of SelectedComplianceDetails">  
+                  <td colspan="2"><strong>Frequency Period</strong></td>        
+                  <td colspan="2">{{ Details.recurrence }}-{{ Details.frequency }}</td>
+                </tr>
+                <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td><strong>Original Due Date Defined By</strong></td>
+                  <td> {{Details.original_due_date_defined_by}} </td>
+                  <td><strong>Original Due Date</strong></td>
+                  <td>{{ Details.day }}-{{ Details.periodicity_factor }}</td>
+                </tr>
+                <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td><strong>Extended Due Date Applied?</strong></td>
+                  <td>{{ Details.extended_due_date_applied }}</td>
+                  <td><strong>Extended Due Date</strong>
+                    <br>
+                    <span style="font-size: smaller; color: gray;">Effective From - Effective Till</span>
+                  </td>
+                  <td>
+                    <!-- {{ Details.jurisdiction_district }} -->
+                    <br>
+                    <span style="font-size: smaller; color: gray;">From {{ getFormattedDate(Details.effective_from) }} - Till {{ getFormattedDate(Details.effective_till) }}</span>
+                  </td>
+                </tr>       
+              </tbody>
+            </table>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th colspan="4" class="header-left">Compliance Add-Ons : </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td colspan="2"><strong>Business Sector-Industry Type</strong></td>
+                  <td colspan="2">{{ Details.businessAndIndustries }}</td>
+                </tr>
+                <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td colspan="2"><strong>Any Additional Reference</strong></td>
+                  <td colspan="2">{{ Details.any_additional_references }}</td>
+                </tr>
+                <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td><strong>Risk Classification/ Criteria</strong></td>
+                  <td>{{ Details.suggested_risk_classification_name || 'N/A' }} / {{ Details.risk_classification_criteria_name || 'N/A' }}</td>
+                  <td><strong>Penalty Provision Required?</strong></td>
+                  <td>{{ Details.penalty_provision_required }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table" *ngIf="isVisibleDetails">
+              <thead>
+                <tr>
+                  <th colspan="7" class="header-left">Compliance Penalty Details :</th>
+                </tr>
+                <tr>
+                  <th>Penalty Category</th>
+                  <th>Applicable Section/ Rule/ Regulation Reference</th>
+                  <th>Penalty Descriptio</th>
+                  <th>Minimum Penalty</th>
+                  <th>Maximum Penalty</th>
+                  <th>Additional References to Penalty Provision</th>
+                  <th>Support Reference(s)</th>
+                </tr>
+              </thead>
+            <tbody>
+                <tr *ngFor="let penalty of SelectedComplianceDetails[0].penaltyDetails">
+                  <td>{{ penalty.compliancepenaltyName }}</td>
+                  <td>{{ penalty.applicable_section }}</td>
+                  <td>{{ penalty.description }}</td>
+                  <td>{{ penalty.minimum }}</td>
+                  <td>{{ penalty.maximum }}</td>
+                  <td>{{ penalty.additionalreference }}</td>       
+                <td>
+                    <ol type="1">     
+                    <ng-container *ngFor="let detail of penalty.PenaltyDetails">
+                      <li>
+                        <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                          [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ getFileNameFromPath(detail.filepath) }}</a>
+                          <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                          <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
+                        </ng-container>
+                        <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                          [File Attached] {{ getFileNameFromPath(detail.filepath) }}
+                          <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                            <a [href]="detail.filepath" target="_blank">(View)</a> /
+                          </ng-container>
+                          <dx-button icon="download"  (click)="download(detail.filepath, detail.fileType)"> </dx-button>
+                        </ng-container>
+                      </li>
+                    </ng-container> 
+                      <!-- <ng-container *ngFor="let detail of penalty.categoryDetails">
+                        <li>
+                          <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                            [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ detail.filepath }}</a>
+                            <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                            <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
+                          </ng-container>
+                          
+                          <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                            [File Attached] {{ detail.filename }}
+                              <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                                <a [href]="detail.filepath" target="_blank">(View)</a> /
+                              </ng-container>
+                              <a [href]="detail.filepath" download>Download</a>
+                            </ng-container>
+                        </li>
+                      </ng-container> -->
+                  </ol>
+                </td>
+                </tr>
+              </tbody> 
+            </table>
+            <table class="table" *ngIf="SelectedComplianceDetails && SelectedComplianceDetails.length > 0 ">
+              <thead>
+                <tr>
+                  <th colspan="4" class="header-left">Additional References from Bare Act & Rule :</th>
+                </tr>
+              </thead>
+            <tbody>
+                <tr>
+                      <td colspan="2"><strong>Bare Act Reference(s)</strong></td>
+                      <td colspan="2">
+                    <ol type="1">
+                      <ng-container *ngFor="let detail of SelectedComplianceDetails[0].act_files">
+                        <li>
+                          <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                            [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ detail.filepath }}</a>
+                            <!-- <button (click)="copyLink(detail.filepath)"  > <mat-icon>content_copy</mat-icon></button> -->
+                            <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                            <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
+                          </ng-container>
+                          
+                          <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                            [File Attached] {{ detail.filename }}
+                              <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                                <a [href]="detail.filepath" target="_blank">(View)</a> /
+                              </ng-container>
+                              <a [href]="detail.filepath" download>Download</a>
+                            </ng-container>
+                        </li>
+                      </ng-container>
+                    
+                  </ol>
+                </td>
+              </tr>
+                <tr>
+                  <td colspan="2"><strong>Bare Rule Reference(s)</strong></td>
+                  <td colspan="2">
+                    <ol type="1">
+                      <ng-container *ngFor="let detail of SelectedComplianceDetails[0].rule_files">
+                        <li>
+                          <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                            [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ detail.filepath }}</a>
+                            <!-- <button (click)="copyLink(detail.filepath)"  > <mat-icon>content_copy</mat-icon></button> -->
+                            <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                            <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
+                          </ng-container>
+                          
+                          <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                            [File Attached] {{ detail.filename }}
+                              <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                                <a [href]="detail.filepath" target="_blank">(View)</a> /
+                              </ng-container>
+                              <a [href]="detail.filepath" download>Download</a>
+                            </ng-container>
+                        </li>
+                      </ng-container>
+                    </ol>
+                  </td>
+                  
+                </tr>
+                <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td colspan="2"><strong>Created By/ Created on</strong></td>
+                  <td colspan="2">{{ Details.created_by || 'N/A' }}/ {{ 'N/A' || getFormattedDate(Details.created_date) }}</td>
+                </tr>
+                <tr *ngFor="let Details of SelectedComplianceDetails">
+                  <td colspan="2"><strong>Last Edited By/ Edited on</strong></td>
+                  <td colspan="2">{{ Details.updated_by || 'N/A' }}/ {{ 'N/A' || getFormattedDate(Details.updated_date) }}</td>
+                </tr>
+              </tbody>
+            </table>
+      </div>
+    </form>
+    <button class="close-button" (click)="onCloseButtonClick()" data-tooltip="Close">×</button>
+    </div>
+</div>

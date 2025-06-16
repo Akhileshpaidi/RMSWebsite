@@ -1,0 +1,47 @@
+.grey-button {
+    align-items: center !important;
+    width: 100%;  }
+  .button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+  }
+
+
+  .body {
+    margin: 10px;
+  }
+  form {
+    padding: 10px;
+  }
+  h2{
+    text-align-last: center;
+  }
+
+
+  .success{
+    margin-bottom: 15px;
+    color: green;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    background: #d8ffc1;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    width: auto;
+  }
+
+  .error{
+    margin-bottom: 15px;
+    color: red;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    background: #f2dede;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    width: auto;
+  }

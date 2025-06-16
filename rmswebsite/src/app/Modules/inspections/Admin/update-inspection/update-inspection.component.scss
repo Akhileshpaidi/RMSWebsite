@@ -1,0 +1,129 @@
+.body {
+    margin: 30px;
+  }
+  form {
+    padding: 30px;
+  }
+  .Custombutton {
+    align-items: center !important;
+    width: 30%;
+    height: max-content;
+  }
+  .button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+  }
+  
+  .checkbox {
+    margin-top: 20px;
+  }
+  
+  ::ng-deep .mat-checkbox-checked.mat-accent {
+    .mat-checkbox-ripple .mat-ripple-element {
+      background-color: #37d111 !important;
+    }
+  
+    .mat-checkbox-background,
+    .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+      background-color: #37d111;
+    }
+  }
+  
+  ::ng-deep .mat-checkbox.mat-accent {
+    .mat-checkbox-ripple .mat-ripple-element {
+      background-color: #37d111 !important;
+    }
+  }
+  
+  .body {
+    margin: 30px;
+  }
+  form {
+    padding: 30px;
+  }
+  .Custombutton {
+    align-items: center !important;
+    width: 30%;
+  }
+  .button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+  }
+  
+  .grey-button {
+    align-items: center !important;
+    display: flex;
+    width: 50%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .addRow {
+    margin-top: 10px;
+    align-items: center !important;
+    background: #4ceea4;
+    display: flex;
+    width: 50%;
+    justify-content: center;
+    height: fit-content;
+  }
+  
+  .import {
+    margin-top: 10px;
+    align-items: center !important;
+    background: #556f83;
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+  }
+  
+  .removeButton {
+    margin-top: 10px;
+    align-items: center !important;
+    background: #ed5e68;
+    color: white;
+    display: flex;
+    width: 50%;
+    justify-content: center;
+    height: fit-content;
+  }
+  
+  .box1 {
+    display: flex;
+    gap: 40px;
+    flex-direction: row;
+    width: 100%;
+  }
+  
+  .margin-top {
+    margin-top: 20px;
+  }
+  
+  .x-circle {
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+  
+  .trash {
+    margin-bottom: 20px;
+  }
+  
+  span {
+    width: 50%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .rating-box {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .rating-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
+  
+  }

@@ -1,0 +1,105 @@
+<div class="form">
+    <div class="header col">
+      <div style="align-self: self-end">
+        <br>
+        <h2 class=" title" style="align-items: center;">Update  Act Regulatory
+          </h2>
+      </div>
+    </div>
+
+ 
+
+<div class="body">
+  <!-- <div class="row">
+            <button type="button" class="back" (click)="location.back()"><mat-icon>arrow_back</mat-icon></button> -->
+
+     
+   
+  <!-- </div>  -->
+  
+</div>
+
+<br/>
+ 
+<form [formGroup]="UpdateForm" (ngSubmit)="SubmitUpdateForm()"> 
+<div class="row">
+    <div class="box">
+        <div fxLayoutAlign="center center">
+            <mat-form-field appearance="fill" class="form-field">
+           <mat-label>Name of Act </mat-label>
+           <input matInput required  #titleinput minlength="5" maxlength="100"  formControlName="actname" type="text">
+            <mat-hint align="start" >Min 5 - Max 100 Characters</mat-hint>
+                <mat-hint align="end">{{titleinput.value.length}}/100</mat-hint>
+         
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="box">
+        <div fxLayoutAlign="center center">
+            <mat-form-field appearance="fill" class="form-field">
+           <mat-label>Description of Act</mat-label>
+           <textarea matInput #titleinput1 minlength="5" maxlength="100"  formControlName="actdesc" type="text"></textarea>
+            <mat-hint align="start" >Min 5 - Max 100 Characters</mat-hint>
+                <mat-hint align="end">{{titleinput1.value.length}}/100</mat-hint>
+         
+        </mat-form-field>
+      </div>
+    </div>
+</div>
+<div>
+    <h3>
+      <label>Add Bare Act Reference</label>
+    </h3>
+  </div>
+  <!-- <div class="scrolling-container">
+    <div class="labelmesage blink">
+      Edit  of Bare Act Reference can Done by Remove the File/Weblink Which is not required and Add New File/Weblink
+    </div>
+  </div>
+  <br> -->
+  <br>
+  <div formArrayName="references">
+    <div *ngFor="let reference of references.controls; let key = index;">
+      <div [formGroupName]="key"> 
+        <div class="row">
+          <div class="box">
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Select Option</mat-label>
+              <mat-select formControlName="referenceType" (selectionChange)="onReferenceTypeChange($event.value, key)">
+                <mat-option value="weblink">Weblink</mat-option>
+                <mat-option value="file">File Attachment</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-field" *ngIf="reference.get('referenceType')?.value === 'weblink'">
+              <mat-label>Weblink</mat-label>
+              <input formControlName="referencetypeValue" matInput (change)="onweblink($event,key)" >
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-field" *ngIf="reference.get('referenceType')?.value === 'file'">
+              <mat-label>File Attachment</mat-label>
+              <div class="file-input-container">
+                <input matInput formControlName="file_attachment" [value]="reference.get('file_attachment')?.value" readonly style="width: auto;">
+                <label class="file-input-button" >
+                 Attach
+                  <input type="file" accept=".pdf,.doc,.docx,image/jpeg,image/png" (change)="onMainFileSelected($event, key)"  >
+                </label>
+              </div>
+            </mat-form-field>
+            <div>
+              <label class="CustomLabel" (click)="removeReferenceField(key,reference.value.bare_act_id)">Remove</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="file-input-button" type="button" (click)="addReferenceField()">Add More</button>
+
+  <div class="margin-top"></div>
+        <div class="button">
+          <button class="grey-button"  (click)="Cancel()" >cancel</button>
+        <button  class="Custom_button"  type="submit" >Update</button>
+        </div>
+</form>
+
+</div>

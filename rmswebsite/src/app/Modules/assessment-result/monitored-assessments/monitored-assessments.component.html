@@ -1,0 +1,395 @@
+
+
+<div class="form">
+
+
+    <div class="body">
+        <div class="header col">
+          <div style="align-self: self-end">
+            <div class="header">
+            <h1>Monitored Assessments</h1>
+          </div>
+          </div>
+        </div> 
+      </div>
+    <br>
+    
+      <div class="wrapper">
+        <div class="boxNew ">
+        
+        <label>Select Scheduled Assessment</label>
+          
+        
+        
+        
+        
+        
+         
+        <dx-drop-down-box style="width: 700px;"
+        [dropDownOptions]="{width: '1400px'}"
+        [(value)]="gridBoxValue"
+        [(opened)]="isGridBoxOpened"
+        valueExpr="uq_ass_schid"
+         [deferRendering]="false"
+         [displayExpr]="gridBox_displayExprAssessment"
+         placeholder="Select Assessment Request"
+         [inputAttr]="{ 'aria-label': 'Owner' }"
+         [showClearButton]="true"
+         [searchEnabled]="true" 
+         [dataSource]="AssessTemplateList"
+         (onOptionChanged)="onGridBoxOptionChanged($event)"
+      
+        >
+            >
+              <div *dxTemplate="let data of 'content'">
+                <dx-data-grid
+                [dataSource]="AssessTemplateList"
+                [columns]="TemplateColumns"
+                  [hoverStateEnabled]="true"
+                  [(selectedRowKeys)]="gridBoxValue"
+              height="100%"
+              width="100%"
+                 [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true">
+            
+                
+                  <dxo-selection mode="single"></dxo-selection>
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-scrolling mode="virtual"></dxo-scrolling>
+                  <dxo-header-filter [visible]="true" [allowSearch]="true">
+                    <dxo-search [enabled]="true"></dxo-search>
+                  </dxo-header-filter>
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                  <dxo-pager
+                  [visible]="true"
+                  [allowedPageSizes]="[ 10,20, 'all']"
+                 
+                  [showPageSizeSelector]="true"
+                 
+                  [showInfo]="true"
+                  infoText="Page {0} of  {1} ({2} items)"
+                  [showNavigationButtons]="true">
+                </dxo-pager>
+            
+                <dxo-group-panel [visible]="true"></dxo-group-panel>
+                  <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+              
+                               </dx-data-grid>
+              </div>
+            </dx-drop-down-box>
+          
+          
+          
+        </div>
+        </div>
+
+
+        <form [formGroup]="AssessmentForm" (ngSubmit)="saveScheAssessment()">
+        <mat-horizontal-stepper labelPosition="bottom" *ngIf="visibleStepper" >
+               
+            <mat-step label="Extend Timelines">
+            
+             
+              
+                    <div class="box">
+                      <div class="form-group">
+                        <label for="assessment_name">Assessment Name</label>
+                        <dx-text-box id="assessment_name" formControlName="assessment_name" [readOnly]="true"/>
+                    </div>
+                    
+                    
+                    <div class="form-group">
+                        <label for="date_of_request">Date of Request</label>
+                        <dx-date-box id="date_of_request" formControlName="Date_Of_Request" [displayFormat]="'dd/MMM/yyyy'" [value]="getCurrentDate()" [readOnly]="true"></dx-date-box>
+                    </div>
+                    </div>
+                 <br>
+                    <div class="box">
+                <div class="form-group">
+                    <label for="duration_of_assessment">Duration of Assessment (in days)</label>
+                    <dx-number-box id="duration_of_assessment" formControlName="Duration_of_Assessment" (onValueChanged)="updateEndDate()"></dx-number-box>
+                </div>
+                
+                <div class="form-group">
+                    <label for="requester_name">Person Requesting</label>
+                    <dx-text-box id="requester_name" formControlName="requester_name" [value]="PersonRequest" [readOnly]="true"></dx-text-box>
+                </div>
+                    </div>
+                    <br>
+                    <div class="box">
+                
+                <div class="form-group">
+                    <label for="start_date">Start Date</label>
+                    <dx-date-box id="start_date" formControlName="startDate" [displayFormat]="'dd/MMM/yyyy'"  [min]="getTodayDate()"  (onValueChanged)="onStartDateChange($event)"></dx-date-box>
+                </div>
+                
+                <div class="form-group">
+                    <label for="end_date">End Date</label>
+                    <dx-date-box id="end_date" formControlName="endDate" [displayFormat]="'dd/MMM/yyyy'" [readOnly]="true"></dx-date-box>
+                </div>
+                </div>
+            
+               <br>
+               <br>
+                <!-- Additional Frequency Fields Section -->
+                <div class="form-group">
+                    <label for="repeat_frequency">Repeat Frequency</label>
+                    <dx-switch id="repeat_frequency"  [(value)]="repeatFreq"   (onValueChanged)="toggleFrequencyFields($event)" text="Enable Frequency"></dx-switch>
+                </div>
+            <br>
+                <div *ngIf="repeatFreq">
+                  <div class="box">
+                    <div class="form-group">
+                        <label for="value_frequency">Enter Value Frequency</label>
+                        <dx-number-box id="value_frequency" formControlName="value_Frequency" (onValueChanged)="calculateRepeatCycles()"></dx-number-box>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="frequency_period">Select Frequency</label>
+                        <dx-select-box
+                id="frequency_period"
+                formControlName="frequency_period"
+                [items]="frequencyOptions"
+                valueExpr="value"
+                displayExpr="text"
+                (onValueChanged)="calculateRepeatCycles()">
+              </dx-select-box>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="box">
+                    <div class="form-group">
+                        <label for="repeat_end_date">Repeat End Date</label>
+                        <dx-date-box id="repeat_end_date" formControlName="repeatEndDate" [displayFormat]="'dd/MMM/yyyy'" [min]="repeatMinDate" (onValueChanged)="calculateRepeatCycles()"></dx-date-box>
+                    </div>
+                    <div></div>
+                </div>
+                </div>
+                   <br>
+            <div class="button">
+            
+             
+              <button class="Custombutton" matStepperNext type="button">Next</button>
+            </div>
+            <br>
+            </mat-step>
+               
+    
+    
+            <mat-step label="Doc Category Preference">
+       
+              <div class="box">
+               
+                <div class="form-group">
+                  <label for="doctypeName">Document Type</label>
+                  <dx-text-box id="doctypeName" [value]="doctypeName" [readOnly]="true"/>
+              </div>
+               
+                  
+                    <div class="form-group">
+                      <label for="docCatName">Document Category</label>
+                      <dx-text-box id="docCatName" [value]="docCatName" [readOnly]="true"/>
+                  </div>
+                  
+              </div>
+              <br>
+              <br>
+              <div class="box" style="width: 638px;">
+                <div class="form-group">
+                  <label for="docSubCat">Document Sub Category</label>
+                  <dx-text-box id="docSubCat" [value]="docSubCat" [readOnly]="true"/>
+              </div>
+                </div>
+               <!-- Button Section -->
+               <br>
+    
+          <div class="button">
+             
+            <button class="grey-button" matStepperPrevious>Back</button>
+              <button class="Custombutton" matStepperNext type="button">Next</button>
+            </div>
+            <br>
+          </mat-step>
+
+          <mat-step label="Select Mapped User(s)">
+            <div class="box">
+               
+              <div class="form-group">
+                <label for="entityName">Entity Name</label>
+                <dx-text-box id="entityName" [value]="entityName" [readOnly]="true"/>
+            </div>
+             
+                
+                  <div class="form-group">
+                    <label for="unitLoc">Unit Location</label>
+                    <dx-text-box id="unitLoc" [value]="unitLoc" [readOnly]="true"/>
+                </div>
+                
+            </div>
+                 <br>
+                 <div class="box">
+                  <div class="form-group">
+                    <label for="departmentNames">Business Function(s)</label>
+                    <dx-text-box id="departmentNames" [value]="departmentNames" [readOnly]="true"/>
+                </div>
+                
+
+                  
+
+                        <div class="dx-field-value">
+                          <label for="departmentNames">Search and Select Users to Remove</label>
+                          <dx-drop-down-box
+                          formControlName="exemptionUser"
+                          [(value)]="selectedOption1"         
+                          [inputAttr]="{ 'aria-label': 'Owner' }"
+                         
+                          labelMode="floating"
+                          placeholder="Search and select User(s)"
+                          [dataSource]="UserDatasource"
+                          [(opened)]="isUserBoxOpened"
+                         
+                          [displayExpr]="gridBox_displayExpr"
+                      
+                          [deferRendering]="false"
+                        
+                       
+                          [showClearButton]="true"
+                       
+                        >
+                          <!-- Content template for the first dropdown -->
+                          <div *dxTemplate="let data of 'content'">
+                            <dx-data-grid
+                            [columns]="usergridColumns"
+                            [selection]="{ mode: 'multiple' }"
+                            [dataSource]="UserDatasource"
+                            [(selectedRowKeys)]="selectedOption1"
+                            [filterRow]="{ visible: true }"
+                            [scrolling]="{ mode: 'virtual' }"
+                              [hoverStateEnabled]="true"
+                            
+                              height="100%"
+                            >
+                  
+                              <!-- Data grid configuration for the first dropdown -->
+                            </dx-data-grid>
+                          </div>
+                        </dx-drop-down-box>
+                     </div>
+                 </div>
+                 <br>
+                 <div class="box">
+                  <div class="dx-field-value">
+                    <label for="departmentNames">Search and Select Users to Add</label>
+                    <dx-drop-down-box
+                    formControlName="MapUserList"
+                    [(value)]="selectedOption2"         
+                    [inputAttr]="{ 'aria-label': 'Owner' }"
+                   
+                    labelMode="floating"
+                    placeholder="Search and select User(s)"
+                    [dataSource]="UserDatasourceforExcluded"
+                    [(opened)]="isIncludedUserBoxOpened"
+                   
+                    [displayExpr]="gridBox_displayExprforIncluded"
+                
+                    [deferRendering]="false"
+                  
+                 
+                    [showClearButton]="true"
+                 
+                  >
+                    <!-- Content template for the first dropdown -->
+                    <div *dxTemplate="let data of 'content'">
+                      <dx-data-grid
+                      [columns]="usergridColumns"
+                      [selection]="{ mode: 'multiple' }"
+                      [dataSource]="UserDatasourceforExcluded"
+                      [(selectedRowKeys)]="selectedOption2"
+                      [filterRow]="{ visible: true }"
+                      [scrolling]="{ mode: 'virtual' }"
+                        [hoverStateEnabled]="true"
+                      
+                        height="100%"
+                      >
+            
+                        <!-- Data grid configuration for the first dropdown -->
+                      </dx-data-grid>
+                    </div>
+                  </dx-drop-down-box>
+               </div>
+               <div></div>
+
+                 </div>
+
+               
+               <!-- Button Section -->
+               <br>
+        <div class="button">
+          <button class="grey-button" matStepperPrevious>Back</button>
+         
+          <button class="Custombutton" matStepperNext type="button">Next</button>
+        </div>
+        <br>
+        </mat-step>
+
+          <mat-step label="Set Assessment Preferences">
+            <div class="box">
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Mention Objective of Assessment </mat-label>
+              <input matInput #titleinput  minlength="5" maxlength="1500" formControlName="objective"  />
+              <mat-hint align="start" >Min 5 - Max 1500 Characters</mat-hint>
+              <mat-hint align="end">{{titleinput.value.length}}/1500</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Mention Message for Task Owner(s)</mat-label>
+              <input matInput #titleinput1  minlength="5" maxlength="1500" formControlName="message"  />
+              <mat-hint align="start" >Min 5 - Max 1500 Characters</mat-hint>
+              <mat-hint align="end">{{titleinput1.value.length}}/1500</mat-hint>
+            </mat-form-field>
+            </div>
+            <div class="box">
+              <mat-form-field appearance="fill" class="form-field">
+                <mat-label>Select: Shuffle Questions?</mat-label>
+                
+                <mat-select
+                formControlName="ShuffleQues"
+                disableOptionCentering  >
+                <mat-option  [value]="1">Yes</mat-option>
+                <mat-option  [value]="0" >No</mat-option>
+         </mat-select>
+                
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="form-field">
+                  <mat-label>Select: Shuffle Answers?</mat-label>
+                  
+                  <mat-select  [(value)] ="defaultOption"
+                  formControlName="ShuffleAns"
+                  disableOptionCentering  >
+                  <mat-option  [value]="1">Yes</mat-option>
+                  <mat-option  [value]="0">No</mat-option>
+                 
+          </mat-select>
+                  
+                  </mat-form-field>
+            </div>
+            <br>
+          
+            <div class="button">
+              <button class="grey-button" matStepperPrevious>Back</button>
+             
+              <button class="Custombutton" matStepperNext type="submit">Send notification</button>
+            </div>
+            <br>
+          </mat-step>
+         
+        
+      
+      </mat-horizontal-stepper>
+    </form>
+    
+    
+    
+    </div>
+    
+        

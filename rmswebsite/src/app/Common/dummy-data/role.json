@@ -1,0 +1,26 @@
+[
+  {
+    "id": "#1",
+    "roleName": "Admin",
+    "modules": [
+      { "title": "Inventory Management" },
+      { "title": "Inspection Management" },
+      { "title": "User Management" }
+    ],
+    "access": [{ "title": "Read" }, { "title": "Write" }],
+    "edit": "edit",
+    "status": "true"
+  },
+  {
+    "id": "#2",
+    "roleName": "Inspector",
+    "modules": [
+      { "title": "Inventory Management" },
+      { "title": "Inspection Management" },
+      { "title": "User Management" }
+    ],
+    "access": [{ "title": "Read" }, { "title": "Write" }],
+    "edit": "edit",
+    "status": "true"
+  }
+]

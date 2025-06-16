@@ -1,0 +1,488 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+        <h1>Sampling  Standard</h1>
+      </div>
+      <form [formGroup]="sample" (ngSubmit)="createUser()" >
+        <div class="row">
+            <div class="box">
+                <mat-form-field  appearance="fill" class="form-field">
+                    <mat-label>Name of Sampling Standard Authority</mat-label>
+                    <input matInput  #titleinput  formControlName="nameofsampling"  maxlength="500" >
+                    <mat-hint align="start" >Min 1 - Max 500 Characters</mat-hint>
+                    <mat-hint align="end">{{titleinput.value.length}}/500</mat-hint> 
+                  </mat-form-field>
+            </div>
+            <div class="box">
+                <div>
+                    <dx-select-box 
+             formControlName="Frequencycontrol"
+             label="Frequency of Control *"
+          labelMode="floating"
+          valueExpr="risk_admin_frqcontrapplidid"
+          displayExpr="risk_admin_frqcontrapplidname"
+          [dataSource]="Frequencycontrol"  
+          [searchEnabled]="true"
+          selectionMode="single" 
+          placeholder=""
+             > </dx-select-box> 
+                  </div>
+            </div>
+        </div>
+  
+        <div class="row">
+            <div class="box">
+              <h3> 
+                  <input type="checkbox"  style="zoom: 1.5;" name="selection4"  
+                    [checked]="KeyControlsVisible" (change)="onEscaltion($event)" [(ngModel)]="KeyControlsVisible">
+                    <label>For Key Controls: </label></h3>
+            </div>
+            <div class="box">
+              <h3> 
+                  <input type="checkbox"  style="zoom: 1.5;" name="selection4" 
+                    [checked]="NONKeyControlsVisible" (change)="onNotifiers($event)" [(ngModel)]="NONKeyControlsVisible">
+                    <label>For Non-Key Controls: </label></h3>
+            </div>
+            <div class="box">
+              <h3> 
+                  <input type="checkbox"  style="zoom: 1.5;" name="selection4" 
+                    [checked]="GeneralControlsvisible" (change)="onAdditional($event)" [(ngModel)]="GeneralControlsvisible" >
+                    <label>For General Controls:</label></h3>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="box" style=" box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
+              <div *ngIf="KeyControlsVisible"  formGroupName="first" style="height: 25%;" >
+                
+     <label>1. Min No. of Value/ Transactions/ Incidents </label>
+                      <div class="dx-field-value" >
+                        <dx-range-slider  style="width: 200px;"
+                          [(start)]="start"
+                          [(end)]="end"
+                          [min]="1"
+                          [max]="999999999999999"
+                        >
+                        <dxo-label
+                        [visible]="true"
+                        [format]="format"
+                        position="top"
+                      ></dxo-label>
+                        <dxo-tooltip
+                        [enabled]="true"
+                        [format]="format"
+                        showMode="always"
+                        position="bottom"
+                      ></dxo-tooltip>
+                    </dx-range-slider>
+                      </div>
+                      <div class="box" style="width: 400px;">
+                      <dx-number-box 
+                      [(value)]="start"
+                      label="Start value"
+                      formControlName="startValue"
+                      [min]="1"
+                      [max]="999999999999999"
+                      [showSpinButtons]="true"
+                      [inputAttr]="{ 'aria-label': 'Start Value' }"
+                    ></dx-number-box>
+                    <dx-number-box 
+                    [(value)]="end"
+                    label="End value"
+                    formControlName="endValues"
+                    [min]="1"
+                    [max]="999999999999999"
+                    [showSpinButtons]="true"
+                    [inputAttr]="{ 'aria-label': 'End Value' }"
+                  ></dx-number-box>
+              </div>
+              <br>
+              <div class="box" style="width: 400px;">
+                  <mat-form-field  appearance="fill" class="form-field" >
+                      <mat-label>Description for Transactional Value Sampling</mat-label>
+                      <input matInput  #titleinput  formControlName="keycontroltranscationDescsampling"  maxlength="150" >
+                      <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+                      <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint> 
+                    </mat-form-field>
+              </div>
+              <br>
+             <label>2. % of Value/ Transactions/ Incidents</label>
+              <div class="row">
+                  <div class="box">
+                      <div class="dx-field-value" >
+                          <dx-slider  style="width: 200px;"
+                          [min]="1"
+                          [max]="100"
+                          valueChangeMode="onHandleRelease"
+                          [(value)]="start1"
+                          formControlName="rangestartValue"
+                        >
+                        <dxo-label
+                        [visible]="true"
+                        [format]="format1"
+                        position="top"
+                      ></dxo-label>
+                      <dxo-tooltip 
+                      [enabled]="true"
+                [format]="format1"
+                showMode="always"
+                position="top"
+              ></dxo-tooltip>
+                  </dx-slider>
+                        </div>
+                  </div>
+              </div>
+              <br>
+              <div class="box" style="width: 400px;">
+                  <mat-form-field  appearance="fill" class="form-field" >
+                      <mat-label>Description for Percentage Value Sampling</mat-label>
+                      <input matInput  #titleinput  formControlName="keycontrolpercantageDescsampling"  maxlength="150" >
+                      <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+                      <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint> 
+                    </mat-form-field>
+              </div>
+            
+              <br>
+              <label>3.Description</label>
+              <div class="box" style="width: 400px;">
+                  <mat-form-field  appearance="fill" class="form-field" >
+                      <mat-label>Text Description of Sampling </mat-label>
+                      <input matInput  #titleinput  formControlName="keycontroltextDescsampling"  maxlength="150" >
+                      <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+                      <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint> 
+                    </mat-form-field>
+              </div>
+              </div>
+          </div>
+          <div class="box" >
+            <div *ngIf="NONKeyControlsVisible" formGroupName="second"  style="height: 25%;"  style=" box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
+              
+              <label>1. Min No. of Value/ Transactions/ Incidents </label> 
+                    <div class="dx-field-value" >
+                      <dx-range-slider  style="width: 200px;"
+                        [(start)]="nonkeystart"
+                        [(end)]="nonkeyend"
+                        [min]="1"
+                        [max]="999999999999999"
+                      >
+                      <dxo-label
+                      [visible]="true"
+                      [format]="nonkeyformat"
+                      position="top"
+                    ></dxo-label>
+                      <dxo-tooltip
+                      [enabled]="true"
+                      [format]="format"
+                      showMode="always"
+                      position="bottom"
+                    ></dxo-tooltip>
+                  </dx-range-slider>
+                    </div>
+                    <div class="box" style="width: 400px;">
+                    <dx-number-box 
+                    [(value)]="nonkeystart"
+                    label="Start value"
+                    formControlName="nonkeystartValue"
+                    [min]="1"
+                    [max]="999999999999999"
+                    [showSpinButtons]="true"
+                    [inputAttr]="{ 'aria-label': 'Start Value' }"
+                  ></dx-number-box>
+                  <dx-number-box 
+                  [(value)]="nonkeyend"
+                  label="End value"
+                  formControlName="nonkeyendValues"
+                  [min]="1"
+                  [max]="999999999999999"
+                  [showSpinButtons]="true"
+                  [inputAttr]="{ 'aria-label': 'End Value' }"
+                ></dx-number-box>
+            </div>
+            <br>
+            <div class="box" style="width: 400px;">
+                <mat-form-field  appearance="fill" class="form-field" >
+                    <mat-label>Description for Transactional Value Sampling</mat-label>
+                    <input matInput  #titleinput  formControlName="NoncontroltranscationDescsampling"  maxlength="150" >
+                    <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+                    <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint> 
+                  </mat-form-field>
+            </div>
+            <br>
+            <label>2. % of Value/ Transactions/ Incidents</label>  
+            <div class="row">
+                <div class="box">
+                    <div class="dx-field-value" >
+                        <dx-slider  style="width: 200px;"
+                        [min]="1"
+                        [max]="100"
+                        valueChangeMode="onHandleRelease"
+                        [(value)]="nonkeystart1"
+                        formControlName="nonkeyrangestartValue"
+                      >
+                      <dxo-label
+                      [visible]="true"
+                      [format]="nonkeyformat1"
+                      position="top"
+                    ></dxo-label>
+                    <dxo-tooltip 
+                    [enabled]="true"
+              [format]="format1"
+              showMode="always"
+              position="top"
+            ></dxo-tooltip>
+                </dx-slider>
+                      </div>
+                </div>
+            </div>
+            <br>
+            <div class="box" style="width: 400px;">
+                <mat-form-field  appearance="fill" class="form-field" >
+                    <mat-label>Description for Percentage Value Sampling</mat-label>
+                    <input matInput  #titleinput  formControlName="nonkeycontrolpercantageDescsampling"  maxlength="150" >
+                    <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+                    <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint> 
+                  </mat-form-field>
+            </div>
+            <br>
+            <label>3.Description</label>
+            <div class="box" style="width: 400px;">
+                <mat-form-field  appearance="fill" class="form-field" >
+                    <mat-label>Text Description of Sampling </mat-label>
+                    <input matInput  #titleinput  formControlName="nonkeykeycontroltextDescsampling"  maxlength="150" >
+                    <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+                    <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint> 
+                  </mat-form-field>
+            </div>
+            </div>
+        </div>
+        <div class="box"  >
+          <div *ngIf="GeneralControlsvisible"  formGroupName="third" style="height: 25%;" style=" box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
+            
+            <label>1. Min No. of Value/ Transactions/ Incidents </label>  
+                  <div class="dx-field-value" >
+                    <dx-range-slider  style="width: 200px;"
+                      [(start)]="genericstart"
+                      [(end)]="genericend"
+                      [min]="1"
+                      [max]="999999999999999"
+                    >
+                    <dxo-label
+                    [visible]="true"
+                    [format]="genericformat"
+                    position="top"
+                  ></dxo-label>
+                    <dxo-tooltip
+                    [enabled]="true"
+                    [format]="format"
+                    showMode="always"
+                    position="bottom"
+                  ></dxo-tooltip>
+                </dx-range-slider>
+                  </div>
+                  <div class="box" style="width: 400px;">
+                  <dx-number-box 
+                  [(value)]="genericstart"
+                  label="Start value"
+                  formControlName="genericstartValue"
+                  [min]="1"
+                  [max]="999999999999999"
+                  [showSpinButtons]="true"
+                  [inputAttr]="{ 'aria-label': 'Start Value' }"
+                ></dx-number-box>
+                <dx-number-box 
+                [(value)]="genericend"
+                label="End value"
+                formControlName="genericendValues"
+                [min]="1"
+                [max]="999999999999999"
+                [showSpinButtons]="true"
+                [inputAttr]="{ 'aria-label': 'End Value' }"
+              ></dx-number-box>
+          </div>
+          <br>
+          <div class="box" style="width: 400px;">
+              <mat-form-field  appearance="fill" class="form-field" >
+                  <mat-label>Description for Transactional Value Sampling</mat-label>
+                  <input matInput  #titleinput  formControlName="generictranscationDescsampling"  maxlength="150" >
+                  <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+                  <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint> 
+                </mat-form-field>
+          </div>
+          <br>
+          <label>2. % of Value/ Transactions/ Incidents</label>
+          <div class="row">
+              <div class="box">
+                  <div class="dx-field-value" >
+                      <dx-slider  style="width: 200px;"
+                      [min]="1"
+                      [max]="100"
+                      valueChangeMode="onHandleRelease"
+                      [(value)]="genericstart1"
+                      formControlName="genericrangestartValue"
+                    >
+                    <dxo-label
+                    [visible]="true"
+                    [format]="genericformat1"
+                    position="top"
+                  ></dxo-label>
+                  <dxo-tooltip 
+                  [enabled]="true"
+            [format]="format1"
+            showMode="always"
+            position="top"
+          ></dxo-tooltip>
+              </dx-slider>
+                    </div>
+              </div>
+          </div>
+          <br>
+          <div class="box" style="width: 400px;">
+              <mat-form-field  appearance="fill" class="form-field" >
+                  <mat-label>Description for Percentage Value Sampling</mat-label>
+                  <input matInput  #titleinput  formControlName="genericpercantageDescsampling"  maxlength="150" >
+                  <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+                  <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint> 
+                </mat-form-field>
+          </div>
+          <br>
+          <label>3.Description</label>
+          <div class="box" style="width: 400px;">
+              <mat-form-field  appearance="fill" class="form-field"  >
+                  <mat-label>Text Description of Sampling</mat-label>
+                  <input matInput  #titleinput  formControlName="generictextDescsampling"  maxlength="150"  >
+                  <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+                  <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint> 
+                </mat-form-field>
+          </div>
+          </div>
+      </div>
+      
+
+
+
+           
+</div>
+          
+      
+          <div class="row">
+         
+          </div>
+        
+      
+        <div class="margin-top"></div>
+    <div class="button">
+     <button class="grey-button"  (click)="Cancel()" >Cancel</button>
+      <button class="Custombutton"  >Submit</button>
+    </div>
+   </form>
+      </div>
+
+
+      <div class="card-body1">
+        <div id="app-container">
+            <dx-data-grid id="dataGrid"
+            [dataSource]="dataSource1"
+            [showBorders]="true"
+           
+            [allowColumnResizing]="true"
+            [columnAutoWidth]="true"
+            [allowColumnReordering]="true"
+           
+            (onExporting)="exportGrid($event)">
+            <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+           <dxo-header-filter [visible]="true"></dxo-header-filter>
+           <dxi-column dataField="risksamplingstandardsId" caption="Sampling Standard ID" [width]="100"></dxi-column>
+           
+           <dxi-column dataField="samplingAuthority" caption="Sampling Authority Name" ></dxi-column>
+           <dxi-column dataField="risk_admin_frqcontrapplidname" caption="Frequency of Control" value="risk_admin_frqcontrapplidid"></dxi-column>
+
+           <!-- key control -->
+           <dxi-column dataField="controltype" caption="key-controltype" ></dxi-column>
+           <dxi-column dataField="keyControlsstartValue" caption="Key Control start Value"></dxi-column>
+           <dxi-column dataField="keyControlsendValue" caption="Key Control End Value"></dxi-column>
+           <dxi-column dataField="keyControlstransactionDescription" caption="KeyControl TranscationDescription" >    
+          </dxi-column>
+           <dxi-column dataField="keyControlsrangeStartValue" caption="KeyControlTransactionPercentage"></dxi-column>
+           <dxi-column dataField="keyControlspercentageDescription" caption="KeyControl Percentage Description"></dxi-column>
+        <dxi-column dataField="keyControlstextDescription" caption="KeyControl Description"></dxi-column>
+
+
+
+       <!-- non key control -->
+
+        <dxi-column dataField="noncontroltype" caption="key-controltype" ></dxi-column>
+        <dxi-column dataField="nonKeyControlsstartValue" caption="Non-KeyControl start Value"></dxi-column>
+        <dxi-column dataField="nonKeyControlsendValue" caption="Non-KeyControl End Value"></dxi-column>
+        <dxi-column dataField="nonKeyControlstransactionDescription" caption=" Non-KeyControl TranscationDescription" >    
+        </dxi-column>
+   
+        <dxi-column dataField="nonKeyControlsrangeStartValue" caption="Key Control Transcation Percentage"></dxi-column>
+        <dxi-column dataField="nonKeyControlspercentageDescription" caption="Key ControlTranscation Percentage Description"></dxi-column>
+     <dxi-column dataField="nonKeyControlstextDescription" caption="Non-KeyControl Description"></dxi-column>
+
+
+
+
+       <!-- General control -->
+     <dxi-column dataField="gencontroltype" caption="key-controltype" ></dxi-column>
+     <dxi-column dataField="generalControlsstartValue" caption="General start value"></dxi-column>
+     <dxi-column dataField="generalControlsendValue" caption="General End Value"></dxi-column>
+    <dxi-column dataField="generalControlstransactionDescription" caption="General TranscationDescription" >    
+  </dxi-column>
+  <dxi-column dataField="generalControlsrangeStartValue" caption="General Transaction Percentage"></dxi-column>
+  <dxi-column dataField="generalControlspercentageDescription" caption="General Transaction Percentage Description"></dxi-column>
+  <dxi-column dataField="generalControlstextDescription" caption="General Description"></dxi-column>
+
+        
+            <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+            <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-search-panel [visible]="true"></dxo-search-panel>
+            <dxo-group-panel [visible]="true"></dxo-group-panel>
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-summary>
+                <dxi-total-item
+                    column="user_location_mapping_id"
+                    summaryType="count">
+                </dxi-total-item>
+                
+            </dxo-summary>
+            <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+            <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+            <dxo-pager
+            [visible]="true"
+            [allowedPageSizes]="[5, 10,20, 'all']"
+           
+            [showPageSizeSelector]="true"
+           
+            [showInfo]="true"
+            infoText="Page {0} of  {1} ({2} items)"
+            [showNavigationButtons]="true"
+          >
+          </dxo-pager>
+            <dxo-editing
+                    mode="popup"  
+                  
+                    [allowDeleting]="true"
+                  ></dxo-editing>
+
+          <dxo-toolbar>
+          <dxi-item name="groupPanel"></dxi-item>
+
+<dxi-item name="addRowButton" showText="always"></dxi-item>
+<dxi-item name="exportButton"></dxi-item>
+<dxi-item name="columnChooserButton"></dxi-item>
+<dxi-item name="searchPanel"></dxi-item>
+          </dxo-toolbar>
+          <dxo-export 
+          [enabled]="true"
+          [formats]="['xlsx', 'pdf']"
+        >
+        </dxo-export>
+      </dx-data-grid>
+        </div>
+    
+</div>
+    </div></div>
+    
+             

@@ -1,0 +1,20 @@
+.body {
+  margin: 30px;
+}
+.button {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+}
+
+::ng-deep .mat-pseudo-checkbox-checked,
+.mat-pseudo-checkbox-indeterminate,
+.mat-accent .mat-pseudo-checkbox-checked,
+.mat-accent .mat-pseudo-checkbox-indeterminate {
+  background: #37d111 !important;
+}
+
+mat-selection-list {
+  max-height: 400px;
+  overflow: auto;
+}

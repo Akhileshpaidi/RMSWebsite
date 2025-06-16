@@ -1,0 +1,525 @@
+<!-- List of Inspections Created by Admin -->
+
+
+<div class="body">
+  <div class="header col">
+    <div style="align-self: self-end">
+
+<h1 class="Title"> Publish New Document</h1>
+<mat-horizontal-stepper labelPosition="bottom">
+  <mat-step label="Initiate Draft" state="phone">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Select Document Type</mat-label>
+        <mat-select
+          formControlName="selectedProject"
+          (selectionChange)="selectDocuType($event)"
+        >
+          <mat-option *ngFor="let element of project" [value]="element.id" >{{
+            element.name
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+   
+   
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Select Document category</mat-label>
+      <mat-select
+        formControlName="selectedBridge"
+        (selectionChange)="selectInspection($event)"
+      >
+        <mat-option *ngFor="let element ofproject" [value]="element.id"
+          >{{ element.name }} -- {{ element.buid }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+  
+    <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Select Document Sub category</mat-label>
+      <mat-select
+        formControlName="selectedBridge"
+        (selectionChange)="selectInspection($event)"
+      >
+        <mat-option *ngFor="let element ofproject" [value]="element.id"
+          >{{ element.name }} -- {{ element.buid }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  
+    <div fxLayoutAlign="center center">
+      <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        
+        <mat-label>Title of Document </mat-label>
+        <input matInput formControlName="name" name="name" required />
+       
+      </mat-form-field>
+    </div>
+  </div>
+  </div>
+<div class="box">
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Sub Title of Document </mat-label>
+        <input matInput formControlName="name" name="name" required />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Objective of Document </mat-label>
+        <input matInput formControlName="name" name="name" required />
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<div class="box">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Select Option</mat-label>
+    
+    <mat-select
+      formControlName="selectedProject"
+      (selectionChange)="selectOption($event)" required
+      disableOptionCentering>
+      <mat-option *ngFor="let element of project" [value]="element.id">{{
+        element.name
+      }}</mat-option>
+    </mat-select>
+   
+  </mat-form-field>
+  <div></div>
+  </div>
+  <div class="box">
+    <div fxLayoutAlign="center center">
+      <div  class="dpn" *ngIf="showUpload">
+        <input class="btn btn-fill btn-success" type="file" #csvReader name="Upload CSV" id="txtFileUpload" 
+        accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/pdf" />
+      
+          </div>
+    </div>
+  
+   
+  </div>
+
+
+    <div class="button">
+      <button class="Custombutton" type="button" matStepperNext>Next</button>
+    </div>
+  </mat-step>
+  
+  
+
+    <mat-step *ngIf="createDoc">
+      <ng-template matStepLabel>Create Document</ng-template>
+      <div class="container">
+        <header class="header1">
+          
+        </header>
+        <angular-editor
+          [ngModel]="reportForm.get('Introduction')?.value"
+          [config]="config"
+          formControlName="Introduction"
+        ></angular-editor>
+      </div>
+
+    
+  
+
+    <div class="button">
+      
+      <button class="grey-button" type="button" matStepperPrevious>Back</button>
+      <button class="Custombutton" type="button" matStepperNext>Save Draft</button>
+      <button class="Custombutton" type="button" matStepperNext>Discard</button>
+      <button class="Custombutton" type="button" matStepperNext>Next</button>
+      
+    </div>
+
+  </mat-step>
+  <mat-step label="Add Document Attributes" state="chat">
+
+  <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Select Document Confidentiality</mat-label>
+      
+        <!-- <mat-option *ngFor="let element of project" [value]="element.id" >{{
+          element.name
+        }}</mat-option> -->
+     
+      
+        <mat-select
+        formControlName="selectedProject1"
+        (selectionChange)="selectDoc($event)" required
+        disableOptionCentering  >
+     <mat-option *ngFor="let element of project1" [value]="element.id">{{
+        element.name
+      }}</mat-option>
+    </mat-select>
+    <!-- <div class="box">
+      <div fxLayoutAlign="center center">
+        <div  class="dpn" *ngIf="General">
+        </div>
+      </div>
+    
+     
+    </div> -->
+
+    </mat-form-field>
+ 
+ <div fxLayoutAlign="center center" *ngIf="phoneno">
+  <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Mobile Number</mat-label>
+      <input matInput formControlName="Remedy" name="Remedy" required />
+    </mat-form-field>
+  </div>
+</div>
+</div>
+<div class="box">
+<div fxLayoutAlign="center center">
+  <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Effective Date</mat-label>
+      <input matInput formControlName="Effectivedate" type="date" required />
+    </mat-form-field>
+  </div>
+</div>
+<div fxLayoutAlign="center center">
+  <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Date of initial creation of Document</mat-label>
+      <input matInput formControlName="initialCOD" type="date" />
+    </mat-form-field>
+  </div>
+</div>
+</div>
+<div class="box">
+<div fxLayoutAlign="center center">
+  <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Document Internal Number</mat-label>
+      <input matInput formControlName="Remedy" name="Remedy"  />
+    </mat-form-field>
+  </div>
+</div>
+<div fxLayoutAlign="center center">
+  <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Document Internal Version Number</mat-label>
+      <input matInput formControlName="Remedy" name="Remedy"  />
+    </mat-form-field>
+  </div>
+</div>
+</div>
+<div class="box">
+<div fxLayoutAlign="center center">
+  <div class="box">
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Document Physical Vault Location</mat-label>
+      <input matInput formControlName="Remedy" name="Remedy"  />
+    </mat-form-field>
+  </div>
+</div>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Document Process Owner</mat-label>
+    <mat-select
+      formControlName="selectedProject"
+      (selectionChange)="selectInspection($event)" required
+    >
+      <!-- <mat-option *ngFor="let element of project" [value]="element.id" >{{
+        element.name
+      }}</mat-option> -->
+    </mat-select>
+  </mat-form-field>
+</div>
+<div class="box">
+<mat-form-field appearance="outline" class="form-field">
+  <mat-label>Document Approver</mat-label>
+  <mat-select
+    formControlName="selectedProject"
+    (selectionChange)="selectInspection($event)"
+  >
+    <!-- <mat-option *ngFor="let element of project" [value]="element.id" >{{
+      element.name
+    }}</mat-option> -->
+  </mat-select>
+</mat-form-field>
+
+
+<div fxLayoutAlign="center center">
+<div class="box">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Date of Document Approval</mat-label>
+    <input matInput formControlName="dateofdocapproval"  type="date"  />
+  </mat-form-field>
+</div>
+</div>
+</div>
+<div class="box">
+<div fxLayoutAlign="center center">
+<div class="box">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Date of Document Last Revision</mat-label>
+    <input matInput formControlName="dataofdoclastrevision" type="date" />
+  </mat-form-field>
+</div>
+</div>
+
+<mat-form-field appearance="outline" class="form-field">
+  <mat-label>Publishing Authority Type</mat-label>
+  <mat-select
+    formControlName="selectedProject"
+    (selectionChange)="selectInspection($event)" required
+  >
+    <!-- <mat-option *ngFor="let element of project" [value]="element.id" >{{
+      element.name
+    }}</mat-option> -->
+  </mat-select>
+</mat-form-field>
+</div>
+<div class="box">
+<mat-form-field appearance="outline" class="form-field">
+  <mat-label>Name of Authority</mat-label>
+  <mat-select
+    formControlName="selectedProject"
+    (selectionChange)="selectInspection($event)" required
+  >
+    <!-- <mat-option *ngFor="let element of project" [value]="element.id" >{{
+      element.name
+    }}</mat-option> -->
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="outline" class="form-field">
+  <mat-label>Nature of Document</mat-label>
+  <mat-select 
+    formControlName="selectedProject"
+    (selectionChange)="selectInspection($event)" required
+  >
+    <!-- <mat-option *ngFor="let element of project" [value]="element.id" >{{
+      element.name
+    }}</mat-option> -->
+  </mat-select>
+</mat-form-field>
+</div>
+<div class="box">
+<div fxLayoutAlign="center center">
+<div class="box">
+<mat-form-field appearance="outline" class="form-field">
+<mat-label>Keywords/tags</mat-label>
+<input matInput formControlName="tags" name="Remedy" />
+</mat-form-field>
+</div>
+</div>
+<div></div>
+</div>
+<!-- <div class="box">    
+<div class="button">
+<button class="grey-button" mat-button (click)="Cancel()">Back to Previous page</button>
+<button class="Custombutton" mat-button type="submit">Save Draft & Exit</button>
+<button class="Custombutton" mat-button type="submit">Continue to next section</button>
+<button class="Custombutton" mat-button type="submit">Discard Draft</button>
+</div>
+</div> -->
+  
+    
+    <div class="button">
+      
+      <button class="grey-button" type="button" matStepperPrevious>Back</button>
+      <button class="Custombutton" type="button" matStepperNext>Save Draft</button>
+      <button class="Custombutton" type="button" matStepperNext>Discard</button>
+      <button class="Custombutton" type="button" matStepperNext>Next</button>
+      
+    </div>
+
+
+
+</mat-step>
+
+<mat-step label="Document Add-ON" >
+  <div class="box">
+  
+    <!-- <mat-label>Document Review frequency</mat-label> -->
+    <!-- <input type="checkbox" (change)="onCheckboxChange($event)" [(ngModel)]="isChecked"> Check me -->
+    <form [formGroup]="checkboxForm">
+      <label>
+        Document review frequency  <input type="checkbox" formControlName="isChecked" (change)="onCheckboxChange()" [(ngModel)]="isPanelVisible"> 
+      </label>
+
+    <br>
+    <br>
+     
+      <div *ngIf="isPanelVisible">
+        <!-- Your panel content goes here -->
+       
+  
+        <div class="box">
+     
+        
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Select Frequency Period</mat-label>
+            <mat-select
+              formControlName="selectedProject"
+              (selectionChange)="selectInspection($event)">
+              
+            </mat-select>
+          </mat-form-field>
+        
+          <mat-form-field appearance="outline" class="form-field">
+          <input matInput formControlName="name"  required type="date" [(ngModel)]="selectedDate" name="selectedDate"/>
+          </mat-form-field>
+        </div>
+      </div>
+     
+      
+    </form>
+    
+    <form [formGroup]="checkboxForm">
+     
+      <label>
+        Document Linking  <input  type="checkbox" formControlName="isChecked2" (change)="ondoclinkChange()" [(ngModel)]="isdoclinkpanelVisible"> 
+      </label>
+     <br>
+     <br>
+   
+      <div *ngIf="isdoclinkpanelVisible"  style="height: 25%;">
+      
+        <!-- Your panel content goes here -->
+<!--                
+          <div class="dx-field-label">Select published
+            documents</div>
+          -->
+            <dx-drop-down-box 
+             
+              [inputAttr]="{ 'aria-label': 'Owner' }"
+              valueExpr="ID"
+              displayExpr="CompanyName"
+              placeholder="Select published
+              documents"
+              [showClearButton]="true"
+              style="height: 155%;"
+            >
+            <div *dxTemplate="let data of 'content'">
+              <dx-data-grid
+                
+                [columns]="['DocumentID','DocumentName',  'PublishedOn']"
+                [selection]="{ mode: 'multiple' }"
+                [hoverStateEnabled]="true"
+                [paging]="{ enabled: true, pageSize: 10 }"
+                [filterRow]="{ visible: true }"
+                [scrolling]="{ mode: 'virtual' }"
+                [height]="345"
+              
+              >
+              </dx-data-grid>
+            </div>
+            </dx-drop-down-box>
+            </div>
+       
+    
+    </form>
+
+    
+    <!-- formControlName="selectedProject2"
+    (selectionChange)="selectDocReview($event)"
+  ></mat-select> -->
+ <!-- <mat-option *ngFor="let element of project2" [value]="element.id">{{
+    element.name
+  }}</mat-option> -->
+
+<!-- <div class="box">
+  <div fxLayoutAlign="center center">
+    <div  class="dpn" *ngIf="General">
+    </div>
+  </div>
+</div> -->
+
+  
+    <!-- <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Document Linking</mat-label>
+      <mat-select
+      formControlName="selectedProject2"
+      (selectionChange)="selectDocReview($event)"
+    >
+   <mat-option *ngFor="let element of project2" [value]="element.id">{{
+      element.name
+    }}</mat-option>
+  </mat-select>
+  <div class="box">
+    <div fxLayoutAlign="center center">
+      <div  class="dpn" *ngIf="General">
+      </div>
+    </div>
+  </div>
+     
+    </mat-form-field> -->
+
+  </div>
+<div class="box">
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Publisher comments </mat-label>
+        <textarea matInput formControlName="name" name="name"   ></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- <div fxLayoutAlign="center center">
+  
+  </div> -->
+  </div>
+  <div class="box">
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Indicative reading time </mat-label>
+        <input matInput formControlName="name" type="number" required />
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayoutAlign="center center">
+   
+    <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Time period </mat-label>
+        <mat-select
+      formControlName="selectedTimePeriod"
+      (selectionChange)="changeTimePeriod($event)"
+      disableOptionCentering>
+      <mat-option *ngFor="let period of tmperiod" [value]="period.id">{{
+        period.name
+      }}</mat-option>
+    </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+
+  <div class="button">
+      
+    <button class="grey-button" type="button" matStepperPrevious>Back</button>
+    <button class="Custombutton" type="button" matStepperNext>Publish Document</button>
+      <button class="Custombutton" type="button" matStepperNext>Discard Draft</button>
+    
+  </div>
+</mat-step>
+<ng-template matStepperIcon="phone">
+  <mat-icon>call_end</mat-icon>
+</ng-template>
+<ng-template matStepperIcon="chat">
+  <mat-icon>forum</mat-icon>
+</ng-template>
+</mat-horizontal-stepper>
+
+
+
+
+
+
+    </div>
+  </div>

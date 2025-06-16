@@ -1,0 +1,116 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self: self-end">
+          <br>
+          <h2 class=" title" style="align-items: center;"> Edit Compliance Department Mapping
+            </h2>
+        </div>
+      </div> 
+      <br>
+    
+        <br>
+        <div class="box">
+           <div>
+
+             <dx-drop-down-box 
+             formControlName="department"
+             [(value)]="selectedOption1"         
+             [inputAttr]="{ 'aria-label': 'Owner' }"
+             placeholder="Select Department Type*"
+             label="Select Department Type*"
+             [showClearButton]="true"
+             labelMode="floating"
+             valueExpr="department_Master_id"
+             displayExpr="department_Master_name"
+             [(opened)]="isGridBoxOpened"
+             [dataSource]="Department"
+             (onValueChanged)="getUpdateFormData($event)"
+             height="40px" >   
+            <div *dxTemplate="let data of 'content'">
+             <dx-data-grid    
+             [dataSource]="Department"
+             [columns]="gridColumns1"
+               [selection]="{ mode: 'single' }"
+               [hoverStateEnabled]="true"
+               [(selectedRowKeys)]="selectedOption1"
+               [filterRow]="{ visible: true }"
+               [scrolling]="{ mode: 'virtual' }"
+               [showColumnHeaders]="false"
+               height="100%"
+             >
+             </dx-data-grid>
+           </div> 
+          </dx-drop-down-box>
+          
+             </div>
+        
+        </div>
+        <br>
+        <form [formGroup]="Departmentlocation"  (ngSubmit)="SubmitUpdateForm()" >
+        <h3>
+        <label>  Map to:</label></h3>
+         <div class="box">
+          <div>
+         
+        
+        
+           <dx-select-box 
+           formControlName="entity"
+           label="Select Entity"
+        labelMode="floating"
+        valueExpr="entity_Master_id"
+        displayExpr="entity_Master_Name"
+        [dataSource]="Entity"  
+        [searchEnabled]="true"
+        (onValueChanged)="getunitlocation($event)"
+        selectionMode="single" 
+        placeholder=""
+           > </dx-select-box>
+        
+         
+        </div>
+        
+        
+         <div >
+        
+           <dx-drop-down-box 
+           formControlName="location"
+           [(value)]="selectedOption"         
+           [inputAttr]="{ 'aria-label': 'Owner' }"
+           placeholder="Select  unit  location*"
+           [showClearButton]="true"
+           label="Select   unit  location*"
+           labelMode="floating"
+           [(opened)]="isGridBoxOpened1"
+           valueExpr="unit_location_Master_id"
+           displayExpr="unit_location_Master_name"
+           [dataSource]="location"
+           height="40px" >   
+          <div *dxTemplate="let data of 'content'">
+           <dx-data-grid    
+           [dataSource]="location"
+           [columns]="gridColumns"
+             [selection]="{ mode: 'single' }"
+             [hoverStateEnabled]="true"
+             [(selectedRowKeys)]="selectedOption"
+             [filterRow]="{ visible: true }"
+             [scrolling]="{ mode: 'virtual' }"
+             [showColumnHeaders]="false"
+             height="100%"
+           >
+           </dx-data-grid>
+         </div> 
+        </dx-drop-down-box>
+        
+         </div>
+        
+         </div>
+         <div class="margin-top"></div>
+         <div class="button">
+          <button class="grey-button"  (click)="Cancel()" >Cancel</button>
+           <button class="Custombutton"  >Submit</button>
+         </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,162 @@
+<div class="body">
+    <div class="row">
+      <img
+        style="height: 30px"
+        src="../../../../assets//images/Inspection/assign.png"
+      />
+      <h2 class="header">Add Nature Of Document</h2>
+    </div>
+    <hr />
+  
+    <form
+      [formGroup]="assignInspectionForm"
+      (ngSubmit)="assignInspection(assignInspectionForm.value)">
+      <div fxLayoutAlign="center center">
+        <div class="box">
+          <!-- <mat-form-field style="width: fit-content" appearance="outline">
+            <mat-label>Start Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="startDate"
+              formControlName="startDate"
+              name="startDate"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="startDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #startDate></mat-datepicker>
+          </mat-form-field> -->
+          <!-- <mat-form-field style="width: fit-content" appearance="outline">
+            <mat-label>End Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="endDate"
+              formControlName="endDate"
+              name="endDate"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="endDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #endDate></mat-datepicker>
+          </mat-form-field> -->
+  
+          <!-- <mat-form-field style="width: fit-content" appearance="outline">
+            <mat-label>Next Review Date </mat-label>
+            <input
+              matInput
+              [matDatepicker]="nextreviewdate"
+              formControlName="nextreviewdate"
+              name="nextreviewdate"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="nextreviewdate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #nextreviewdate></mat-datepicker>
+          </mat-form-field> -->
+        </div>
+      </div>
+  <!-- <div>
+      <div fxLayoutAlign="center center">
+        <div class="box">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Select Document Type</mat-label>
+            <mat-select [formControl]="selectedBridge">
+              <mat-option
+                *ngFor="let element of selectBridge"
+                [value]="element"
+              >
+                {{ element.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Select Document category</mat-label>
+            <mat-select [formControl]="selectedInspection">
+              <mat-option
+                *ngFor="let element of selectInspection"
+                [value]="element"
+              >
+                {{ element.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div> -->
+    <!-- <div>
+      <div fxLayoutAlign="center center">
+        <div class="box"> -->
+          <!-- <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Select Inspector</mat-label>
+            <mat-select [formControl]="selectedInspectors">
+              <mat-option *ngFor="let element of inspectors" [value]="element">{{
+                element.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field> -->
+  
+  
+          <!-- <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Select Inspector</mat-label>
+            <mat-select [formControl]="selectedInspectors" multiple>
+              <mat-option *ngFor="let element of inspectors" [value]="element">{{
+                element.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field> -->
+  
+          <!-- <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Select Reviewer</mat-label>
+            <mat-select [formControl]="selectedReviewer">
+              <mat-option *ngFor="let element of user" [value]="element">
+                {{ element.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+          <div>
+          <div fxLayoutAlign="center center">
+            <div class="box">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Nature of Document </mat-label>
+                <input matInput formControlName="name" name="name" required />
+              </mat-form-field>
+              <div></div>
+           </div>
+           </div>
+
+    
+   
+            </div>
+            <div>
+              <div fxLayoutAlign="center center">
+                <div class="box">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Description</mat-label>
+                <textarea matInput formControlName="description"></textarea>
+              </mat-form-field>
+              <div></div>
+              </div>
+              </div>
+            </div>
+          
+         
+    
+      <!-- <div class="box">
+        <button class="Custombutton" mat-button type="submit">
+          Assign Inspection
+        </button>
+      </div> -->
+  
+      <div class="button">
+        <button class="grey-button" mat-button (click)="Cancel()">Cancel</button>
+        <button class="Custombutton" mat-button type="submit">Save</button>
+      </div>
+    </form>
+  </div>
+  

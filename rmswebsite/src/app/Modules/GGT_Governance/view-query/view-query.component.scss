@@ -1,0 +1,35 @@
+.query-container {
+    border: 2px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    background: #f9f9f9;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  h3 {
+    background: #d4e7f5;
+    padding: 8px;
+    border-radius: 3px;
+  }
+  .back-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    //border-radius: 4px;
+  }
+  
+  .back-button:hover {
+    background-color: #0056b3;
+  }

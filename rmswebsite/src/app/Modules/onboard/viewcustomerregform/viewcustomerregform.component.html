@@ -1,0 +1,536 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+        <div class=" card">
+          <div class=" card-header">
+            <h1 class=" title"> View Customer Registration Form</h1>
+          </div>
+          <div class="card-body">
+          
+            <div>
+             <mat-horizontal-stepper [linear]="false" #stepper labelPosition="bottom">
+                  <form [formGroup]="customerregform">
+              <mat-step label="Select Customer" state="phone"> 
+              <dx-data-grid  id="dataGrid" key="customerRegID" 
+              [dataSource]="dataSource" [showBorders]="true" [allowColumnResizing]="true" [columnAutoWidth]="true"
+              [showBorders]="true"
+              [allowColumnReordering]="true">
+
+              <dxi-column dataField="customerRegID" caption=" Customer ID">
+
+
+              </dxi-column>
+              <dxi-column dataField="firstName" caption="First Name">
+              </dxi-column>
+              <dxi-column dataField="lastName" caption="Last Name">
+              </dxi-column>
+              <dxi-column dataField="mobileNumber" caption="Mobile Number">
+              </dxi-column>
+              <dxi-column dataField="emailID" caption="Email ID">
+              </dxi-column>
+              <dxi-column dataField="organizationName" caption="Organization Name">
+              </dxi-column>
+                          <dxi-column  cellTemplate="cell2">
+                <div *dxTemplate="let data of 'cell2'">
+                  <a  href="javascript:void(0)"  (click)="okClicked2(data.data)">Subscribe</a>
+               </div>
+               </dxi-column>
+               <dxo-header-filter [visible]="true"></dxo-header-filter>
+               <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+               <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+               <dxo-filter-row [visible]="true"></dxo-filter-row>
+               <dxo-search-panel [visible]="true"></dxo-search-panel>
+               <dxo-group-panel [visible]="true"></dxo-group-panel>
+               <dxo-selection mode="single"></dxo-selection>
+               <dxo-summary>
+                   <dxi-total-item
+                       column="customerRegID"
+                       summaryType="count">
+                   </dxi-total-item>
+                   
+               </dxo-summary>
+               <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+               <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+               <dxo-pager
+               [visible]="true"
+               [allowedPageSizes]="[5, 10,20, 'all']"
+              
+               [showPageSizeSelector]="true"
+              
+               [showInfo]="true"
+               infoText="Page {0} of  {1} ({2} items)"
+               [showNavigationButtons]="true"
+             >
+             </dxo-pager>
+           
+         
+             <dxo-toolbar>
+             <dxi-item name="groupPanel"></dxi-item>
+         
+         <dxi-item name="addRowButton" showText="always"></dxi-item>
+         <dxi-item name="exportButton"></dxi-item>
+         <dxi-item name="columnChooserButton"></dxi-item>
+         <dxi-item name="searchPanel"></dxi-item>
+             </dxo-toolbar>
+             <dxo-export 
+             [enabled]="true"
+             [formats]="['xlsx', 'pdf']"
+           >
+           </dxo-export>
+
+            </dx-data-grid>
+         
+        </mat-step>
+        <div *ngIf="visibledg">
+          <mat-step  state="phone" label="Customer Details" >
+<mat-label style="display: contents;font-size: larger;font-weight: bold;">Registered User Details</mat-label>
+
+            <div class="box">
+       
+              <div fxLayoutAlign="center center">
+                  <mat-form-field appearance="fill" class="form-field">
+                 <mat-label>First Name</mat-label>
+           
+             <input matInput   formControlName="firstName"  class="readonly-input" readonly />
+                
+              </mat-form-field>
+            </div>
+      
+            <div fxLayoutAlign="center center">
+              <mat-form-field appearance="fill" class="form-field">
+             <mat-label>Last Name</mat-label>
+             <input matInput formControlName="lastName"   class="readonly-input" readonly />
+            
+          </mat-form-field>
+        </div>
+         </div>
+          <div class="box">
+            <div fxLayoutAlign="center center">
+              <mat-form-field appearance="fill" class="form-field">
+             <mat-label>Mobile Number</mat-label>
+             <input matInput formControlName="mobileNumber"   class="readonly-input" readonly />
+            
+          </mat-form-field>
+        </div>
+            <div fxLayoutAlign="center center">
+                <mat-form-field appearance="fill" class="form-field">
+               <mat-label>EmailID</mat-label>
+         
+           <input matInput   formControlName="emailID"  class="readonly-input" readonly />
+              
+            </mat-form-field>
+          
+      
+        </div>
+          </div>
+<mat-label style="display: contents;font-size: larger;font-weight: bold;">Registered Enitity Details</mat-label>
+
+        <div class="box">
+                    <div fxLayoutAlign="center center">
+              <mat-form-field appearance="fill" class="form-field">
+             <mat-label>Organization Name</mat-label>
+       
+         <input matInput   formControlName="organizationName"  class="readonly-input" readonly />
+            
+          </mat-form-field>
+        </div>
+  
+        <div fxLayoutAlign="center center">
+          <mat-form-field appearance="fill" class="form-field">
+         <mat-label>Gst Registered</mat-label>
+         <input matInput formControlName="gstRegisteredmain"   class="readonly-input" readonly />
+        
+      </mat-form-field>
+    </div>
+    
+      </div>
+      <div class="box">
+        <div fxLayoutAlign="center center">
+  <mat-form-field appearance="fill" class="form-field">
+ <mat-label>Gst Number</mat-label>
+
+<input matInput   formControlName="gstNumber"  class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+
+<div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>Gst Organization Name</mat-label>
+<input matInput formControlName="gsT_Org_name"   class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+
+</div>
+<div class="box">
+  <div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>Gst Address</mat-label>
+
+<input matInput   formControlName="gsT_Address"  class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+
+<div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>Country</mat-label>
+<input matInput formControlName="supply_Country"   class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+
+</div>
+<div class="box">
+  <div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>State</mat-label>
+
+<input matInput   formControlName="supply_State"  class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+<div fxLayoutAlign="center center"></div>
+</div>
+<mat-label style="display: contents;font-size: larger;font-weight: bold;">Billing Information Details</mat-label>
+
+<div class="box">
+  <div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>Billing Organization Name</mat-label>
+
+<input matInput   formControlName="billing_org_name"  class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+
+<div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>Billing GST Number</mat-label>
+<input matInput formControlName="billing_gst_number"   class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+
+</div>
+
+<div class="box">
+  <div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>Billing Address</mat-label>
+
+<input matInput   formControlName="billing_Address"  class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+
+<div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>Billing Country</mat-label>
+<input matInput formControlName="billing_country"   class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+
+</div>
+<div class="box">
+  <div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>Billing State</mat-label>
+
+<input matInput   formControlName="billing_state"  class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+
+<div fxLayoutAlign="center center"></div>
+</div>
+<mat-label style="display: contents;font-size: larger;font-weight: bold;">Group Admin Details</mat-label>
+
+<div class="box">
+  <div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>Group Admin First Name</mat-label>
+
+<input matInput   formControlName="grp_Admin_firstname"  class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+
+<div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>Group Admin Last Name</mat-label>
+<input matInput formControlName="grp_Admin_lastname"   class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+
+</div>
+<div class="box">
+  <div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>Group Admin Mobile Number</mat-label>
+
+<input matInput   formControlName="grp_Admin_Mobilenumber"  class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+
+<div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>Group Admin Email ID</mat-label>
+<input matInput formControlName="grp_Admin_EmailID"   class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+
+</div>
+<div class="button">
+  <button class="grey-button" type="button" matStepperPrevious>Back</button>
+            <button class="Custombutton" type="button" matStepperNext >Next</button>
+</div>
+          </mat-step>
+        <mat-step  state="phone" label="Module Configuration" >
+          <br>
+           <div class="box">
+       
+            <dx-drop-down-box formControlName="modules" [(value)]="moduleselected"
+            [inputAttr]="{ 'aria-label': 'Owner' }" placeholder="Select Modules*" [showClearButton]="true"
+            labelMode="floating" valueExpr="task_id" displayExpr="task_name"
+            [dataSource]="moduleds" searchEnabled="true" height="40px" (onValueChanged)="getmodules($event)">
+            <div *dxTemplate="let data of 'content'">
+              <dx-data-grid [dataSource]="moduleds" [selection]="{ mode: 'multiple' }"
+                [hoverStateEnabled]="true" [columns]="gridColumns" [(selectedRowKeys)]="moduleselected"
+                [filterRow]="{ visible: true }" [scrolling]="{ mode: 'virtual' }" [showColumnHeaders]="true"
+                height="220%">
+              </dx-data-grid>
+
+            </div>
+
+          </dx-drop-down-box>
+              
+         
+               <!-- <dx-select-box 
+               formControlName="modules"
+                              label="Select Modules"
+               labelMode="floating"
+               valueExpr="task_id"
+               displayExpr="task_name"
+               [dataSource]="moduleds"
+               selectionMode="single" 
+               [searchEnabled]="true"
+              placeholder=""
+                >
+             
+             </dx-select-box> -->
+              
+             <dx-number-box
+    [min]="0"
+    [showSpinButtons]="true"
+    [showClearButton]="true"
+    label="Enter no. of Users"
+    labelMode="floating"
+    formControlName="noofusers">
+</dx-number-box>
+        
+          </div> 
+          <br>
+          <div class="box">
+            
+            <dx-number-box
+            [min]="0"
+            [showSpinButtons]="true"
+            [showClearButton]="true"
+            label="Enter no. of Companies"
+            labelMode="floating"
+            formControlName="Entity">
+        </dx-number-box>
+        <dx-number-box
+        [min]="0"
+        [showSpinButtons]="true"
+        [showClearButton]="true"
+        label="Enter no. of Locations"
+        labelMode="floating"
+        formControlName="Unit_location">
+    </dx-number-box>
+            <!-- <dx-select-box 
+            formControlName="Entity"
+            label="Select Entity Name*"
+            labelMode="floating"
+            valueExpr="entity_Master_id"
+            displayExpr="entity_Master_Name"
+            [dataSource]="Entityds"
+              
+            selectionMode="single" 
+           placeholder=""
+           (onValueChanged)="getUnitLocation($event)">
+           
+         
+      </dx-select-box> 
+          
+
+      <dx-select-box 
+      formControlName="Unit_location"
+      label="Select Unit Location*"
+      labelMode="floating"
+      valueExpr="unit_location_Master_id"
+      displayExpr="unit_location_Master_name"
+      [dataSource]="UnitMasterds"
+      [(value)]="Selectedunit"
+      selectionMode="single" 
+     placeholder=""
+    
+       >
+   
+</dx-select-box>-->
+          </div>
+          <div class="button">
+            <button class="grey-button" type="button" matStepperPrevious>Back</button>
+                      <button class="Custombutton" type="button" matStepperNext >Next</button>
+          </div>
+        </mat-step>
+        <!-- <mat-step  state="phone" label="Default Settings">
+          <div class="button">
+            <button class="grey-button" type="button" matStepperPrevious>Back</button>
+                      <button class="Custombutton" type="button" matStepperNext >Next</button>
+          </div>
+        </mat-step> -->
+        <mat-step  state="phone" label="Payement Details">
+<br>
+          <div class="row">
+            <div class="box">
+                <mat-form-field  appearance="fill" class="form-field">
+                  <mat-label>Bank Name</mat-label>
+                  <input matInput #titleinput formControlName="bankname"  maxlength="50">
+                  <!-- <mat-hint align="start" >Min 1 - Max 50 Characters</mat-hint>
+                <mat-hint align="end">{{titleinput.value.length}}/50</mat-hint> -->
+                </mat-form-field>
+             
+              </div>
+              
+                <div class="box">
+                  <mat-form-field  appearance="fill" class="form-field">
+                    <mat-label>Bank Account No. </mat-label>
+                    <input matInput #titleinput formControlName="bankaccountno"  maxlength="50">
+
+                    <!-- <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+                <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint> -->
+                  </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+              <div class="box">
+                  <mat-form-field  appearance="fill" class="form-field">
+                    <mat-label>Branch Name</mat-label>
+                    <input matInput #titleinput formControlName="branchname"  maxlength="50">
+                    <!-- <mat-hint align="start" >Min 1 - Max 50 Characters</mat-hint>
+                  <mat-hint align="end">{{titleinput.value.length}}/50</mat-hint> -->
+                  </mat-form-field>
+               
+                </div>
+                
+                  <div class="box">
+                    <mat-form-field  appearance="fill" class="form-field">
+                      <mat-label>IFSC Code </mat-label>
+                      <input matInput #titleinput formControlName="ifsccode"  maxlength="50">
+  
+                      <!-- <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+                  <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint> -->
+                    </mat-form-field>
+                  </div>
+              </div>
+<div class="row">
+  <div class="box">
+    <dx-date-box
+    formControlName="collection_Date"
+    placeholder=""
+    label="Select Collection Date"
+    labelMode="floating"
+    [showClearButton]="true"
+    [useMaskBehavior]="true"
+    displayFormat="dd/MMM/yyyy"
+    type="date"
+    [min]="minDate"
+  
+    
+  >
+    </dx-date-box>
+      </div>
+      <div class="box">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Select Subscription Type</mat-label>
+          <mat-select 
+          
+          matInput 
+          (selectionChange)="selecttype($event)"
+           disableOptionCentering 
+            formControlName="Subscriptiontype" >
+              <mat-option value="Perpetual" >Perpetual</mat-option>
+              <mat-option value="Limited" >Limited</mat-option>
+            
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+</div>
+<br>
+<div class="row" *ngIf="limited">
+  <div class="box">
+
+    <dx-date-box
+    formControlName="from_Date"
+    placeholder=""
+    label="Select From Date"
+    labelMode="floating"
+    [showClearButton]="true"
+    [useMaskBehavior]="true"
+    displayFormat="dd/MMM/yyyy"
+    type="date"
+    [min]="minDate"
+  
+    
+  >
+  </dx-date-box>
+      </div>
+      <div class="box">
+        <dx-date-box
+    formControlName="to_Date"
+    placeholder=""
+    label="Select To Date"
+    labelMode="floating"
+    [showClearButton]="true"
+    [useMaskBehavior]="true"
+    displayFormat="dd/MMM/yyyy"
+    type="date"
+    [min]="minDate"
+  
+    
+  >
+  </dx-date-box>
+
+      </div>
+</div>
+<div class="button">
+  <button class="grey-button" type="button" matStepperPrevious>Back</button>
+            <button class="Custombutton" type="button" matStepperNext (click)="getuniqueid()">Submit</button>
+</div>
+        </mat-step>
+      </div>
+        </form>
+      </mat-horizontal-stepper>
+
+            </div>
+
+
+ 
+
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

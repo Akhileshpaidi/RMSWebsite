@@ -1,0 +1,889 @@
+<div class="body">
+    <div class="row">
+        <img style="height: 30px" src="../../../../assets//images/Inspection/file-plus.svg" />
+        <h2 class="header">Create Bridge</h2>
+    </div>
+    <div>
+    <label igxLabel for="fullName">Document Type Name :</label>
+    <input igxInput name="fullName" type="text" />
+</div>
+<div>
+<label igxLabel for="fullName">Document Type Name :</label>
+    <input igxInput name="fullName" type="text" />
+</div>
+<button type="button" ng-click="click(this)">Cancel</button>
+<button type="button" ng-click="click(this)">Save</button>
+</div>
+    <!-- <hr />
+    <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>Bridge Info</ng-template>
+                <mat-grid-list cols="3" rowHeight="5:1">
+                    <mat-grid-tile>
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-slide-toggle [formControl]="status" (change)="statusToggle($event)">
+                              <mat-label>Status</mat-label>
+                            </mat-slide-toggle>
+                            <textarea matInput hidden></textarea>
+                          </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Project ID</mat-label>
+                            <mat-select onSelectionChange="getBUIDbyProjectID()" [(value)]="ProjectID">
+                                <mat-option (onSelectionChange)="getBUIDbyProjectID()"
+                                    *ngFor="let addonmasterdata of addonmasterdata" [value]="addonmasterdata.id">
+                                    {{addonmasterdata.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field appearance="fill">
+                            <mat-label>BUID</mat-label>
+                            <mat-select [(value)]="BUID">
+                                <mat-option *ngFor="let bridgeList of bridgeList" [value]="bridgeList.id">
+                                    {{bridgeList.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Type of Foundation</mat-label>
+                            <mat-select [(value)]="typeoffoundationvalue">
+                                <mat-option *ngFor="let typeoffoundation of typeoffoundation"
+                                    [value]="typeoffoundation.id">
+                                    {{typeoffoundation.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Type of Sub-Structure</mat-label>
+                            <mat-select [(value)]="typeofsubstructurevalue">
+                                <mat-option *ngFor="let typeofsubstructure of typeofsubstructure"
+                                    [value]="typeofsubstructure.id">
+                                    {{typeofsubstructure.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile><mat-form-field appearance="fill">
+                            <mat-label>Type of Super-Structure</mat-label>
+                            <mat-select [(value)]="typeofsuperstructurevalue">
+                                <mat-option *ngFor="let typeofsuperstructure of typeofsuperstructure"
+                                    [value]="typeofsuperstructure.id">
+                                    {{typeofsuperstructure.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile><mat-form-field appearance="fill">
+                            <mat-label>Type of Bearing</mat-label>
+                            <mat-select [(value)]="typeofbearingvalue">
+                                <mat-option *ngFor="let typeofbearing of typeofbearing" [value]="typeofbearing.id">
+                                    {{typeofbearing.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile><mat-form-field appearance="fill">
+                            <mat-label>Type of Expansion Joint</mat-label>
+                            <mat-select [(value)]="typeofexpansionjointvalue">
+                                <mat-option *ngFor="let typeofexpansionjoint of typeofexpansionjoint"
+                                    [value]="typeofexpansionjoint.id">
+                                    {{typeofexpansionjoint.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile><mat-form-field appearance="fill">
+                            <mat-label>Type of Wearing Coars</mat-label>
+                            <mat-select [(value)]="typeofwearingcoarsevalue">
+                                <mat-option *ngFor="let typeofwearingcoarse of typeofwearingcoarse"
+                                    [value]="typeofwearingcoarse.id">
+                                    {{typeofwearingcoarse.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile><mat-form-field appearance="fill">
+                            <mat-label>Type of Railing</mat-label>
+                            <mat-select [(value)]="typeofrailingvalue">
+                                <mat-option *ngFor="let typeofrailing of typeofrailing" [value]="typeofrailing.id">
+                                    {{typeofrailing.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile><mat-form-field appearance="fill">
+                            <mat-label>length of span</mat-label>
+                            <input matInput placeholder="" formControlName="firstCtrl" (keyup)="areabottommg()" required [(ngModel)]="lspan">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile><mat-form-field appearance="fill">
+                            <mat-label>width of span</mat-label>
+                            <input matInput placeholder="" formControlName="firstCtrl" required [(ngModel)]="wspan">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile><mat-form-field appearance="fill">
+                            <mat-label>no of main girder in a span</mat-label>
+                            <input matInput placeholder="" formControlName="firstCtrl" required [(ngModel)]="mgnospan">
+
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile><mat-form-field appearance="fill">
+                            <mat-label>no of bearing in span</mat-label>
+                            <input matInput placeholder="" formControlName="firstCtrl" required [(ngModel)]="nobearing">
+
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile><mat-form-field appearance="fill">
+                            <mat-label>no of pile</mat-label>
+                            <input matInput placeholder="" formControlName="firstCtrl" required [(ngModel)]="nopile">
+
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile><mat-form-field appearance="fill">
+                            <mat-label>dia of pile</mat-label>
+                            <input matInput placeholder="" formControlName="firstCtrl" required [(ngModel)]="diapile">
+
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <div>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Main Grider</ng-template>
+                <mat-grid-list cols="3" rowHeight="5:1">
+                    <mat-grid-tile>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Depth</mat-label>
+                            <input matInput placeholder="Depth" formControlName="secondCtrl" required
+                                [(ngModel)]="mgdepth">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Width</mat-label>
+                            <input matInput placeholder="Width" (keyup)="areabottommg()" formControlName="secondCtrl" required
+                                [(ngModel)]="mgwidth">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Area Bottom</mat-label>
+                            <input matInput placeholder="Area Bottom" formControlName="secondCtrl" readonly required
+                                [(ngModel)]="mgareabottom">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Area Side</mat-label>
+                            <input matInput placeholder="Area Side" formControlName="secondCtrl" required
+                                [(ngModel)]="mgareaside">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Volume</mat-label>
+                            <input matInput placeholder="Volume" formControlName="secondCtrl" required
+                                [(ngModel)]="mgvolume">
+                        </mat-form-field>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="thirdFormGroup">
+            <form [formGroup]="thirdFormGroup">
+                <ng-template matStepLabel>Total Slab(Interior)</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>Width</mat-label>
+                    <input matInput placeholder="Width" formControlName="thirdCtrl" required [(ngModel)]="tsiwidth">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>No. of Portion</mat-label>
+                    <input matInput placeholder="No. of Portion" formControlName="thirdCtrl" required
+                        [(ngModel)]="tsinoportion">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Thickness</mat-label>
+                    <input matInput placeholder="Thickness" formControlName="thirdCtrl" required
+                        [(ngModel)]="tsithickness">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Area</mat-label>
+                    <input matInput placeholder="Area" formControlName="thirdCtrl" required [(ngModel)]="tsiarea">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Volume</mat-label>
+                    <input matInput placeholder="Volume" formControlName="thirdCtrl" required [(ngModel)]="tsivolume">
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="fourthFormGroup">
+            <form [formGroup]="fourthFormGroup">
+                <ng-template matStepLabel>Top slab (Cantilever portion)</ng-template>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Width</mat-label>
+                    <input matInput placeholder="Width" formControlName="fourthCtrl" required [(ngModel)]="tscwidth">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>No. of Portion</mat-label>
+                    <input matInput placeholder="No. of Portion" formControlName="fourthCtrl" required
+                        [(ngModel)]="tscnop">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Thickness</mat-label>
+                    <input matInput placeholder="Thickness" formControlName="fourthCtrl" required
+                        [(ngModel)]="tscthickness">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Area</mat-label>
+                    <input matInput placeholder="Area" formControlName="fourthCtrl" required [(ngModel)]="tscarea">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Volume</mat-label>
+                    <input matInput placeholder="Volume" formControlName="fourthCtrl" required [(ngModel)]="tscvolume">
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="fifthFormGroup">
+            <form [formGroup]="fifthFormGroup">
+                <ng-template matStepLabel>Cross Grider</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>Width</mat-label>
+                    <input matInput placeholder="Width" formControlName="fifthCtrl" required [(ngModel)]="CGWidth">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Depth</mat-label>
+                    <input matInput placeholder="Depth" formControlName="fifthCtrl" required [(ngModel)]="CGDepth">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Length</mat-label>
+                    <input matInput placeholder="Length" formControlName="fifthCtrl" required [(ngModel)]="CGLength">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Area of Bottom</mat-label>
+                    <input matInput placeholder="Area of Bottom" formControlName="fifthCtrl" required
+                        [(ngModel)]="CGAreaBottom">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Area of Side</mat-label>
+                    <input matInput placeholder="Area of Side" formControlName="fifthCtrl" required
+                        [(ngModel)]="CGAreaSide">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Volume</mat-label>
+                    <input matInput placeholder="Volume" formControlName="fifthCtrl" required [(ngModel)]="CGVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>No. of Cross Grider</mat-label>
+                    <input matInput placeholder="No. of Cross Grider" formControlName="fifthCtrl" required
+                        [(ngModel)]="CGNumber">
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="sixthFormGroup">
+            <form [formGroup]="sixthFormGroup">
+                <ng-template matStepLabel>Low viscosity grout</ng-template>
+                <p>Main Girder</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Volume of a girder</mat-label>
+                    <input matInput placeholder="Volume of a girder" formControlName="sixthCtrl" required
+                        [(ngModel)]="LVVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Porosity</mat-label>
+                    <input matInput placeholder="Porosity" formControlName="sixthCtrl" required
+                        [(ngModel)]="LVPorosity">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Porous volume</mat-label>
+                    <input matInput placeholder="Porous volume" formControlName="sixthCtrl" required
+                        [(ngModel)]="LVPorousVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>% of porous volume filled by grouting</mat-label>
+                    <input matInput placeholder="% of porous volume filled by grouting" formControlName="sixthCtrl"
+                        required [(ngModel)]="LVPercentVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Net volume to be filled in a girder by grout</mat-label>
+                    <input matInput placeholder="Net volume to be filled in a girder by grout"
+                        formControlName="sixthCtrl" required [(ngModel)]="LVNetVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Grouting to be done to % of all girders/area of girder</mat-label>
+                    <input matInput placeholder="Grouting to be done to % of all girders/area of girder"
+                        formControlName="sixthCtrl" required [(ngModel)]="LVGrout">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total volume to be filled in all girder in the bridge by grout</mat-label>
+                    <input matInput placeholder="Total volume to be filled in all girder in the bridge by grout"
+                        formControlName="sixthCtrl" required [(ngModel)]="LVTotalVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>TSpecific gravity of grout</mat-label>
+                    <input matInput placeholder="Specific gravity of grout" formControlName="sixthCtrl" required
+                        [(ngModel)]="LVTspecificGravity">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total volume to be filled in all girder of the bridge by grout</mat-label>
+                    <input matInput placeholder="Total volume to be filled in all girder of the bridge by grout"
+                        formControlName="sixthCtrl" required [(ngModel)]="LVTotalVolumeGirder">
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="seventhFormGroup">
+            <form [formGroup]="seventhFormGroup">
+                <ng-template matStepLabel>Polymer Modified Cement grout</ng-template>
+                <p>Cross Girders</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Volume of a cross girder</mat-label>
+                    <input matInput placeholder="Volume of a cross girder" formControlName="seventhCtrl" required
+                        [(ngModel)]="PMCGVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Porosity</mat-label>
+                    <input matInput placeholder="Porosity" formControlName="seventhCtrl" required
+                        [(ngModel)]="PMCGPorosity">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Porous volume</mat-label>
+                    <input matInput placeholder="Porous volume" formControlName="seventhCtrl" required
+                        [(ngModel)]="PMCGPorousVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>% of porous volume filled by grouting</mat-label>
+                    <input matInput placeholder="% of porous volume filled by grouting" formControlName="seventhCtrl"
+                        required [(ngModel)]="PMCGPorousPercent">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Net volume to be filled in a girder by grout</mat-label>
+                    <input matInput placeholder="Net volume to be filled in a girder by grout"
+                        formControlName="seventhCtrl" required [(ngModel)]="PMCGNetVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total volume to be filled in all girder in the bridge by grout</mat-label>
+                    <input matInput placeholder="Total volume to be filled in all girder in the bridge by grout"
+                        formControlName="seventhCtrl" required [(ngModel)]="PMCGTotalVolume">
+                </mat-form-field>
+
+                <p>Top slab (interior)</p>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Volume of a Top Slab</mat-label>
+                    <input matInput placeholder="Volume of a Top Slab" formControlName="seventhCtrl" required
+                        [(ngModel)]="PMTSIVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Porosity</mat-label>
+                    <input matInput placeholder="Porosity" formControlName="seventhCtrl" required
+                        [(ngModel)]="PMTSIPorousity">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Porous volume</mat-label>
+                    <input matInput placeholder="Porous volume" formControlName="seventhCtrl" required
+                        [(ngModel)]="PMTSIPorousVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>% of porous volume filled by grouting</mat-label>
+                    <input matInput placeholder="% of porous volume filled by grouting" formControlName="seventhCtrl"
+                        required [(ngModel)]="PMTSIPorousPercent">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Net volume to be filled in a girder by grout</mat-label>
+                    <input matInput placeholder="Net volume to be filled in a girder by grout"
+                        formControlName="seventhCtrl" required [(ngModel)]="PMTSINetVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total volume to be filled in all girder in the bridge by grout</mat-label>
+                    <input matInput placeholder="Total volume to be filled in all girder in the bridge by grout"
+                        formControlName="seventhCtrl" required [(ngModel)]="PMTSITotalVolume">
+                </mat-form-field>
+
+                <p>Top slab (Cantilever)</p>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Volume of a Top Slab</mat-label>
+                    <input matInput placeholder="Volume of a Top Slab" formControlName="seventhCtrl" required
+                        [(ngModel)]="PMTSCVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Porosity</mat-label>
+                    <input matInput placeholder="Porosity" formControlName="seventhCtrl" required
+                        [(ngModel)]="PMTSCPorousity">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Porous volume</mat-label>
+                    <input matInput placeholder="Porous volume" formControlName="seventhCtrl" required
+                        [(ngModel)]="PMTSCPorousVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>% of porous volume filled by grouting</mat-label>
+                    <input matInput placeholder="% of porous volume filled by grouting" formControlName="seventhCtrl"
+                        required [(ngModel)]="PMTSCPorousPercent">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Net volume to be filled in a girder by grout</mat-label>
+                    <input matInput placeholder="Net volume to be filled in a girder by grout"
+                        formControlName="seventhCtrl" required [(ngModel)]="PMTSCNetVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total volume to be filled in all girder in the bridge by grout</mat-label>
+                    <input matInput placeholder="Total volume to be filled in all girder in the bridge by grout"
+                        formControlName="seventhCtrl" required [(ngModel)]="PMTSCTotalVolume">
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="eigthFormGroup">
+            <form [formGroup]="eigthFormGroup">
+                <ng-template matStepLabel>Pier Cap</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>Volume of a pier cap</mat-label>
+                    <input matInput placeholder="Volume of a pier cap" formControlName="eigthCtrl" required
+                        [(ngModel)]="pierVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>No of pier cap in the bridge</mat-label>
+                    <input matInput placeholder="No of pier cap in the bridge" formControlName="eigthCtrl" required
+                        [(ngModel)]="NoPierCap">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>No. of pier cap to be grouted in the bridge</mat-label>
+                    <input matInput placeholder="No. of pier cap to be grouted in the bridge"
+                        formControlName="eigthCtrl" required [(ngModel)]="GroutedNoPierCap">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total volume of pier cap in the bridge</mat-label>
+                    <input matInput placeholder="Total volume of pier cap in the bridge" formControlName="eigthCtrl"
+                        required [(ngModel)]="pierCapTotalVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Porosity</mat-label>
+                    <input matInput placeholder="Porosity" formControlName="eigthCtrl" required
+                        [(ngModel)]="pierCapPorosity">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Porous volume</mat-label>
+                    <input matInput placeholder="Porous volume" formControlName="eigthCtrl" required
+                        [(ngModel)]="pierCapPorousVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>% of porous volume filled by grouting</mat-label>
+                    <input matInput placeholder="% of porous volume filled by grouting" formControlName="eigthCtrl"
+                        required [(ngModel)]="pierCapPercentPorous">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Net volume to be filled by grout</mat-label>
+                    <input matInput placeholder="Net volume to be filled by grout" formControlName="eigthCtrl" required
+                        [(ngModel)]="pierCapNetVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total volume of grout</mat-label>
+                    <input matInput placeholder="Total volume of grout" formControlName="eigthCtrl" required
+                        [(ngModel)]="pierCapTotalVolumeOfGrout">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Volume of 1 bag of cement (50kg)</mat-label>
+                    <input matInput placeholder="Volume of 1 bag of cement (50kg)" formControlName="eigthCtrl" required
+                        [(ngModel)]="pierCapVolume">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total PMC grout by weight</mat-label>
+                    <input matInput placeholder="Total PMC grout by weight" formControlName="eigthCtrl" required
+                        [(ngModel)]="totalpmcgroutbyweight">
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="ninthFormGroup">
+            <form [formGroup]="ninthFormGroup">
+                <ng-template matStepLabel>PMC mortar treatment</ng-template>
+                <p>Bottom of Main Girder</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Area of bottom of a main girder</mat-label>
+                    <input matInput placeholder="Area of bottom of a main girder" [(ngModel)]="pmcmortartreatmentareaofbottom" formControlName="ninthCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total area of bottom of main girders in the bridge</mat-label>
+                    <input matInput placeholder="Total area of bottom of main girders in the bridge"
+                        formControlName="ninthCtrl" [(ngModel)]="pmcmortartreatmenttotalareaofbottom" required>
+                </mat-form-field>
+                <p>Side of Main Girder</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>total Side area of all main girders in the bridge</mat-label>
+                    <input matInput placeholder="total Side area of all main girders in the bridge"
+                        formControlName="ninthCtrl" [(ngModel)]="pmcmortartreatmenttotalsidearea" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Estimated % of damaged area</mat-label>
+                    <input matInput placeholder="Estimated % of damaged area" formControlName="ninthCtrl" [(ngModel)]="pmcmortartreatmentestimatedpercent" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Damaged area</mat-label>
+                    <input matInput placeholder="Damaged area" [(ngModel)]="pmcmortartreatmentdamagedarea" formControlName="ninthCtrl" required>
+                </mat-form-field>
+                <p>Cross Girder</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total area of all cross girders in the bridge</mat-label>
+                    <input matInput placeholder="Total area of all cross girders in the bridge"
+                        formControlName="ninthCtrl" [(ngModel)]="pmcmortartreatmenttotalareacrossgirder" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Estimated % of damaged area</mat-label>
+                    <input matInput placeholder="Estimated % of damaged area" [(ngModel)]="pmcmortartreatmentestimatedpercentcg" formControlName="ninthCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Damaged area</mat-label>
+                    <input matInput placeholder="Damaged area" [(ngModel)]="pmcmortartreatmentdamagedareacg" formControlName="ninthCtrl" required>
+                </mat-form-field>
+                <p>Top Slab (interior)</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total area of top slab in the bridge</mat-label>
+                    <input matInput placeholder="Total area of top slab in the bridge" [(ngModel)]="pmcmortartreatmenttotalareatsi" formControlName="ninthCtrl"
+                        required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Estimated % of damaged area</mat-label>
+                    <input matInput placeholder="Estimated % of damaged area" [(ngModel)]="pmcmortartreatmentestimatedpercenttsi" formControlName="ninthCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Damaged area</mat-label>
+                    <input matInput placeholder="Damaged area" [(ngModel)]="pmcmortartreatmentdamagedareatsi" formControlName="ninthCtrl" required>
+                </mat-form-field>
+                <p>Top Slab (Cantilever)</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total area of top slab in the bridge</mat-label>
+                    <input matInput placeholder="Total area of top slab in the bridge" [(ngModel)]="pmcmortartreatmenttotalareatsc" formControlName="ninthCtrl"
+                        required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Estimated % of damaged area</mat-label>
+                    <input matInput placeholder="Estimated % of damaged area" [(ngModel)]="pmcmortartreatmentestimatedpercenttsc" formControlName="ninthCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Damaged area</mat-label>
+                    <input matInput placeholder="Damaged area" [(ngModel)]="pmcmortartreatmentdamagedareatsc" formControlName="ninthCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total area for PMC mortar treatment</mat-label>
+                    <input matInput placeholder="Total area for PMC mortar treatment" [(ngModel)]="pmcmortartreatmenttotalarea" formControlName="ninthCtrl"
+                        required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="tenthFormGroup">
+            <form [formGroup]="tenthFormGroup">
+                <ng-template matStepLabel>Water sprout</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>In a span</mat-label>
+                    <input matInput placeholder="In a span" [(ngModel)]="watersproutinaspan" formControlName="tenthCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total no. of water sprout</mat-label>
+                    <input matInput placeholder="Total no. of water sprout" [(ngModel)]="watersprouttotalnumber" formControlName="tenthCtrl" required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="eleventhFormGroup">
+            <form [formGroup]="eleventhFormGroup">
+                <ng-template matStepLabel>Ralling and kerb beam</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>length of a span</mat-label>
+                    <input matInput placeholder="length of a span" [(ngModel)]="railingandkerbbeamlengthofspan" formControlName="eleventhCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>No. of span</mat-label>
+                    <input matInput placeholder="No. of span" [(ngModel)]="railingandkerbbeamnumberofspan" formControlName="eleventhCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total length of ralling and kerb beam</mat-label>
+                    <input matInput placeholder="Total length of ralling and kerb beam" [(ngModel)]="railingandkerbbeamtotallength" formControlName="eleventhCtrl"
+                        required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="twelvethFormGroup">
+            <form [formGroup]="twelvethFormGroup">
+                <ng-template matStepLabel>Expansion joint</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>No of expansion joints</mat-label>
+                    <input matInput placeholder="No of expansion joints" [(ngModel)]="expansionjointnumberofexpansionjoints" formControlName="twelvethCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Length of a expansion joint</mat-label>
+                    <input matInput placeholder="Length of a expansion joint" [(ngModel)]="expansionjointlength" formControlName="twelvethCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total length of expansion joint</mat-label>
+                    <input matInput placeholder="Total length of expansion joint" [(ngModel)]="expansionjointtotallength" formControlName="twelvethCtrl"
+                        required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="thirteenthFormGroup">
+            <form [formGroup]="thirteenthFormGroup">
+                <ng-template matStepLabel>Dismantling of RCC and Bituminous Wearing Coat</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>Area of a span</mat-label>
+                    <input matInput placeholder="Area of a span" [(ngModel)]="dismantlingofrccandbituminiouswearingcoatarea" formControlName="thirteenthCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total area of a span</mat-label>
+                    <input matInput placeholder="Total area of a span" [(ngModel)]="dismantlingofrccandbituminiouswearingcoattotalarea" formControlName="thirteenthCtrl" required>
+                </mat-form-field>
+
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="fourteenthFormGroup">
+            <form [formGroup]="fourteenthFormGroup">
+                <ng-template matStepLabel>Wrapping</ng-template>
+                <p>Main Girder</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>No. of main girders to be wrapped</mat-label>
+                    <input matInput placeholder="No. of main girders to be wrapped" [(ngModel)]="wrappingnumberofmg" formControlName="fourteenthCtrl"
+                        required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Bottom Area of a main girder in a span</mat-label>
+                    <input matInput placeholder="Bottom Area of a main girder in a span"
+                        formControlName="fourteenthCtrl" [(ngModel)]="wrappingbottomareamg" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Side area of a main girder in a span</mat-label>
+                    <input matInput placeholder="Side area of a main girder in a span" [(ngModel)]="wrappingsidearea" formControlName="fourteenthCtrl"
+                        required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total area of main girder in the bridge (only upstream and downstream girders and
+                        30%)</mat-label>
+                    <input matInput
+                        placeholder="Total area of main girder in the bridge (only upstream and downstream girders and 30%)"
+                        formControlName="fourteenthCtrl" [(ngModel)]="wrappingtotalarea" required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="fifteenthFormGroup">
+            <form [formGroup]="fifteenthFormGroup">
+                <ng-template matStepLabel>Microconcrete for repairing patch where large quantity of concrete is spalled
+                    out and loosening of remaining concrete at expansion joint</ng-template>
+                <p>In span 4 from abu road side</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Width of patch</mat-label>
+                    <input matInput placeholder="Width of patch" [(ngModel)]="Microconcreteforrepairingpatchwidth" formControlName="fifteenthCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Length of patch</mat-label>
+                    <input matInput placeholder="Length of patch" [(ngModel)]="Microconcreteforrepairingpatchlength" formControlName="fifteenthCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Depth of patch</mat-label>
+                    <input matInput placeholder="Depth of patch" [(ngModel)]="Microconcreteforrepairingpatchdepth" formControlName="fifteenthCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Volume</mat-label>
+                    <input matInput placeholder="Volume" [(ngModel)]="Microconcreteforrepairingpatchvolume" formControlName="fifteenthCtrl" required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="sixteenthFormGroup">
+            <form [formGroup]="sixteenthFormGroup">
+                <ng-template matStepLabel>Nipples for Low viscosity polymer grout</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>Place at 500 mm distance</mat-label>
+                    <input matInput placeholder="Place at 500 mm distance" [(ngModel)]="NipplesforLowviscositypolymergroutplace" formControlName="sixteenthCtrl" required>
+                </mat-form-field>
+                <p>Main girders</p>
+                <p>Side of Main girder</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>No. nipple along length of the girder</mat-label>
+                    <input matInput placeholder="No. nipple along length of the girder" [(ngModel)]="numberofnipplealong" formControlName="sixteenthCtrl"
+                        required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>No. nipple across depth of the girder</mat-label>
+                    <input matInput placeholder="No. nipple across depth of the girder" [(ngModel)]="numberofnippleacross" formControlName="sixteenthCtrl"
+                        required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total no. of nipples in side of the girder</mat-label>
+                    <input matInput placeholder="Total no. of nipples in side of the girder"
+                        formControlName="sixteenthCtrl" [(ngModel)]="totalnumberofnipple" required>
+                </mat-form-field>
+                <p>Bottom of Main girder</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>No. of nipple</mat-label>
+                    <input matInput placeholder="No. of nipple" [(ngModel)]="numberofnipplebottommg" formControlName="sixteenthCtrl" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total no. of nipples in a girder</mat-label>
+                    <input matInput placeholder="Total no. of nipples in a girder" [(ngModel)]="totalnumberofnipplebottommg" formControlName="sixteenthCtrl"
+                        required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Grouting to be done to % of all girders/area of girder</mat-label>
+                    <input matInput placeholder="Grouting to be done to % of all girders/area of girder"
+                        formControlName="sixteenthCtrl" [(ngModel)]="groutingtobedone" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total no. of nipples in the bridge</mat-label>
+                    <input matInput placeholder="Total no. of nipples in the bridge" [(ngModel)]="totalnumberofnippleinthebridge" formControlName="sixteenthCtrl"
+                        required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="saveNext('D')">Save & Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="seventeenthFormGroup">
+            <form [formGroup]="seventeenthFormGroup">
+                <ng-template matStepLabel>Nipples for Polymer modified cement grout</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>Place at 500 mm distance</mat-label>
+                    <input matInput placeholder="Place at 500 mm distance" [(ngModel)]="place" formControlName="seventeenthCtrl" required>
+                </mat-form-field>
+                <p>Cross Girder</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>No. nipple along length of the girder</mat-label>
+                    <input matInput placeholder="No. nipple along length of the girder"
+                        formControlName="seventeenthCtrl" [(ngModel)]="nonipplescg" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>No. nipple across depth of the girder</mat-label>
+                    <input matInput placeholder="No. nipple across depth of the girder"
+                        formControlName="seventeenthCtrl" [(ngModel)]="noacrosscg" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total no. of nipples in side of the girder</mat-label>
+                    <input matInput placeholder="Total no. of nipples in side of the girder"
+                        formControlName="seventeenthCtrl" [(ngModel)]="totalnonipplescg" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total no. of nipples in a girder</mat-label>
+                    <input matInput placeholder="Total no. of nipples in a girder" [(ngModel)]="totalnonipplesinagirder" formControlName="seventeenthCtrl"
+                        required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total no. of nipples in the bridge</mat-label>
+                    <input matInput placeholder="Total no. of nipples in the bridge" [(ngModel)]="totalnonipplesinthebridge" formControlName="seventeenthCtrl"
+                        required>
+                </mat-form-field>
+                <p>Top Slab (grouting to be done from the top)</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>No. of nipples across the width of Slab</mat-label>
+                    <input matInput placeholder="No. of nipples across the width of Slab"
+                        formControlName="seventeenthCtrl" [(ngModel)]="topslabnonipple" equired>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>No. of nipples along the length of slab</mat-label>
+                    <input matInput placeholder="No. of nipples along the length of slab"
+                        formControlName="seventeenthCtrl" [(ngModel)]="topslabnonipplealong" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total no. of nipples in a slab of a span</mat-label>
+                    <input matInput placeholder="Total no. of nipples in a slab of a span"
+                        formControlName="seventeenthCtrl" [(ngModel)]="topslabnonippleinaspan" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total no. of nipples in the bridge</mat-label>
+                    <input matInput placeholder="Total no. of nipples in the bridge" [(ngModel)]="topslabnonippleinbridge" formControlName="seventeenthCtrl"
+                        required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Pier Cap</mat-label>
+                    <input matInput placeholder="Pier Cap" formControlName="seventeenthCtrl" [(ngModel)]="topslabnonipplepiercap" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Total nipples</mat-label>
+                    <input matInput placeholder="Total nipples" formControlName="seventeenthCtrl" [(ngModel)]="totalnipple" required>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button (click)="submit()">Submit</button>
+                </div>
+            </form>
+        </mat-step>
+    </mat-stepper> -->

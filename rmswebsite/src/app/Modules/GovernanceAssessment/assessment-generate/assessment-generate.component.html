@@ -1,0 +1,239 @@
+<form  [formGroup]="questionForm" class="form-container" fxLayout="column" fxLayoutAlign="start stretch" (ngSubmit)="saveQuestion()">
+    <div class="body">
+        <div class="header">
+          <br>
+          <h1>Generate Assessment Template</h1>
+          <br>
+      <label  style="color:red">{{errormsg}}</label>
+      <div fxLayout="column" fxLayoutGap="10px" >
+        <div fxLayout="row" fxLayoutGap="30px" fxLayoutAlign="start center">
+          <div  fxFlex="35%">
+            <mat-label>Select Question Mix Criteria <span style="color: red;">*</span></mat-label>
+          </div>
+   
+        <div  fxFlex="40%">
+          <dx-radio-group
+            [items]="checklevelmix"
+            [value]="questionForm.get('questionMixtype')?.value"
+            layout="horizontal"
+            (onValueChanged)="handleValueChange($event)"
+            formControlName="questionMixtype">
+          </dx-radio-group>
+        </div>
+        </div>
+
+    <div  fxLayout="row" fxLayoutGap="20px">
+      <div fxFlex="35%">
+        <mat-label style="display: contents;">Select Questions from
+          <label style="color: red;">*</label>
+      </mat-label>
+      </div>
+      <div  fxFlex="40%">
+        <dx-radio-group
+          [items]="questionsType"
+          formControlName="questionsFrom"
+          layout="horizontal"
+          (onValueChanged)="handleQuestionsType($event)"
+          >
+        </dx-radio-group>
+      </div>
+     
+      
+  </div>
+  <div  fxLayout="row" fxLayoutGap="20px">
+    <div   fxFlex="35%">
+      <mat-label style="display: contents;">Enter Number Of Questions
+          <label style="color: red;">*</label>
+      </mat-label>
+     
+  </div>
+ 
+    <div   fxFlex="40%">
+      <dx-number-box
+  [min]="0"
+  [showSpinButtons]="true"
+  [showClearButton]="true"
+  label="Enter a Value"
+  labelMode="floating"
+  formControlName="questions">
+</dx-number-box>
+<mat-label style="display: contents;">
+Total Available Questions:{{totlq}} 
+</mat-label>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutGap="20px">
+    <div   fxFlex="35%">
+      <mat-label style="display: contents;">Select Subject
+          <label style="color: red;">*</label>
+      </mat-label>
+  </div>
+  
+    <div   fxFlex="40%">
+    <mat-form-field>
+    <mat-select formControlName="subjectid" multiple (selectionChange)="onSubjectSelectionChange()" placeholder="Select Subjects">
+      <mat-select-trigger>
+        <span class="selected-topics">   {{ selectedSubjectNames.length ? selectedSubjectNames.join(', ') : 'Select Subjects' }}</span>
+      </mat-select-trigger>
+      <mat-option *ngFor="let subject of SubjectData | keyvalue" [value]="subject.key">
+        {{ subject.value.subject_Name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+ 
+    </div>
+    
+  </div>
+  
+  <div fxLayout="row" fxLayoutGap="20px">
+    <div   fxFlex="35%">
+      <mat-label style="display: contents;">Select Topic
+          <label style="color: red;">*</label>
+      </mat-label>
+  </div>
+  
+  <div fxFlex="40%">
+    <mat-form-field class="topic-select-form-field">
+      <mat-select formControlName="topicid" multiple (selectionChange)="onTopicSelectionChange()" placeholder="Select Topics">
+        <mat-select-trigger>
+          <span class="selected-topics">{{ selectedTopicNames.length ? selectedTopicNames.join(', ') : 'Select Topics' }}</span>
+        </mat-select-trigger>
+        
+        <!-- Use TopicArray to maintain order -->
+        <mat-option *ngFor="let topic of TopicArray" [value]="topic.topic_id">
+          {{ topic.topic_Name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  
+    
+  </div>
+
+  <div *ngIf="checkdata" formArrayName="options">
+    <div class="form-field" *ngFor="let option of options.controls; let i = index">
+      <div fxLayout="row" fxLayoutGap="20px">
+        <div [formGroupName]="i" fxFlex="100%">
+          <div fxLayout="row" fxLayoutGap="500px" fxFlex="37%">
+            <mat-label style="display: contents;">
+              {{ option.get('value')?.value }}
+            </mat-label>
+          </div>
+          <div fxFlex="40%" style="padding-top: 10px;">
+            <!-- dx-number-box to update the 'selected_ques' value -->
+            <dx-number-box
+              [min]="0"
+              [showSpinButtons]="true"
+              [showClearButton]="true"
+              [value]="option.get('selected_ques')?.value" 
+              (onValueChanged)="updateOptionValue($event.value, i)"
+              label="Enter a Value"
+              labelMode="floating">
+            </dx-number-box>
+            
+            <mat-label>
+              Total Available Questions: {{ option.get('totalQuestions')?.value }}
+            </mat-label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+<div *ngIf="randomselection">
+<div fxLayout="row" fxLayoutGap="20px">
+  <div   fxFlex="35%">
+    </div>
+  <div   fxFlex="50%">
+  <section class="checkbox-section">
+    <mat-checkbox class="checkbox-margin" formControlName="mostUsedQuestions" >Based on most used Questions</mat-checkbox>
+    
+  </section>
+</div>
+</div>
+<div fxLayout="row" fxLayoutGap="20px">
+  <div   fxFlex="35%">
+    </div>
+  <div   fxFlex="50%">
+  <section class="checkbox-section">
+    <mat-checkbox class="checkbox-margin" formControlName="favouritesDefaults">Based on Favourite/ Defaults markings</mat-checkbox>
+    
+  </section>
+</div>
+</div>
+<div fxLayout="row" fxLayoutGap="20px">
+  <div   fxFlex="35%">
+    </div>
+  <div   fxFlex="50%">
+  <section class="checkbox-section">
+    <mat-checkbox class="checkbox-margin" formControlName="recentlyAdded">Based on recently added</mat-checkbox>
+    
+  </section>
+</div>
+</div>
+<div fxLayout="row" fxLayoutGap="20px">
+  <div   fxFlex="35%">
+    </div>
+  <div   fxFlex="50%">
+  <section class="checkbox-section">
+    <mat-checkbox class="checkbox-margin" formControlName="timeEstimate" (change)="onTimeEstimateChange($event)">Based on time estimate</mat-checkbox>
+    
+  </section>
+</div>
+</div>
+<div fxLayout="row" fxLayoutGap="20px"  *ngIf="timeEstimateisChecked">
+  <div   fxFlex="35%">
+    </div>
+  <div   fxFlex="25%">
+    <dx-number-box
+    [min]="0"
+    [showSpinButtons]="true"
+    [showClearButton]="true"
+    label="Enter Min Value"
+    labelMode="floating"
+    formControlName="timeEstimateInputMin"
+ >
+  </dx-number-box>
+
+  <dx-number-box
+  [min]="0"
+  [showSpinButtons]="true"
+  [showClearButton]="true"
+  label="Enter Max Value"
+  labelMode="floating"
+  formControlName="timeEstimateInputMax"
+>
+</dx-number-box>
+</div>
+</div>
+</div>
+
+</div>
+<div fxLayout="row" fxLayoutGap="20px">
+<div   fxFlex="35%">
+  </div>
+  <div   fxFlex="40%">
+
+  <button class="Custombutton" matSteppersave type="submit">Generate Assessment</button>
+
+</div>
+</div>
+        <!-- <div class="button">
+        
+          <button class="Custombutton"  type="button">Next</button>
+        </div> -->
+     
+        <!-- Icon overrides. -->
+                <ng-template matStepperIcon="phone">
+                  <mat-icon>call_end</mat-icon>
+                </ng-template>
+                <ng-template matStepperIcon="chat">
+                  <mat-icon>forum</mat-icon>
+                </ng-template>
+              
+     </div>
+     </div>
+
+    </form>
+          

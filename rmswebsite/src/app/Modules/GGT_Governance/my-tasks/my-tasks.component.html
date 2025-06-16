@@ -1,0 +1,320 @@
+<h1>Dashboard</h1>
+
+
+<!-- <div class="container">
+    <div>
+           
+            <dx-select-box 
+            formControlName="country" 
+            label="Select Entity"
+            labelMode="floating"
+            valueExpr="entity_Master_id"
+            displayExpr="entity_Master_Name"
+            [dataSource]="EntityName"
+            height="40px"
+            selectionMode="single" 
+           placeholder=""
+           (onValueChanged)="getUnitLocation($event)"  >
+      </dx-select-box>
+          </div>
+
+          <div>
+            <dx-select-box 
+            formControlName="state"
+            label="Select Unit Location"
+            labelMode="floating"
+            valueExpr="unit_location_Master_id"
+            displayExpr="unit_location_Master_name"
+            [dataSource]="UnitMaster"
+            height="40px"
+            selectionMode="single" 
+            [(value)]="selectedentity"
+           placeholder="" disableOptionCentering >
+      </dx-select-box>
+          </div>
+ <div >
+  <dx-select-box 
+  label="Select Document Type"
+  labelMode="floating"
+  valueExpr="docTypeID"
+  displayExpr="docTypeName"
+  [dataSource]="DocumentTypeData"  
+  (onValueChanged)="getDocTypes($event)"
+  selectionMode="single" 
+   
+  placeholder=""
+ formControlName="DocTypeID">
+   >    </dx-select-box>
+</div>
+
+<div >
+  <dx-select-box 
+  label="Category"
+  labelMode="floating"
+  valueExpr="doc_CategoryID"
+ displayExpr="doc_CategoryName"
+  [dataSource]="Documentcategory"  
+  (onValueChanged)="getsubDocTypes($event)"
+  selectionMode="single" 
+  placeholder=""
+ 
+ formControlName="Doc_CategoryID">
+ 
+  >
+
+</dx-select-box>
+</div>
+
+<div >
+  <dx-select-box 
+  label="Sub Category"
+  labelMode="floating"
+  valueExpr="doc_SubCategoryID"
+displayExpr="doc_SubCategoryName"
+[dataSource]="Documentsubcategory"  
+selectionMode="single" 
+placeholder=""
+formControlName="Doc_SubCategoryID">
+
+ >
+</dx-select-box>
+</div>
+
+
+  <div>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>To Date</mat-label>
+    <input  matInput   type="date" >
+ 
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>From Date</mat-label>
+    <input  matInput   type="date" >
+ 
+    </mat-form-field>
+  </div>
+<div >
+  <dx-select-box
+  formControlName="AuthorityTypeID"
+label="Authority Type"
+labelMode="floating"
+valueExpr="authorityTypeID"
+displayExpr="authorityTypeName"
+[dataSource]="AuthorityTypeData"
+selectionMode="single" 
+placeholder=""
+(onValueChanged)="getAuthorityNamebyId($event)" >
+</dx-select-box>
+</div>
+
+<div >
+  <dx-select-box 
+  formControlName="AuthoritynameID"
+  label="Name of Authority "
+  labelMode="floating"
+  valueExpr="authoritynameID"
+  displayExpr="authorityName"
+  [dataSource]="AuthorityNameData"
+  selectionMode="single" 
+ placeholder=""
+  >
+</dx-select-box>
+</div>
+<div>
+  <dx-select-box 
+  formControlName="natureOf_Doc_id"
+  label="Nature of Document "
+  labelMode="floating"
+  valueExpr="natureOf_Doc_id"
+  displayExpr="natureOf_Doc_Name"
+  [dataSource]="NatureOfDocument"
+  selectionMode="single" 
+  placeholder=""
+ > 
+  </dx-select-box>
+  </div>
+  <div>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Nature of Confidentiality
+    </mat-label>
+    <input  matInput   type="text">
+ 
+    </mat-form-field>
+    
+  </div>
+<div></div>
+<div>
+  <button type="button">Refresh</button>
+  <button type="button">Reset</button>
+  <button type="button">Export</button>
+</div>
+
+</div> -->
+<div class="body">
+  <div class="cards">
+    
+      <div>
+          <mat-form-field appearance="outline" class="form-field" >
+            <mat-label>Last 30 Days of Document Selection</mat-label>
+            <input matInput formControlName="noofdays" min="30" max="" name="name"  type="number" required /> 
+      
+    </mat-form-field>
+  </div>
+ 
+  
+ 
+<br/>
+<div class="col" >
+    <mat-card class="bridgCount">
+    
+     
+    <mat-card-header fxLayoutAlign="center">
+      {{ DocumentCount }}
+    </mat-card-header>
+    <mat-card-subtitle fxLayoutAlign="center">
+      Noof Documents Published 
+    </mat-card-subtitle>
+  </mat-card>
+  <mat-card class="bridgCount">
+    <mat-card-header fxLayoutAlign="center">
+      {{ immediateActionCount }}
+    </mat-card-header>
+    <mat-card-subtitle fxLayoutAlign="center">
+      Take Action Immediately
+    </mat-card-subtitle>
+  </mat-card>
+  <mat-card class="bridgCount">
+    <mat-card-header fxLayoutAlign="center">
+      {{ expiredCount }}
+    </mat-card-header>
+    <mat-card-subtitle fxLayoutAlign="center">
+      Expired
+    </mat-card-subtitle>
+  </mat-card>
+  <mat-card class="bridgCount">
+    <mat-card-header fxLayoutAlign="center">
+    {{ expiringSoonCount }}
+    </mat-card-header>
+    <mat-card-subtitle fxLayoutAlign="center">
+      Expiring Soon
+    </mat-card-subtitle>
+  </mat-card>
+  <mat-card class="bridgCount">
+    <mat-card-header fxLayoutAlign="center">
+    {{ notDueCount }}
+    </mat-card-header>
+    <mat-card-subtitle fxLayoutAlign="center">
+      Not Due
+     </mat-card-subtitle>
+  </mat-card>
+  <mat-card class="pending">
+    <mat-card-header fxLayoutAlign="center">
+      {{pendingcount}}
+    </mat-card-header>
+      <mat-card-subtitle fxLayoutAlign="center">
+        No. of Pending Drafts
+      </mat-card-subtitle>
+     </mat-card>
+</div>
+</div>
+
+<br/>
+<br/>
+<br/>
+
+<div class="header col">
+  <div style="align-self: self-end">
+      <div class="radio-buttons">
+      
+    <form [formGroup]="form" >
+ 
+        <div id="grid">
+          <dx-data-grid
+          formControlName="addDoc_id"
+            id="addDoc_id"
+            [dataSource]="gridDataSource"
+            key="addDoc_id"
+            valueExpr="addDoc_id"
+            [showBorders]="true"
+            [allowColumnReordering]="true"
+            (onSelectionChanged)="handleSelectionChanges($event)"
+          >
+          <!-- <dxo-selection
+          [selectAllMode]="allMode"
+          [showCheckBoxesMode]="checkBoxesMode"
+          mode="multiple"
+        ></dxo-selection> -->
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxo-pager
+                [showPageSizeSelector]="true"
+                [allowedPageSizes]="[10, 25, 50, 100]"
+              ></dxo-pager>
+            <dxo-search-panel
+            [visible]="false"
+            [width]="240"
+           
+         ></dxo-search-panel>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxi-column dataField="addDoc_id"  valueExpr="addDoc_id"
+            displayExpr="addDoc_id"></dxi-column>
+            <!-- <dxi-column dataField="entity_Master_Name" caption="Entity Name" valueExpr="entity_Master_Name"
+            displayExpr="entity_Master_Name" ></dxi-column>
+            <dxi-column dataField="unit_location_Master_name" caption="unit location" valueExpr="unit_location_Master_name"
+            displayExpr="unit_location_Master_name" ></dxi-column> -->
+            <!-- <dxi-column caption="Name of Document" dataField="title_Doc" valueExpr="addDoc_id"
+            displayExpr="title_Doc"></dxi-column> -->
+            <dxi-column dataField="docTypeName"  caption="DocumentTpye"  valueExpr="docTypeID"
+            displayExpr="docTypeName"></dxi-column>
+            <dxi-column dataField="doc_CategoryName" caption="Category" valueExpr="Doc_CategoryID"
+            displayExpr="doc_CategoryName"></dxi-column>
+            <dxi-column dataField="doc_SubCategoryName" caption="Sub-Category" valueExpr="doc_SubCategoryID"
+            displayExpr="doc_SubCategoryName"></dxi-column>
+          
+           
+            <dxi-column dataField="authorityTypeName" caption="Authority Type" valueExpr="authorityTypeID"
+            displayExpr="authorityTypeName"></dxi-column>
+            <dxi-column dataField="authorityName" caption="Authority Name" valueExpr="authoritynameID"
+            displayExpr="authorityName"></dxi-column>
+            <dxi-column dataField="natureOf_Doc_Name" caption="Nature of Document" valueExpr="natureOf_Doc_id"
+            displayExpr="natureOf_Doc_Name" ></dxi-column>
+            <dxi-column dataField="doc_Confidentiality" caption="Nature Confidentiality" valueExpr="doc_Confidentiality"
+            displayExpr="doc_Confidentiality" ></dxi-column>
+            <dxi-column dataField="reviewStartDate" caption="Review Frequency" valueExpr="reviewStartDate"
+            displayExpr="reviewStartDate" ></dxi-column>
+            <dxi-column dataField="noofDays" caption="NoofDays" valueExpr="noofDays"
+            displayExpr="noofDays" ></dxi-column>
+            <dxi-column dataField="validation" caption="Status" valueExpr="validation"
+            displayExpr="validation" >
+            <!-- <dxo-cellTemplate let-data="data">
+              <div [style.backgroundColor]="getStatusColor(data.data.validation)">
+                {{ data.data.validation }}
+              </div>
+            </dxo-cellTemplate> -->
+                          
+          </dxi-column>
+            <dxo-summary>
+              <dxi-total-item
+                  column="addDoc_id"
+                  summaryType="count">
+              </dxi-total-item>
+              
+          </dxo-summary>
+          </dx-data-grid>
+         
+        </div>
+        
+
+
+                 <!-- <div  class="button">
+          <button class="Custombutton" matStepperNext>Next</button>
+        </div> -->
+     
+  </form>
+
+</div>
+
+  </div>
+</div>
+</div>

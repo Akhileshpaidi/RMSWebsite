@@ -1,0 +1,30 @@
+.body {
+  margin: 30px;
+}
+form {
+  padding: 30px;
+}
+// .Custombutton {
+//   align-items: center !important;
+// }
+.button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  gap: 20px;
+}
+// .grey-button {
+//   margin-top: 10px;
+// }
+
+.addRow {
+  background: #4ceea4;
+}
+
+.box1 {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 30px;
+
+}

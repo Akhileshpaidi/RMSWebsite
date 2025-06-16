@@ -1,0 +1,150 @@
+
+<div class="form">
+    <div class="body">
+      <div class="header">
+          <div style="align-self:self-end;">
+              <div class="card">
+                <div style="align-self: self-end">
+                  <h1 class="h1">List of Published Documents in Repository</h1>
+                </div>
+           
+          
+          </div></div></div>
+          <br>
+          <br>
+          <br>
+         
+          <form action="" class="DateFilterBox" [formGroup]="range">
+            <div class="form-fields-container">
+              <mat-form-field appearance="fill" class="form-field">
+                <mat-label>Select Date Type</mat-label>
+                <mat-select [(value)]="selected"  class="large-text">
+                  <mat-option value="Publishing">Publishing</mat-option>
+                  <mat-option value="Effective">Effective</mat-option>
+                </mat-select>
+              </mat-form-field>
+          
+            
+              <mat-form-field class="example-form-field" appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="rangePicker">
+                  <input matStartDate placeholder="Start date" formControlName="start">
+                  <input matEndDate placeholder="End date" formControlName="end">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="rangePicker" class="custom-toggle-icon"></mat-datepicker-toggle>
+                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+              
+                <mat-date-range-picker #rangePicker>
+                  <mat-date-range-picker-actions>
+                    <button mat-button matDateRangePickerCancel>Cancel</button>
+                    <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+                  </mat-date-range-picker-actions>
+                </mat-date-range-picker>
+              </mat-form-field>
+              
+              
+              <div >
+              <button mat-raised-button (click)="DateSearchFilter()">Search</button> 
+              </div>
+            </div>
+          </form>
+          
+          <br>
+          <br>
+          <div class="card-body1">
+              <div id="app-container">
+                  <dx-data-grid id="dataGrid"
+                  [dataSource]="dataSource1"
+                  [showBorders]="true"
+                 
+                  [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+                 
+                  (onExporting)="exportGrid($event)">
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                 <dxo-header-filter [visible]="true"></dxo-header-filter>
+                 <dxi-column dataField="document_Id" caption="Document Id" [width]="100"></dxi-column>
+                 <dxi-column dataField="versionControlNo" caption="Version Control No." ></dxi-column>
+                 <dxi-column dataField="title_Doc" caption="Title of Document" ></dxi-column>
+                 <dxi-column dataField="sub_title_doc" caption="Sub-Title of Document" ></dxi-column>
+                 <dxi-column dataField="docTypeName" caption="Document Type"></dxi-column>
+                 <dxi-column dataField="doc_CategoryName" caption="Document Category"></dxi-column>
+                 <dxi-column dataField="doc_SubCategoryName" caption="Document Sub-Category" ></dxi-column>                 
+                 <dxi-column dataField="provideack_status" caption="Acknowledgement Status"   ></dxi-column> 
+                 <dxi-column dataField="acknowledgementdate" caption="Acknowledgement Date" [calculateCellValue]="getacknowledgementdate" ></dxi-column>
+                 <dxi-column dataField="companyname" caption="Company Name"  ></dxi-column>
+                 <dxi-column dataField="locationname" caption="Location Name"  ></dxi-column>
+                 <dxi-column dataField="eff_Date" caption="Document Effective Date" [calculateCellValue]="getFormattedEffectiveDate" ></dxi-column>
+                 <dxi-column dataField="ack_status" caption="Accessibility Status"  ></dxi-column>
+
+              <dxi-column dataField="publisher_name" caption="Name of Uploader" [visible]="false"></dxi-column>
+              <dxi-column dataField="addDoc_createdDate" caption="Date of Uploading" [visible]="false"  [calculateCellValue]="getaddDoc_createdDate" ></dxi-column>   
+              <dxi-column dataField="doc_last_Edited_On" caption="Date of Last Edited On" [visible]="false"  [calculateCellValue]="getdoc_last_Edited_On" [calculateCellValue]="getdoc_last_Edited_On" ></dxi-column>    
+              <dxi-column dataField="doc_internal_num" caption="Document Internal Number" [visible]="false"></dxi-column>   
+              <dxi-column dataField="doc_Confidentiality" caption="Document Confidentiality" [visible]="false"></dxi-column> 
+              <dxi-column dataField="natureOf_Doc_Name" caption=" Document  classification " [visible]="false"></dxi-column>        
+              <dxi-column dataField="authorityTypeName" caption="Authority Type" [visible]="false"></dxi-column> 
+             <dxi-column dataField="authorityName" caption="Authority Name" [visible]="false"></dxi-column>
+              <dxi-column dataField="doc_process_Owner" caption="Document Process Owner" [visible]="false"></dxi-column> 
+              <dxi-column dataField="doc_Approver" caption="Document Approver" [visible]="false"></dxi-column>
+              <dxi-column dataField="supportFilesCount" caption="No.of  Support Attachments" [visible]="false"></dxi-column>
+              <dxi-column dataField="publisher_comments" caption="Publisher Comments" [visible]="false"></dxi-column>
+              <dxi-column dataField="combinedReadingTime" caption="Indicative Reading Time" [visible]="false"></dxi-column>   
+                <dxi-column dataField="readcompleted" caption="Date of Reading Completed On" [visible]="false"  [calculateCellValue]="getreadcompleted"></dxi-column>
+                <dxi-column dataField="timeTakenToComplete" caption="Time Taken to Read the Document" [visible]="false"></dxi-column>
+                <dxi-column dataField="permissions_names" caption="Accessibility User Permitions" [visible]="false"></dxi-column>
+                              
+              
+  
+  
+  
+              
+                  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-search-panel [visible]="true"></dxo-search-panel>
+                  <dxo-group-panel [visible]="true"></dxo-group-panel>
+                  <dxo-selection mode="single"></dxo-selection>
+                  <dxo-summary>
+                      <dxi-total-item
+                          column="user_location_mapping_id"
+                          summaryType="count">
+                      </dxi-total-item>
+                      
+                  </dxo-summary>
+                  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                  <dxo-pager
+                  [visible]="true"
+                  [allowedPageSizes]="[5, 10,20, 'all']"
+                 
+                  [showPageSizeSelector]="true"
+                 
+                  [showInfo]="true"
+                  infoText="Page {0} of  {1} ({2} items)"
+                  [showNavigationButtons]="true"
+                >
+                </dxo-pager>
+                 
+    
+                <dxo-toolbar>
+                <dxi-item name="groupPanel"></dxi-item>
+  
+  <dxi-item name="addRowButton" showText="always"></dxi-item>
+  <dxi-item name="exportButton"></dxi-item>
+  <dxi-item name="columnChooserButton"></dxi-item>
+  <dxi-item name="searchPanel"></dxi-item>
+                </dxo-toolbar>
+                <dxo-export 
+                [enabled]="true"
+                [formats]="['xlsx', 'pdf','csv']"
+              >
+              </dxo-export>
+            </dx-data-grid>
+              </div>
+          
+  </div>
+  </div>
+  </div>
+  

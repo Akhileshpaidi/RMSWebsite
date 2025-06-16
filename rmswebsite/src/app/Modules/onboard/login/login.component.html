@@ -1,0 +1,156 @@
+<div class="container-fluid">
+    <div class=" row logindiv">
+      <div class=" bg-login ">
+<div class="body">
+ 
+  <div style="margin-right: 15px;">
+    <h2 style="font-size: 22pt;color: rgb(0, 0, 0);">grcHAWK</h2>
+    <img  src="../../../../assets/images/a-sidelogo34.png" style="top: 0px;height: 95px !important;border-radius:25pt; "/>
+     
+        <h3 style="color:rgb(0, 0, 0)
+        ;font-weight: 350;font-size: 15pt;">Governance, Risk & Compliance Application</h3>
+    
+  </div>
+ 
+  <div class="form">
+    <form
+      class="form__content"
+      action="#!"
+      [formGroup]="loginForm"
+      (ngSubmit)="login(loginForm.value)">
+      <span class="logincss">Login</span>
+        <mat-form-field appearance="outline">
+          <mat-label>User ID</mat-label>
+          <mat-icon style="color: rgb(23, 102, 248);" matPrefix>person</mat-icon>
+          <input
+            matInput
+            formControlName="username"
+            name="username"
+            placeholder="Enter your User ID"
+            [readonly]="otpSent || otpVerified"
+            required
+          />
+        </mat-form-field>
+
+        <div>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <mat-icon style="color: rgb(23, 102, 248);" matPrefix>lock</mat-icon>
+        
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              formControlName="password"
+              name="password"
+              placeholder="Enter your password"
+              [readonly]="otpSent || otpVerified"
+              required
+            />
+            <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </mat-form-field>
+          <div *ngIf="invalid" style="color: red; font-size: 13px; line-height: 1;">
+            Invalid UserId and Password.
+          </div>
+        </div>
+        
+<br>
+<!-- Send OTP Button (Initially visible) -->
+<div *ngIf="!otpSent && !otpVerified" class="form__field form__submit">
+  <button mat-flat-button class="btn-send" type="button" (click)="sendOtp()">Send OTP</button>
+</div>
+
+<!-- OTP Input & Verify Section -->
+<div *ngIf="otpSent" style="margin-top: 15px;">
+  <div *ngIf="otpSent" class="otp-section">
+    <div class="otp-message">
+      OTP has been sent to linked email Id
+    </div>
+  
+    <div class="otp-boxes">
+      <input
+        *ngFor="let digit of otpDigits; let i = index"
+        [id]="'otp-' + i"
+        maxlength="1"
+        pattern="[0-9]*"
+        inputmode="numeric"
+        type="text"
+        class="otp-input"
+        [(ngModel)]="otpArray[i]"
+        (input)="onOtpInput($event, i)"
+        (keydown.backspace)="onOtpBackspace($event, i)"
+      />
+    </div>
+    <ng-container *ngIf="otpExpiryCountdown > 0; else expiredMessage">
+      <div class="otp-expire-message">
+        <mat-icon class="timer-icon">timer</mat-icon>
+        OTP will expire in {{ otpExpiryCountdown }} seconds
+      </div>
+    </ng-container>
+    
+    <ng-template #expiredMessage>
+      <div class="otp-expire-message expired">
+        <mat-icon class="timer-icon">timer_off</mat-icon>
+        OTP received to your email Id has expired. please click on resend
+      </div>
+    </ng-template>
+    
+  </div>
+  
+  
+  <br>
+
+  <div class="form__field form__submit" style="display: flex; align-items: center; justify-content: space-between;">
+    <button mat-flat-button class="btn-verify" type="button" (click)="verifyOtp()" [disabled]="otpVerified">
+      Verify OTP
+    </button>
+
+    <!-- Resend OTP aligned to left -->
+    <button
+      mat-button
+      class="btn-resend"
+      type="button"
+      (click)="resendOtp()"
+      [disabled]="countdown > 0 || otpVerified"
+      style="padding-left: 0;">
+    <mat-icon style="vertical-align: middle; margin-right: 4px;">refresh</mat-icon>
+      Resend OTP <span *ngIf="countdown > 0">({{ countdown }}s)</span>
+    </button>
+  </div>
+
+  <!-- OTP verification failed message -->
+  <div *ngIf="otpVerificationStatus === 'error'" style="color: red; margin-top: 10px;">
+    OTP verification failed. Please try again.
+  </div>
+</div>
+
+
+<!-- OTP Verified Tick -->
+<div *ngIf="otpVerified" style="color: green; display: flex; align-items: center; gap: 6px; margin-top: 10px;">
+  <mat-icon>check_circle</mat-icon>
+  <span>OTP Verified</span>
+</div>
+<br>
+
+
+      <!-- <div>
+        <br>
+      </div> -->
+      <div *ngIf="otpVerified" class="form__field form__submit">
+        <!-- <div class="form__field form__submit"> -->
+        <input class="btn" type="submit" value="LogIn" />
+      </div>
+      <div class="forgotPass">
+        <button type="button" (click)="forgotPassword()" style="color: #050201; display: flex; align-items: center; text-decoration: none; border: none; background: none;">
+          <mat-icon style="font-size: 22px; margin-right: 4px;">lock_reset</mat-icon>
+          <span style="text-decoration: underline;">Forgot password?</span>
+        </button>
+      </div>
+      
+      
+    </form>
+  </div>
+</div>
+</div>
+</div>
+</div>
+

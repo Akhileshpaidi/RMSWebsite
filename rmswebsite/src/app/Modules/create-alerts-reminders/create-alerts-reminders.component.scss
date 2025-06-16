@@ -1,0 +1,171 @@
+
+
+// .container {
+//     background-color: #f0f0f0;
+//     padding: 10px;
+//     margin: 10px;
+//     border: 1px solid #ccc;
+//     border-radius: 5px;
+//   }
+
+.title {
+    padding-left: 30px;
+    padding-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.table {
+  padding-left: 20px;
+    width: 100%;
+    padding-right: 20px;
+    //border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.table th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.table td {
+    height: 60px;
+    width: 100px;
+}
+
+.form-control {
+    width: 100%;
+}
+
+.form-group input[type="number"],
+.form-group select,
+.form-group input[type="text"] {
+    padding: 6px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-top: 6px;
+}
+
+.button {
+    display: flex;
+    align-items: right;
+    justify-content: flex-end;
+    gap: 20px;
+    padding-right: 25px;
+}
+
+@media (max-width: 768px) {
+    .table {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .table thead,
+    .table tbody,
+    .table th,
+    .table td,
+    .table tr {
+        display: block;
+    }
+    
+    .table th,
+    .table td {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .button {
+        justify-content: center;
+        padding-right: 0;
+    }
+
+    .box {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group input[type="number"],
+    .form-group select,
+    .form-group input[type="text"] {
+        width: 100%;
+    }
+}
+
+@media (min-width: 769px) {
+    .table {
+        table-layout: auto;
+    }
+
+    .box {
+        display: flex;
+        flex-direction: row;
+    }
+}
+.dx-popup-wrapper .dx-list-item,
+.dx-dropdowneditor-overlay .dx-list-item {
+  transition: background-color 0.3s ease;
+  overflow-x: auto;
+}
+
+.dx-popup-wrapper .dx-list-item:hover,
+.dx-dropdowneditor-overlay .dx-list-item:hover {
+  background-color: #e0e0e0; /* Change to the desired hover background color */
+  overflow-x: auto;
+  
+}
+/* Ensure white-space is nowrap and hide overflow by default */
+.custom-scroll .dx-dropdowneditor-overlay,
+.custom-scroll .dx-overlay-content,
+.custom-scroll .dx-scrollable-content {
+    white-space: nowrap;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+/* Enable horizontal scroll on hover */
+.custom-scroll .dx-dropdowneditor-overlay:hover,
+.custom-scroll .dx-overlay-content:hover,
+.custom-scroll .dx-scrollable-content:hover {
+    overflow-x: auto;
+}
+
+.custom-scroll .dx-list-item,
+.custom-scroll .dx-item {
+    display: inline-block;
+}
+.card-body1{
+    width: 95%;
+    padding-left: 20px;
+}

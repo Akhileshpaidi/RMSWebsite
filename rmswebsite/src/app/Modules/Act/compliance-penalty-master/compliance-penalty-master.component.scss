@@ -1,0 +1,449 @@
+$space: 1rem;
+
+
+.exitbutton {
+    margin-left: 30px;
+    display: block;
+    width: 20%;
+    font-family: inherit;
+   background: linear-gradient(119.62deg,#000046,rgba(224, 35, 28, 0.725));
+    color: #fff;
+    border: 0;
+    border-radius: $space * 0.25;
+    padding: ($space * 0.75) $space;
+    cursor: pointer;
+    font-weight: 500;
+    letter-spacing: inherit;
+    margin-bottom: $space * 0.5;
+    margin-top: $space * 2;
+  
+    &:hover,
+    &:focus {
+      background-color: #6a6a6a;
+    }
+    
+  }
+  .table {
+    width: 100%;
+    margin-top: 25px;
+  }
+  
+  .body {
+    padding: 30px;
+    padding-top: 20px;
+  }
+  .h1 {
+    font-size: revert;
+    font-weight: 500;
+  }
+  
+  
+  .img {
+    height: 20px;
+    // margin-left: 80px;
+    cursor: pointer;
+  
+  }
+  .Note{
+  color:red;
+  }
+  
+  //Toggle button
+  ::ng-deep {
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+      background-color: #37d111 !important;
+    }
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+      background-color: #d9d9d9 !important;
+    }
+  
+    mat-header-cell,
+    mat-cell {
+      justify-content: center;
+      text-align-last: center;
+      overflow: inherit !important;
+      text-align: center;
+    }
+  }
+  
+  .filter-input {
+    width: 98%;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .gray-text {
+    color: #b9b9b9;
+  }
+  
+  // DevExpress Grid styles Opeb
+  
+  .employee-photo {
+    height: 140px;
+    float: left;
+    padding: 0 20px 20px 0;
+  }
+  .box2{
+    height: 15px;
+  }
+  .employee-notes {
+    text-align: justify;
+    white-space: normal;
+  }
+  
+  #dataGrid {
+    height: 500px;
+  }
+  
+  #app-container {
+    width: 900px;
+    position: relative;
+    margin: 2%;
+  }
+  
+  #selected-employee {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  
+  .content{
+    margin : 30px;
+  }
+  
+  h1{
+    color:rgb(2 162 143) !important;
+  }
+  .button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+  }
+  
+  
+  .boxNew {
+   // display: flex;
+    padding-left: 10px;
+    gap:10px;
+    flex-direction: row;
+    width: 70%;
+  }
+  .boxNew> * {
+    flex: 1 none none;
+    
+  }
+   
+  .wrapper{
+    padding: 10px;
+    
+  }
+  
+  
+  .header{
+    padding-left: 10px;
+    // padding-bottom: 20px;
+    padding-top: 10px;
+  }
+  
+  ::ng-deep #form-container {
+    margin: 10px;
+  }
+  
+  ::ng-deep .long-title h3 {
+    font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+    font-weight: 200;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .table-container {
+    max-width: 1000px; /* Set the maximum width of the container */
+    margin: 10px; /* Center the container horizontally */
+  }
+  
+  .mat-table {
+    width: 100%; /* Set the width of the table to 100% of its container */
+  }
+  $space: 1rem;
+  
+  .table {
+    width: 100%;
+    margin-top: 25px;
+  }
+  .button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+  }
+  .buttonModified {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+  
+  .body {
+    padding: 30px;
+    padding-top: 20px;
+  }
+  .h1 {
+    font-size: revert;
+    font-weight: 500;
+  }
+  
+  .img {
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  ::ng-deep {
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+      background-color: #37d111 !important;
+    }
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+      background-color: #d9d9d9 !important;
+    }
+    // .mat-select-arrow-wrapper{
+    //   margin-right: 30px !important;
+    // }
+  
+    mat-header-cell,
+    mat-cell {
+      justify-content: center;
+    }
+    .mat-slide-toggle {
+      margin-left: 10px;
+    }
+  }
+  .filter-input {
+    width: 98%;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .gray-text {
+    color: #b9b9b9;
+  }
+  
+  .boxNew {
+    display: flex;
+    padding-left: 30px;
+    gap:0px;
+    flex-direction: row;
+    width: 60%;
+  }
+  .boxNew> * {
+    flex: 1 1 160px;
+    
+  }
+  
+  
+  
+  
+  .table {
+    width: 100%;
+    margin-top: 25px;
+  }
+  .button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+  }
+  
+  .checkboxBorder{
+    border-style: solid ;
+    border-width: 2px;
+    border-color: gray;  
+    
+  }
+  
+  .body {
+    padding: 30px;
+    padding-top: 20px;
+  }
+  .h1 {
+    font-size: revert;
+    font-weight: 500;
+  }
+  
+  .img {
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  ::ng-deep {
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+      background-color: #37d111 !important;
+    }
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+      background-color: #d9d9d9 !important;
+    }
+    // .mat-select-arrow-wrapper{
+    //   margin-right: 30px !important;
+    // }
+  
+    mat-header-cell,
+    mat-cell {
+      justify-content: center;
+    }
+    .mat-slide-toggle {
+      margin-left: 10px;
+    }
+  }
+  .filter-input {
+    width: 98%;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .gray-text {
+    color: #b9b9b9;
+  }
+  
+  /* Add this CSS in your component's style file or your global styles */
+  
+  .mat-radio-button {
+  margin-right: 100px; /* Adjust the margin between radio buttons */
+  }
+  
+  /* Style the radio button label text */
+  .mat-radio-button-label {
+  font-size: 23px; /* Adjust the font size */
+  }
+  
+  /* Style the radio button when it is checked */
+  .mat-radio-checked .mat-radio-inner-circle {
+  background-color: #2196F3; /* Change the background color when checked */
+  border-color: #2196F3; /* Change the border color when checked */
+  }
+  
+  /* Style the radio button label text when it is checked */
+  .mat-radio-checked .mat-radio-label-content {
+  color: #2196F3; /* Change the text color when checked */
+  }
+  .exitbutton {
+  margin-left: 30px;
+  display: block;
+  width: 20%;
+  font-family: inherit;
+  background: linear-gradient(119.62deg,#000046,rgba(224, 35, 28, 0.725));
+  color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+  margin-top: $space * 2;
+  
+  &:hover,
+  &:focus {
+    background-color: #6a6a6a;
+  }
+  
+  }
+  .custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd; /* Border color */
+  }
+  
+  /* Style for the header row */
+  .header-row {
+  background-color: #f2f2f2; /* Header row background color */
+  }
+  
+  /* Style for the data rows */
+  .data-row {
+  border-bottom: 1px solid #ddd; /* Border between rows */
+  }
+  
+  /* Style for cells */
+  .mat-cell {
+  padding: 8px; /* Adjust cell padding */
+  }
+  
+  /* Optional: Style for sticky header */
+  .mat-header-cell.sticky {
+  background-color: #fff; /* Sticky header background color */
+  border-bottom: 1px solid #ddd; /* Border below sticky header */
+  }
+  .Custom_button {
+  margin-left: 10px;
+  display: block;
+  width: 15%;
+  font-family: inherit;
+  background: linear-gradient(119.62deg,#000046,rgba(28, 224, 204, 0.725));
+  color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+  margin-top: $space * 2;
+  
+  &:hover,
+  &:focus {
+    background-color: #6a6a6a;
+  }
+  }
+  .Custom_button::before {
+  content: "\002B"; /* Unicode for the plus symbol */
+  margin-left: 5px; /* Adjust the margin as needed */
+  }
+  
+  
+  .readonly-input {
+  pointer-events: none;
+  background-color: hsl(0, 19%, 93%);
+  color: #333; /* Adjust styles as needed */
+  }
+  .questions-container {
+    display:flex;
+    align-items:start;
+  }
+  
+  .questions-container input {
+    margin-right: 0px; /* Adjust the margin as needed */
+  }
+  
+  .file-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .file-input-button {
+    cursor: pointer;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin-left: 8px;
+  }
+  
+  .file-input-button input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }

@@ -1,0 +1,32 @@
+$space: 1rem;
+
+.table1 {
+  width: 95%;
+  border-collapse: collapse;
+  margin-left: 10px;
+ // margin-right: 10px;
+}
+
+.table1 th,
+.table1 td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table1 th {
+  background-color: #f2f2f2;
+}
+
+@media screen and (min-width: 770px) {
+    .form2 {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+     background-color: #fff;
+      margin: ($space * 2) ($space * 2) 0;
+      box-shadow: 0 0 $space rgba(0, 0, 0, 0.03),
+        0 $space ($space * 2) rgba(0, 0, 0, 0.05),
+        0 ($space * 2) ($space * 4) rgba(0, 0, 0, 0.05),
+        0 ($space * 4) ($space * 8) rgba(0, 0, 0, 0.05);
+    }
+  }

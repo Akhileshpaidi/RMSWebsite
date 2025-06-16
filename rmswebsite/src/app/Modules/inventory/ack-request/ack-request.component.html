@@ -1,0 +1,383 @@
+<div class="form">
+  <div class="body">
+      <div class="header col">
+        <div style="align-self: self-end">
+    <h1 class="title">Acknowledgement Requested</h1>
+    
+    <div class="wrapper">
+      <div class="boxNew ">
+      
+      <label>List of Documents Pending Acknowledgement For Reading</label>
+      
+         
+          <dx-drop-down-box style="width: 700px;"
+          [dropDownOptions]="{width: '1400px'}"
+          [(value)]="selectedValue"
+          [(opened)]="isGridBoxOpened"
+            valueExpr="addDoc_id"
+            [deferRendering]="false"
+            [displayExpr]="gridBox_displayExpr"
+            label="Select Document"
+           
+            labelMode="floating"
+              placeholder=""
+            [inputAttr]="{ 'aria-label': 'Owner' }"
+            [showClearButton]="false"
+            [dataSource]="gridDataSource"
+            (onValueChanged)="getUpdateFormData($event)"
+          >
+            <div *dxTemplate="let data of 'content'">
+              <dx-data-grid
+             
+                [dataSource]="gridDataSource"
+                [columns]="gridColumns"
+                [hoverStateEnabled]="true"
+                [(selectedRowKeys)]="selectedValue"
+            height="100%"
+            width="100%">
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-scrolling mode="virtual"></dxo-scrolling>
+            <dxo-header-filter [visible]="true" [allowSearch]="true">
+              <dxo-search [enabled]="true"></dxo-search>
+            </dxo-header-filter>
+            <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+            <dxo-pager
+            [visible]="true"
+            [allowedPageSizes]="[5, 10,20, 'all']"
+           
+            [showPageSizeSelector]="true"
+           
+            [showInfo]="true"
+            infoText="Page {0} of  {1} ({2} items)"
+            [showNavigationButtons]="true">
+          </dxo-pager>
+      
+          <dxo-group-panel [visible]="true"></dxo-group-panel>
+            <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+            <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+          </dx-data-grid>
+        </div>
+          </dx-drop-down-box>
+        
+      </div>
+        </div>
+        <mat-tab-group *ngIf="visibleStepper">
+          <mat-tab label="Document Viewer"> 
+           
+            <div class="row">
+              <div class="loading-overlay" *ngIf="isLoading">
+                <mat-spinner></mat-spinner>
+              </div>
+            <div class="pdf-viewer-container" [ngClass]="{'no-access': !canViewDocument}">
+              <ngx-doc-viewer 
+                *ngIf="canViewDocument" 
+                [url]="pdfSrc" 
+                viewer="url" 
+                 (loaded)="contentLoaded()"
+                (error)="handleError()">
+                <div>Loading...</div>
+              </ngx-doc-viewer>
+              <div class="transparent-overlay"></div>
+          
+                  <div class="overlay"></div>
+              <div *ngIf="!canViewDocument" class="no-access-message">
+                <p style="color: red; font-size: xx-large;">No access to view the document.</p>
+              </div>
+            </div>
+                        <div class="col-md-4">
+                  <br>
+                  <mat-form-field class="form-fields">
+                    <mat-label class="label"><strong>Document ID</strong></mat-label>
+                    <input matInput [value]="this.doc_id" readonly matTooltip="{{ UpdateForm.controls['documentID'].value }}">
+                  </mat-form-field>
+                  <br>
+                  <mat-accordion>
+                    <mat-expansion-panel >
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Nomenclature
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <form [formGroup]="UpdateForm">
+                        <mat-form-field class="form-fields">
+                          <mat-label class="label"><strong>Document Type</strong></mat-label>
+                          <input matInput formControlName="documenttype" readonly matTooltip="{{ UpdateForm.controls['documenttype'].value }}">
+                        </mat-form-field>
+                      
+                        <mat-form-field class="form-fields">
+                          <mat-label class="label"><strong>Document Category</strong></mat-label>
+                          <input matInput formControlName="docCategory" readonly matTooltip="{{ UpdateForm.controls['docCategory'].value }}">
+                        </mat-form-field>
+                      
+                        <mat-form-field class="form-fields">
+                          <mat-label class="label"><strong>Document SubCategory</strong></mat-label>
+                          <input matInput formControlName="docsubCat" readonly matTooltip="{{ UpdateForm.controls['docsubCat'].value }}">
+                        </mat-form-field>
+                      
+                        <mat-form-field class="form-fields">
+                          <mat-label class="label"><strong>Title</strong></mat-label>
+                          <input matInput formControlName="doctitle" readonly matTooltip="{{ UpdateForm.controls['doctitle'].value }}">
+                        </mat-form-field>
+                      
+                        <mat-form-field class="form-fields">
+                          <mat-label class="label"><strong>Sub Title</strong></mat-label>
+                          <input matInput formControlName="subtitle" readonly matTooltip="{{ UpdateForm.controls['subtitle'].value }}"> 
+                        </mat-form-field>
+                      
+                        <mat-form-field class="form-fields">
+                          <mat-label class="label"><strong>Objective</strong></mat-label>
+                          <input matInput formControlName="objective" readonly matTooltip="{{ UpdateForm.controls['objective'].value }}">
+                        </mat-form-field>
+                      </form>
+                      
+                    </mat-expansion-panel>
+
+
+                    <mat-expansion-panel (opened)="panelOpenState = true"
+                                         (closed)="panelOpenState = false">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Add Document Attributes
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <form [formGroup]="UpdateForm1" > 
+                        <mat-form-field class="form-fields">
+                          <mat-label class="label"><strong>Document Confidentiality</strong></mat-label>
+                           <input matInput formControlName="docConfidentiality" readonly matTooltip="{{ UpdateForm1.controls['docConfidentiality'].value }}">
+                        </mat-form-field>
+                      <mat-form-field class="form-fields">
+                        <mat-label class="label"><strong>Date of initial creation</strong></mat-label>
+                         <input matInput formControlName="initialCreationDate" readonly readonly matTooltip="{{ UpdateForm1.controls['initialCreationDate'].value }}">
+                      </mat-form-field>
+                      <mat-form-field class="form-fields">
+                        <mat-label class="label"><strong>Effective Date</strong></mat-label>
+                         <input matInput formControlName="effDate" readonly readonly matTooltip="{{ UpdateForm1.controls['effDate'].value }}">
+                      </mat-form-field>
+                      <mat-form-field class="form-fields">
+                        <mat-label class="label"><strong>Internal Version Number</strong></mat-label>
+                         <input matInput  formControlName="docIntVerNum" readonly matTooltip="{{ UpdateForm1.controls['docIntVerNum'].value }}">
+                      </mat-form-field>
+                      <mat-form-field class="form-fields">
+                        <mat-label class="label"><strong>Physical Vault Location</strong></mat-label>
+                         <input matInput  formControlName="docPhyValLoc" readonly matTooltip="{{ UpdateForm1.controls['docPhyValLoc'].value }}">
+                      </mat-form-field>
+                      <mat-form-field class="form-fields">
+                        <mat-label class="label"><strong>Internal Number</strong></mat-label>
+                         <input matInput  formControlName="docIntNum" readonly matTooltip="{{ UpdateForm1.controls['docIntNum'].value }}">
+                      </mat-form-field>
+                      <mat-form-field class="form-fields">
+                        <mat-label class="label"><strong>Process Owner/Department</strong></mat-label>
+                         <input matInput  formControlName="docProcOwner" readonly matTooltip="{{ UpdateForm1.controls['docProcOwner'].value }}">
+                      </mat-form-field>
+                      <mat-form-field  class="form-fields">
+                        <mat-label class="label"><strong>Approver</strong></mat-label>
+                         <input matInput    formControlName="docApprover" readonly matTooltip="{{ UpdateForm1.controls['docApprover'].value }}">
+                      </mat-form-field>
+                      <mat-form-field  class="form-fields">
+                        <mat-label class="label"> <strong>Date of Document Approval</strong></mat-label>
+                         <input matInput    formControlName="dateOfDocApprovel" readonly readonly matTooltip="{{ UpdateForm1.controls['dateOfDocApprovel'].value }}"> 
+                      </mat-form-field>
+                      <mat-form-field class="form-fields">
+                        <mat-label class="label"><strong>Publish Authority Type</strong></mat-label>
+                        <input matInput formControlName="pubAutType" readonly matTooltip="{{ UpdateForm1.controls['pubAutType'].value }}">
+                      </mat-form-field>
+                      
+                      <mat-form-field  class="form-fields">
+                        <mat-label class="label"><strong>Name of Authority</strong></mat-label>
+                        <input matInput formControlName="NameOfAuth" readonly matTooltip="{{ UpdateForm1.controls['NameOfAuth'].value }}">   
+                      </mat-form-field>
+                      <mat-form-field class="form-fields">
+                        <mat-label class="label"><strong>Document Classification</strong></mat-label>
+                        <input matInput formControlName="NatureOfDoc" readonly matTooltip="{{ UpdateForm1.controls['NatureOfDoc'].value }}"> 
+                      </mat-form-field>
+                      <mat-form-field class="form-fields">
+                        <mat-label class="label"><strong>Keywords/tags</strong></mat-label>
+                        <input matInput formControlName="Keywords" readonly matTooltip="{{ UpdateForm1.controls['Keywords'].value }}"> 
+                      </mat-form-field>
+                      </form>
+                    </mat-expansion-panel>
+  
+                    <mat-expansion-panel >
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Add-ON's
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                     <form [formGroup]="UpdateForm2" > 
+                   <mat-form-field class="form-fields">
+                  <mat-label class="label"><strong> Document review frequency period</strong></mat-label>
+                 <input matInput formControlName="freq_period"  readonly matTooltip="{{ UpdateForm2.controls['freq_period'].value }}">
+                </mat-form-field>
+                 <mat-form-field class="form-fields">
+                 <mat-label class="label"><strong>Start Date for next Review </strong></mat-label>
+               <input matInput formControlName="review_start_Date"   readonly matTooltip="{{ UpdateForm2.controls['review_start_Date'].value }}">
+               </mat-form-field>
+               <mat-form-field class="form-fields">
+               <mat-label class="label"><strong>Published By </strong></mat-label>
+                <input matInput formControlName="firstname"  readonly matTooltip="{{ UpdateForm2.controls['firstname'].value }}">
+                </mat-form-field>
+              <mat-form-field class="form-fields">
+             <mat-label class="label"><strong>Published Date </strong></mat-label>
+           <input matInput formControlName="CREATED_DATE"  readonly matTooltip="{{ UpdateForm2.controls['CREATED_DATE'].value }}">
+             </mat-form-field>
+            <mat-form-field class="form-fields">
+           <mat-label class="label"><strong>Indicative reading time period</strong></mat-label>
+           <input matInput formControlName="indicativereadingtime" readonly matTooltip="{{ UpdateForm2.controls['indicativereadingtime'].value }}">
+           </mat-form-field> 
+           <mat-form-field class="form-fields">
+          <mat-label class="label"><strong>Link document Name</strong></mat-label>
+          <input matInput formControlName="document_name" readonly matTooltip="{{ UpdateForm2.controls['document_name'].value }}"> 
+          </mat-form-field> 
+           </form>
+         </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Published Upload Change
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div *ngFor="let form of UpdateForm9; let i = index">
+                  <form [formGroup]="form">
+                    <mat-form-field class="form-fields">
+                      <mat-label class="label"><strong>Upload No</strong></mat-label>
+                      <input matInput  class="textsize" formControlName="VersionChange" readonly [matTooltip]="form.controls['VersionChange'].value">
+                    </mat-form-field>
+                    <mat-form-field class="form-fields">
+                      <mat-label class="label"><strong>Date</strong></mat-label>
+                      <input matInput class="textsize" formControlName="Version_DATE" readonly [matTooltip]="form.controls['Version_DATE'].value">
+                    </mat-form-field>
+                  </form>
+                </div>
+              </mat-expansion-panel>
+                  <br>
+                  <mat-expansion-panel >
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Main Published Document
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                      <mat-list-item *ngFor="let file of publishedFiles" [class.selected-file]="file.document_Name === selectedFileName">
+                        <div class="file-info">
+                          <!-- File Name Selection -->
+                          <span (click)="onFileSelected(file)">
+                            {{ file.document_Name }}
+                          </span>
+                          
+                        <!-- Download Button -->
+                        <button mat-icon-button class="download-button" *ngIf="canDownloadMainDoc" (click)="download(file, $event)">
+                          <mat-icon>download</mat-icon>
+                        </button>
+                        </div>
+                      </mat-list-item>
+                    </mat-nav-list>
+                  </mat-expansion-panel>
+                  <br>
+                  <mat-expansion-panel >
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Supported File(s)
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list>
+                      <!-- <mat-list-item *ngFor="let file of supportedFiles"
+                      [class.selected-file]="file.document_Name === selectedFileName"
+                       (click)="onFileSelected(file)">
+                        {{ file.document_Name }}
+                      </mat-list-item> -->
+                      <mat-list-item *ngFor="let file of supportedFiles" [class.selected-file]="file.document_Name === selectedFileName">
+                        <div class="file-info">
+                          <!-- File Name Selection -->
+                          <span (click)="onFileSelected(file)">
+                            {{ file.document_Name }}
+                          </span>
+                          
+                        <!-- Download Button -->
+                        <button mat-icon-button class="download-button"   *ngIf="file.canDownload"    (click)="download(file, $event)"> 
+                          <mat-icon>download</mat-icon>
+                        </button>
+                        </div>
+                      </mat-list-item>
+                    </mat-nav-list>
+                  </mat-expansion-panel>
+                  <br>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Linked Document(s)
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    
+                    <mat-nav-list>
+                      <mat-list-item *ngFor="let file of LinkedFiles" [class.selected-file]="file.documentName === selectedFileName">
+                        <div class="file-info">
+                          <!-- Document Name Selection -->
+                          <span (click)="onLinkedFileSelected(file)">
+                            {{ file.documentName }}
+                          </span>
+                        </div>
+                      </mat-list-item>
+                    </mat-nav-list>
+                  </mat-expansion-panel>
+                  <br>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Document Permission(s)
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <form [formGroup]="PermissionForm">
+                        <mat-form-field class="form-fields">
+                          <mat-label class="label"><strong>Start Date</strong></mat-label>
+                          <input matInput formControlName="DateStart" readonly matTooltip="{{ PermissionForm.controls['DateStart'].value }}">
+                        </mat-form-field>
+                        <mat-form-field class="form-fields">
+                          <mat-label class="label"><strong>End Date</strong></mat-label>
+                          <input matInput formControlName="DateEnd" readonly matTooltip="{{ PermissionForm.controls['DateEnd'].value }}">
+                        </mat-form-field>
+                        <div>
+                          <mat-label class="label"><strong><u> User Permissions</u></strong></mat-label>
+                          <ng-container *ngFor="let permission of permissionsArray; let i = index" matTooltip="{{ permissionsArray }}">
+                            <div>{{i + 1}}. {{permission}}</div>
+                            <input matInput visible="true" readonly  matTooltip="{{ permission }}">
+                          </ng-container>
+                        </div>
+                      </form>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </div>
+              </div>
+    
+            
+            
+             <br>
+             <br>
+             <br>
+             <br>
+             <mat-checkbox *ngIf="fileselection" [(ngModel)]="isFavorite" (change)="onCheckboxChange()">Mark as Favorite</mat-checkbox>
+             <br>
+             <br>
+             <br>
+             <br>
+            <div class="button">  
+             <!-- <button class="grey-button" >Back</button> -->
+             <!-- <button class="Custombutton" >Reading Complete</button> -->
+         <button class="grey-button" (click)="onReadLater()" *ngIf="fileselection" >Read Later</button>
+         <button class="Custombutton" (click)="onReadCompleted()" *ngIf="fileselection" >Read Completed</button>
+             <!-- <button class="Custombutton" >Next</button> -->
+            
+            </div>
+           
+          </mat-tab>
+         
+        </mat-tab-group>
+        
+    
+      </div>
+    </div>
+    </div>
+    </div>
+
+    
+

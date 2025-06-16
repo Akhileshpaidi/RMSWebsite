@@ -1,0 +1,315 @@
+.main {
+    height: 76vh;
+  }
+  // column
+  .col {
+    display: flex;
+    gap: 20px;
+    margin-bottom: -20px;
+  }
+  .col > * {
+    flex: 1 1 160px;
+  }
+  mat-card-header {
+    font-size: 50px;
+    font-family: auto;
+    font-weight: 500;
+    margin-right: 10px;
+  }
+  mat-card {
+    // margin-top: 40px;
+    margin-top: 10px;
+    height: 300px;
+    border-radius: 10px;
+    background: whitesmoke;
+    color: rgb(22, 3, 3);
+  }
+  mat-card-title{
+    margin-top: 0px;
+      // margin-top: 25px !important;
+    }
+  mat-card-subtitle {
+  margin-top: 0px;
+    // margin-top: 25px !important;
+  }
+  
+  .activity-table {
+    margin-top: 50px;
+  }
+  
+  .mat-column-activity {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 28% !important;
+    width: 28% !important;
+  }
+  
+  .body {
+    padding: 30px;
+    padding-top: 20px;
+  }
+  .dashboard {
+    display: flex;
+    // justify-content: space-around; // Adjust as needed
+    align-items: center;
+     gap: 30px; // Space between the cards
+    // flex-wrap: wrap; // Ensure the cards wrap on smaller screens
+    // margin: 20px; // Adjust as needed
+  }
+  .circle-card-label {
+    margin-top: 10px; // Space between the circle and the label
+    font-size: 20px; // Increased label size
+    color: black; // Adjust the color as needed
+  }
+  .cards {
+    display: flex;
+    width: 100%;
+  }
+  .box-container {
+    display: flex;
+    flex-direction: column; /* Stacks the label and square box vertically */
+    align-items: center; /* Centers the label and square box */
+    text-align: center;
+  }
+  
+  .label {
+    font-size: 14px; /* Smaller text for the label */
+    color: #555; /* Slightly muted color for better readability */
+    margin-bottom: 5px; /* Space between label and square box */
+  }
+  
+  .square-box {
+    width: 150px; /* Width of the square box */
+    height: 50px; /* Height of the square box */
+    border-radius: 10px; /* Rounded corners */
+    display: flex;
+    justify-content: center; /* Center the count horizontally */
+    align-items: center; /* Center the count vertically */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adds a shadow for a 3D effect */
+    color: #fff; /* White text color */
+    font-weight: bold;
+    font-size: 24px; /* Larger font size for the count */
+  }
+  
+  .first-card {
+    flex: 65; /* 65% of the width */
+    margin-right: 8px; /* Optional: Adds space between the two cards */
+  }
+  
+  .second-card {
+    flex: 35; /* 35% of the width */
+  }
+  
+  .pie-chart-container {
+    width: 350px;  /* Adjust the width as needed */
+    height: 350px; /* Adjust the height as needed */
+  }
+  
+  .three-card-row {
+    display: flex;
+    justify-content: space-between; /* Distributes space between cards */
+    margin-top: 20px; /* Space between the first row and the new row */
+  }
+  
+  .three-card-row mat-card {
+    flex: 1;
+    margin: 0 10px; /* Adds some space between the cards */
+    height: 400px; /* Set the height for the cards */
+    width: 400px;
+  }
+  
+  .fifth-card {
+    padding: 16px;
+    //height: 400px; /* Adjust as necessary */
+  }
+  .forth-card-row {
+    display: flex;
+    justify-content: space-between; /* Distributes space between cards */
+    margin-top: 20px; /* Space between the first row and the new row */
+  }
+  
+  .forth-card-row mat-card {
+    flex: 1;
+    margin: 0 10px; /* Adds some space between the cards */
+    height: 400px; /* Set the height for the cards */
+    width: 400px;
+  }
+  .sixth-card {
+    padding: 16px;
+    //height: 400px; /* Adjust as necessary */
+  }
+  .seventh-card {
+    padding: 16px;
+    //height: 400px; /* Adjust as necessary */
+  }
+  
+  .fifth-card-row {
+    display: flex;
+    justify-content: space-between; /* Distributes space between cards */
+    margin-top: 20px; /* Space between the first row and the new row */
+  }
+  
+  .fifth-card-row mat-card {
+    flex: 1;
+    margin: 0 10px; /* Adds some space between the cards */
+    height: 400px; /* Set the height for the cards */
+    width: 400px;
+  }
+  eighth-card{
+    padding: 16px;
+    width:400px;
+    //height: 400px; /* Adjust as necessary */
+  }
+  .sixth-card-row {
+    display: flex;
+    justify-content: space-between; /* Distributes space between cards */
+    margin-top: 20px; /* Space between the first row and the new row */
+  }
+  .sixth-card-row mat-card {
+    flex: 1;
+    margin: 0 10px; /* Adds some space between the cards */
+    height: 400px; /* Set the height for the cards */
+    width: 400px;
+  }
+  tenth-card{
+    padding: 16px;
+    width:400px;
+    //height: 400px; /* Adjust as necessary */
+  }
+  // .dx-chart {
+  //   width: 100%; /* Ensure the chart fits the card */
+  //   height: 100%; /* Adjust height based on your requirements */
+  // }
+  .barchart-container {
+    height: 100px; /* Adjust this height as needed */
+    width: 100%; /* Ensure the chart takes the full width of the card */
+  }
+  
+  .header-container {
+    display: flex;
+    align-items: center;
+    gap: 100px; /* Adjust as needed */
+    height: 50px;
+  }
+  .disabled-header-container{
+    display: flex;
+    align-items: center;
+    gap: 400px; /* Adjust as needed */
+    height: 40px;
+  }
+  
+  mat-form-field {
+    margin: 0;
+  }
+  
+  .doc-card {
+    margin-bottom: 10px;
+  }
+  .header-container-new {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Adjust as needed */
+    height: 50px;
+  }
+  .header-container-Ack {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Adjust as needed */
+    height: 50px;
+  }
+  .eleventh-card {
+    //flex: 50;
+    padding: 16px;
+    visibility: hidden;
+  }
+  
+  .document-card {
+    // margin-bottom: 1rem;
+    margin-bottom: 0;
+  }
+  
+  .document-card-container {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    height: auto;
+  }
+  
+  .document-card-container.highlighted {
+    background-color: #add8e6; /* Blue background for selected card */
+  }
+  
+  .document-card-extended {
+    background-color: #e3f2fd; /* Lighter blue for the extended card */
+    margin-top: -0.5rem;
+    border-radius: 8px;
+    padding: 1rem;
+    height: auto;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  
+  .column {
+    flex: 1;
+    padding: 0 0.5rem;
+    font-size: smaller;
+    color: #00000095;
+  }
+  .column-title {
+    flex: 1;
+    padding: 0 0.5rem;
+    font-size:medium;
+  }
+  .column-expand{
+    flex: 1;
+    padding: 0 0.5rem;
+    font-size: smaller;
+    color: #00000066;
+  }
+  
+  .center {
+    flex: 2;
+    text-align: center;
+  }
+  .vertical-scroll-container {
+    max-height: 400px; /* Set the height limit for the container */
+    overflow-y: auto; /* Enables vertical scrolling */
+    padding: 10px; /* Optional padding around the cards */
+    background-color: #f9f9f9; /* Optional background color */
+    scrollbar-width: thin; /* Makes the scrollbar thin for modern browsers */
+  }
+  
+  .vertical-scroll-container::-webkit-scrollbar {
+    width: 8px; /* Vertical scrollbar width */
+  }
+  
+  .vertical-scroll-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* Scrollbar color */
+    border-radius: 4px;
+  }
+  
+  .vertical-scroll-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker color on hover */
+  }
+  .mat-select-trigger {
+    font-size: 12px !important; /* Adjust font size */
+  }
+  ::ng-deep mat-select {
+    font-size: 11px !important;
+  }
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+  }
+  #export-content {
+    width: 100%; /* Ensures full width */
+    height: auto; /* Ensures proportional height */
+    page-break-inside: avoid; /* Prevents splitting */
+  }

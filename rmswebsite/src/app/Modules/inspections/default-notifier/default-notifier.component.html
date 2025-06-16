@@ -1,0 +1,273 @@
+<div class="form">
+    <!-- <form  [formGroup]="Notifier">
+        <div class="body">
+            <div class="header col">
+                <div style="align-self: self-end">
+                  <h1 class=" title">Add Default Notifiers</h1>
+                </div>
+            </div>
+                <br>
+                <div class="box" >
+                    <div>
+                      <dx-select-box 
+                      formControlName="DocumentType"
+                      label="Select Document Type"
+                      labelMode="floating"
+                      valueExpr="docTypeID"
+                      displayExpr="docTypeName"
+                      [dataSource]="DocumentTypeData"
+                      selectionMode="single" 
+                      [searchEnabled]="true"
+                     placeholder=""
+                      (onValueChanged)="getDocCategory($event)" >
+                   
+                </dx-select-box>
+                </div>
+               
+                <div>
+        
+                  <dx-select-box 
+                   formControlName="DocumentCategory"   
+                  label="Select Document Category"
+                  labelMode="floating"
+                  valueExpr="doc_CategoryID"
+                  displayExpr="doc_CategoryName"
+                  [dataSource]="DocumentCategoryData"
+                  selectionMode="single" 
+                 placeholder=""
+                 (onValueChanged)="getsubCategory($event)"
+                 [(value)]="SelectedDocType"
+                 [searchEnabled]="true"
+                  >
+               
+            </dx-select-box>
+        
+                
+              
+                </div>
+            </div>
+            <br>
+            <div class="box">
+                <div>
+                 <dx-select-box 
+                  formControlName="DocumentSubCategory"
+                  label="Select Document Sub Category"
+                  labelMode="floating"
+                  valueExpr="doc_SubCategoryID"
+                  displayExpr="doc_SubCategoryName"
+                  [dataSource]="DocumentSubCategoryData"
+                  selectionMode="single" 
+                 placeholder=""
+                 [(value)]="SelectedDocCategory"
+                 [searchEnabled]="true">
+                   </dx-select-box>
+                </div>
+                   <div >
+                    <mat-form-field appearance="fill" class="form-field">
+                        <mat-label>Add User Email ID's</mat-label>
+                        <textarea  matInput #Obj_Doc minlength="" maxlength=""  
+                        formControlName="UserEmailIDs"  style="min-height: 50px;overflow: auto;"
+                        (input)="onInput()" ></textarea>
+                       
+                      </mat-form-field>
+                   </div>
+         </div>
+         <div class="button">
+            <button class="grey-button"  (click)="Cancel()" >cancel</button>
+             <button class="Custombutton"  (click)="Save()">Save</button>
+              
+          </div>
+        
+        </div>
+    </form> -->
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+        <div class=" card">
+          <div class=" card-header">
+            <h1 class=" title">Default Notifiers</h1>
+          </div>
+          <div class="card-body">
+  
+  <div id="app-container">
+    <dx-data-grid id="dataGrid"
+      [dataSource]="dataSource"
+      [showBorders]="true"
+     
+      [allowColumnResizing]="true"
+      [columnAutoWidth]="true"
+      [allowColumnReordering]="true"
+      (onEditorPreparing)="onEditorPreparing($event)"
+
+      (onExporting)="exportGrid($event)">
+      <dxi-column dataField="defaultNotifiersID" caption="Default Notifiers ID" >
+        <dxo-form-item [visible]="false">
+      </dxo-form-item></dxi-column>
+      <dxi-column dataField="docTypeID"  caption="Document Type" [setCellValue]="setDocumentTypeValue">
+        <dxi-validation-rule type="required"></dxi-validation-rule> 
+        <dxo-lookup [dataSource]="DocumentType"   valueExpr="docTypeID" displayExpr="docTypeName" ></dxo-lookup>  
+        </dxi-column>
+
+        <dxi-column dataField="doc_CategoryID"  caption="Document Category" [setCellValue]="setSubDocValue">
+          <dxi-validation-rule type="required"></dxi-validation-rule> 
+          <dxo-lookup [dataSource]="getDocumentCategory"   valueExpr="doc_CategoryID" displayExpr="doc_CategoryName" ></dxo-lookup>  
+          </dxi-column>
+
+  <dxi-column dataField="doc_SubCategoryID"  caption="Document Sub_Category">
+    <dxi-validation-rule type="required"></dxi-validation-rule> 
+    <dxo-lookup [dataSource]="GetDocSubCategory"   valueExpr="doc_SubCategoryID" displayExpr="doc_SubCategoryName" ></dxo-lookup>  
+    </dxi-column>
+    <!-- <dxi-column dataField="UserEmailIDs"  caption="TblUsers" >
+      <dxi-validation-rule type="required"></dxi-validation-rule> 
+      <dxo-lookup [dataSource]="tblUsers"   valueExpr="usR_ID" displayExpr="docTypeName" ></dxo-lookup>  
+      </dxi-column> -->
+  <dxi-column
+    dataField="emailid"
+    [width]="300"
+    caption="Add User EmailID's By UserName"
+    editCellTemplate="emailCellTemplate"
+    
+    >
+    
+    <dxi-validation-rule type="required"></dxi-validation-rule> 
+
+    <!-- <dxo-lookup [dataSource]="userdatalist" valueExpr="emailid" displayExpr="firstname" ></dxo-lookup> -->
+    <!-- <dxo-editing mode="popup" [allowUpdating]="true" ></dxo-editing> -->
+  
+  </dxi-column>
+  <dxi-column
+    dataField="additional_emailid_notifiers"
+    [width]="300"
+    caption="Add Other Notifiers EmailID's "
+    editCellTemplate="additionalemailCellTemplate"
+    
+    >
+   </dxi-column>
+<!-- 
+  <div *dxTemplate="let data of 'emailCellTemplate'">  
+  <dx-tag-box
+  [(value)]="data.data.userEmailIDs"
+    [items]="simpleProducts"
+    [searchEnabled]="true"
+    [acceptCustomValue]="true"
+    (onCustomItemCreating)="onCustomItemCreating($event)"
+    [inputAttr]="{ 'aria-label': 'User Email IDs' }">
+   
+  </dx-tag-box>
+ [datasource]="simpleProducts"
+</div> -->
+<div *dxTemplate="let data of 'emailCellTemplate'">
+  <dx-tag-box
+  [value]="data.value" 
+      [searchEnabled]="true"
+      valueExpr="emailid" 
+      displayExpr="firstname"
+       [dataSource]="userdatalist"
+      [acceptCustomValue]="false"
+     
+      [inputAttr]="{ 'aria-label': 'User Email IDs' }"
+      (onValueChanged)="data.setValue($event.value)"
+      >
+      
+  </dx-tag-box>
+</div>
+<div *dxTemplate="let data1 of 'additionalemailCellTemplate'">
+  <dx-tag-box
+  [value]="data1.value"
+
+  placeholder="Enter Other Notifiers Email Id's"
+      [acceptCustomValue]="true"
+      (onCustomItemCreating)="onCustomItemCreating1($event, data1)"
+      [inputAttr]="{ 'aria-label': 'User Email IDs' }"
+      (onValueChanged)="data1.setValue($event.value)"
+      
+      >
+  </dx-tag-box>
+</div>
+
+<!-- [value]="data.value.split(',')" -->
+<!-- <div class="dx-field">
+  <div class="dx-field-label">Add User EmailID's</div>
+  <div class="dx-field-value">
+    <dx-tag-box
+      [items]="editableProducts"
+      [acceptCustomValue]="true"
+      (onCustomItemCreating)="onCustomItemCreating($event)"
+      [inputAttr]="{ 'aria-label': 'Product' }"
+    >
+    </dx-tag-box>
+  </div>
+</div> -->
+      <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+      <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-search-panel [visible]="true"></dxo-search-panel>
+      <dxo-group-panel [visible]="true"></dxo-group-panel>
+      <dxo-selection mode="single"></dxo-selection>
+      <dxo-summary>
+        <dxi-total-item
+            column="defaultNotifiersID"
+            summaryType="count">
+        </dxi-total-item>
+        
+    </dxo-summary>
+    <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+    <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+    <dxo-pager
+    [visible]="true"
+    [allowedPageSizes]="[5, 10,20, 'all']"
+   
+    [showPageSizeSelector]="true"
+   
+    [showInfo]="true"
+    infoText="Page {0} of  {1} ({2} items)"
+    [showNavigationButtons]="true"
+  >
+  </dxo-pager>
+      <dxo-editing
+        mode="popup"
+        [allowUpdating]="true"
+        [allowDeleting]="true"
+        [allowAdding]="true">
+        <dxo-popup
+          title="Add Default Notifiers"
+          [showTitle]="true"
+          [width]="900"
+          [height]="500"
+        >
+        </dxo-popup>
+      </dxo-editing>
+      <div class="dx-textarea" *dxTemplate="let data of 'dataCellTemplate'">  
+        <dx-text-area  
+          class="dx-texteditor-input"
+          style="resize: vertical;"
+          [inputAttr]="{ 'aria-label': 'Notes' }"
+          [autoResizeEnabled]="true"  
+          [value]="data.value"  
+          (onValueChanged)="onValueChanged($event, data)"
+        ></dx-text-area>  
+      </div> 
+  
+      <dxo-toolbar>
+        <dxi-item name="groupPanel"></dxi-item>
+       
+        <dxi-item name="addRowButton" showText="always"></dxi-item>
+        <dxi-item name="exportButton"></dxi-item>
+        <dxi-item name="columnChooserButton"></dxi-item>
+        <dxi-item name="searchPanel"></dxi-item>
+    </dxo-toolbar>
+  
+  
+      <dxo-export 
+        [enabled]="true"
+        [formats]="['xlsx', 'pdf']"
+      >
+      </dxo-export>
+    </dx-data-grid>
+    
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+</div>

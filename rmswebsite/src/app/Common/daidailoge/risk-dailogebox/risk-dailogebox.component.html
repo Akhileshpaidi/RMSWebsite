@@ -1,0 +1,25 @@
+<div class="center" mat-dialog-content>
+     {{ data.message }}
+</div>
+<div class="center" mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true">Ok</button>
+</div>
+<br>
+<!-- <div class="center" *ngIf="data.success" mat-dialog-content>
+        <div class="globalID"><span style="font-weight: bold;">Risk Document ID :</span> {{ data.id.RiskDocumentID }}</div>
+    <div class="globalID"><span style="font-weight: bold;">Risk Statement ID :</span> {{ data.id.RiskStatementID }}</div>
+    <div class="globalID"><span style="font-weight: bold;">Risk Library Seq# :</span> {{ data.id.RiskLibrarySeq }}</div>
+    </div> -->
+    <div class="center" *ngIf="data.success" mat-dialog-content>
+        <div *ngIf="data.id?.RiskDocumentID" class="globalID">
+            <span style="font-weight: bold;">Risk Document ID:</span> {{ data.id.RiskDocumentID }}
+        </div>
+        <div *ngIf="data.id?.RiskStatementID" class="globalID">
+            <span style="font-weight: bold;">Risk Statement ID:</span> {{ data.id.RiskStatementID }}
+        </div>
+        <div *ngIf="data.id?.RiskLibrarySeq" class="globalID">
+            <span style="font-weight: bold;">Risk Library Seq#:</span> {{ data.id.RiskLibrarySeq }}
+        </div>
+        
+    </div>
+    

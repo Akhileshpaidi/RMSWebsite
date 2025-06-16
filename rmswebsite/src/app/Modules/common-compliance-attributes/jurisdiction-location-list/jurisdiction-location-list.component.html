@@ -1,0 +1,117 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="title">Jurisdiction Location</h1>
+                </div>
+                <div class="card-body">
+                    <div id="app-container">
+                        <dx-data-grid id="dataGrid"
+                        [dataSource]="dataSource"
+                        [showBorders]="true"
+                        [allowColumnResizing]="true"
+                        [columnAutoWidth]="true"
+                        [allowColumnReordering]="true"
+                        (onExporting)="exportGrid($event)"
+                        (onEditorPreparing)="onEditorPreparing($event)">
+            <!-- <dxi-column dataField="jurisdiction_country_id" caption="Country Name">
+              <dxo-form-item [visible]="true">
+                <dxo-editorOptions [dataSource]="CountryMaster" displayExpr="name" valueExpr="id" (onValueChanged)="onCountryValueChanged($event)">
+                </dxo-editorOptions>
+              </dxo-form-item>
+            </dxi-column>
+            <dxi-column dataField="jurisdiction_state_id" caption="State Name">
+              <dxi-validation-rule type="required"></dxi-validation-rule>
+              <dxo-form-item [visible]="true">
+                <dxo-editorOptions [dataSource]="StateMaster" displayExpr="name" valueExpr="id">
+                </dxo-editorOptions>
+              </dxo-form-item>
+            </dxi-column>
+            <dxi-column dataField="jurisdiction_district" [width]="500" caption="Add District / Locality Name">
+              <dxo-form-item editorType="dxTextArea">
+              </dxo-form-item>
+            </dxi-column> -->
+    <dxi-column dataField="jurisdiction_location_id" caption="jurisdiction_location_id" [visible]="false">
+      <dxo-form-item [visible]="false">
+      </dxo-form-item>
+    </dxi-column>
+            <dxi-column dataField="jurisdiction_country_id" caption="Country" [setCellValue]="setDocumentTypeValue">
+              <dxi-validation-rule type="required"></dxi-validation-rule> 
+                  <dxo-lookup [dataSource]="CountryMaster" displayExpr="name" valueExpr="jurisdiction_country_id">
+                  </dxo-lookup>
+              </dxi-column>
+              <dxi-column dataField="jurisdiction_state_id" caption=" State/ Region Name">
+                <dxi-validation-rule type="required"></dxi-validation-rule> 
+                    <dxo-lookup [dataSource]="getFilteredStates" displayExpr="name" valueExpr="jurisdiction_state_id">
+                    </dxo-lookup>
+                </dxi-column>
+                <dxi-column dataField="jurisdiction_district" [width]="500" caption=" District / Locality Name">
+                  <!-- <dxi-validation-rule type="required"></dxi-validation-rule> -->
+                  <dxo-form-item editorType="dxTextArea">
+                  </dxo-form-item>
+        <dxi-validation-rule type="stringLength" [max]="100" message="max 100 Characters allowed"></dxi-validation-rule>
+
+                </dxi-column>
+                        <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+                        <dxo-search-panel [visible]="true"></dxo-search-panel>
+                        <dxo-group-panel [visible]="true"></dxo-group-panel>
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-summary>
+                            <dxi-total-item
+                                column="jurisdiction_country_id"
+                                summaryType="count">
+                            </dxi-total-item>
+                            
+                        </dxo-summary>
+
+                        <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                        <dxo-pager
+                        [visible]="true"
+                        [allowedPageSizes]="[5, 10,20, 'all']"
+                       
+                        [showPageSizeSelector]="true"
+                       
+                        [showInfo]="true"
+                        infoText="Page {0} of  {1} ({2} items)"
+                        [showNavigationButtons]="true"
+                      >
+                      </dxo-pager>
+
+                        <dxo-editing
+                        mode="popup"
+                        [allowUpdating]="isUpdateIconVisible"
+                        [allowDeleting]="isUpdateIconVisible"
+                        [allowAdding]="true">
+                        <dxo-popup
+                        title="Add Jurisdiction Location"
+                        [showTitle]="true"
+                        [width]="700"
+                        [height]="525"
+                       
+                      ></dxo-popup>
+                      </dxo-editing>
+                      <dxo-toolbar>
+                      <dxi-item name="groupPanel"></dxi-item>
+       
+        <dxi-item name="addRowButton" showText="always"></dxi-item>
+        <dxi-item name="exportButton"></dxi-item>
+        <dxi-item name="columnChooserButton"></dxi-item>
+        <dxi-item name="searchPanel"></dxi-item>
+                      </dxo-toolbar>
+                      <dxo-export 
+                      [enabled]="true"
+                      [formats]="['xlsx', 'pdf']"
+                    >
+                    </dxo-export>
+                  </dx-data-grid>                                  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

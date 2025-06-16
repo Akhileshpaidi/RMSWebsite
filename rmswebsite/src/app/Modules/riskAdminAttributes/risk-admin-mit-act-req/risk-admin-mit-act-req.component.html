@@ -1,0 +1,117 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="title">Mitigation Action Required</h1>
+                </div>
+                <div class="card-body">
+                    <div id="app-container">
+                        <dx-data-grid id="dataGrid"
+                        [dataSource]="dataSource"
+                        [showBorders]="true"
+                       
+                        [allowColumnResizing]="true"
+                        [columnAutoWidth]="true"
+                        [allowColumnReordering]="true"
+                        (onExporting)="exportGrid($event)">
+                        <dxi-column dataField="risk_admin_MitActiReqid" caption="Mitigation Action ID">
+                          <dxo-form-item [visible]="false">
+                          </dxo-form-item> 
+                      </dxi-column>
+                       
+                       
+  
+                       
+                        <dxi-column dataField="risk_admin_MitActiReqname" caption="Mitigation Action Name">
+                            <dxi-validation-rule type="required"></dxi-validation-rule>   
+                            <dxi-validation-rule type="stringLength" [max]="50" message="max 50 Characters allowed"></dxi-validation-rule>  
+                        </dxi-column>
+                        <dxi-column dataField="risk_admin_MitActiReqdesc"  [width]="500" editCellTemplate = "dataCellTemplate" caption="Mitigation Action Description">
+                            <dxo-form-item   editorType="dxTextArea"
+                            [colSpan]="2"
+                            [editorOptions]="{ height: 80 }">
+                            </dxo-form-item>
+                            <dxi-validation-rule type="stringLength" [max]="150" message="max 150 Characters allowed"></dxi-validation-rule>
+
+                        </dxi-column>
+                        
+                        
+                        <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+                        <dxo-search-panel [visible]="true"></dxo-search-panel>
+                        <dxo-group-panel [visible]="true"></dxo-group-panel>
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-summary>
+                            <dxi-total-item
+                                column="risk_admin_MitActiReqid"
+                                summaryType="count">
+                            </dxi-total-item>
+                            
+                        </dxo-summary>
+                        
+
+                        
+                        <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                        <dxo-pager
+                        [visible]="true"
+                        [allowedPageSizes]="[5, 10,20, 'all']"
+                       
+                        [showPageSizeSelector]="true"
+                       
+                        [showInfo]="true"
+                        infoText="Page {0} of  {1} ({2} items)"
+                        [showNavigationButtons]="true"
+                      >
+                      </dxo-pager>
+
+                        <dxo-editing
+                        mode="popup"
+                        [allowUpdating]="isUpdateIconVisible"
+                        [allowDeleting]="isUpdateIconVisible"
+                        [allowAdding]="true">
+                        <dxo-popup
+                        title="Add Mitigation Action"
+                        [showTitle]="true"
+                        [width]="700"
+                        [height]="525"
+                       
+                      ></dxo-popup>
+                      </dxo-editing>
+                      <div class="dx-textarea" *dxTemplate="let data of 'dataCellTemplate'">  
+                        <dx-text-area  
+                          class="dx-texteditor-input"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           b
+                          style="resize: vertical;"
+                          [inputAttr]="{ 'aria-label': 'Notes' }"
+                          [autoResizeEnabled]="true"  
+                          [value]="data.value"  
+                          (onValueChanged)="onValueChanged($event, data)"
+                        ></dx-text-area>  
+                      </div>
+                      <dxo-toolbar>
+                      <dxi-item name="groupPanel"></dxi-item>
+       
+        <dxi-item name="addRowButton" showText="always"></dxi-item>
+        <dxi-item name="exportButton"></dxi-item>
+        <dxi-item name="columnChooserButton"></dxi-item>
+        <dxi-item name="searchPanel"></dxi-item>
+                      </dxo-toolbar>
+                     
+                      
+                      <dxo-export 
+                      [enabled]="true"
+                      [formats]="['xlsx', 'pdf']"
+                    >
+                    </dxo-export>  
+                                     
+                  </dx-data-grid>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

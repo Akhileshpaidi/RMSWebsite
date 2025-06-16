@@ -1,0 +1,22 @@
+.center-actions {
+  display: flex;
+  justify-content: center; /* Centers the button horizontally */
+  align-items: center;     /* Centers the button vertically (optional) */
+  margin-top: 20px;        /* Adds space between the content and the button */
+}
+
+.close-btn {
+  background-color: #1976d2;
+  color: white;
+  padding: 0px 0px;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 35px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #1565c0;
+  }
+}

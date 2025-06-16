@@ -1,0 +1,400 @@
+<div class="body">
+  <div class="row">
+    <img
+      style="height: 30px"
+      src="../../../../assets//images/Inspection/file-plus.svg"
+    />
+    <h2 class="header">Create Document Type</h2>
+  </div>
+  <hr />
+  <div class="error" *ngIf="this.erroMessage?.length > 0">
+    {{ this.erroMessage }}
+  </div>
+  <form
+    [formGroup]="createInspectionForm"
+    (ngSubmit)="createInspection(createInspectionForm.value)"
+  >
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Doc Type Name </mat-label>
+          <input matInput formControlName="name" name="name" required />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Description</mat-label>
+          <input
+            matInput
+            formControlName="description"
+            name="description"
+            required
+          />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Section Loop  -->
+    <div formArrayName="section">
+      <div *ngFor="let section of section().controls; let secIndex = index">
+        <div [formGroupName]="secIndex">
+          <!-- <div hidden>
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Section ID </mat-label>
+
+              <input
+                matInput
+                formControlName="sectionindex"
+                name="sectionindex"
+                placeholder="Section Id"
+                ngModel="{{ secIndex }}"
+                required
+              />
+            </mat-form-field>
+          </div> -->
+
+          <div class="" fxLayoutAlign="center center">
+            <div class="box1">
+              <!-- <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Section {{ secIndex + 1 }}</mat-label>
+
+                <input
+                  matInput
+                  formControlName="sectionname"
+                  name="sectionname"
+                  placeholder="Section Name"
+                  required
+                />
+              </mat-form-field> -->
+
+              <!-- <button
+                *ngIf="secIndex >= 0"
+                class="grey-button"
+                mat-button
+                type="button"
+                (click)="addSubsection(secIndex)"
+              >
+                Add Form Heading
+              </button> -->
+
+              <!-- <button
+                *ngIf="secIndex == 0"
+                class="grey-button"
+                mat-button
+                type="button"
+                (click)="addSection()"
+              >
+                Add Section
+              </button> -->
+              <!-- <mat-menu #menu1="matMenu">
+                <button mat-menu-item (click)="importSection(secIndex)">
+                  Import Section
+                </button>
+              </mat-menu> -->
+
+              <!-- <button
+                *ngIf="secIndex >= 0"
+                class="import"
+                mat-button
+                [matMenuTriggerFor]="menu1"
+                type="button"
+              >
+                <img src="../../../../assets/images/Inspection/download.svg" />
+              </button> -->
+              <!-- <button
+                class="x-circle"
+                *ngIf="secIndex >= 1"
+                mat-button
+                type="button"
+                (click)="removeSection(secIndex)"
+              >
+                <img src="../../../../assets/images/Inspection/x-circle.svg" />
+              </button> -->
+            </div>
+          </div>
+          <!-- sub section loop  -->
+          <div formArrayName="subsection">
+            <div
+              *ngFor="
+                let question of subsections(secIndex).controls;
+                let subsecIndex = index
+              "
+            >
+              <div [formGroupName]="subsecIndex">
+                <!-- <div hidden>
+                  <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Sub Section ID </mat-label>
+                    <input
+                      matInput
+                      formControlName="subsectionindex"
+                      name="subsectionindex"
+                      placeholder="Section Id"
+                      ngModel="{{ subsecIndex }}"
+                      required
+                    />
+                  </mat-form-field>
+                </div> -->
+                <div class="" fxLayoutAlign="center center">
+                  <div class="box1">
+                    <!-- <mat-form-field appearance="outline" class="form-field">
+                      <mat-label>Heading {{ subsecIndex + 1 }}</mat-label>
+
+                      <input
+                        matInput
+                        formControlName="subsectionname"
+                        name="subsectionname"
+                        placeholder="Sub Section Name"
+                        required
+                      />
+                    </mat-form-field> -->
+
+                    <!-- <button
+                      *ngIf="secIndex >= 0"
+                      class="grey-button"
+                      mat-button
+                      type="button"
+                      (click)="addQuestion(secIndex, subsecIndex)"
+                    >
+                      Add Question
+                    </button> -->
+
+               zz
+                    <mat-menu #menu="matMenu">
+                      <button
+                        mat-menu-item
+                        (click)="importQuestions(secIndex, subsecIndex)"
+                      >
+                        Import Question
+                      </button>
+                    </mat-menu>
+
+                    <button
+                      class="x-circle"
+                      *ngIf="subsecIndex >= 1"
+                      mat-button
+                      type="button"
+                      (click)="removesubSection(secIndex, subsecIndex)"
+                    >
+                      <img
+                        src="../../../../assets/images/Inspection/x-circle.svg"
+                      />
+                    </button>
+
+                    <button
+                      class="x-circle"
+                      *ngIf="secIndex >= 1"
+                      mat-button
+                      type="button"
+                      (click)="removeSection(secIndex)"
+                    >
+                      <img
+                        src="../../../../assets/images/Inspection/x-circle.svg"
+                      />
+                    </button>
+                  </div>
+                </div>
+                <!-- question loop  -->
+                <div formArrayName="questions">
+                  <div
+                    *ngFor="
+                      let question of questions(secIndex, subsecIndex).controls;
+                      let questionindex = index
+                    "
+                  >
+                    <div [formGroupName]="questionindex">
+                      <div hidden>
+                        <mat-form-field appearance="outline" class="form-field">
+                          <mat-label>Question ID </mat-label>
+
+                          <input
+                            matInput
+                            formControlName="questionindex"
+                            name="questionindex"
+                            placeholder="Question Id"
+                            ngModel="{{ questionindex }}"
+                            required
+                          />
+                        </mat-form-field>
+                      </div>
+                      <div fxLayoutAlign="center center">
+                        <div class="box1">
+                          <mat-form-field
+                            appearance="outline"
+                            class="form-field"
+                          >
+                            <mat-label
+                              >Question {{ questionindex + 1 }}
+                            </mat-label>
+                            <input
+                              matInput
+                              formControlName="question"
+                              name="question"
+                              required
+                            />
+                          </mat-form-field>
+                          <mat-form-field
+                            appearance="outline"
+                            class="form-field"
+                          >
+                            <mat-label>Question Type</mat-label>
+
+                            <mat-select
+                              formControlName="questiontype"
+                              name="questiontype"
+                              (selectionChange)="getQuestionType($event.value)"
+                            >
+                              <mat-option
+                                *ngFor="let element of questionType"
+                                [value]="element.id"
+                              >
+                                <div class="rating-row">
+                                  <div>
+                                    {{ element.name }}
+                                  </div>
+                                </div>
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+
+                          <button
+                            class="grey-button"
+                            mat-button
+                            type="button"
+                            (click)="
+                              addOptions(secIndex, subsecIndex, questionindex)
+                            "
+                          >
+                            Add Option
+                          </button>
+
+                          <mat-checkbox
+                            formControlName="mandatory"
+                            >mandatory</mat-checkbox
+                          >
+
+                          <button
+                          *ngIf="questionindex >= 1"
+                          class="x-circle"
+                          mat-button
+                          type="button"
+                          (click)="
+                            removeQuestion(secIndex, subsecIndex, questionindex)
+                          "
+                        >
+                          <img
+                            src="../../../../assets/images/Inspection/x-circle.svg"
+                          />
+                        </button>
+                        
+                        </div>
+
+                      
+                      </div>
+                      <!-- option loop  -->
+                      <div formArrayName="options">
+                        <div
+                          *ngFor="
+                            let option of options(
+                              secIndex,
+                              subsecIndex,
+                              questionindex
+                            ).controls;
+                            let key = index
+                          "
+                        >
+                          <div [formGroupName]="key">
+                            <div hidden>
+                              <mat-form-field
+                                appearance="outline"
+                                class="form-field"
+                              >
+                                <mat-label>option ID </mat-label>
+
+                                <input
+                                  matInput
+                                  formControlName="key"
+                                  name="key"
+                                  placeholder="option Id"
+                                  ngModel="{{ key }}"
+                                  required
+                                />
+                              </mat-form-field>
+                            </div>
+                            <div fxLayoutAlign="center center">
+                              <div class="box1">
+                                <mat-form-field
+                                  appearance="outline"
+                                  class="form-field"
+                                >
+                                  <mat-label>Option {{ key + 1 }}</mat-label>
+                                  <input
+                                    matInput
+                                    formControlName="value"
+                                    name="value"
+                                    required
+                                  />
+                                </mat-form-field>
+                                <mat-form-field
+                                  appearance="outline"
+                                  class="form-field"
+                                  style="width: min-content"
+                                >
+                                  <mat-label>Rating</mat-label>
+                                  <mat-select
+                                    formControlName="rating"
+                                    name="rating"
+                                    (selectionChange)="getRating($event.value)"
+                                  >
+                                    <mat-option
+                                      *ngFor="let element of rating"
+                                      [value]="element.value"
+                                    >
+                                      <div class="rating-row">
+                                        <div>
+                                          {{ element.displayValue }}
+                                        </div>
+                                      </div>
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+
+                                <button
+                                  class="x-circle"
+                                  mat-button
+                                  type="button"
+                                  (click)="
+                                    removeOption(
+                                      secIndex,
+                                      subsecIndex,
+                                      questionindex,
+                                      key
+                                    )
+                                  "
+                                >
+                                  <img
+                                    src="../../../../assets/images/Inspection/x-circle.svg"
+                                  />
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="button">
+        <!-- <button class="Custombutton" mat-button type="submit">Save</button> -->
+        <button class="grey-button" mat-button (click)="Cancel()">Cancel</button>
+        <button class="Custombutton" mat-button type="submit">Create</button>
+      </div>
+    </div>
+  </form>
+</div>

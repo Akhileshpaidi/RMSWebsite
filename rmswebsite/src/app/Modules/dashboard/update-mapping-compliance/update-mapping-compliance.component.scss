@@ -1,0 +1,327 @@
+.table-container {
+  width: calc(100% - 20px); /* Adjust width to accommodate the margin */
+  margin: 10px; /* Apply margin on all sides */
+  overflow-x: auto; /* Allow horizontal scrolling if necessary */
+}
+
+.table {
+  width: 100%;
+  margin: 0; /* Reset margin for the table itself */
+  border-collapse: collapse;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.table th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+  padding-left: 10px;
+}
+.form-container {
+  padding: 10px; /* Padding around the entire form container */
+}
+
+.title-container {
+  text-align: left; /* Align the title to the right */
+  margin-bottom: 10px; /* Space below the title */
+}
+
+.title {
+  margin: 5px; /* Margin around the title */
+  font: bolder;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: row; /* Stack items vertically */
+  gap: 20px; /* Space between rows */
+}
+
+.form-field-container {
+  width: 100%; /* Ensure container takes full width */
+}
+
+.date-container {
+  width: 25%; /* Set width to 1/4 of the parent container */
+}
+.text-container {
+  width: 25%; 
+  margin-top: 40px;
+}
+.remarks-container {
+  width: 50%; /* Set width to 1/2 of the parent container */
+}
+
+.date-field {
+  width: 100%; /* Ensure the form field fills its container */
+}
+
+.remarks-field {
+  width: 100%; /* Ensure the form field fills its container */
+}
+
+.button-section {
+  margin-top: 40px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-button {
+  background-color: rgb(165, 164, 164); /* Light gray for cancel button */
+  color: white;
+  border-radius: 10px; /* Add border radius */
+ // padding: 5px 10px; /* Padding inside the button */
+  border: none;
+  font-size: 15px;
+  margin-right: 10px; /* Margin to the right of the cancel button */
+}
+.cancel-button, .update-button{
+  margin-top: 10px;
+}
+.update-button {
+  background-color: rgb(91, 190, 91); /* Light green for update button */
+  color: white;
+  border-radius: 10px; /* Add border radius */
+ // padding: 5px 10px; /* Padding inside the button */
+  border: none;
+  font-size: 15px;
+}
+.reject-button{
+  background-color: rgb(221, 55, 26); /* Light green for update button */
+  color: white;
+  border-radius: 10px; /* Add border radius */
+ // padding: 5px 10px; /* Padding inside the button */
+  border: none;
+  font-size: 15px;
+}
+.cancel-button:hover, .update-button:hover {
+  opacity: 0.8; /* Add a hover effect */
+}
+.pager-button {
+  background-color: #71c9f1; /* Light gray background for pager buttons */
+  color: white; /* Dark text color */
+  margin-left: 10px; /* Space between pager buttons */
+  margin-right: 10px; /* Space between pager buttons */
+}
+
+.pager-button:hover {
+  background-color: #08b6eb; /* Darker gray background on hover */
+}
+.pager {
+  margin-top: 20px; /* Space above the pager section */
+  text-align: right; /* Align pager text to the right */
+}
+.table1 {
+  width: 100%;
+  border-collapse: collapse; /* Ensures no double borders between cells */
+}
+.table1 td {
+  padding: 8px; /* Adds padding inside each cell */
+  vertical-align: middle; /* Aligns content to the top of the cell */
+  text-align: left; /* Aligns text to the left inside the cell */
+}
+.table th, .table td {
+  padding: 2px;
+  border: 1px solid #c9c6c6;
+  text-align: left;
+}
+.table1 strong {
+  color: #333; /* Sets color for headings */
+}
+.table1 tr:nth-child(even) {
+  background-color: #f9f9f9; /* Alternates row background color for better readability */
+}
+.table1 tr:nth-child(odd) {
+  background-color: #fff; /* Alternates row background color for better readability */
+}
+
+.form-field-row {
+  display: flex;
+  align-items: center;
+}
+
+.remarks-container,
+.symbol-container {
+  margin-right: 10px;
+}
+
+.text-symbol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow {
+  font-size: 48px; /* Adjust size of the bidirectional symbol */
+  line-height: 1;
+}
+
+.symbol-text {
+  font-size: 16px; /* Adjust size of the text */
+}
+
+.top-text {
+  margin-bottom: 5px; /* Add some space between 'As' and the symbol */
+}
+
+.bottom-text {
+  margin-top: 5px; /* Add some space between the symbol and 'Applicable' */
+}
+/* Adding padding between rows */
+.attachment-row {
+  margin-bottom: 25px; /* Adds space between each row */
+}
+
+/* Custom styles for the buttons */
+.uniform-height {
+  height: 40px; /* Set a uniform height for buttons and inputs */
+}
+
+/* Custom color for the Attach and Add More buttons */
+.attach, .add-more {
+  background-color: #67f5ff; /* Light blue background */
+  color: rgb(0, 0, 0); /* Text color */
+  border: none; /* Remove border */
+}
+.text-color{
+  color: #e76f0d;
+  margin-top: 10px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+/* Custom color for the Delete button */
+.warn {
+  background-color: #eb0c0c; /* Orange background for delete */
+  color: rgb(255, 254, 254); /* Text color */
+  border: none; /* Remove border */
+}
+
+/* Adjust padding inside buttons */
+button.uniform-height {
+  padding: 0 16px; /* Adjust button padding for content */
+}
+
+/* Adjust padding for Add More and Delete buttons */
+.custom-button {
+  padding: 0 16px;
+}
+
+@media (min-width: 768px) {
+  .width-input {
+    width: 50%; /* For medium and larger screens, set to 50% */
+  }
+  .width2-input {
+    width: 70%; /* For large screens, set a fixed width */
+  }
+}
+
+@media (min-width: 1024px) {
+  .width-input {
+    width: 800px; /* For large screens, set a fixed width */
+  }
+  .width2-input {
+    width:940px; /* For large screens, set a fixed width */
+  }
+}
+
+/* Container for the upload section */
+.attachment-upload-container {
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Ensures alignment for rows */
+.row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Styling for the file upload button */
+.upload-btn {
+  width: 100%;
+  max-width: 150px;
+}
+
+/* Display selected file name */
+.file-name {
+  margin-top: 5px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+/* Styling for the nature of attachment input */
+.nature-input {
+  width: 100%;
+}
+
+/* Styling for the attach button */
+.attach-btn {
+  width: 100%;
+  max-width: 100px;
+}
+
+/* Attachment table styling */
+.uploaded-attachments-table {
+  margin-top: 20px;
+}
+
+.attachment-table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Header styling for the table */
+mat-header-cell {
+  font-weight: bold;
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+
+mat-cell {
+  padding: 10px;
+}
+
+/* Style the delete button inside the table */
+mat-icon-button {
+  margin-left: 10px;
+}
+
+/* Add more info styling */
+.add-more-info {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #757575;
+}
+
+/* Make sure input fields and buttons are not colliding */
+.file-upload-section .col-3, .file-upload-section .col-5, .file-upload-section .col-2 {
+  flex: 1;
+  margin-right: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  /* Responsive for smaller screens */
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .upload-btn, .nature-input, .attach-btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .file-upload-section .col-3, .file-upload-section .col-5, .file-upload-section .col-2 {
+    margin-right: 0;
+  }
+}
+.mandatory-mark {
+  color: red;
+  font-size: 16px;
+  margin-left: 5px;
+}

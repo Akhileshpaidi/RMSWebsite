@@ -1,0 +1,30 @@
+<div class="body">
+  <div class="row">
+    <img
+      style="height: 25px; margin-top: 2px"
+      src="../../../../assets//images/Inspection/download1.svg"
+    />
+    <h2 class="header">Import Questions</h2>
+  </div>
+  <hr />
+  <form
+    [formGroup]="questionForm"
+    (ngSubmit)="onFormSubmit(questionForm.value)"
+  >
+    <div class="main">
+      <mat-selection-list formControlName="selectedQuestions">
+        <mat-list-option
+          *ngFor="let question of questions; let quesIndex = index"
+          [value]="question"
+        >
+          {{ quesIndex + 1 }} {{ question.text }}
+        </mat-list-option>
+      </mat-selection-list>
+
+      <div class="button box">
+        <button class="grey-button" mat-button (click)="close()">Close</button>
+        <button class="Custombutton" mat-button type="submit">Import</button>
+      </div>
+    </div>
+  </form>
+</div>

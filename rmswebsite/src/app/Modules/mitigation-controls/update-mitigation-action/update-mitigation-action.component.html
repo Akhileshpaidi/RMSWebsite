@@ -1,0 +1,712 @@
+
+
+<div class="form">
+  <div class="body">
+    <div class="header">
+      <div style="align-self:self-end;">
+      <div class=" card">
+        <div class=" card-header">
+          <h1 class=" title"> Update Mitigation Tasks</h1>
+        </div>
+        <div class="card-body">
+
+<div >
+  
+  <form [formGroup]="mitigationForm">
+    <mat-horizontal-stepper [linear]="true" labelPosition="bottom"  #stepper>
+      <!-- <form [formGroup]="MitigationForm" > -->
+
+      <mat-step label="Select Assessment Commented" state="phone">
+       
+        <dx-drop-down-box style="width: 550px;"
+        [dropDownOptions]="{width: '1200px'}"
+        [(value)]="gridBoxValue"
+    [(opened)]="isGridBoxOpened"
+    [displayExpr]="gridBox_displayExpr"
+        valueExpr="trackerID"
+         [deferRendering]="false"
+         label="Select one Assessment"
+         placeholder=" "
+         [inputAttr]="{ 'aria-label': 'Owner' }"
+         [showClearButton]="true"
+         [dataSource]="gridDataSource"
+       
+         (onOptionChanged)="onGridBoxOptionChanged($event)">
+            
+              <div *dxTemplate="let data of 'content'">
+                <dx-data-grid
+                [dataSource]="gridDataSource"
+                [columns]="gridColumns"
+                  [hoverStateEnabled]="true"
+                  [(selectedRowKeys)]="gridBoxValue">
+             
+        > 
+        <dxo-selection mode="single"></dxo-selection>
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-scrolling mode="virtual"></dxo-scrolling>
+        <dxo-header-filter [visible]="true" [allowSearch]="true">
+          <dxo-search [enabled]="true"></dxo-search>
+        </dxo-header-filter>
+        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+        <dxo-pager
+        [visible]="true"
+        [allowedPageSizes]="[ 10,20, 'all']"
+       
+        [showPageSizeSelector]="true"
+       
+        [showInfo]="true"
+        infoText="Page {0} of  {1} ({2} items)"
+        [showNavigationButtons]="true">
+      </dxo-pager>
+  
+      <dxo-group-panel [visible]="true"></dxo-group-panel>
+        <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+    
+                     </dx-data-grid>
+              </div>
+            </dx-drop-down-box> 
+
+
+            <div *ngIf="selectedchange">
+              <div>
+    <mat-label style="display: contents;font-size: larger;font-weight: bold;">Basic Details of Assessment
+       
+    </mat-label>
+</div>
+<br>
+<div class="box">
+
+<div fxLayoutAlign="center center">
+    <mat-form-field appearance="fill" class="form-field">
+   <mat-label>Document Type</mat-label>
+
+<input matInput   formControlName="docTypeName"  class="readonly-input" readonly />
+  
+</mat-form-field>
+</div>
+
+<div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>Document Category</mat-label>
+<input matInput formControlName="doc_CategoryName"   class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+<div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field" >
+<mat-label>Document Sub-Category</mat-label>
+
+<input matInput   formControlName="doc_SubCategoryName" style="width: 550px;" class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+</div>
+<div class="box">
+
+<div fxLayoutAlign="center center">
+    <mat-form-field appearance="fill" class="form-field">
+   <mat-label>No. of Users assigned for Assessment </mat-label>
+
+<input matInput   formControlName="no_of_Users_Assigned"  class="readonly-input" readonly />
+  
+</mat-form-field>
+</div>
+
+<div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>No. of Users responded with Assessment Completed </mat-label>
+<input matInput formControlName="no_of_Users_completed"   class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+</div>
+ 
+
+<div class="box">
+<div fxLayoutAlign="center center">
+  <mat-form-field appearance="fill" class="form-field">
+ <mat-label>No. of Users responded with Incomplete Assessment</mat-label>
+ <input matInput formControlName="no_of_Users_incomplete"   class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+
+<div fxLayoutAlign="center center">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>No. of Users where Assessment Expired</mat-label>
+<input matInput  formControlName="no_of_Users_ass_Expired"  class="readonly-input" readonly />
+
+</mat-form-field>
+</div>
+</div>
+
+
+
+
+
+<mat-label style="display: contents;font-size: larger;font-weight: bold;">Time Allotted to Attempt Vs Time Taken to Attempt</mat-label>
+<div class="col-sm-1">
+
+<canvas id="canvas" ></canvas>
+</div>
+
+
+<div>
+<mat-label style="display: contents;font-size: larger;font-weight: bold;">Score Awarded Against :  
+
+<mat-button-toggle-group
+appearance="legacy"
+name="fontStyle"
+aria-label="Font Style"
+
+(change)="updateGridColumns($event.value)"
+>
+<mat-button-toggle value="3" checked>OverAll</mat-button-toggle>
+<mat-button-toggle value="1">Competency Check Level</mat-button-toggle>
+<mat-button-toggle value="2">Subject/Topic</mat-button-toggle>
+
+</mat-button-toggle-group>
+</mat-label>
+</div>
+<br>
+<br>
+<div>
+<div *ngIf="overall">
+<dx-data-grid 
+[dataSource]="gridDataSource1"
+[showBorders]="true"
+(onExporting)="exportGrid1($event)"
+[allowColumnResizing]="true"
+[columnAutoWidth]="true"
+[allowColumnReordering]="true"
+>
+<!-- <dxi-column dataField="userID" caption="userID" [visible]="false" >
+
+</dxi-column> -->
+
+<dxi-column dataField="firstname" caption="User Name">
+
+</dxi-column>
+<dxi-column dataField="total_questions" caption="Total Questions" groupName="1"  alignment="center">
+
+</dxi-column>
+<dxi-column dataField="totalQuestionsAnswered" caption="Total Answered Questions" groupName="1"  alignment="center">
+
+</dxi-column>
+<dxi-column dataField="correctAnswers" caption="Total  Questions Answerd Correctly" groupName="1"  alignment="center">
+
+</dxi-column>
+<dxi-column dataField="accuracyPercentage" caption="Overall Accuracy%”" groupName="1"  alignment="center" >
+
+</dxi-column>
+<dxi-column dataField="days" caption="Time Taken" groupName="1"  alignment="center">
+
+</dxi-column>
+<dxi-column dataField="overallScore" caption="Over all Score"  alignment="center">
+
+</dxi-column>
+
+<dxi-column dataField="scoreName" caption="Score Indicator ">
+
+</dxi-column>
+<dxi-column dataField="key_Impr_Indicator_Name" caption="Key Improvement Indicator Name ">
+   
+</dxi-column>
+<dxi-column dataField="remarks" caption="Assessor Remarks ">
+   
+</dxi-column>
+<dxi-column dataField="uq_ass_schid" caption="Assessment ID"  [visible]="false">
+   
+</dxi-column>
+<dxi-column dataField="competency_Name" caption="Competency Skill Level "  [visible]="false">
+   
+</dxi-column>
+<dxi-column dataField="subType_Name" caption="Assessment Sub Type"  [visible]="false">
+   
+</dxi-column>
+<dxi-column dataField="type_Name" caption="Assessment Type Name"  [visible]="false">
+   
+</dxi-column>
+<dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+<dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+<dxo-filter-row [visible]="true"></dxo-filter-row>
+<dxo-search-panel [visible]="true"></dxo-search-panel>
+<dxo-group-panel [visible]="true"></dxo-group-panel>
+<dxo-selection mode="single"></dxo-selection>
+<dxo-summary>
+   
+<dxi-total-item
+column="userID"
+summaryType="count">
+</dxi-total-item>
+
+</dxo-summary>
+ <dxo-export 
+                [enabled]="true"
+                [formats]="['xlsx', 'pdf']"
+              >
+              </dxo-export>
+<dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+<dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+
+</dx-data-grid>
+
+</div>
+
+<div *ngIf="comptencyskill">
+
+
+<dx-pivot-grid
+[showColumnTotals]="false"
+[showColumnGrandTotals]="false"
+[showRowGrandTotals]="false"
+[wordWrapEnabled]="false"
+[dataSource]="compotencygridData"
+[showBorders]="true"
+
+
+>
+
+</dx-pivot-grid>
+
+</div>
+<div *ngIf="subjecttopic">
+<dx-pivot-grid
+[showColumnTotals]="false"
+[showColumnGrandTotals]="false"
+[showRowGrandTotals]="false"
+[wordWrapEnabled]="false"
+[dataSource]="subjecttopicgridData"
+[showBorders]="true"
+
+
+></dx-pivot-grid>
+</div>
+</div>
+<br>
+<!-- <div>
+<mat-label style="display: contents;font-size: larger;font-weight: bold;">No. of Users with Key Result / Improvement Areas
+</mat-label>
+<br>
+<br>
+<div class="box">
+<div class="col-sm-3">  
+<mat-label style="display: contents;font-size: larger;font-weight: bold;">Score Indicators
+</mat-label>
+</div>
+<div class="col-sm-3">  
+<mat-label style="display: contents;font-size: larger;font-weight: bold;">Key Improvements
+</mat-label>
+</div>
+<div class="col-sm-3">  
+<mat-label style="display: contents;font-size: larger;font-weight: bold;">Remarks
+</mat-label>
+</div>
+</div>
+<br>
+<div formArrayName="scoreindicators">
+<div *ngFor="let item of getscoreindicators().controls;let key=index;">
+<div [formGroupName]="key">
+<div class="box"><div class="col-sm-3">   
+  <mat-form-field appearance="fill" >
+       <input matInput formControlName="scoreIndicator" class="readonly-input" readonly /></mat-form-field>
+</div>
+<div class="col-sm-3">  
+
+<dx-select-box 
+formControlName="key_Impr_Indicator_Name"
+label="Select Key Improvements"
+labelMode="floating"
+valueExpr="key_Impr_Indicator_id"
+displayExpr="key_Impr_Indicator_Name"
+[dataSource]="keyImprovementsdatasource[key]"
+selectionMode="single" 
+[searchEnabled]="true"
+placeholder=""
+>
+
+</dx-select-box>
+
+    </div>
+<div class="col-sm-3">
+
+<mat-form-field appearance="fill" >
+<input matInput formControlName="Remarks" placeholder="Enter Remarks"/>
+</mat-form-field>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+
+</div> -->
+<br>
+<br>
+
+<br>
+<br> 
+
+<br>
+<br>
+<div>
+<mat-label style="display: contents;font-size: larger;font-weight: bold;"> Question based Assessment Performance Analysis
+</mat-label>
+</div>
+<br>
+<br>
+
+<dx-data-grid 
+[dataSource]="gridDataSource3"
+[showBorders]="true"
+(onExporting)="exportGrid($event)"
+[allowColumnResizing]="true"
+[columnAutoWidth]="true"
+[allowColumnReordering]="true"
+>
+<!-- <dxi-column dataField="userID" caption="userID" [visible]="false" >
+
+</dxi-column> -->
+<dxi-column dataField="firstname" caption="User Name">
+
+</dxi-column>
+<dxi-column dataField="question_id" caption=" Question ID" [visible]="false" >
+
+</dxi-column>
+<dxi-column dataField="question" caption="Question">
+
+</dxi-column>
+<dxi-column dataField="correct_answer" caption="Correct Answer">
+
+</dxi-column>
+<dxi-column dataField="user_Selected_Ans" caption=" User Selected Answer">
+
+</dxi-column>
+<dxi-column dataField="isAnswerCorrect" caption="Result for Ques">
+
+</dxi-column>
+<dxi-column dataField="checkLevelName" caption="Check-Level"  [visible]="false">
+
+</dxi-column>
+<dxi-column dataField="topicName" caption="Topic Name"  [visible]="false">
+
+</dxi-column>
+<dxi-column dataField="subjectName" caption="Subject Name"  [visible]="false">
+
+</dxi-column>
+
+
+
+
+<dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+<dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+<dxo-filter-row [visible]="true"></dxo-filter-row>
+<dxo-search-panel [visible]="true"></dxo-search-panel>
+<dxo-group-panel [visible]="true"></dxo-group-panel>
+<dxo-selection mode="single"></dxo-selection>
+   <dxo-export 
+                [enabled]="true"
+                [formats]="['xlsx', 'pdf']"
+              >
+              </dxo-export>
+<dxo-summary>
+<dxi-total-item
+ column="userID"
+ summaryType="count">
+</dxi-total-item>
+
+</dxo-summary>
+
+<dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+<dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+
+</dx-data-grid>
+
+<br>
+<br>
+
+<br>
+<br>
+
+<div class="button">
+
+
+<button class="Custombutton" type="button" matStepperNext >Next</button>
+</div>
+</div>
+       
+         
+      </mat-step>
+
+
+
+
+
+
+
+
+
+
+    <mat-step label="Update Mitigation Task" state="phone" *ngIf="secondStepper">
+     
+<br>
+
+
+<br>
+
+<dx-data-grid
+
+[dataSource]="dataSource"
+
+[columns]="gridColumnsforTasks"
+[hoverStateEnabled]="true"
+height="100%"
+[(selectedRowKeys)]="SelectedTask"
+style="border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);"
+>
+<dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+<dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+<dxo-filter-row [visible]="true"></dxo-filter-row>
+<dxo-search-panel [visible]="true"></dxo-search-panel>
+<dxo-group-panel [visible]="true"></dxo-group-panel>
+<dxo-selection mode="single"></dxo-selection>
+<dxo-filter-row [visible]="true"></dxo-filter-row>
+<dxo-scrolling mode="virtual"></dxo-scrolling>
+<dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+<dxo-summary>
+
+<dxi-total-item
+    column="admin_config_id"
+    summaryType="count">
+</dxi-total-item>
+
+</dxo-summary>
+<dxo-editing
+mode="popup"
+[allowUpdating]="false"
+[allowDeleting]="false"
+[allowAdding]="true">
+<dxo-popup
+title="Upload File Category"
+[showTitle]="true"
+[width]="700"
+[height]="525"
+
+></dxo-popup>
+</dxo-editing>
+<dxi-item name="groupPanel"></dxi-item>
+<dxo-toolbar>
+
+<dxi-item name="exportButton"></dxi-item>
+<dxi-item name="columnChooserButton"></dxi-item>
+<dxi-item name="searchPanel"></dxi-item>
+</dxo-toolbar>
+
+<!-- "View" button template -->
+<div *dxTemplate="let data of 'SumitButtonTemplate'">
+<button class="view-grid-button" (click)="onViewButtonClick(data.data)">Open</button>
+</div>
+<div *dxTemplate="let cellInfo of 'acknowledgeCheckboxTemplate'">
+<dx-check-box [value]="cellInfo.data.acknowledge" [disabled]="true"></dx-check-box>
+</div>
+
+
+
+</dx-data-grid>
+
+
+<div *ngIf="isPopupVisible" class="popup-container">
+<div class="backdrop"></div>
+<div class="popup">
+<h2>Selected Mitigation Task Details for Update</h2>
+<form [formGroup]="taskForm" (ngSubmit)="UpdateAction()">
+<div class="popup-content-grid">
+<ng-container *ngFor="let column of gridColumnsforTasks">
+<div class="popup-content">
+  <!-- Use interpolation to display the caption -->
+  <label [for]="column.dataField">{{ column.caption }}:</label>
+  <!-- Use property binding for input attributes -->
+  <input type="text"  style="font-weight: normal;"  [id]="column.dataField" [name]="column.dataField" [readonly]="true" [value]="selectedRowData[column.dataField]">
+</div>
+</ng-container>
+</div>
+<br>
+<div class="popup-content-container"  >
+       
+  <div class="popup-content" style="display: flex; align-items: center;">
+    <label for="acknowledge">Acknowledge</label>
+    <div style="margin-left: 10px;"> 
+      <!-- Add the [disabled] attribute to make the checkbox read-only -->
+      <input type="checkbox" checked="true" [disabled]="true"  name="acknowledge" class="checkbox-large">
+    </div>
+  </div>
+  <div class="popup-content">
+    <label >Action Required</label>
+    <input  style="font-weight: normal;"   style="font-weight: normal;"  value="Mitigation Action Required">
+    </div> 
+  
+</div>
+    
+<div class="popup-content-container"  >
+  <div class="popup-content">
+   <label for="action-required">Management Input Required</label>
+   <input type="text" style="font-weight: normal;"  formControlName="ManInputReq" [readonly]="true">
+ </div>
+ <div class="popup-content" *ngIf="taskForm?.get('ManInputReq')?.value ==='Yes'">
+   <label for="end-date" >End Date</label>
+   <input type="text"   style="font-weight: normal;"  formControlName="EndDate" [readonly]="true">
+ </div>
+
+</div>
+
+
+  
+<div class="popup-content-container">
+<div class="popup-content">
+  <label for="pO_remarks">Risk Controller Mitigation Remarks</label>
+  <textarea id="pO_remarks"  style="font-weight: normal;"  formControlName="Comments" [readonly]="true" name="pO_remarks"></textarea>
+  </div> 
+
+
+</div>
+<div class="popup-content-container">
+<div class="popup-content">
+  <label for="pO_remarks">Suggestive Documents</label>
+  <textarea id="pO_remarks"  style="font-weight: normal;"  [readonly]="true" formControlName="SuggestiveDoc" name="pO_remarks"></textarea>
+  </div> 
+
+</div>
+
+
+ 
+
+
+
+
+
+<div  *ngIf="Status1" >
+
+  <div class="popup-content-container">
+    <div class="popup-content">
+      <label for="action-required">Assign Responsibility</label>
+      <dx-select-box id="action-required" formControlName="SelectPo" name="action-required"
+      [dataSource]="ResponibleUsersdata"
+      displayExpr="firstname"
+      valueExpr="usR_ID"
+      placeholder="Assign Responsibility">
+  </dx-select-box>
+               
+  </div>
+  <div class="popup-content" *ngIf="taskForm?.get('SelectPo')?.value !==null">
+    <label for="end-date">Tentative End Date</label>
+    <mat-form-field appearance="fill">
+     
+      <input matInput [matDatepicker]="tentativeDatePicker"  style="font-weight: normal;"  formControlName="Tentativedate" name="tentative-date"
+             [matDatepickerFilter]="dateFilter" >
+      <mat-datepicker-toggle matSuffix [for]="tentativeDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #tentativeDatePicker></mat-datepicker>
+      <mat-error *ngIf="taskForm.get('Tentativedate')?.invalid">Please select a valid date.</mat-error>
+    </mat-form-field>
+    
+  </div>
+  </div>
+
+  <div class="button-container">
+    <button class="popup-buttonback-button" type="button" (click)="goBack()">Close</button>
+    <button class="popup-button submit-button" type="submit">Submit</button>
+    </div>
+</div>
+
+   <div *ngIf="Status2">
+    <div class="popup-content-container">
+    <div class="popup-content">
+      <label for="action-required">Management Remarks</label>
+      <textarea  style="font-weight: normal;"  formControlName="management_remarks" [readonly]="true" ></textarea>
+ 
+    </div>
+    <div class="popup-content">
+      <label for="action-required">Assignee’s Remarks</label>
+      <textarea style="font-weight: normal;"  formControlName="PoRemarks" [readonly]="true" ></textarea>
+ 
+    </div>
+    </div>
+    <div class="popup-content-container">
+    <div class="popup-content">
+      <label for="action-required">Assignee</label>
+      <input  style="font-weight: normal;"  formControlName="selectedAssignee" [readonly]="true" >
+ 
+    </div>
+   
+    <div class="popup-content" >
+      <label for="end-date">Tentative End Date</label>
+        <input  style="font-weight: normal;"  type="text"  formControlName="Tentativedate" [readonly]="true">
+    
+      
+    </div>
+    </div>
+    <div class="popup-content-container">
+    <div class="popup-content">
+      <label for="end-date">Completion Date</label>
+        <input type="text"  style="font-weight: normal;"  formControlName="completed_date" [readonly]="true">
+    
+      
+    </div>
+
+   </div>
+
+    <div class="button-container">
+      <button class="popup-buttonback-button" type="button" (click)="goBack()">Close</button>
+      <button class="popup-button submit-button" type="submit">Reopen</button>
+      </div>
+     
+</div>
+
+
+
+
+</form>
+
+</div>
+</div>
+
+
+        <div class="button">
+                         
+          <button class="grey-button" type="button" matStepperPrevious >Back</button>
+          <!-- <button class="Custombutton" type="button" (click)="sendformanagement()" >Submit</button>            -->
+         
+      
+   
+          
+        </div>
+
+
+
+
+
+<br>
+<br>
+
+
+
+
+
+
+     
+     
+    </mat-step>
+  
+
+
+  </mat-horizontal-stepper>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

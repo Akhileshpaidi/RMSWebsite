@@ -1,0 +1,491 @@
+.back{
+    width: 3%;
+    display: block;
+    height: 30px;
+    font-family: inherit;
+    background-color: #556f83;
+    color: #fff;
+    border: 0;
+    border-radius: 1rem* 0.25;
+    cursor: pointer;
+    font-weight: 500;.button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+  }
+  .boxNew {
+    //display: flex;
+    padding-left: 10px; 
+    gap:10px;
+    flex-direction: row;
+    width: 70%;
+  }
+  .boxNew> * {
+    flex: 1 none none;
+    
+  }
+  
+  .header{
+    padding-left: 10px;
+    //padding-bottom: 20px;
+    padding-top: 10px;
+  }
+  
+  ::ng-deep #form-container {
+    margin: 10px;
+  }
+  
+   
+  .wrapper{
+    padding: 10px;
+    
+  }
+  
+  ::ng-deep .long-title h3 {
+    font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+    font-weight: 200;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .readonly-input {
+    pointer-events: none;
+    background-color: hsl(0, 19%, 93%);
+    color: #333; /* Adjust styles as needed */
+  }
+  .table-container {
+    max-width: 1000px; /* Set the maximum width of the container */
+    margin: 10px; /* Center the container horizontally */
+  }
+  
+  .mat-table {
+    width: 100%; /* Set the width of the table to 100% of its container */
+  }
+  
+  .scrollable-textarea {
+    overflow: auto;
+    resize: vertical; /* Optional: Allow vertical resizing */
+    min-height: 100px; /* Optional: Set a minimum height */
+  }
+  
+  ::ng-deep .mat-dialog-content.error-message {
+  color: red; /* Set the color for error messages */
+  /* Add any other styling for error messages as needed */
+  }
+  
+  ::ng-deep .mat-dialog-content.success-message {
+  color: green; /* Set the color for success messages */
+  /* Add any other styling for success messages as needed */
+  }
+  
+  .loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  }
+  select {
+  display: block;
+  width: 100%; /* Adjust the width as needed */
+  padding: 8px; /* Adjust the padding as needed */
+  margin: 10px 0; /* Adjust the margin as needed */
+  box-sizing: border-box;
+  border: 1px solid #ccc; /* Adjust the border style as needed */
+  border-radius: 4px; /* Adjust the border-radius as needed */
+  font-size: 14px; /* Adjust the font size as needed */
+  color: #333; /* Adjust the text color as needed */
+  background-color: #fff; /* Adjust the background color as needed */
+  }
+  
+  /* Optional: Add styles for hover and focus states */
+  select:hover,
+  select:focus {
+  border-color: #66afe9; /* Adjust the border color for hover and focus states as needed */
+  }
+  
+  @media only screen and (max-width: 600px) {
+  .sidebar {
+   overflow: auto;
+  }
+  }
+  
+  
+  
+  
+    letter-spacing: inherit;
+  }
+  /* Container for the entire card body */
+.card-body {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.title{
+  margin-left: 20px;
+  margin-bottom: -10px;
+  font-size: 20px;
+}
+/* Form styling */
+form {
+  margin: 0;
+}
+
+/* Application container */
+#app-container {
+  margin-bottom: 20px;
+}
+
+/* Data grid styling */
+#dataGrid {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+/* Data grid toolbar buttons */
+.dx-datagrid .dx-toolbar .dx-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin: 0 5px;
+}
+
+.dx-datagrid .dx-toolbar .dx-button:hover {
+  background-color: #0056b3;
+}
+
+/* View button inside the grid */
+.view-grid-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.view-grid-button:hover {
+  background-color: #218838;
+}
+
+/* Compliance details view styling */
+.complianceDetailsView {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  margin-bottom: 0px;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 2px;
+  border: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.header-left {
+  text-align: left;
+  color: rgb(13, 204, 238);
+}
+
+.information-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.information-icon {
+  width: 20px; /* Adjust size as needed */
+  height: 20px; /* Adjust size as needed */
+  margin-right: 5px;
+  cursor: pointer;
+}
+.clickable-span {
+  cursor: pointer;
+  color: blue;
+  text-decoration: none;
+}
+.no-left-border {
+  border-left: none !important;
+  border-left-width: 0;
+}
+.no-right-border {
+  border-right: none !important;
+  border-right-width: 0;
+}
+
+
+/* Links styling */
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Button for copying link */
+.dx-button {
+  margin-left: 10px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+label[style="color:red;"] {
+  color: red;
+  font-weight: bold;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .card-body, .complianceDetailsView {
+    padding: 10px;
+  }
+
+  .table th, .table td {
+    //padding: 8px;
+  }
+}
+/* Ensure the container has a fixed height and can scroll */
+#dataGridContainer {
+  height: 600px;  /* Adjust the height as needed */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make the DataGrid fill the available space */
+.dx-datagrid {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure the DataGrid's main content can scroll */
+.dx-datagrid-rowsview {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+/* Ensure the pager is always visible at the bottom */
+.dx-datagrid-pager {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  border-top: 1px solid #ddd;
+  padding: 10px 0;
+  z-index: 1;
+}
+
+  
+/* Close button styling */
+// .close-button {
+//   display: block;
+//   margin: 20px auto 0;
+//   background-color: #f7f0f0;
+//   color: rgb(12, 11, 11);
+//   border: none;
+//   border-radius: 50%;
+//   width: 30px;
+//   height: 30px;
+//   font-size: 30px;
+//   line-height: 30px;
+//   text-align: center;
+//   cursor: pointer;
+//   transition: background-color 0.3s ease;
+// }
+//   .close-button:hover {
+//     background-color: #ff1f1f;
+//      color: rgb(247, 243, 243);
+
+//   }
+/* Base style for the close button */
+.close-button {
+  display: block;
+  margin: 20px auto 0;
+  background-color: #f7f0f0;
+  color: rgb(12, 11, 11);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the close button */
+.close-button:hover {
+  background-color: #ff1f1f;
+  color: rgb(247, 243, 243);
+}
+
+/* Tooltip container */
+.close-button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%; /* Adjust this value to position the tooltip above the button */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #df2e0f;
+  padding: 5px 10px;
+  border-radius: 3px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+  pointer-events: none; /* Prevents tooltip from interfering with hover state */
+  font-size: 12px;
+  z-index: 1;
+}
+
+/* Show the tooltip on hover */
+.close-button:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+//
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd; /* Border color */
+}
+
+/* Style for the header row */
+.header-row {
+  background-color: #f2f2f2; /* Header row background color */
+}
+
+/* Style for the data rows */
+.data-row {
+  border-bottom: 1px solid #ddd; /* Border between rows */
+}
+
+/* Style for cells */
+.mat-cell {
+  padding: 8px; /* Adjust cell padding */
+}
+
+/* Optional: Style for sticky header */
+.mat-header-cell.sticky {
+  background-color: #fff; /* Sticky header background color */
+  border-bottom: 1px solid #ddd; /* Border below sticky header */
+}
+
+.Custom_button::before {
+  content: "\002B"; /* Unicode for the plus symbol */
+  margin-left: 5px; /* Adjust the margin as needed */
+}
+
+.container {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.view-button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+/* Your component CSS */
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Adjust the transparency as needed */
+  backdrop-filter: blur(5px); /* Adjust the blur intensity as needed */
+  z-index: 1;
+}
+.stage-badge {
+  margin: 0 auto;
+  display: inline-block; /* Keep the badge size small */
+  cursor: default; /* Optional: Make it non-clickable */
+  text-align: center;
+}
+.popup {
+  z-index: 2;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: start;
+  position: relative;
+  max-width: 80%; /* Set a maximum width for the popup */
+  margin: auto; /* Center horizontally */
+}
+
+.popup-button {
+  margin-top: 10px; /* Adjust the distance between button and content */
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  width: inherit;
+  cursor: pointer;
+  position: inherit;
+  bottom: 10px; /* Adjust the distance from the bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3; /* Place the button above the content */
+}
+
+/* Hide the grid filter symbols */
+.dx-datagrid-filter-row {
+  display: none;
+}
+.popup-content {
+  margin-bottom: 10px; /* Adjust the gap between <strong> and <button> */
+}
+
+
+
+  

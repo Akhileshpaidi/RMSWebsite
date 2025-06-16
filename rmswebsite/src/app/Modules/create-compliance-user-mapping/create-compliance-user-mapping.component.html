@@ -1,0 +1,903 @@
+<div class="form">
+  <div class="body">
+    <div class="header">
+      <div style="align-self:self-end;">
+        <h1> Compliance User Mapping </h1>
+      </div>
+      <br>
+      <mat-horizontal-stepper [linear]="true" labelPosition="bottom">
+
+        <form [formGroup]="import" (ngSubmit)="createUser(import.value)">
+
+     <mat-step label="Select Compliance" state="phone">
+            <div>
+            <div>
+              <label>
+                Criteria Selection:
+              </label>
+            </div>
+            <br>
+            <div class="box">
+              <div>
+                <h3> <label>
+                    <input type="checkbox"  style="zoom: 1.5;" name="selection4" (change)="setSelection4($event)"
+                      [checked]="selection4==='visible4'">
+                    Based on Entity Location Details
+                  </label></h3>
+              </div>
+              <div class="row" *ngIf="Selection4()">
+                <div class="box">
+                  <div>
+
+                    <dx-drop-down-box formControlName="department" [(value)]="selectedOption3"
+                      [inputAttr]="{ 'aria-label': 'Owner' }" placeholder="Select Department*" [showClearButton]="true"
+                      labelMode="floating" valueExpr="locationdepartmentmappingid" displayExpr="department_Master_name"
+                      [dataSource]="department" searchEnabled="true" height="40px"
+                      (onValueChanged)="getdepartment($event)">
+                      <div *dxTemplate="let data of 'content'">
+                        <dx-data-grid [dataSource]="department" [selection]="{ mode: 'multiple' }"
+                          [hoverStateEnabled]="true" [columns]="gridColumns3" [(selectedRowKeys)]="selectedOption3"
+                          [filterRow]="{ visible: true }" [scrolling]="{ mode: 'virtual' }" [showColumnHeaders]="true"
+                          height="220%">
+                        </dx-data-grid>
+
+                      </div>
+
+                    </dx-drop-down-box>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <br>
+            <div class="box">
+              <div>
+                <h3> <label>
+                    <input type="checkbox"  style="zoom: 1.5;" name="selection" (change)="setSelection($event)"
+                      [checked]="selection==='visible'">
+                    Based on Free Text Search
+                  </label></h3>
+              </div>
+              <div class="box" *ngIf="Selection() ">
+                <div>
+                  <dx-select-box formControlName="Actname" label="Select Act Name" labelMode="floating"
+                    valueExpr="actregulatoryid" displayExpr="actregulatoryname" [dataSource]="actname" search="true"
+                    height="40px" [searchEnabled]="true" selectionMode="single" placeholder="" disableOptionCentering>
+                  </dx-select-box>
+
+                </div>
+                <div>
+                  <dx-select-box formControlName="categorylaw" label="category of Law" labelMode="floating"
+                    search="true" valueExpr="category_of_law_ID" displayExpr="law_Categoryname"
+                    [dataSource]="categorylaw" height="40px" [searchEnabled]="true" selectionMode="single"
+                    placeholder="" disableOptionCentering>
+                  </dx-select-box>
+                </div>
+              </div>
+
+            </div>
+            <br>
+            <div class="box">
+              <div>
+                <h3> <label>
+                    <input type="checkbox"  style="zoom: 1.5;" name="selection1" (change)="setSelection1($event)"
+                      [checked]="selection1==='visible1'">
+                    Based on Jurisdiction search
+                  </label></h3>
+              </div>
+              <div *ngIf="Selection1()">
+                <div class="row">
+                  <div class="box">
+                    <dx-select-box formControlName="naturelaw" label="Nature  of Law" labelMode="floating"
+                      valueExpr="law_type_id" displayExpr="type_of_law" [dataSource]="naturelaw" height="40px"
+                      [searchEnabled]="true" selectionMode="single" placeholder="" disableOptionCentering>
+                    </dx-select-box>
+                  </div>
+                  <div class="box">
+                    <dx-select-box formControlName="regulatoryAuthority" label="Regulatory Authority"
+                      labelMode="floating" valueExpr="regulatory_authority_id" displayExpr="regulatory_authority_name"
+                      [dataSource]="regulatory" height="40px" [searchEnabled]="true" selectionMode="single"
+                      placeholder="" disableOptionCentering>
+                    </dx-select-box>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="box">
+                    <dx-select-box formControlName="jurisdictioncategory" label="Jurisdiction  category "
+                      labelMode="floating" valueExpr="jurisdiction_category_id" displayExpr="jurisdiction_categoryname"
+                      [dataSource]="jurisdiction" height="40px" [searchEnabled]="true" selectionMode="single"
+                      placeholder="" disableOptionCentering>
+                    </dx-select-box>
+                  </div>
+                  <div class="box">
+                    <dx-select-box formControlName="country" label="Country Name" labelMode="floating"
+                      valueExpr="jurisdiction_country_id" displayExpr="name" [dataSource]="country" height="40px"
+                      [searchEnabled]="true" selectionMode="single" placeholder="" (onValueChanged)="getstate($event)"
+                      disableOptionCentering>
+                    </dx-select-box>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="box">
+                    <dx-select-box formControlName="state" label="state /Region " labelMode="floating" valueExpr="id"
+                      displayExpr="name" [dataSource]="state" height="40px" [searchEnabled]="true"
+                      selectionMode="single" placeholder="" (onValueChanged)="getdistrict($event)"
+                      disableOptionCentering>
+                    </dx-select-box>
+                  </div>
+                  <div class="box">
+                    <dx-select-box formControlName="distict" label="District/Location" labelMode="floating"
+                      valueExpr="jurisdiction_location_id" displayExpr="jurisdiction_district" [dataSource]="district"
+                      height="40px" [searchEnabled]="true" selectionMode="single" placeholder="" disableOptionCentering>
+                    </dx-select-box>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="box">
+              <div>
+                <h3> <label>
+                    <input type="checkbox"  style="zoom: 1.5;" name="selection2" (change)="setSelection2($event)"
+                      [checked]="selection2==='visible2'">
+                    Based on other Factor
+                  </label></h3>
+              </div>
+
+              <div class="row" *ngIf="Selection2()">
+                <div class="box">
+                  <dx-select-box formControlName="frequency" label="Select frequency" labelMode="floating"
+                    valueExpr="frequencyid" displayExpr="frequencyperiod" [dataSource]="frequency" search="true"
+                    height="40px" [searchEnabled]="true" selectionMode="single" placeholder="" disableOptionCentering>
+                  </dx-select-box>
+
+                </div>
+                <div class="box">
+                  <dx-select-box formControlName="complaincetype" label="Select Compliance type" labelMode="floating"
+                    search="true" valueExpr="compliance_type_id" displayExpr="compliance_type_name"
+                    [dataSource]="complaincetype" height="40px" [searchEnabled]="true" selectionMode="single"
+                    placeholder="" disableOptionCentering>
+                  </dx-select-box>
+                </div>
+              </div>
+            </div>
+            <div class="margin-top"></div>
+            <div class="button">
+              <button class="grey-button" (click)="Cancel()">Reset</button>
+              <button class="Custombutton" (click)="search(import.value)">Search</button>
+            </div>
+
+
+            <div class="card-body">
+              <div id="app-container">
+
+                <dx-data-grid id="dataGrid" key="create_company_compliance_id" formControlName="complianceid"
+                  [dataSource]="dataSource" [showBorders]="true" [allowColumnResizing]="true" [columnAutoWidth]="true"
+                  (onSelectionChanged)="handleSelectionChanges($event)" [showBorders]="true"
+                  [allowColumnReordering]="true">
+
+                  <!-- <dxi-column dataField="create_company_compliance_id" caption=" Global Compliance ID">
+
+
+                  </dxi-column>
+                  <dxi-column dataField="compliance_name" caption="Compliance Name">
+                  </dxi-column>
+                  <dxi-column dataField="actregulatoryname" caption="Act Name">
+                  </dxi-column>
+                  <dxi-column dataField="act_rule_name" caption="Rule Name">
+                  </dxi-column>
+                  <dxi-column dataField="subscription_type" caption="Content/Subscription Type">
+                  </dxi-column>
+                  <dxi-column dataField="company_compliance_id" caption="Compliance Id">
+                  </dxi-column>
+                  <dxi-column dataField="mapping_status" caption="Company Mapping  Status" visible="false">
+                  </dxi-column> -->
+                  <dxi-column dataField="compliance_location_Mapping_id" caption="compliancelocation Mapping id" width="100px">
+                                              </dxi-column>
+                  <!-- <dxi-column  dataField="create_company_compliance_id" caption="Compliance Id">
+                  </dxi-column> -->
+                  <dxi-column dataField="compliance_name" caption="Compliance Name">
+    
+                  </dxi-column>
+                  <dxi-column dataField="actregulatoryname" caption="act Name">
+                  </dxi-column>
+                  <dxi-column dataField="act_rule_name" caption="rule Name">
+                  </dxi-column>
+                  <dxi-column dataField="department_Master_name" caption="Department Name">
+                </dxi-column>
+                <dxi-column dataField="unit_location_Master_name" caption="Unit Location Name">
+                </dxi-column>
+                  <dxi-column dataField="entity_Master_Name" caption="Entity Name">
+                  </dxi-column>
+                  <dxi-column dataField="companycompliancemappingid" caption="Company Compliance Mapping Id">
+                  </dxi-column>
+                  <!-- <dxi-column dataField="status" caption="company_compliance_mapping_Status">
+                </dxi-column> -->
+
+                  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-search-panel [visible]="true"></dxo-search-panel>
+                  <dxo-group-panel [visible]="true"></dxo-group-panel>
+
+                  <dxo-selection mode="multiple">
+
+                  </dxo-selection>
+                  <dxo-paging [pageSize]="10"></dxo-paging>
+                  <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50, 100]"></dxo-pager>
+
+                  <dxo-summary>
+                    <dxi-total-item column="create_company_compliance_id" summaryType="count">
+                    </dxi-total-item>
+                  </dxo-summary>
+
+
+                  <dxo-toolbar>
+                    <dxi-item name="exportButton"></dxi-item>
+                    <dxi-item name="columnChooserButton"></dxi-item>
+                    <dxi-item name="searchPanel"></dxi-item>
+                  </dxo-toolbar>
+
+
+                </dx-data-grid>
+
+
+              </div>
+            </div>
+
+            <div class="button">
+             <button class="Custombutton" type="button" matStepperNext>Next</button>
+            </div>
+          </div>
+        </mat-step>
+        <div *ngIf="panelvisible">
+                    <mat-step label="Compliance Mapping Configuration" state="phone">
+            <div>
+              <h3> <label>
+                  <input type="checkbox"  style="zoom: 1.5;" name="holiday_factor" formControlName="holiday_factor">
+                  Include Holiday Factor
+                </label></h3>
+            </div>
+            <div>
+              <h3> <label>
+                  <input type="checkbox"  style="zoom: 1.5;" name="Attachment_mandatory" formControlName="Attachment_mandatory">
+                  Make Attachment Mandatory
+                </label></h3>
+            </div>
+            <div>
+              <h3> <label>
+                  <input type="checkbox"  style="zoom: 1.5;" name="attachmentformatallow" formControlName="attachmentformatallow" (change)="attachmentformatallowed($event)"
+                    [checked]="attachmentformatallow ==='attachformatvisible'">
+                  Attachment Format Allowed
+                </label></h3>
+            </div>
+            <div class="box">
+
+              <div style="margin-left: 45px;" *ngIf="attachmentformatallowselection()">
+                <div>
+                  <h3> <label>
+                    <input type="checkbox"  style="zoom: 1.5;" disabled  checked="true" name="pdf" >
+                    <input type="hidden" name="pdf" value="true" formControlName="pdf">
+                     [Default] PDF
+                    </label></h3>
+                </div>
+                <div>
+                  <h3> <label>
+                      <input type="checkbox"  style="zoom: 1.5;" name="doc" formControlName="doc">
+                      [Optional] doc,docx
+                    </label></h3>
+                </div>
+                <div>
+                  <h3> <label>
+                      <input type="checkbox"  style="zoom: 1.5;" name="xls" formControlName="xls">
+                      [Optional] xls,xlsx
+                    </label></h3>
+                </div>
+                <div>
+                  <h3> <label>
+                      <input type="checkbox"  style="zoom: 1.5;" name="ppt" formControlName="ppt">
+                      [Optional] ppt,pptx
+                    </label></h3>
+                </div>
+               
+                <div>
+                  <h3> <label>
+                      <input type="checkbox"  style="zoom: 1.5;" name="comp_zip" formControlName="com_zip">
+                      [Optional] compressed zip
+                    </label></h3>
+                </div>
+
+              </div>
+            </div>
+
+            <div>
+              <h3> <label>
+                  <input type="checkbox"  style="zoom: 1.5;" name="auditworkflow"  formControlName="auditworkflow" [checked]="auditworkflow === 'auditsvisible'" (change)="checker_audit($event)">
+                  Include for Audit Workflow
+                </label></h3>
+            </div>
+            <div>
+              <h3> <label>
+                  <input type="checkbox"  style="zoom: 1.5;" name="checker_auth" formControlName="checker_auth" (change)="checker_authed($event)"
+                    [checked]="checker_auth==='checker_authvisible'">
+                  Is Maker – Checker/ Authorization Workflow required?
+                </label></h3>
+            </div>
+
+            <div class="box">
+              <div style="margin-left: 45px;" *ngIf="checker_authselection()">
+                <div>
+                  <h3> <label>
+                      <input type="checkbox"  style="zoom: 1.5;" disabled  checked="true" name="reviewactivity">
+                      <input type="hidden" name="reviewactivity" value="true" formControlName="reviewactivity">
+                      [Mandatory] Review Activity to be Included
+                    </label></h3>
+                </div>
+                <div>
+                  <h3> <label>
+                      <input type="checkbox"  style="zoom: 1.5;" name="approveactivity" formControlName="approveactivity" checked="approveactivity===approvevisible" (click)="check_approve($event)">
+                      [Optional] Approve Activity to be Included
+                    </label></h3>
+                </div>
+                <div>
+                  <h3> <label>
+                      <input type="checkbox"  style="zoom: 1.5;" name="bothreviewapprove" formControlName="bothreviewapprove" checked="bothreviewapprove===bothreviewapprovevisible" (click)="check_both($event)">
+                      [Optional] Allow Review & Approve by Same User
+                    </label></h3>
+                </div>
+
+
+              </div>
+            </div>
+            <div class="box">
+              <div>
+                <h3> <label>
+                    <!-- <input type="checkbox"  style="zoom: 1.5;" name="no_of_escalations" formControlName="checkbox_no_of_escalations"> -->
+                    Specify No. of Escalations
+                  </label></h3>
+              </div>
+              <div> <mat-form-field appearance="fill" class="form-field">
+                  <input type="number" name="noofescalations" matInput min="2" width="100px" max="10"  required minlength="2" maxlength="10" formControlName="noofescalations">
+                  <mat-hint align="start" >Min 2 - Max 10</mat-hint>
+                  <mat-error *ngIf="noofescalations.errors?.required">
+                    Specify No. of Escalations is Required
+                  </mat-error>
+                  <mat-error *ngIf="noofescalations.errors?.min">
+                    Minimum value is 2
+                  </mat-error>
+                  <mat-error *ngIf="noofescalations.errors?.max">
+                    Maximum value is 10
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div></div>
+            </div>
+            <div class="box">
+              <div>
+                <h3> <label>
+                    <!-- <input type="checkbox"  style="zoom: 1.5;" name="checkbox_no_of_attachements" formControlName="checkbox_no_of_attachements"> -->
+                    Specify No. of Attachments
+                  </label></h3>
+              </div>
+              <div>
+                <mat-form-field appearance="fill" class="form-field">
+                  <input type="number" name="noofattchements" matInput required minlength="2" maxlength="10" min="2" width="100px" max="10" formControlName="noofattchements">
+                  <mat-hint align="start" >Min 2 - Max 10</mat-hint>
+                  <mat-error *ngIf="noofattchements.errors?.required">
+                    Specify No. of Attachments is Required
+                  </mat-error>
+                  <mat-error *ngIf="noofattchements.errors?.min">
+                    Minimum value is 2
+                  </mat-error>
+                  <mat-error *ngIf="noofattchements.errors?.max">
+                    Maximum value is 10
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div></div>
+            </div>
+            <div class="box">
+              <div>
+                <h3> <label>
+                    <!-- <input type="checkbox"  style="zoom: 1.5;"  name="checkbox_no_of_remind_req" formControlName="checkbox_no_of_remind_req"> -->
+                    Specify No. of Reminders Required
+                  </label></h3>
+               
+              </div>
+              <div>
+                <mat-form-field appearance="fill" class="form-field">
+                  <input type="number" name="noofremindersrequired" required minlength="2" maxlength="10"  matInput min="2" width="100px" max="10" formControlName="noofremindersrequired">
+                  <mat-hint align="start" >Min 2 - Max 10</mat-hint>
+                  <mat-error *ngIf="noofremindersrequired.errors?.required">
+                    Specify No. of Reminders is Required
+                  </mat-error>
+                  <mat-error *ngIf="noofremindersrequired.errors?.min">
+                    Minimum value is 2
+                  </mat-error>
+                  <mat-error *ngIf="noofremindersrequired.errors?.max">
+                    Maximum value is 10
+                  </mat-error>
+               
+                </mat-form-field>
+              </div>
+              <div></div>
+            </div>
+            <div class="button">
+              <button class="grey-button" type="button" matStepperPrevious>Back</button>
+              <!-- <button class="Custombutton" type="button"  matStepperPrevious>Export</button> -->
+              <button class="Custombutton" type="button" matStepperNext (click)="mapconfig()" >Next</button>
+            </div>
+          </mat-step>
+          <mat-step label="Compliance User Activity Mapping" state="phone">
+            <br>
+            <div class="box">
+              <div>
+                <h3>
+                  <label>
+                    <!-- <input type="checkbox"  style="zoom: 1.5;" disabled  checked="true" name="reviewactivity">
+                      <input type="hidden" name="reviewactivity" value="true" formControlName="reviewactivity" [checked]="updated_user === 'updatevisible'"> -->
+                    <input type="checkbox"  style="zoom: 1.5;" name="updated_user"  disabled checked="true"  (change)="updateuser($event)"
+                      >
+                    Update
+                  </label>
+                </h3>
+              </div>
+              <div>
+                <!-- <div *ngIf="updateuserselection()"> -->
+                  <div>
+                  <dx-select-box formControlName="updateuser" label="Select User Name" labelMode="floating"
+                    valueExpr="usR_ID" displayExpr="firstname" [dataSource]="updateusername" search="true" height="40px"
+                    [searchEnabled]="true" selectionMode="single" placeholder=""
+                    (onValueChanged)="getupdateuser($event)" disableOptionCentering>
+                  </dx-select-box>
+
+
+                </div>
+              </div>
+              <div></div>
+            </div>
+            <br>
+            <div class="box">
+              <div>
+                <h3> <label>
+                    <input type="checkbox"  style="zoom: 1.5;" name="review_user" (change)="reviewuser($event)"
+                      [checked]="review_user === 'reviewvisible'" >
+                    Review
+                  </label></h3>
+              </div>
+              <div>
+                <div *ngIf="reviewuserselection()">
+
+                  <dx-select-box formControlName="reviewuser" label="Select User Name" labelMode="floating"
+                    valueExpr="usR_ID" displayExpr="firstname" [dataSource]="reviewusername" search="true" height="40px"
+                    [searchEnabled]="true" selectionMode="single" placeholder="" disableOptionCentering (onValueChanged)="getupdatereviewuser($event)">
+                  </dx-select-box>
+                </div>
+              </div>
+              <div></div>
+
+            </div>
+            <br>
+            <div class="box" *ngIf="checkCombinedCondition()">
+          
+              <div >
+                <h3> <label>
+                    <input type="checkbox"  style="zoom: 1.5;" name="approve_user" (change)="approveuser($event)"
+                      [checked]="approve_user === 'approvevisible'">
+                    Approve
+                  </label></h3>
+              </div>
+         
+              <div>
+                <div *ngIf="approveuserselection()">
+                  <dx-select-box formControlName="approverruser" label="Select User Name" labelMode="floating"
+                    valueExpr="usR_ID" displayExpr="firstname" [dataSource]="approveusername" search="true" 
+                    height="40px" [searchEnabled]="true" selectionMode="single" placeholder="" disableOptionCentering (onValueChanged)="getupdatereviewapproveuser($event)">
+                  </dx-select-box>
+                </div>
+              </div>
+              <div></div>
+            </div>
+            <br>
+            <div class="box">
+              <div>
+                <h3> <label>
+                    <input type="checkbox"  style="zoom: 1.5;" name="monitor_user" (change)="monitoruser($event)"
+                      [checked]="monitor_user === 'monitorvisible'">
+                    Monitor
+                  </label></h3>
+              </div>
+              <div>
+                <div *ngIf="monitoruserselection()">
+                <dx-drop-down-box formControlName="monitoruser" [(value)]="monitoredselected"
+                  [inputAttr]="{ 'aria-label': 'Owner' }" placeholder="Select User Name*" [showClearButton]="true"
+                  labelMode="floating" valueExpr="usR_ID" displayExpr="firstname"
+                  [dataSource]="monitorusername" searchEnabled="true" height="40px"
+                  (onValueChanged)="getmonitoruserid($event)">
+                  <div *dxTemplate="let data of 'content'">
+                    <dx-data-grid [dataSource]="monitorusername" [selection]="{ mode: 'multiple' }"
+                      [hoverStateEnabled]="true" [columns]="['firstname']" [(selectedRowKeys)]="monitoredselected"
+                      [filterRow]="{ visible: true }" [scrolling]="{ mode: 'virtual' }" [showColumnHeaders]="true"
+                      height="220%">
+                    </dx-data-grid>
+
+                  </div>
+
+                </dx-drop-down-box>
+                </div>
+              </div>
+              <div></div>
+            </div>
+            <br>
+            <div class="box" *ngIf="checkauditselection()">
+              <div>
+                <h3> <label>
+                    <input type="checkbox"  style="zoom: 1.5;" name="Audit_user" formControlName="Audit_user" for (change)="Audituser($event)"
+                      [checked]="Audit_user === 'Auditvisible'">
+                    Audit
+                  </label></h3>
+              </div>
+              <div>
+                <div *ngIf="audituserselection()">
+
+                  <dx-select-box formControlName="audituser" label="Select User Name" labelMode="floating"
+                    valueExpr="usR_ID" displayExpr="firstname" [dataSource]="auditorusername" search="true"
+                    height="40px" [searchEnabled]="true" selectionMode="single" placeholder="" disableOptionCentering (onValueChanged)="getupdatereviewapproveaudituser($event)">
+                  </dx-select-box>
+                </div>
+              </div>
+              <div></div>
+            </div>
+            <br>
+            <div class="box">
+              <div>
+                <h3> <label>
+                    <input type="checkbox"  style="zoom: 1.5;" name="view_user" (change)="viewuser($event)"
+                      [checked]="view_user==='viewvisible'">
+                    View
+                  </label></h3>
+              </div>
+              <div>
+                <div *ngIf="viewuserselection()">
+<!-- 
+                  <dx-select-box formControlName="viewuser" label="Select User Name" labelMode="floating"
+                    valueExpr="usR_ID" displayExpr="firstname" [dataSource]="viewusername" search="true" height="40px"
+                    [searchEnabled]="true" selectionMode="multiple" placeholder="" disableOptionCentering>
+                  </dx-select-box> -->
+
+
+                  <dx-drop-down-box formControlName="viewuser" [(value)]="viewuserselected"
+                  [inputAttr]="{ 'aria-label': 'Owner' }" placeholder="Select User Name*" [showClearButton]="true"
+                  labelMode="floating" valueExpr="usR_ID" displayExpr="firstname"
+                  [dataSource]="viewusername" searchEnabled="true" height="40px"
+                 >
+                  <div *dxTemplate="let data of 'content'">
+                    <dx-data-grid [dataSource]="viewusername" [selection]="{ mode: 'multiple' }"
+                      [hoverStateEnabled]="true" [columns]="['firstname']" [(selectedRowKeys)]="viewuserselected"
+                      [filterRow]="{ visible: true }" [scrolling]="{ mode: 'virtual' }" [showColumnHeaders]="true"
+                      height="220%">
+                    </dx-data-grid>
+
+                  </div>
+
+                </dx-drop-down-box>
+                </div>
+              </div>
+              <div></div>
+            </div>
+            <br>
+            <div class="box">
+              <div>
+                <h3> <label>
+                  <!-- [checked]="Remediation_user==='Remediationvisible'" -->
+                    <input type="checkbox"  style="zoom: 1.5;" name="Remediation_user" disabled checked="true"  (change)="Remediationuser($event)"
+                      >
+                    Remediation
+                  </label></h3>
+              </div>
+              <div>
+                <!-- <div *ngIf="remidationuserselection()"> -->
+                  <div>
+                  <dx-select-box formControlName="remidationuser" label="Select User Name" labelMode="floating"
+                    valueExpr="usR_ID" displayExpr="firstname" [dataSource]="Remediationusername" search="true"
+                    height="40px" [searchEnabled]="true" selectionMode="single" placeholder=""
+                    (onValueChanged)="getremideuser($event)" disableOptionCentering>
+                  </dx-select-box>
+
+                </div>
+              </div>
+              <div></div>
+            </div>
+            <br>
+            <div class="box">
+              <div>
+                <h3> <label>
+                    <input type="checkbox"  style="zoom: 1.5;" name="backup_user" (change)="backupuser($event)"
+                      [checked]="backup_user==='backupvisible'">
+                    Backup User
+                  </label></h3>
+              </div>
+              <div>
+                <div *ngIf="backupuserselection()">
+                  <dx-select-box formControlName="backupuser" label="Select User Name" labelMode="floating"
+                    valueExpr="usR_ID" displayExpr="firstname" [dataSource]="backupusername" search="true" height="40px"
+                    [searchEnabled]="true" selectionMode="single" placeholder="" disableOptionCentering>
+                  </dx-select-box>
+                </div>
+              </div>
+              <div></div>
+            </div>
+            <div class="button">
+              <button class="grey-button" type="button" matStepperPrevious>Back</button>
+              <!-- <button class="Custombutton" type="button"  matStepperPrevious>Export</button> -->
+              <button class="Custombutton" type="button" matStepperNext (click)="useractivitymap()" >Next</button>
+            </div>
+          </mat-step>
+          <mat-step label="Escalation Mapping" state="phone">
+            <table>
+              <thead >
+                <tr></tr>
+                <tr>
+                  <td></td>
+                  <th>Overdue Reminders</th>
+                  <th *ngFor="let column of columns">Reminder {{ column }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Reminder Alerts (in days)</td>
+                  <td class="box">
+                    <input type="number" name="noofremindersalertdaysoverdue" formControlName="noofremindersalertdaysoverdue"  min="2" max="10" width="60px" placeholder="Please enter days" style="border: 1px solid black; ">
+                    Days
+                    <dx-select-box formControlName="Periodicityofoverduereminder" label="Select Periodicity"
+                      labelMode="floating" valueExpr="id" displayExpr="text" [dataSource]="Periodicityds" search="true"
+                      height="40px" width="100%" [searchEnabled]="true" selectionMode="single" placeholder=""
+                      disableOptionCentering>
+                    </dx-select-box>
+
+                  </td>
+                  
+
+                  <td *ngFor="let cell of reminders().controls;let remindersindex=index"  formArrayName="reminders">
+                    <div [formGroupName]="remindersindex">
+                      <input type="number" name="'noofremindersalertdaysoverdue'+cell"
+                      formControlName="reminderalertdays" min="2" max="10" placeholder="Please enter days" style="border: 1px solid black;width:150px; height: 28px;">
+                    <label> Days</label>
+                    <dx-select-box formControlName="Periodicityofoverduereminder" label="Select Periodicity"
+                    labelMode="floating" valueExpr="id" displayExpr="text" [dataSource]="Periodicityds" search="true"
+                    height="40px" width="100%" [searchEnabled]="true" selectionMode="single" placeholder=""
+                    disableOptionCentering>
+                  </dx-select-box>
+                    </div>
+                    
+                  </td>
+
+                </tr>
+                <tr>
+                  <td>Notification Mail Alerts</td>
+                  <td>
+                    <dx-select-box formControlName="Notification_overduereminder" label="Select Notification Mail Alerts"
+                    labelMode="floating" valueExpr="notificationMailAlertid" displayExpr="nameofAlert" [dataSource]="Notificationmailds" search="true"
+                    height="40px" width="100%" [searchEnabled]="true" selectionMode="single" placeholder=""
+                    disableOptionCentering>
+                  </dx-select-box></td>
+                  <td *ngFor="let cell of reminders().controls;let remindersindex=index"  formArrayName="reminders">
+                    <div  [formGroupName]="remindersindex">
+                      <dx-select-box formControlName="Notification_overduereminder" label="Select Notification Mail Alerts"
+                      labelMode="floating" valueExpr="notificationMailAlertid" displayExpr="nameofAlert" [dataSource]="Notificationmailds" search="true"
+                      height="40px" width="100%" [searchEnabled]="true" selectionMode="single" placeholder=""
+                      disableOptionCentering>
+                    </dx-select-box>
+                    </div>
+                   
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h3> <label>
+                        <input type="checkbox"  style="zoom: 1.5;" name="level1check" formControlName="level1check">
+                        Level 1
+                      </label></h3>
+                    <input matInput formControlName="level_1_username" class="readonly-input" readonly />
+                    
+                  </td>
+                  <td> <input type="checkbox"  style="zoom: 1.5;" name="level1checkOverduereminder" formControlName="level1checkOverduereminder">
+
+                  </td>
+                  <td *ngFor="let cell of level1remainders().controls;let remindersindex=index"  formArrayName="reminders">
+                    <div  [formGroupName]="remindersindex">
+                    <input type="checkbox"  style="zoom: 1.5;" formControlName="levelcheckOverduereminder">
+
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <h3> <label>
+                        <input type="checkbox"  style="zoom: 1.5;" formControlName="level2check">
+                        Level 2
+                      </label></h3> 
+                      <!-- <dx-select-box formControlName="level_2_username" label="Select User Name" labelMode="floating"
+                    valueExpr="usR_ID" displayExpr="firstname" [dataSource]="level2ds" search="true"
+                    height="40px" [searchEnabled]="true" selectionMode="multiple" placeholder=""
+                    disableOptionCentering  (onValueChanged)="getlevel2user($event)">
+                  </dx-select-box> -->
+
+                  <dx-drop-down-box formControlName="level_2_username" [(value)]="level2userselected"
+                  [inputAttr]="{ 'aria-label': 'Owner' }" placeholder="Select User Name*" [showClearButton]="true"
+                  labelMode="floating" valueExpr="usR_ID" displayExpr="firstname"
+                  [dataSource]="level2ds" searchEnabled="true" height="40px" (onValueChanged)="getlevel2user($event)"
+                 >
+                  <div *dxTemplate="let data of 'content'">
+                    <dx-data-grid [dataSource]="level2ds" [selection]="{ mode: 'multiple' }"
+                      [hoverStateEnabled]="true" [columns]="['firstname']" [(selectedRowKeys)]="level2userselected"
+                      [filterRow]="{ visible: true }" [scrolling]="{ mode: 'virtual' }" [showColumnHeaders]="true"
+                      height="220%">
+                    </dx-data-grid>
+
+                  </div>
+
+                </dx-drop-down-box>
+
+                  </td>
+                  <td> <input type="checkbox"  style="zoom: 1.5;" name="level2checkOverduereminder" formControlName="level2checkOverduereminder">
+
+                  </td>
+                  <td *ngFor="let cell of level2remainders().controls;let remindersindex=index"  formArrayName="reminders">
+                    <div [formGroupName]="remindersindex">
+                    <input type="checkbox"  style="zoom: 1.5;" formControlName="levelcheckOverduereminder">
+                  </div>
+                  </td>
+                </tr>
+
+                <tr formArrayName="levels" *ngFor="let row1 of levels().controls;let levelindex = index"  >
+                 
+                  
+                  <td>
+                    <div [formGroupName]="levelindex">
+                      <h3>
+                        <label>
+                          <input type="checkbox" style="zoom: 1.5;" formControlName="levelcheck"> Level {{levelindex+3}}
+                        </label>
+                      </h3>
+                      <dx-drop-down-box formControlName="levelcheckusername" [(value)]="levelsuserselected[levelindex]"
+                      [inputAttr]="{ 'aria-label': 'Owner' }" placeholder="Select User Name*" [showClearButton]="true"
+                      labelMode="floating" valueExpr="usR_ID" displayExpr="firstname" [dataSource]="levelsdsarray[levelindex]"
+                      searchEnabled="true" height="40px" (onValueChanged)="getlevelsuser($event,levelindex)">
+                      <div *dxTemplate="let data of 'content'">
+                        <dx-data-grid [dataSource]="levelsdsarray[levelindex]" [selection]="{ mode: 'multiple' }" [hoverStateEnabled]="true"
+                          [columns]="['firstname']" [(selectedRowKeys)]="levelsuserselected[levelindex]" [filterRow]="{ visible: true }"
+                          [scrolling]="{ mode: 'virtual' }" [showColumnHeaders]="true" height="220%">
+                        </dx-data-grid>
+                
+                      </div>
+                    </dx-drop-down-box>
+                    </div>
+                   
+                    <!-- <dx-select-box formControlName="'levelcheck'+row1" label="Select User Name" labelMode="floating"
+                                    valueExpr="usR_ID" displayExpr="firstname" [dataSource]="levelsdsarray[i]" search="true"
+                                    height="40px" [searchEnabled]="true" selectionMode="multiple" placeholder="" (onValueChanged)="getlevelsuser($event,i)"
+                                  disableOptionCentering>
+                                  </dx-select-box> -->
+                
+                    
+                  </td>
+                  <td>
+                    <div [formGroupName]="levelindex">
+
+                    <input type="checkbox" style="zoom: 1.5;" name="levelcheckOverduereminder" formControlName="levelcheckOverduereminder">
+                    </div>
+                  </td>
+                  <ng-container [formGroupName]="levelindex"  style="display: flex; flex-direction: row; ">
+                    <ng-container *ngFor="let cell of levelremainderss(levelindex).controls;let remindersindex=index" formArrayName="reminders">
+                     <td>
+                    <div [formGroupName]="remindersindex" style="padding-right: 100px;">
+                    <input type="checkbox" style="zoom: 1.5;"
+                      formControlName="levelcheckOverduereminder">
+                    </div>
+                  </td>
+                  </ng-container>
+                 </ng-container>
+
+                </tr>
+              </tbody>
+            </table>
+            <div class="button">
+              <button class="grey-button" type="button" matStepperPrevious>Back</button>
+              <!-- <button class="Custombutton" type="button"  matStepperPrevious>Export</button> -->
+              <button class="Custombutton" type="button" matStepperNext  (click)="SaveEscalations()">Next</button>
+            </div>
+          </mat-step>
+          <mat-step label="Scheduler Setup" state="phone">
+            <!-- <div class="box">
+              <div>
+                <h3> <label style="margin-left: 30px;">
+                    Apply Scheduler on
+
+                    <mat-radio-group style="margin-left: 15px;" formControlName="scheduleron">
+                      <mat-radio-button value="OriginalDueDate">
+                        Original Due Date
+                      </mat-radio-button>
+                      <mat-radio-button value="ExtendedDueDate">
+                        Extended Due Date
+                      </mat-radio-button>
+                    </mat-radio-group>
+                  </label></h3>
+              </div>
+
+            </div> -->
+            <div class="box-container">
+              <!-- Apply Scheduler Section -->
+              <div class="box">
+                <div class="scheduler-section">
+                  <h3 style="font-weight: bold; margin-right: 10px;">Apply Scheduler on</h3>
+                  <mat-radio-group formControlName="scheduleron" class="radio-group">
+                    <mat-radio-button value="OriginalDueDate">Original Due Date</mat-radio-button>
+                    <mat-radio-button value="ExtendedDueDate">Extended Due Date</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            
+              <br />
+            
+              <!-- Date Section: Start and End Date with Auto Responsive -->
+              <div class="box date-row">
+                <!-- Effective Start Date Section -->
+                <div class="date-wrapper">
+                  <div class="date-section">
+                    <h3><label for="startDate">Effective Start Date</label></h3>
+                    <dx-date-box
+                      formControlName="effective_start_date"
+                      id="startDate"
+                      type="date"
+                      displayFormat="dd-MM-yyyy"
+                      [value]="import.get('effective_start_date')?.value || null"
+                      [inputAttr]="{ 'aria-label': 'Date' }"
+                      placeholder="Select Date"
+                    >
+                    </dx-date-box>
+                  </div>
+            
+                  <!-- Error Message for Start Date (Below) -->
+                  <div *ngIf="isStartDateInvalid()" class="error-msg">
+                    Effective Start Date is required!
+                  </div>
+                </div>
+            
+                <!-- Effective End Date Section -->
+                <div class="date-wrapper">
+                  <div class="date-section">
+                    <h3><label for="endDate">Effective End  Date</label></h3>
+                    <dx-date-box
+                      formControlName="effective_end_date"
+                      id="endDate"
+                      type="date"
+                      displayFormat="dd-MM-yyyy"
+                      [value]="import.get('effective_end_date')?.value || null"
+                      [inputAttr]="{ 'aria-label': 'Date' }"
+                      placeholder="Select Date"
+                    >
+                    </dx-date-box>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            
+            
+            
+
+            <div class="button">
+              <button class="grey-button" type="button" matStepperPrevious>Back</button>
+              <button class="Custombutton" type="button" matStepperNext  (click)="Submit()">Submit</button>
+            </div>
+          </mat-step>
+        </div>
+
+        </form>
+      </mat-horizontal-stepper>
+    </div>
+  </div>
+</div>

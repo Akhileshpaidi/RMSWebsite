@@ -1,0 +1,669 @@
+<div class="body" id="export-content">
+    <!-- <h1>Management/Leadership Team Dashboard</h1> -->
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h1>Management/Leadership Team Dashboard</h1>
+      <button mat-raised-button color="accent" (click)="exportToPDF()">
+        Export to PDF
+      </button>
+    </div>
+    <div class="date-picker-row" style="display: flex; gap: 16px; align-items: center;">
+      <mat-form-field appearance="fill" style="flex: 1;">
+         <mat-label>From Date</mat-label>
+         <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fromDate" placeholder="Choose a date">
+         <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+         <mat-datepicker #fromPicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="flex: 1;">
+         <mat-label>To Date</mat-label>
+         <input matInput [matDatepicker]="toPicker" [(ngModel)]="toDate" placeholder="Choose a date">
+         <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+         <mat-datepicker #toPicker></mat-datepicker>
+      </mat-form-field>
+      <!-- Combobox for Date Type -->
+    <mat-form-field appearance="fill" style="flex: 1;">
+      <mat-label>Select Date Type</mat-label>
+      <mat-select [(ngModel)]="selectedDateType" placeholder="Choose date type" (selectionChange)="onDatetypeChange($event)">
+        <mat-option *ngFor="let type of dateTypes" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+      <button mat-raised-button color="primary" style="flex-shrink: 0;" (click)="onSubmit()">
+         Submit
+      </button>
+   </div>
+
+    <div class="dashboard">
+      <div class="box-container">
+        <div class="label">Total Depository Count</div>
+        <div class="square-box" style="background: linear-gradient(to right, #ff7e5f, #feb47b)">
+          <div class="count">{{ totalDepositoryCount }}</div>
+        </div>
+      </div>
+      <div class="box-container">
+        <div class="label">Newly Added Documents</div>
+        <div class="square-box" style="background: linear-gradient(to right, #0000FF, #0101fb)">
+          <div class="count">{{ newlyaddedDocCount }}</div>
+        </div>
+      </div>
+      <div class="box-container">
+        <div class="label">Disabled Documents</div>
+        <div class="square-box" style="background: linear-gradient(to right, #008000, #008000)">
+          <div class="count">{{ disabledDocCount }}</div>
+        </div>
+      </div>
+        <!-- <app-circle-card 
+        [count]="totalDepositoryCount" 
+        label="Total Depository Count"
+        backgroundColor="linear-gradient(to right, #ff7e5f, #feb47b)">
+      </app-circle-card>
+     
+     <app-circle-card 
+      [count]="newlyaddedDocCount" 
+      label="Newly Added Documents"
+      backgroundColor="linear-gradient(to right, #800080, #800080)">
+     </app-circle-card>
+     
+     <app-circle-card 
+      [count]="disabledDocCount" 
+      label="Disabled Documents"
+      backgroundColor="linear-gradient(to right, #8a8685, #8a8685)">
+     </app-circle-card> -->
+     </div>
+
+     <div class="cards">
+      <mat-card class="bridgCount first-card" style="height: 450px; overflow: auto;">
+        <h2 style="margin-bottom: 0;">Document Details</h2> <!-- Removed bottom margin -->
+        <div class="vertical-scroll-container">
+          <div *ngFor="let element of dataSource" class="document-card">
+            <!-- Primary Card -->
+            <mat-card 
+              class="document-card-container" 
+              [ngClass]="{'highlighted': selectedDocId === element.addDoc_id}"
+              (click)="selectCard(element.addDoc_id)"
+            >
+              <mat-card-content>
+                <div class="row">
+                  <div class="column">
+                    <!-- <strong>DocType:</strong>  -->
+                    {{ element.docTypeName }}
+                  </div>
+                  <div class="column">
+                    <!-- <strong>DocCategory:</strong>  -->
+                    {{ element.doc_CategoryName }}
+                  </div>
+                  <div class="column">
+                    <!-- <strong>DocSubCategory:</strong> -->
+                     {{ element.doc_SubCategoryName }}
+                  </div>
+                 
+                </div>
+                <div class="row">
+                <div class="column-title">
+                  <!-- <strong>Title Name:</strong>  -->
+                  {{ element.title_Doc }}
+                </div>
+              </div>
+                <div class="row">
+                  <div class="column">
+                    <!-- <strong>Doc Version:</strong>  -->
+                    {{ element.document_Version }}  
+                   </div>
+                   <div class="column">
+                    <!-- <strong>Publishing Date:</strong>  -->
+                    {{ element.addDoc_createdDate | date: 'dd/MMM/yyyy'}} 
+                  </div>
+                    <div class="column">
+                    <!-- <strong>Doc Confidentiality:</strong>  -->
+                    {{ element.doc_Confidentiality }}
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          
+            <!-- Extended Card -->
+            <mat-card 
+              *ngIf="selectedDocId === element.addDoc_id" 
+              class="document-card-extended"
+            >
+              <mat-card-content>
+                <div class="row">
+                  <div class="column-expand">
+                    <div>Effective Date </div>
+                    <strong>{{ element.eff_Date | date: 'dd/MMM/yyyy'}}</strong>
+                  </div>
+                  <div class="column-expand">
+                   <div>Process Owner </div> 
+                    <strong>{{ element.doc_process_Owner }}</strong>
+                  </div>
+                  <div class="column-expand">
+                    <div>Approver </div>
+                    <strong>{{ element.doc_Approver }}</strong>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="column-expand">
+                    <div>Document Classification </div>
+                    <strong>{{ element.doc_Classification }}</strong>
+                  </div>
+                  <div class="column-expand">
+                    <div>Publish Authority </div>
+                    <strong>{{ element.publish_Authority }}</strong> 
+                  </div>
+                  <div class="column-expand">
+                    <div>Name of Authority </div>
+                    <strong>{{ element.name_of_Authority }}</strong> 
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+      </div>
+      
+      </mat-card>
+      <mat-card class="bridgCount second-card" style="height: 450px; overflow: auto;">
+        <div class="pie-chart-container">
+        <h2 style="margin-bottom: 0;"> Document REVIEW STATUS</h2> <!-- Removed bottom margin -->
+        <!-- Content for the second card -->
+        <dx-pie-chart
+      [dataSource]="chartData"
+      type="doughnut">
+      <dxi-series 
+        argumentField="displayText" 
+        valueField="status_Count">
+      </dxi-series>
+      <dxi-legend 
+        orientation="horizontal" 
+        itemTextPosition="right" 
+        horizontalAlignment="center" 
+        verticalAlignment="bottom">
+      </dxi-legend>
+    </dx-pie-chart>
+    </div>
+      </mat-card>
+    </div>
+
+    <div class="three-card-row">
+      <mat-card class="third-card">
+        <!-- Content for the fifth card -->
+        <div class="header-container">
+        <h3>ANALYSIS</h3>
+        <mat-form-field appearance="fill">
+          <mat-label>Choose an option</mat-label>
+          <mat-select (selectionChange)="onOptionChange($event)">
+            <mat-option *ngFor="let option of options" [value]="option.value">
+              {{ option.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+        <!-- <p>Content for the third card.</p> -->
+        <!-- <div class="chart-container" style="height: 220px; width: 100%;" width: 600px;> -->
+          <dx-chart
+      *ngIf="showFirstChart"
+      [dataSource]="docTypeData"
+      title="Document Types"
+      style="display: block; height: 330px; width: 100%;"
+      (onPointClick)="onFirstChartClicks($event)">
+      <dxi-series
+        argumentField="doctypeName"
+        valueField="doctype_Count"
+        type="bar">
+      </dxi-series>
+    </dx-chart>
+        <!-- </div> -->
+         <!-- Doc Category Chart -->
+            <!-- Back Button for Second Chart -->
+    <button *ngIf="showSecondChart" (click)="goBackToFirstChart()">Back</button>
+        <dx-chart
+        *ngIf="showSecondChart"
+        [dataSource]="docCategotyData" title="Doc Category"
+        style="display: block; height: 330px; width: 100%;"
+        (onPointClick)="onSecondChartClicks($event)">
+        <dxi-series
+          argumentField="doc_CategoryName"
+          valueField="doccategory_Count"
+          type="bar">
+        </dxi-series>
+      </dx-chart>
+    
+        <!-- Doc SubCategory Chart -->
+          <!-- Back Button for Third Chart -->
+    <button *ngIf="showThirdChart" (click)="goBackToSecondChart()">Back</button>
+        <dx-chart
+        *ngIf="showThirdChart"
+        [dataSource]="docSubCategoryData" title="Doc SubCategory"
+        style="display: block; height: 330px; width: 100%;">
+        <dxi-series
+          argumentField="doc_SubCategoryName"
+          valueField="docsubcategory_Count"
+          type="bar">
+        </dxi-series>
+      </dx-chart>
+    
+      <!-- Total Depository List - Document Confidentiality -->
+      <dx-pie-chart
+      *ngIf="showDocConfChart"
+      [dataSource]="DocConfidentiality" title="Doc Confidentiality"
+      type="doughnut" style="display: block; height: 230px; width: 450px;">
+      <dxi-series 
+        argumentField="displaydoc_Confidentiality" 
+        valueField="count">
+      </dxi-series>
+      <dxi-legend 
+        orientation="horizontal" 
+        itemTextPosition="right" 
+        horizontalAlignment="center" 
+        verticalAlignment="bottom">
+      </dxi-legend>
+    </dx-pie-chart>
+    <!-- Total Depository List - Authority Type > Authority Name -->
+    <dx-chart *ngIf="showAuthorityChart"
+    [dataSource]="flatData" title="Authority Name Counts" 
+    style="display: block; height: 330px; width: 100%;">
+     <dxo-common-series-settings argumentField="authorityTypeName" type="bar"></dxo-common-series-settings>
+   
+     <dxi-series *ngFor="let s of series"
+       [valueField]="s.valueField"
+       [name]="s.name">
+     </dxi-series>
+   
+     <dxo-argument-axis>
+       <dxi-label [rotationAngle]="45"></dxi-label>
+     </dxo-argument-axis>
+   
+     <dxo-value-axis>
+       <dxo-label format="fixedPoint"></dxo-label>
+     </dxo-value-axis>
+   
+     <dxo-legend [visible]="true"></dxo-legend>
+   </dx-chart>
+    <!-- <dx-chart
+      *ngIf="showAuthorityChart"
+      [dataSource]="flatData"
+      title="Authority Name Counts"
+      style="display: block; height: 330px; width: 100%;"
+    >
+      <dxi-series
+        *ngFor="let group of transformedData"
+        [dataSource]="group.items"
+        argumentField="authorityName"
+        valueField="count"
+        type="bar"
+        name="{{group.authorityTypeName}}"
+        [label]="{
+          visible: true,
+          customizeText: customizeLabel
+        }"
+      >
+      </dxi-series>
+    
+      <dxo-tooltip [enabled]="true"></dxo-tooltip>
+      <dxo-legend [visible]="true"></dxo-legend>
+    </dx-chart> -->
+    <!-- Total Depository List - – Nature of Document -->
+    <dx-pie-chart
+    *ngIf="showNatureofDoc"
+    [dataSource]="NatureOfDoc" title="Nature Of Doc"
+    type="doughnut" style="display: block; height: 230px; width: 450px;">
+    <dxi-series 
+      argumentField="naturedocdisplayText" 
+      valueField="count">
+    </dxi-series>
+    <dxi-legend 
+      orientation="horizontal" 
+      itemTextPosition="right" 
+      horizontalAlignment="center" 
+      verticalAlignment="bottom">
+    </dxi-legend>
+    </dx-pie-chart>
+    <!-- Total Depository List - – Indicative Reading Time -->
+    <dx-chart  *ngIf="showReadingTime" [dataSource]="ReadingTimeData" title="Document Count by Time Period and Reading Time"
+    style="display: block; height: 330px; width: 100%;">
+      <dxo-common-series-settings argumentField="time_period" type="bar"></dxo-common-series-settings>
+    
+      <!-- Generate series dynamically -->
+      <dxi-series *ngFor="let s of ReadingTimeSeries"
+        [valueField]="s.valueField"
+        [name]="s.name">
+      </dxi-series>
+    
+      <dxo-argument-axis>
+        <dxo-label [rotationAngle]="45"></dxo-label>
+      </dxo-argument-axis>
+    
+      <dxo-value-axis>
+        <dxo-label format="fixedPoint"></dxo-label>
+      </dxo-value-axis>
+    
+      <dxo-legend [visible]="true"></dxo-legend>
+    </dx-chart>
+    <!-- <dx-chart
+      *ngIf="showReadingTime"
+      [dataSource]="getFilteredData()"
+      title="Document Count by Time Period and Reading Time"
+      style="display: block; height: 330px; width: 100%;">
+      <dxo-series-template 
+        [nameField]="'indicative_reading_time'" 
+        [customizeSeries]="customizeSeries">
+      </dxo-series-template>
+      <dxo-tooltip [enabled]="true" format="fixedPoint"></dxo-tooltip>
+      <dxo-legend [visible]="true"></dxo-legend>
+    </dx-chart> -->
+    
+  </mat-card>
+    
+      <!-- Disabled Documents -->
+      <mat-card class="fifth-card">
+        <div class="header-container">
+          <h3>Disabled Documents</h3>
+          <mat-form-field appearance="fill">
+            <mat-label>Choose an option</mat-label>
+            <mat-select (selectionChange)="onDisabledOptionChange($event)">
+              <mat-option *ngFor="let option of Disabledoptions" [value]="option.value">
+                {{ option.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+    
+         <!--SavedDraft Doc Type Chart -->
+         <dx-chart
+         *ngIf="showDisabledFirstChart"
+         [dataSource]="DisableddocTypeData"
+         title="Disabled Document Types"
+         style="display: block; height: 330px; width: 100%;"
+         (onPointClick)="onFirstDisabledClicks($event)">
+         <dxi-series
+           argumentField="doctypeName"
+           valueField="doctype_Count"
+           type="bar">
+         </dxi-series>
+         </dx-chart>
+            <!--SavedDraft Doc Category Chart -->
+         <button *ngIf="showDisabledSecondChart" (click)="goBackToFirstDisabled()">Back</button>
+           <dx-chart
+           *ngIf="showDisabledSecondChart"
+           [dataSource]="DisableddocCategotyData" title="Disabled Doc Category"
+           style="display: block; height: 330px; width: 100%;"
+           (onPointClick)="onSecondDisabledClicks($event)">
+           <dxi-series
+             argumentField="doc_CategoryName"
+             valueField="doccategory_Count"
+             type="bar">
+           </dxi-series>
+         </dx-chart>
+         
+           <!--SavedDraft Doc SubCategory Chart -->
+         <button *ngIf="showDisabledThirdChart" (click)="goBackToSecondDisabled()">Back</button>
+           <dx-chart
+           *ngIf="showDisabledThirdChart"
+           [dataSource]="DisableddocSubCategoryData" title="Disabled Doc SubCategory"
+           style="display: block; height: 330px; width: 100%;">
+           <dxi-series
+             argumentField="doc_SubCategoryName"
+             valueField="docsubcategory_Count"
+             type="bar">
+           </dxi-series>
+         </dx-chart>  
+         
+      <!-- Total Depository List - Document Confidentiality -->
+      <dx-pie-chart
+      *ngIf="showDisabledDocConfChart"
+      [dataSource]="DisabledDocConfidentiality" title="Doc Confidentiality"
+      type="doughnut" style="display: block; height: 230px; width: 450px;">
+      <dxi-series 
+        argumentField="displayDisableddoc_Confidentiality" 
+        valueField="count">
+      </dxi-series>
+      <dxi-legend 
+        orientation="horizontal" 
+        itemTextPosition="right" 
+        horizontalAlignment="center" 
+        verticalAlignment="bottom">
+      </dxi-legend>
+    </dx-pie-chart>
+    <!-- Total Depository List - Authority Type > Authority Name -->
+    <dx-chart *ngIf="showDisabledAuthorityChart"
+    [dataSource]="DisabledflatData" title="Authority Name Counts" 
+    style="display: block; height: 330px; width: 100%;">
+     <dxo-common-series-settings argumentField="authorityTypeName" type="bar"></dxo-common-series-settings>
+    
+     <dxi-series *ngFor="let s of Disabledseries"
+       [valueField]="s.valueField"
+       [name]="s.name">
+     </dxi-series>
+    
+     <dxo-argument-axis>
+       <dxi-label [rotationAngle]="45"></dxi-label>
+     </dxo-argument-axis>
+    
+     <dxo-value-axis>
+       <dxo-label format="fixedPoint"></dxo-label>
+     </dxo-value-axis>
+    
+     <dxo-legend [visible]="true"></dxo-legend>
+    </dx-chart>
+    <!-- <dx-chart
+      *ngIf="showDisabledAuthorityChart"
+      [dataSource]="DisabledflatData"
+      title="Authority Name Counts"
+      style="display: block; height: 330px; width: 100%;"
+    >
+      <dxi-series
+        *ngFor="let group of transformedData"
+        [dataSource]="group.items"
+        argumentField="authorityName"
+        valueField="count"
+        type="bar"
+        name="{{group.authorityTypeName}}"
+        [label]="{
+          visible: true,
+          customizeText: customizeLabel
+        }"
+      >
+      </dxi-series>
+    
+      <dxo-tooltip [enabled]="true"></dxo-tooltip>
+      <dxo-legend [visible]="true"></dxo-legend>
+    </dx-chart> -->
+    <!-- Total Depository List - – Nature of Document -->
+    <dx-pie-chart
+    *ngIf="showDisabledNatureofDoc"
+    [dataSource]="DisabledNatureOfDoc" title="Nature Of Doc"
+    type="doughnut" style="display: block; height: 230px; width: 450px;">
+    <dxi-series 
+      argumentField="disableddisplayText" 
+      valueField="count">
+    </dxi-series>
+    <dxi-legend 
+      orientation="horizontal" 
+      itemTextPosition="right" 
+      horizontalAlignment="center" 
+      verticalAlignment="bottom">
+    </dxi-legend>
+    </dx-pie-chart>
+      </mat-card>
+    </div>
+
+  <div class="forth-card-row">
+       <!-- Newly Added Documents -->
+  <mat-card class="eighth-card">
+    <!-- Content for the fifth card -->
+    <div class="header-container-new">
+    <h3>NewlyAdded Documents</h3>
+    <mat-form-field appearance="fill">
+        <mat-label>Select Time Range</mat-label>
+        <mat-select [(value)]="selectedDays" (selectionChange)="onTimeRangeChange($event)">
+          <mat-option *ngFor="let range of timeRanges" [value]="range.value">
+            Last {{ range.label }} Days
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Choose an option</mat-label>
+      <mat-select [(value)]="selectedOption" (selectionChange)="onNewOptionChange($event)">
+        <mat-option *ngFor="let option of options" [value]="option.value">
+          {{ option.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+    <!-- <p>Content for the third card.</p> -->
+    <!-- <div class="chart-container" style="height: 220px; width: 100%;" width: 600px;> -->
+      <dx-chart
+  *ngIf="showFirstChartNew"
+  [dataSource]="docTypeDataNew"
+  title="Document Types"
+  style="display: block; height: 300px; width: 100%;"
+  (onPointClick)="onFirstChartClicksNew($event)">
+  <dxi-series
+    argumentField="doctypeName"
+    valueField="doctype_Count"
+    type="bar">
+  </dxi-series>
+</dx-chart>
+    <!-- </div> -->
+     <!-- Doc Category Chart -->
+        <!-- Back Button for Second Chart -->
+<button *ngIf="showSecondChartNew" (click)="goBackToFirstChartNew()">Back</button>
+    <dx-chart
+    *ngIf="showSecondChartNew"
+    [dataSource]="docCategotyDataNew" title="Doc Category"
+    style="display: block; height: 300px; width: 100%;"
+    (onPointClick)="onSecondChartClicksNew($event)">
+    <dxi-series
+      argumentField="doc_CategoryName"
+      valueField="doccategory_Count"
+      type="bar">
+    </dxi-series>
+  </dx-chart>
+
+    <!-- Doc SubCategory Chart -->
+      <!-- Back Button for Third Chart -->
+<button *ngIf="showThirdChartNew" (click)="goBackToSecondChartNew()">Back</button>
+    <dx-chart
+    *ngIf="showThirdChartNew"
+    [dataSource]="docSubCategoryDataNew" title="Doc SubCategory"
+    style="display: block; height: 300px; width: 100%;">
+    <dxi-series
+      argumentField="doc_SubCategoryName"
+      valueField="docsubcategory_Count"
+      type="bar">
+    </dxi-series>
+  </dx-chart>
+
+  <!-- Total Depository List - Document Confidentiality -->
+  <dx-pie-chart
+  *ngIf="showDocConfChartNew"
+  [dataSource]="DocConfidentialityNew" title="Doc Confidentiality"
+  type="doughnut" style="display: block; height: 230px; width: 450px;">
+  <dxi-series 
+    argumentField="displaydoc_Confidentiality" 
+    valueField="count">
+  </dxi-series>
+  <dxi-legend 
+    orientation="horizontal" 
+    itemTextPosition="right" 
+    horizontalAlignment="center" 
+    verticalAlignment="bottom">
+  </dxi-legend>
+</dx-pie-chart>
+<!-- Total Depository List - Authority Type > Authority Name -->
+<dx-chart *ngIf="showAuthorityChartNew"
+[dataSource]="flatDataNew" title="Authority Name Counts" 
+style="display: block; height: 330px; width: 100%;">
+ <dxo-common-series-settings argumentField="authorityTypeName" type="bar"></dxo-common-series-settings>
+
+ <dxi-series *ngFor="let s of seriesNew"
+   [valueField]="s.valueField"
+   [name]="s.name">
+ </dxi-series>
+
+ <dxo-argument-axis>
+   <dxi-label [rotationAngle]="45"></dxi-label>
+ </dxo-argument-axis>
+
+ <dxo-value-axis>
+   <dxo-label format="fixedPoint"></dxo-label>
+ </dxo-value-axis>
+
+ <dxo-legend [visible]="true"></dxo-legend>
+</dx-chart>
+
+<!-- <dx-chart
+  *ngIf="showAuthorityChartNew"
+  [dataSource]="flatDataNew"
+  title="Authority Name Counts"
+  style="display: block; height: 300px; width: 100%;"
+>
+  <dxi-series
+    *ngFor="let group of transformedDataNew"
+    [dataSource]="group.items"
+    argumentField="authorityName"
+    valueField="count"
+    type="bar"
+    name="{{group.authorityTypeName}}"
+    [label]="{
+      visible: true,
+      customizeText: customizeLabel
+    }"
+  >
+  </dxi-series>
+  <dxo-tooltip [enabled]="true"></dxo-tooltip>
+  <dxo-legend [visible]="true"></dxo-legend>
+</dx-chart> -->
+<!-- Total Depository List - – Nature of Document -->
+<dx-pie-chart
+*ngIf="showNatureofDocNew"
+[dataSource]="NatureOfDocNew" title="Nature Of Doc"
+type="doughnut" style="display: block; height: 230px; width: 450px;">
+<dxi-series 
+  argumentField="naturedocdisplayText" 
+  valueField="count">
+</dxi-series>
+<dxi-legend 
+  orientation="horizontal" 
+  itemTextPosition="right" 
+  horizontalAlignment="center" 
+  verticalAlignment="bottom">
+</dxi-legend>
+</dx-pie-chart>
+<!-- Total Depository List - – Indicative Reading Time -->
+<dx-chart  *ngIf="showReadingTimeNew" [dataSource]="ReadingTimeDataNew" title="Document Count by Time Period and Rearding Time"
+style="display: block; height: 330px; width: 100%;">
+  <dxo-common-series-settings argumentField="time_period" type="bar"></dxo-common-series-settings>
+
+  <!-- Generate series dynamically -->
+  <dxi-series *ngFor="let s of ReadingTimeSeriesNew"
+    [valueField]="s.valueField"
+    [name]="s.name">
+  </dxi-series>
+
+  <dxo-argument-axis>
+    <dxo-label [rotationAngle]="45"></dxo-label>
+  </dxo-argument-axis>
+
+  <dxo-value-axis>
+    <dxo-label format="fixedPoint"></dxo-label>
+  </dxo-value-axis>
+
+  <dxo-legend [visible]="true"></dxo-legend>
+</dx-chart>
+<!-- <dx-chart
+  *ngIf="showReadingTimeNew"
+  [dataSource]="getFilteredDataNew()"
+  title="Document Count by Time Period and Rearding Time"
+  style="display: block; height: 300px; width: 100%;">
+  <dxo-series-template 
+    [nameField]="'indicative_reading_time'" 
+    [customizeSeries]="customizeSeries">
+  </dxo-series-template>
+  <dxo-tooltip [enabled]="true" format="fixedPoint"></dxo-tooltip>
+  <dxo-legend [visible]="true"></dxo-legend>
+</dx-chart> -->
+  </mat-card>
+  <mat-card class="ninth-card" style="visibility: hidden;">
+
+  </mat-card>
+  </div>
+
+</div>

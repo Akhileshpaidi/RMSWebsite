@@ -1,0 +1,461 @@
+<div class="form">
+    <div class="header col">
+      <div style="align-self: self-end">
+        <br>
+        <h1 class=" title" style="align-items: center;">Assessement Schedule ( self One-Time Frequency)
+          </h1>
+
+<br><br>
+
+<div *ngIf="VisibleCalender" class="wrapper"> 
+   <dx-scheduler 
+  timeZone="America/Los_Angeles"
+  [height]="730"
+  [dataSource]="dataSource"
+  dateCellTemplate="dateCellTemplate"
+  [showAllDayPanel]="false"
+  currentView="month"
+  appointmentTemplate="appointment-template"
+ 
+  [startDayHour]="7"
+  [endDayHour]="23"
+  (onAppointmentFormOpening)="onAppointmentFormOpening($event)"
+ 
+>
+
+
+
+  <dxi-view type="day"></dxi-view>
+  <dxi-view
+    type="week"
+    [groups]="['typeId']"
+    dateCellTemplate="dateCellTemplate"
+  ></dxi-view>
+
+  <dxi-view type="month"></dxi-view>
+
+
+  <div *dxTemplate="let data of 'dateCellTemplate'">
+    <div class="name">{{
+      ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][data.date.getDay()]
+    }}</div>
+    <div class="number">{{ data.date.getDate() }}</div>
+  </div>
+
+
+  <div *dxTemplate="let model of 'appointment-template'">
+    <div class="showtime-preview">
+      <div>
+      
+        {{ Name }}
+        {{ Duration }}
+        {{ StartDate }}
+        {{ EndDate }}
+        {{ PersionRequesting }}
+      </div>
+    </div>
+  </div>
+
+
+  <div *dxTemplate="let model of 'tooltip-template'">
+    <ng-container
+      *ngIf="ass_template_id | apply : model.appointmentData.ass_template_id as movie"
+    >
+          <div class="Date_Of_Request">
+          <div class="Duration_of_Assessment">
+            <div class="startDate">
+            {{ movie.text + " (" + movie.Date_Of_Request + ")" }}
+          </div>
+          <div>
+            {{ "Director: " + movie.director }}
+          </div>
+          <div>
+            {{ "Duration_of_Assessment: " + movie.Duration_of_Assessment + " minutes" }}
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+
+
+
+
+</dx-scheduler>
+
+
+
+
+<br>
+<br>
+<div class="button" *ngIf="nextbuttonvisible">
+  <button class="Custombutton" type="button"  (click)="NextButtonClick()" >Next</button>
+ </div>
+ <br>
+ <br>
+</div>
+        
+    <form [formGroup]="AssessmentForm" (ngSubmit)="saveScheAssessment()">
+  <mat-horizontal-stepper labelPosition="bottom"  *ngIf="SelfType">
+   
+     
+
+
+        <mat-step label="Doc Category Preference">
+       
+          <div class="box">
+              <div>
+                <dx-select-box 
+                formControlName="DocumentType"
+                label="Select Document Type"
+                labelMode="floating"
+                valueExpr="docTypeID"
+                displayExpr="docTypeName"
+                [dataSource]="DocumentTypeData"
+                selectionMode="single" 
+                [searchEnabled]="true" 
+               placeholder=""
+                (onValueChanged)="getDocCategory($event)" >
+             
+          </dx-select-box>
+          <div *ngIf="formSubmitted">
+            <div *ngIf="AssessmentForm.get('DocumentType')?.invalid">
+                <div *ngIf="AssessmentForm.get('DocumentType')?.errors?.['required']" style="color: red;">
+                    Document Type is required.
+                </div>
+            </div>
+            
+        </div>
+          </div>
+           
+           
+          <div>
+
+            <dx-select-box 
+            formControlName="DocumentCategory"   
+            label="Select Document Category"
+            labelMode="floating"
+            valueExpr="doc_CategoryID"
+            displayExpr="doc_CategoryName"
+            [dataSource]="DocumentCategoryData"
+            selectionMode="single" 
+           placeholder=""
+           (onValueChanged)="getsubCategory($event)"
+           [(value)]="SelectedDocType"
+           [searchEnabled]="true"
+            >
+         
+      </dx-select-box>
+      <div *ngIf="formSubmitted">
+        <div *ngIf="AssessmentForm.get('DocumentCategory')?.invalid">
+          <div *ngIf="AssessmentForm.get('DocumentCategory')?.errors?.['required']" style="color: red;">
+              Document Category is required.
+          </div>
+      </div>
+      </div>
+          
+        </div>
+          </div>
+          <br>
+          <br>
+          <div class="box" style="width: 638px;">
+              <div >
+
+                  <dx-select-box 
+                  formControlName="DocumentSubCategory"
+                  label="Select Document Sub Category"
+                  labelMode="floating"
+                  valueExpr="doc_SubCategoryID"
+                  displayExpr="doc_SubCategoryName"
+                  [dataSource]="DocumentSubCategoryData"
+                  selectionMode="single" 
+                 placeholder=""
+                 [searchEnabled]="true"
+                 [(value)]="SelectedDocCategory"
+            >
+               
+            </dx-select-box>
+            <div *ngIf="formSubmitted">
+              <div *ngIf="AssessmentForm.get('DocumentSubCategory')?.invalid">
+                  <div *ngIf="AssessmentForm.get('DocumentSubCategory')?.errors?.['required']" style="color: red;">
+                      Document Sub Category is required.
+                  </div>
+              </div>
+          </div>
+              </div>
+            </div>
+           <!-- Button Section -->
+           <br>
+      <div class="button">
+          <button class="grey-button" matStepperPrevious>Back</button>
+          
+          <button class="Custombutton" matStepperNext type="button">Next</button>
+        </div>
+        <br>
+      </mat-step>
+
+      <mat-step label="Select Mapped User(s)">
+        <div class="box">
+<div>
+          <dx-select-box 
+          formControlName="EntityMaster"
+          label="Select Entity Name*"
+          labelMode="floating"
+          valueExpr="entity_Master_id"
+          displayExpr="entity_Master_Name"
+          [dataSource]="EntityName"
+          height="40px"
+          [searchEnabled]="true"
+          selectionMode="single" 
+         placeholder=""
+         (onValueChanged)="getUnitLocation($event)"   disableOptionCentering >
+    </dx-select-box>
+    <div *ngIf="formSubmitted">
+      <div *ngIf="AssessmentForm.get('EntityMaster')?.invalid">
+          <div *ngIf="AssessmentForm.get('EntityMaster')?.errors?.['required']" style="color: red;">
+              Entity Name is required.
+          </div>
+      </div>
+      
+  </div>
+</div>
+        
+<div>
+      <dx-select-box 
+      formControlName="UnitLoc"
+      label="Select Unit Location*"
+      labelMode="floating"
+      valueExpr="unit_location_Master_id"
+      displayExpr="unit_location_Master_name"
+      [dataSource]="UnitMaster"
+      height="40px"
+      selectionMode="single" 
+      [(value)]="selectedentity"
+     placeholder="" 
+     [searchEnabled]="true"
+     (onValueChanged)="getdepartment($event)" disableOptionCentering >
+</dx-select-box>
+<div *ngIf="formSubmitted">
+  <div *ngIf="AssessmentForm.get('UnitLoc')?.invalid">
+      <div *ngIf="AssessmentForm.get('UnitLoc')?.errors?.['required']" style="color: red;">
+          UnitLoc Name is required.
+      </div>
+  </div>
+  
+</div>
+</div>
+             </div>
+             <br>
+             <div class="box">
+<div>
+              <dx-drop-down-box 
+              formControlName="DepMaster"
+              [(value)]="selectedOption"         
+              [inputAttr]="{ 'aria-label': 'Owner' }"
+              [showClearButton]="true"
+              label="Select Business Function(s)*"
+              labelMode="floating"
+              valueExpr="department_Master_id"
+              displayExpr="department_Master_name"
+              [dataSource]="Departmentmaster"
+              height="40px" 
+             (onValueChanged)="onDepartmentSelectionChange($event)" >   
+             <div *dxTemplate="let data of 'content'">
+              <dx-data-grid    
+              [dataSource]="Departmentmaster"
+                [columns]="departmentColumns"
+                [selection]="{ mode: 'multiple' }"
+                [hoverStateEnabled]="true"
+                [(selectedRowKeys)]="selectedOption"
+                [filterRow]="{ visible: true }"
+                [scrolling]="{ mode: 'virtual' }"
+                placeholder=""
+                [showColumnHeaders]="false"
+                height="100%"
+              >
+            
+
+                <!-- Data grid configuration for the first dropdown -->
+              </dx-data-grid>
+            </div> 
+        </dx-drop-down-box>
+        <div *ngIf="formSubmitted">
+          <div *ngIf="AssessmentForm.get('DepMaster')?.invalid">
+              <div *ngIf="AssessmentForm.get('DepMaster')?.errors?.['required']" style="color: red;">
+                DepMaster Name is required.
+              </div>
+          </div>
+          
+      </div>
+      </div>
+              
+
+                    <div class="dx-field-value">
+                      <div>
+                      <dx-drop-down-box
+                      formControlName="MapUserList"
+                      [(value)]="selectedOption1"         
+                      [inputAttr]="{ 'aria-label': 'Owner' }"
+                      label="Search and select User(s)*"
+                      labelMode="floating"
+                     
+                      [dataSource]="UserDatasource"
+                      [(opened)]="isUserBoxOpened"
+                     
+                      [displayExpr]="gridBox_displayExpr"
+                      (onValueChanged)="onUserSelectionChange($event)"
+                      [deferRendering]="false"
+                    
+                   
+                      [showClearButton]="true"
+                   
+                    >
+                      <!-- Content template for the first dropdown -->
+                      <div *dxTemplate="let data of 'content'">
+                        <dx-data-grid
+                        [columns]="usergridColumns"
+                        [selection]="{ mode: 'multiple' }"
+                        [dataSource]="UserDatasource"
+                        [(selectedRowKeys)]="selectedOption1"
+                        [filterRow]="{ visible: true }"
+                        [scrolling]="{ mode: 'virtual' }"
+                          [hoverStateEnabled]="true"
+                          placeholder=""
+                          height="100%"
+                        >
+              
+                          <!-- Data grid configuration for the first dropdown -->
+                        </dx-data-grid>
+                      </div>
+                    </dx-drop-down-box>
+                    <div *ngIf="formSubmitted">
+                      <div *ngIf="AssessmentForm.get('MapUserList')?.invalid">
+                          <div *ngIf="AssessmentForm.get('MapUserList')?.errors?.['required']" style="color: red;">
+                            MapUserList Name is required.
+                          </div>
+                      </div>
+                      
+                  </div>
+                  </div>
+                 </div>
+             </div>
+             <br>
+           
+
+             <div class="box">
+              <div class="dx-field-value">
+                <dx-drop-down-box
+                formControlName="exemptionUser"
+                [dataSource]="UserDatasourceSecondDropdown"
+                label="Search and select User(s) Exempted from Assessment"
+                labelMode="floating"
+          
+                [(value)]="selectedOption2"
+               
+                valueExpr="usR_ID"
+                [deferRendering]="false"
+                [(opened)]="isUserBoxOpened1"
+                [displayExpr]="gridBox_displayExprExemptionUser"
+                [deferRendering]="false"
+              
+                [inputAttr]="{ 'aria-label': 'Owner' }"
+                [showClearButton]="true"
+                (onValueChanged)="selectedlisttoremove($event)"
+              >
+                <!-- Content template for the second dropdown -->
+                <div *dxTemplate="let data of 'content'">
+                  <dx-data-grid
+                    [columns]="usergridColumns"
+                    [dataSource]="UserDatasourceSecondDropdown"
+                    [hoverStateEnabled]="true"
+                    [selection]="{ mode: 'multiple' }"
+                    [filterRow]="{ visible: true }"
+                     [scrolling]="{ mode: 'virtual' }"
+                    [(selectedRowKeys)]="selectedOption2"
+                    height="100%"
+                    placeholder=""
+                  >
+
+                  >
+                    <!-- Data grid configuration for the second dropdown -->
+                  </dx-data-grid>
+                </div>
+              </dx-drop-down-box>
+             </div>
+             <mat-form-field *ngIf="UserDatasourceSecondDropdown && UserDatasourceSecondDropdown.length > 0" appearance="fill" class="form-field">
+              <mat-label>Mention Reason for Exemption from Assessment</mat-label>
+              <input matInput   formControlName="ExemptedReason" type="text" required />
+
+            </mat-form-field>
+             </div>
+          
+           <!-- Button Section -->
+           <br>
+    <div class="button">
+      <button class="grey-button" matStepperPrevious>Back</button>
+     
+      <button class="Custombutton" matStepperNext type="button">Next</button>
+    </div>
+    <br>
+    </mat-step>
+     
+     
+      <mat-step label="Set Assessment Preferences">
+        <div class="box">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Mention Objective of Assessment </mat-label>
+          <input matInput #titleinput  minlength="5" maxlength="1500" formControlName="Objective" required />
+          <mat-hint align="start" >Min 5 - Max 1500 Characters</mat-hint>
+          <mat-hint align="end">{{titleinput.value.length}}/1500</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Mention Message for Task Owner(s)</mat-label>
+          <input matInput #titleinput1  minlength="5" maxlength="1500" formControlName="Message" required />
+          <mat-hint align="start" >Min 5 - Max 1500 Characters</mat-hint>
+          <mat-hint align="end">{{titleinput1.value.length}}/1500</mat-hint>
+        </mat-form-field>
+        </div>
+        <div class="box">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Select: Shuffle Questions?</mat-label>
+            
+            <mat-select [(value)] ="defaultOption1"
+            formControlName="ShuffleQues"
+            disableOptionCentering  required>
+            <mat-option  [value]="0">Yes</mat-option>
+            <mat-option  [value]="1" >No</mat-option>
+     </mat-select>
+            
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Select: Shuffle Answers?</mat-label>
+              
+              <mat-select  [(value)] ="defaultOption"
+              formControlName="ShuffleAns"
+              disableOptionCentering  required>
+              <mat-option  [value]="0">Yes</mat-option>
+              <mat-option  [value]="1" >No</mat-option>
+             
+      </mat-select>
+              
+              </mat-form-field>
+        </div>
+        <br>
+        <div class="button">
+          <button class="grey-button" matStepperPrevious>Back</button>
+         
+          <button class="Custombutton"  type="submit">send notification</button>
+        </div>
+        <br>
+      </mat-step>
+      
+
+   
+  </mat-horizontal-stepper>
+</form>
+
+        </div>
+    </div>
+</div>
+
+

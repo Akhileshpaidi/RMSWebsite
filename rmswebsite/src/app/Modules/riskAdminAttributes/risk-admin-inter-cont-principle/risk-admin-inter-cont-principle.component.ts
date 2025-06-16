@@ -1,0 +1,313 @@
+import { Component } from '@angular/core';
+import { Workbook } from 'exceljs';
+import saveAs from 'file-saver';
+import { jsPDF } from 'jspdf';
+import {BASE_URL} from 'src/app/core/Constant/apiConstant';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import CustomStore from 'devextreme/data/custom_store';
+import { exportDataGrid } from 'devextreme/excel_exporter';
+import { exportDataGrid as exportDataGridToPdf } from 'devextreme/pdf_exporter';
+import { SessionService } from 'src/app/core/Session/session.service';
+import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
+type FirstArgument<T> = T extends (...args: any) => any ? Parameters<T>[0]: never;
+import { risk_admin_inter_contr_principles, RiskClassification } from 'src/app/inspectionservices.service';
+import { Column } from 'devextreme/ui/data_grid';
+const URL = BASE_URL;
+  const headers = new HttpHeaders();
+  headers.append('Content-Type', 'text/plain');
+
+@Component({
+  selector: 'app-risk-admin-inter-cont-principle',
+  templateUrl: './risk-admin-inter-cont-principle.component.html',
+  styleUrls: ['./risk-admin-inter-cont-principle.component.scss']
+})
+export class RiskAdminInterContPrincipleComponent {
+  dataSource: any;
+  Getloss_event_threat_category:any;
+  riskCate:risk_admin_inter_contr_principles=new risk_admin_inter_contr_principles();
+  selectedL1Value:any;
+  userdata:any;
+  categorydata: any;
+  Getloss_event_threat_category_l2:any;
+  getFilteredCategory:any;
+  public typedata:any[]=[
+   
+      { id: 1, name: 'Yes' },
+      { id: 2, name: 'No' }   
+    ];
+
+    onEditorPreparing(e:any) {
+  
+      if (e.parentType === 'dataRow' && e.dataField === 'risk_admin_inter_contr_comp_id') {
+       console.log('onEditorPreparing')
+        e.editorOptions.disabled = (typeof e.row.data.control_measure_id !== 'number');
+      }
+    }
+
+    onL1ValueChanged(this: Column, newData: any, value: number, currentRowData: any) {
+      newData.risk_admin_inter_contr_comp_id = null;
+      if (this.defaultSetCellValue !== undefined) {
+        this.defaultSetCellValue(newData, value, currentRowData);
+      } else {
+        // Handle the case where defaultSetCellValue is undefined
+        // This could be logging an error or providing default behavior
+        console.error('defaultSetCellValue is undefined');
+        // Provide a default behavior or any necessary action
+      }
+    }
+ 
+    popupTitle: string = 'Add Internal Control Principles';
+
+    onEditingStart(e: any) {
+    
+      if (e.data) { 
+        this.popupTitle = 'Edit Internal Control Principles';
+      }
+    }
+  
+    onInitNewRow(e: any) {
+     
+      this.popupTitle = 'Add Internal Control Principles'; 
+    }
+
+  constructor(private http: HttpClient, private session: SessionService,) {
+    this.dataSource = new CustomStore({
+        key: 'risk_admin_inter_contr_Principles_id',
+        load: () => this.sendRequest(URL + '/risk_admin_controller/get_risk_admin_inter_contr_principless'),
+        
+        insert: (values) => this.sendRequest(URL + '/risk_admin_controller/insert_risk_admin_inter_contr_principless', 'POST', {
+            // values: JSON.stringify(values)
+            values
+        }),
+        update: (key, values) => this.sendRequest(URL + '/risk_admin_controller/Update_risk_admin_inter_contr_principless', 'PUT', {
+             key,values
+         }),
+         remove: (key) => this.sendRequest(URL + '/risk_admin_controller/delete_risk_admin_inter_contr_principless', 'DELETE', {
+             key
+         }) 
+    });
+
+
+//     this.http.get(URL+"/RiskSupAdminController/Getloss_event_threat_category",{headers}).subscribe(res=>{
+// this.Getloss_event_threat_category=res;
+//     });
+
+ 
+
+
+    this.Getloss_event_threat_category={
+      paginate: true,
+      store: new CustomStore({
+          key: 'control_measure_id',
+          loadMode: 'raw',
+          load:()=>{return new Promise((resolve, reject) => {
+            this.http.get(URL + '/RiskSupAdminController/getrisk_admin_control_measures', {headers})
+              .subscribe(res => {
+               (resolve(res));
+    
+              }, (err) => {
+                reject(err);
+              });
+        });
+        },
+      }),
+    };
+    this.getFilteredCategory={
+      paginate: true,
+      store: new CustomStore({
+          key: 'risk_admin_inter_contr_comp_id',
+          loadMode: 'raw',
+          load:()=>{return new Promise((resolve, reject) => {
+            this.http.get(URL + '/risk_admin_controller/get_internal_control_comp', {headers})
+              .subscribe(res => {
+               (resolve(res));
+    
+              }, (err) => {
+                reject(err);
+              });
+        });
+        },
+      }),
+    };
+   
+    // this.getFilteredCategory = this.getFilteredCategory.bind(this);
+
+    let user: any = this.session.getUser();
+    this.userdata = JSON.parse(user);
+    console.log("userid", this.userdata.profile.userid);
+  }
+  isUpdateIconVisible({ row }: FirstArgument<DxDataGridTypes.Editing['allowUpdating'| 'allowDeleting']>){
+    return row?.data.isImported=="No";
+  }
+
+  onCategoryChange(event:any){
+    const catval=event.value;
+
+    this.http.get(URL+"/risk_admin_controller/get_internal_control_comp_by_id/" + catval,{headers}).subscribe(res=>{
+      this.Getloss_event_threat_category_l2=res;
+          });
+  }
+  
+ 
+
+  // getFilteredCategory(options:any) {
+  //   console.log('inside method')
+  //   console.log(options);
+ 
+   
+  //   const filteredData = {
+  //     store:  new CustomStore({
+  //       key: 'risk_admin_inter_contr_comp_id',
+  //       loadMode: 'raw',
+  //       load:()=>{return new Promise((resolve, reject) => {
+  //         this.http.get(URL + '/risk_admin_controller/get_internal_control_comp', {headers})
+  //           .subscribe(res => {
+  //            (resolve(res));
+  
+  //           }, (err) => {
+  //             reject(err);
+  //           });
+  //     });
+  //     },
+  //   }),
+  
+  //     filter: options.data ? ['control_measure_id', '=', options.data.control_measure_id] : null,
+  //   };
+   
+  
+  //   console.log('Filtered Data:', filteredData);
+  
+  //   return filteredData;
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+    sendRequest(url: string, method: string = 'GET', data: any = {}): any {
+  
+  console.log(data)
+    switch(method) {
+          case 'GET':
+              return new Promise((resolve, reject) => {
+                this.http.get(url, {headers})
+                  .subscribe(res => {
+                   (resolve(res));
+                  }, (err) => {
+                    reject(err);
+                  });
+            });
+              break;
+          case 'PUT':
+           
+             this.updateParameters(data);
+      
+             return new Promise((resolve, reject) => {
+              this.http.put(url,this.riskCate,{headers})
+                .subscribe(res => {
+                 (resolve(res));
+             
+                }, (err) => {
+                  reject(err.error);
+                });
+              });
+              break;
+          case 'POST':
+          
+             this.insertParameters(data);
+            
+             return new Promise((resolve, reject) => {
+              this.http.post(url,this.riskCate,{headers})
+                .subscribe(res => {
+                 (resolve(res));
+              
+                
+                }, (err) => {
+                  reject(err.error);
+                    
+                });
+              });
+              break;
+          case 'DELETE':
+            return new Promise((resolve, reject) => {
+              this.http.delete(url+'?id='+data.key)
+                .subscribe(res => {
+                 (resolve(res));
+                }, (err) => {
+                  reject(err);
+                });
+              });
+              break;
+      }
+
+  
+  
+  
+  }
+  
+  insertParameters(data:any={}){
+  
+    this.riskCate.risk_admin_inter_contr_Principles_id=0;
+    this.params(data);
+   
+    
+   }
+   
+   updateParameters(data:any={}){
+   this.riskCate.risk_admin_inter_contr_Principles_id=data.key;
+    this.params(data);
+   }
+   
+   params(data:any={}){
+    
+    this.riskCate.control_measure_id=data.values.control_measure_id;
+    this.riskCate.risk_admin_inter_contr_comp_id=data.values.risk_admin_inter_contr_comp_id;
+    this.riskCate.risk_admin_inter_contr_Principles_name=data.values.risk_admin_inter_contr_Principles_name;
+    this.riskCate.risk_admin_inter_contr_Principles_desc=data.values.risk_admin_inter_contr_Principles_desc;
+    this.riskCate.createdby = this.userdata.profile.userid; 
+     
+   }
+  exportGrid(e:any) {
+    if (e.format === 'xlsx') {
+      const workbook = new Workbook(); 
+      const worksheet = workbook.addWorksheet("Main sheet");
+      worksheet.addRow(['Internal Control Principles']);
+      worksheet.addRow([]); 
+      exportDataGrid({ 
+        worksheet: worksheet, 
+        component: e.component,
+      }).then(function() {
+        workbook.xlsx.writeBuffer().then(function(buffer) { 
+          saveAs(new Blob([buffer], { type: "application/octet-stream" }), "InternalControlPrinciples.xlsx"); 
+        }); 
+      }); 
+      e.cancel = true;
+    } 
+    else if (e.format === 'pdf') {
+      const doc = new jsPDF();
+      doc.text('InternalControlPrinciples',75,10);
+      doc.setFontSize(12);
+  
+      exportDataGridToPdf({
+        jsPDFDocument: doc,
+        component: e.component,
+      }).then(() => {
+        doc.save('InternalControlPrinciples.pdf');
+      });
+    }
+  }
+}

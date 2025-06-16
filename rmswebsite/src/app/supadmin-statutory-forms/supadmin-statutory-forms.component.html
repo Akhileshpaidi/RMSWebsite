@@ -1,0 +1,149 @@
+<div class="form">
+    <div class="header col">
+      <div style="align-self: self-end">
+        <br>
+        <h2 class=" title" style="align-items: center;">Add Statutory Forms/Records 
+          </h2>
+      </div>
+    </div>
+
+    <form [formGroup]="addstatutory"    (ngSubmit)="onSubmit()" >
+        <mat-horizontal-stepper labelPosition="bottom">
+              
+          <mat-step label="Statutory Forms / Records" state="chat">
+            <br>
+          <br>
+          <div class="row">
+            <div class="box">
+              <dx-select-box 
+              formControlName="actregulatoryid"
+              label="Select Act Name*"
+              labelMode="floating"
+              valueExpr="actregulatoryid"
+              displayExpr="actregulatoryname"
+              [dataSource]="actname"
+              height="40px"
+              [searchEnabled]="true"
+              selectionMode="single" 
+              (onValueChanged)="getRules($event)"
+             placeholder=""
+             disableOptionCentering >
+        </dx-select-box>
+    
+            </div>
+          
+            <div class="box">
+              <dx-select-box 
+              formControlName="act_rule_regulatory_id"
+              placeholder="Select Rule name *"
+              labelMode="floating"
+              valueExpr="act_rule_regulatory_id"
+              displayExpr="act_rule_name"
+              [dataSource]="rulename"
+              height="40px"
+              [searchEnabled]="true"
+              selectionMode="single" 
+             disableOptionCentering >
+        </dx-select-box>
+          
+          </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="box">
+                  <mat-form-field  appearance="fill" class="form-field">
+                    <mat-label>Form No. / Record Name</mat-label>
+                    <input matInput #titleinput  formControlName="recordformsname"  maxlength="250" >
+                    <mat-hint align="start" >Min 1 - Max 250 Characters</mat-hint>
+                    <mat-hint align="end">{{titleinput.value.length}}/250</mat-hint>
+                  </mat-form-field>
+                </div>
+                <div class="box">
+                    <mat-form-field  appearance="fill" class="form-field">
+                        <mat-label>Form No. / Record Description</mat-label>
+                        <textarea matInput  #titleinput2 formControlName="recordformsdesc"  maxlength="2500" ></textarea>
+                        <mat-hint align="start" >Min 1 - Max 2500 Characters</mat-hint>
+                        <mat-hint align="end">{{titleinput2.value.length}}/2500</mat-hint>
+                      </mat-form-field>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="box">
+                  <mat-form-field  appearance="fill" class="form-field">
+                    <mat-label>Applicable Sections /Rules/Regulation Reference</mat-label>
+                    <input matInput  #titleinput3  formControlName="applicationrefernce"  maxlength="100" >
+                    <mat-hint align="start" >Min 1 - Max 100 Characters</mat-hint>
+                    <mat-hint align="end">{{titleinput3.value.length}}/100</mat-hint>
+                  </mat-form-field>
+                </div>
+            </div>
+            <div class="button">
+          
+                <button class="Custombutton" matStepperNext type="button">Next</button>
+                </div>
+          </mat-step>
+          <mat-step label="Add Support Reference/ Attachment(s)" state="chat">
+            <br>
+          <br>
+
+          <br>
+          <div>
+            <h3>
+            <label>
+            
+               Add Support Reference 
+            </label>
+          </h3>
+          </div>
+     <div>
+  
+      <div formArrayName="references">
+        <div *ngFor="let reference of references.controls; let key = index;">
+          <div [formGroupName]="key"> 
+            <div class="row">
+              <div class="box">
+                <mat-form-field appearance="fill" class="form-field">
+                  <mat-label>Select Option</mat-label>
+                  <mat-select formControlName="referenceType" (selectionChange)="onReferenceTypeChange($event.value, key)">
+                    <mat-option value="weblink">Weblink</mat-option>
+                    <mat-option value="file">File Attachment</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="form-field" *ngIf="reference.get('referenceType')?.value === 'weblink'">
+  
+                  <mat-label>Weblink</mat-label>
+                  <input formControlName="referencetypeValue" matInput>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="form-field" *ngIf="reference.get('referenceType')?.value === 'file'">
+  
+                  <mat-label>File Attachment</mat-label>
+                  <div class="file-input-container">
+                    <input matInput formControlName="file_attachment" [value]="reference.get('file_attachment')?.value" readonly style="width: auto;">
+  
+                    <label class="file-input-button">
+                      Attach
+                      <input type="file" accept=".pdf,.doc,.docx,image/jpeg,image/png" (change)="onMainFileSelected($event, key)">
+                    </label>
+                  </div>
+          
+                </mat-form-field>
+                <div>
+                  <label class="CustomLabel" (click)="removeReferenceField(key)">Remove</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+              <button class="file-input-button" type="button" (click)="addReferenceField()" >Add More</button>
+  
+     </div>
+          <div class="button">
+            <button class="grey-button" matStepperPrevious>Back</button>
+            <button  class="Custombutton"   >Save</button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+    </form>
+</div>

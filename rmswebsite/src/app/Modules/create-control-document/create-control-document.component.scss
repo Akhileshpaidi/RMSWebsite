@@ -1,0 +1,114 @@
+$space: 1rem;
+
+.button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  gap: 20px;
+}
+.check {
+  width: 18px;
+  height: 18px;
+}
+.check2 {
+  width: 14px;
+  height: 14px;
+}
+.custom-button::before {
+  margin-left: 5px;
+}
+.custom-button {
+  margin-left: 10px;
+  display: block;
+  font-family: inherit;
+  width: 80%;
+  background: linear-gradient(119.62deg, #000046, rgba(28, 224, 204, 0.725));
+  color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+  margin-top: $space * 2;
+
+  &:hover,
+  &:focus {
+    background-color: #6a6a6a;
+  }
+}
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.file-attach-section {
+  display: flex !important;
+  flex-direction: column !important ;
+}
+.file-input-button {
+  cursor: pointer;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+.file-input {
+  cursor: pointer;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+
+  padding: 8px 16px;
+  border-radius: 4px;
+  width: 12rem;
+}
+
+.form-field {
+  padding: 0 !important ;
+}
+.grey-button {
+  width: 80%;
+}
+.icon {
+  height: 50px;
+  width: 50px;
+}
+.text {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+.text2 {
+  background-color: rgba(0, 0, 0, 0.04);
+  width: 35%;
+  padding: 0.25rem !important ;
+}
+
+@media screen and (min-width: 770px) {
+  .form2 {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    margin: ($space * 2) ($space * 2) 0;
+    box-shadow: 0 0 $space rgba(0, 0, 0, 0.03),
+      0 $space ($space * 2) rgba(0, 0, 0, 0.05),
+      0 ($space * 2) ($space * 4) rgba(0, 0, 0, 0.05),
+      0 ($space * 4) ($space * 8) rgba(0, 0, 0, 0.05);
+  }
+}
+@media screen and (min-width: 770px) {
+  .custom-button {
+    width: 15%;
+  }
+  .grey-button {
+    width: 15%;
+  }
+  .start {
+    grid-column-start: 2;
+  }
+  .text2 {
+    width: auto;
+  }
+  
+}

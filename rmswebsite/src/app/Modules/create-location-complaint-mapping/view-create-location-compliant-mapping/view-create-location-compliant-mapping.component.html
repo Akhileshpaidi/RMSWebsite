@@ -1,0 +1,88 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+        <h1>View  Compliance Locational  Mapping </h1>
+      </div>
+
+      <div class="card-body">
+        <div id="app-container">
+            <dx-data-grid
+              id="dataGrid"
+              key="compliance_location_Mapping_id"
+           
+              [dataSource]="dataSource"
+              [showBorders]="true"
+              [allowColumnResizing]="true"
+              [columnAutoWidth]="true"
+         
+              [showBorders]="true"
+              [allowColumnReordering]="true"
+            >
+        
+              <dxi-column dataField="compliance_location_Mapping_id" caption="compliancelocation Mapping id" width="100px">
+              
+              
+              </dxi-column>
+              <dxi-column dataField="compliance_name" caption="Compliance Name">
+
+              </dxi-column>
+              <dxi-column dataField="actregulatoryname" caption="act Name">
+              </dxi-column>
+              <dxi-column dataField="act_rule_name" caption="rule Name">
+              </dxi-column>
+              <dxi-column dataField="department_Master_name" caption="Department Name">
+            </dxi-column>
+            <dxi-column dataField="unit_location_Master_name" caption="Unit Location Name">
+            </dxi-column>
+              <dxi-column dataField="entity_Master_Name" caption="Entity Name">
+              </dxi-column>
+              <dxi-column dataField="companycompliancemappingid" caption="Company Compliance Mapping Id">
+              </dxi-column>
+              <dxi-column dataField="status" caption="company_compliance_mapping_Status">
+            </dxi-column>
+          
+         
+        
+              <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+              <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+              <dxo-filter-row [visible]="true"></dxo-filter-row>
+              <dxo-search-panel [visible]="true"></dxo-search-panel>
+              <dxo-group-panel [visible]="true"></dxo-group-panel>
+              <dxo-paging [pageSize]="10"></dxo-paging>
+              <dxo-pager
+              [visible]="true"
+              [allowedPageSizes]="[5, 10,20, 'all']"
+             
+              [showPageSizeSelector]="true"
+             
+              [showInfo]="true"
+              infoText="Page {0} of  {1} ({2} items)"
+              [showNavigationButtons]="true"
+            >
+            </dxo-pager>
+            <dxo-editing
+                    mode="popup"  
+                  
+                    [allowDeleting]="true"
+                  ></dxo-editing>
+
+        
+              <dxo-summary>
+                <dxi-total-item column="compliance_location_Mapping_id" summaryType="count">
+                </dxi-total-item>
+              </dxo-summary>
+              
+        
+              <dxo-toolbar>
+                <dxi-item name="exportButton"></dxi-item>
+                <dxi-item name="columnChooserButton"></dxi-item>
+                <dxi-item name="searchPanel"></dxi-item>
+              </dxo-toolbar>
+        
+             
+            </dx-data-grid>
+          </div>
+      </div>
+      </div>
+    </div>

@@ -1,0 +1,178 @@
+.body{
+    background-color: whitesmoke;
+    margin: 20px;
+    padding: 10px;
+}
+h1{
+    color: gray;
+}
+.mail-container {
+  width: 100%;
+  margin: auto;
+  font-family: "Google Sans", Roboto, Arial, sans-serif;
+}
+
+.mail-card {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+.mail-card:hover {
+  background-color:aliceblue;
+}
+
+.mail-row {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+.checkbox {
+  margin-right: 15px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: red; /* Custom Blue Checkbox */
+}
+
+.star {
+  cursor: pointer;
+  font-size: 30px;
+  margin-right: 10px;
+  color: whitesmoke; /* White star */
+  text-shadow: 0px 0px 3px black, 0px 0px 4px black; /* Gray border effect */
+  transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+}
+
+/* Starred (Fully Gray) */
+.star.starred {
+  color: black; /* Fully gray star */
+  text-shadow: none; /* Remove the border effect */
+}
+
+/* Hover effect */
+.star:hover {
+  color: gray;
+}
+.from {
+  flex: 1;
+ // font-weight: bold;
+  font-weight: 500;
+  font-size: 22px;
+  color: #202124;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subjectBody {
+  flex: 2;
+  font-size: 22px;
+  font-weight: 400;
+  color: #202124; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 10px;
+}
+
+.time {
+  flex: 0.5;
+  text-align: right;
+  font-size: 12px;
+  color: #5f6368;
+}
+
+
+.mail-body-container {
+  width: 100%;
+  margin: auto;
+  font-family: "Roboto", Arial, sans-serif;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 22px;
+  color: #202124;
+}
+
+p {
+  font-size: 14px;
+  color: #5f6368;
+  margin: 5px 0;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #ddd;
+  margin: 15px 0;
+}
+
+.mail-body {
+  font-size: 16px;
+  color: #202124;
+  line-height: 1.5;
+}
+
+.back-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+
+.custom-select{
+  position: fixed;
+  top: 120px;
+  right: 70px;
+  width: 5%;
+  z-index: 1000; 
+}
+.custom-select .filter-icon {
+  color: gray; /* Customize the color */
+  cursor: pointer;
+}
+
+.custom-select .mat-select-arrow {
+  display: none !important; /* Hides the default dropdown arrow */
+}
+
+.filter-icon {
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  font-size: 25px;
+  color: gray;
+  cursor: pointer;
+}
+.custom-select {
+  font-size: 16px; /* Increase overall field text size */
+}
+
+.custom-select .mat-select-value {
+  font-size: 16px;
+}
+
+.custom-select .mat-select-placeholder {
+  font-size: 16px;
+}
+
+.custom-select .mat-option {
+  font-size: 16px;
+}
+
+
+

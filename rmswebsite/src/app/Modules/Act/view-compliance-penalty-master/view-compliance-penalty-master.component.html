@@ -1,0 +1,170 @@
+<div class="form">
+    <div class="header col">
+      <div style="align-self: self-end">
+        <br>
+        <h2 class=" title" style="align-items: center;">View Compliance Penalty Master
+          </h2>
+      </div>
+    </div>
+
+    <br>
+    <div class="row">
+      <div class="box">
+        <dx-select-box 
+          label="Select Act/ Master Regulation Name*"
+          labelMode="floating"
+          valueExpr="actregulatoryid"
+          displayExpr="actregulatoryname"
+          [dataSource]="actname"
+          [searchEnabled]="true"
+          height="40px"
+          selectionMode="single" 
+          placeholder=""
+        (onValueChanged)="getRules1($event)">
+      </dx-select-box>
+      </div>
+      </div>
+      <br>
+      <div class="row">
+          <div class="box">
+        <dx-select-box 
+       
+        label="Select Rule name *"
+        labelMode="floating"
+        [searchEnabled]="true"
+        valueExpr="act_rule_regulatory_id"
+        displayExpr="act_rule_name"
+        [dataSource]="rulename"
+        [(value)]="SelectedAct1"
+        selectionMode="single" 
+       placeholder=""
+       (onValueChanged)="getactruledata($event)" >
+  </dx-select-box>
+          </div>
+          </div>
+<br>
+    <div class="row">
+        <div class="box">
+          <dx-select-box 
+            label="Select Compliance Penalty /Applicable Sections"
+            labelMode="floating"
+            valueExpr="compliancepenaltyid"
+            displayExpr="compliancename"
+            [dataSource]="compliancepenalty"
+            [searchEnabled]="true"
+            height="40px"
+            selectionMode="single" 
+            placeholder=""
+          (onValueChanged)="getRules($event)">
+        </dx-select-box>
+       
+        </div>
+        </div>
+
+
+        <br>
+        <br>
+        <table class="table1" *ngFor="let rule of act" >
+            <h2><span>
+                View Compliance Penalty Form/ Record :
+          </span></h2>
+              <tbody>
+                  <ng-container >
+
+                    <tr   >
+                        <td><strong> Name of Act/Regulation</strong></td>
+                        <td>{{rule.actname}}</td>
+                      </tr>
+                      <tr   >
+                        <td><strong> Name of Rule /Regulation/ Procedure</strong></td>
+                        <td>{{rule.rulename}}</td>
+                      </tr>
+                  <tr   >
+                    <td><strong>Penalty Category Name</strong></td>
+                    <td>{{rule.pencatname}}</td>
+                  </tr>
+                  <tr >
+                    <td><strong>Add Applicable Section/ Rule/ Regulation Reference </strong></td>
+                    <td>{{ rule.penaltysectrule || 'N/A'}}</td>
+                  </tr>
+                  <tr >
+                    <td><strong>Penalty Description </strong></td>
+                    <td>{{ rule.desc || 'N/A'}}</td>
+                  </tr>
+                  <tr >
+                    <td><strong>Minimum Penalty </strong></td>
+                    <td>{{ rule.minpen || 'N/A'}}</td>
+                  </tr>
+                  <tr >
+                    <td><strong>Maximum Penalty </strong></td>
+                    <td>{{ rule.maxpen || 'N/A'}}</td>
+                  </tr>
+                  <tr >
+                    <td><strong>Additional Reference to Penalty Provision  </strong></td>
+                    <td>{{ rule.addref}}</td>
+                  </tr> 
+                  <tr>
+                    <td><strong>Is this Data Imported?</strong></td>
+                    <td>{{ rule.isImportedData}}</td>
+                  </tr>
+                  <tr *ngIf="rule.isImportedData == 'No'">
+                    <td colspan="2"  class="editbutton">
+                      <button  class="Custombutton" (click)="editAct(rule.penaltyid)">Edit</button>
+                    </td>
+                  </tr>
+                  <tr *ngIf="rule.isImportedData !== 'No'">
+                    <td colspan="2">
+                      <label class="labelmesage blink">* IT IS AN IMPORTED DATA. IT CANNOT BE EDITED </label>
+                    </td>
+                  </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+              <table class="table1" *ngIf="act && act.length > 0">
+                <thead>
+                  <tr>
+                    <th colspan="2">Additional References from Compliance Penalt:</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                        <td><strong>Compliance Penalt Reference(s)</strong></td>
+                        <td>
+                      <ol type="1">
+                      <ng-container *ngFor="let detail of act[0].penaltyFiles">
+                        <li>
+                          <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                            [weblink] <a [href]="detail.filepath" target="_blank">{{ detail.filepath }}</a> 
+                            <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
+                            <label *ngIf="isLinkCopied" style="color:red;">Link copied!</label>
+                          </ng-container>
+                          <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+                            [File Attached] {{ detail.filename }}
+                            <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+                              <a [href]="detail.filepath" target="_blank">(View)</a> /
+                            </ng-container>
+                            <!-- <a [href]="detail.filepath" download>Download</a> -->
+                            <dx-button icon="download"  (click)="download(detail.filepath, detail.fileType)"> </dx-button>
+                          </ng-container>
+                        </li>
+                      </ng-container>
+                    </ol>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <table class="table1" *ngFor="let rule of act">
+                <tbody>
+                    <ng-container >
+                    <tr   >
+                      <td><strong>created By / created On</strong></td>
+                      <td>{{rule.create}}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Updated By / Updated On</strong></td>
+                      <td>{{rule.update}}</td>
+                    </tr>
+                    </ng-container>
+                </tbody>
+              </table>
+</div>

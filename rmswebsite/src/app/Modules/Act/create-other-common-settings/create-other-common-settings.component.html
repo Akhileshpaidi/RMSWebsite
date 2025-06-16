@@ -1,0 +1,42 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+        <h1>App Specific Configuration Settings</h1>
+      </div>
+      <div class="config-settings">
+        <form [formGroup]="configForm" (ngSubmit)="onSubmit()">
+
+            <table class="config-table">
+              <thead>
+                <tr>
+                  <th>Grant Permissions</th>
+                  <th>Configuration Settings</th>
+                  <th>Set Parameters</th>
+                </tr>
+              </thead> 
+              <tbody>     
+                <tr>
+                    <td>
+                      <mat-slide-toggle formControlName="settoggle"></mat-slide-toggle>
+                    </td>
+                    <td>1.Set File Upload Size Limit for every Compliance Updation attachment </td>
+                    <td>
+                      <div class="time-parameters" *ngIf="configForm.get('settoggle').value">
+                        <input matInput type="number" formControlName="filesize" min="1o" placeholder="MB">MB
+                      </div>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+            <div class="margin-top"></div>
+            <div class="button">
+              <button class="grey-button" (click)="Cancel()">Cancel</button>
+            <button class="Custombutton" type="submit">Save Settings</button>
+           
+            </div>
+        </form>
+      </div>
+      </div>
+    </div>
+</div>

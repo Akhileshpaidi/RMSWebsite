@@ -1,0 +1,138 @@
+
+<div class="form">
+    <div class="body">
+      <div class="header">
+          <div style="align-self:self-end;">
+              <div class="card">
+                <div style="align-self: self-end">
+                  <h1 class="h1">List of Assessment Templates</h1>
+                </div>
+           
+          
+          </div></div></div>
+          <br>
+          <br>
+          <br>
+         
+          <form action="" class="DateFilterBox" [formGroup]="range">
+            <div class="form-fields-container">
+              <mat-form-field appearance="fill" class="form-field">
+                <mat-label>Select Date Type</mat-label>
+                <mat-select [(value)]="selected">
+                  <mat-option value="Creation">Creation Date</mat-option>
+                  <mat-option value="Edited">Last Edited Date</mat-option>
+                </mat-select>
+              </mat-form-field>
+          
+            
+              <mat-form-field class="example-form-field" appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="rangePicker">
+                  <input matStartDate placeholder="Start date" formControlName="start">
+                  <input matEndDate placeholder="End date" formControlName="end">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matIconSuffix [for]="rangePicker" class="custom-toggle-icon"></mat-datepicker-toggle>
+                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+              
+                <mat-date-range-picker #rangePicker>
+                  <mat-date-range-picker-actions>
+                    <button mat-button matDateRangePickerCancel>Cancel</button>
+                    <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+                  </mat-date-range-picker-actions>
+                </mat-date-range-picker>
+              </mat-form-field>
+              
+              
+              <div >
+              <button mat-raised-button (click)="DateSearchFilter()">Search</button> 
+              </div>
+            </div>
+          </form>
+          
+          <br>
+          <br>
+          <div class="card-body1">
+              <div id="app-container">
+                  <dx-data-grid id="dataGrid"
+                  [dataSource]="dataSource1"
+                  [showBorders]="true"
+                 
+                  [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+                 
+                  (onExporting)="exportGrid($event)">
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                 <dxo-header-filter [visible]="true"></dxo-header-filter>
+                 <dxi-column dataField="ass_template_id" caption="Assessment Template Id" [width]="100" alignment="center"></dxi-column>
+                 <dxi-column dataField="assessment_name" caption="Assessment Template Name" ></dxi-column>
+                 <dxi-column dataField="verson_no" caption="Version_no" alignment="center" ></dxi-column> 
+                 <dxi-column dataField="competency_Name" caption="Competency skill level" ></dxi-column>
+                 <dxi-column dataField="type_Name" caption="Assessment Type" ></dxi-column>
+                 <dxi-column dataField="subType_Name" caption="Assessment Sub Type "></dxi-column>
+                 <dxi-column dataField="total_questions" caption="No. of Questions" alignment="center"></dxi-column>                
+              <dxi-column dataField="firstname" caption="Name of Creator"   ></dxi-column>
+              <dxi-column dataField="status" caption="Template Status"   ></dxi-column> 
+ 
+
+              <dxi-column dataField="created_date" caption="Date of Creation" [visible]="false"   dataType="date" 
+  format="dd-MMM-yyyy"></dxi-column>
+              <dxi-column dataField="updated_date" caption="Template Last Edited on" [visible]="false"  dataType="date" 
+  format="dd-MMM-yyyy" ></dxi-column>   
+              <dxi-column dataField="UpdateUsername" caption="Template Last Updated By" [visible]="false"></dxi-column>  
+              <dxi-column dataField="show_explaination" caption="Applicability of Reference/Explaination" [visible]="false"></dxi-column>
+              <dxi-column dataField="show_hint" caption="Applicability of Show Hint" [visible]="false"></dxi-column>
+              <dxi-column dataField="total_estimated_time" caption="Total Attempt Time"  value="user_location_mapping_start_Date"></dxi-column>
+               
+            
+              <dxi-column dataField="assessment_description" caption="Assessment Template Description" [visible]="false"></dxi-column> 
+             
+              
+                  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-search-panel [visible]="true"></dxo-search-panel>
+                  <dxo-group-panel [visible]="true"></dxo-group-panel>
+                  <dxo-selection mode="single"></dxo-selection>
+                  <dxo-summary>
+                      <dxi-total-item
+                          column="user_location_mapping_id"
+                          summaryType="count">
+                      </dxi-total-item>
+                      
+                  </dxo-summary>
+                  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                  <dxo-pager
+                  [visible]="true"
+                  [allowedPageSizes]="[5, 10,20, 'all']"
+                 
+                  [showPageSizeSelector]="true"
+                 
+                  [showInfo]="true"
+                  infoText="Page {0} of  {1} ({2} items)"
+                  [showNavigationButtons]="true"
+                >
+                </dxo-pager>
+                 
+    
+                <dxo-toolbar>
+                <dxi-item name="groupPanel"></dxi-item>
+  
+  <dxi-item name="addRowButton" showText="always"></dxi-item>
+  <dxi-item name="exportButton"></dxi-item>
+  <dxi-item name="columnChooserButton"></dxi-item>
+  <dxi-item name="searchPanel"></dxi-item>
+                </dxo-toolbar>
+                <dxo-export 
+                [enabled]="true"
+                [formats]="['xlsx', 'pdf','csv']"
+              >
+              </dxo-export>
+            </dx-data-grid>
+              </div>
+          
+  </div>
+  </div>
+  </div>
+  

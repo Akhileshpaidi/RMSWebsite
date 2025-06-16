@@ -1,0 +1,308 @@
+.table {
+  width: 100%;
+  margin-top: 25px;
+}
+.button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  gap: 20px;
+}
+.form-fields{
+  width: 50%;
+}
+.col-md-4{
+  width: 20%;
+}
+.header{
+  padding-left: 10px;
+
+  padding-top: 10px;
+}
+
+::ng-deep #form-container {
+  margin: 10px;
+}
+.label {
+  font-size: 18px;
+  font-style: normal;
+  color: black;
+}
+ 
+.wrapper{
+  padding: 10px;
+  
+}
+
+.body {
+  padding: 30px;
+  padding-top: 20px;
+}
+.h1 {
+  font-size: revert;
+  font-weight: 500;
+}
+
+.img {
+  height: 20px;
+  cursor: pointer;
+}
+
+::ng-deep {
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #37d111 !important;
+  }
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #d9d9d9 !important;
+  }
+  
+
+  mat-header-cell,
+  mat-cell {
+    justify-content: center;
+  }
+  .mat-slide-toggle {
+    margin-left: 10px;
+  }
+}
+.filter-input {
+  width: 98%;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.gray-text {
+  color: #b9b9b9;
+}
+mat-radio-group {
+  display: flex;
+  flex-direction: row; 
+}
+
+
+mat-radio-button {
+margin-bottom: 100px;
+margin-right: 50px; 
+}
+
+
+mat-radio-button.mat-radio-checked {
+color: #2196f3; 
+}
+
+.mat-radio-label {
+font-size: 16px;
+font-weight: bold;
+}
+.table {
+width: 100%;
+margin-top: 25px;
+}
+.button {
+display: flex;
+align-items: right;
+justify-content: right;
+gap: 20px;
+}
+
+.body {
+padding: 30px;
+padding-top: 20px;
+}
+.h1 {
+font-size: revert;
+font-weight: 500;
+}
+
+.img {
+height: 20px;
+cursor: pointer;
+}
+
+::ng-deep {
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #37d111 !important;
+}
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: #d9d9d9 !important;
+}
+
+mat-header-cell,
+mat-cell {
+  justify-content: center;
+}
+.mat-slide-toggle {
+  margin-left: 10px;
+}
+}
+.filter-input {
+width: 98%;
+padding: 8px 12px;
+border-radius: 4px;
+border: 1px solid #ccc;
+margin-top: 20px;
+font-size: 16px;
+}
+
+.gray-text {
+color: #b9b9b9;
+}
+
+
+
+
+.document-step-container {
+display: flex;
+justify-content: space-between;
+}
+
+.document-viewer-container {
+flex: 1; 
+}
+
+.file-list-container {
+flex: 1; 
+
+}
+
+.button-container {
+
+}
+.button {
+display: flex;
+align-items: right;
+justify-content: right;
+gap: 20px;
+}
+
+.boxNew {
+
+padding-left: 10px; 
+gap:10px;
+flex-direction: row;
+width: 70%;
+}
+.boxNew> * {
+flex: 1 none none;
+
+}
+
+::ng-deep .mat-tooltip {
+  font-size: 16px; 
+  background-color: #606064 !important; 
+  color: #f6f7ee !important;
+}
+.custom-tooltip {
+  background-color: #00ffff; 
+  color: #000000; 
+}
+
+.form-fields .mat-tooltip-component {
+  font-size: 100px; 
+}
+.selected-file {
+  background-color:rgb(15, 108, 189); 
+  color: #e3e0e0;
+  border-radius: 12px; 
+  &:hover,
+  &:focus {
+    background: linear-gradient(135deg, #3ebbec, #8ad3f0);
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.wrapper{
+padding: 20px;
+
+}
+
+.header{
+padding-left: 10px;
+padding-bottom: 20px;
+padding-top: 10px;
+}
+
+::ng-deep #form-container {
+margin: 10px;
+}
+
+::ng-deep .long-title h3 {
+font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+font-weight: 200;
+font-size: 28px;
+text-align: center;
+margin-bottom: 20px;
+}
+.table-container {
+max-width: 1000px;
+margin: 10px;
+}
+
+.mat-table {
+width: 100%; 
+}
+.textsize{
+  color: black;
+}
+
+.pdf-viewer-container {
+  position: relative;
+  width: 100%;
+  height: 93vh;  
+}
+
+// /* Dark black overlay for the top-right corner */
+.pdf-viewer-container .overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30%; 
+  height: 10%;  
+  background-color: transparent; 
+  z-index: 10;  
+  pointer-events: all; 
+}
+
+.transparent-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 17px); 
+  height: calc(100% - 3px); 
+  background: transparent; 
+  z-index: 999;
+  pointer-events: all; 
+  clip-path: polygon(
+    0 0,
+    30px 0, /* Allow from 30px after the left */
+    30px 30px,
+    calc(100% - 30px) 30px, /* Allow until 30px before the right */
+    calc(100% - 30px) 0,
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+}
+
+/* PDF viewer container for scrolling */
+ngx-doc-viewer {
+  position: relative;
+  z-index: 5; 
+  overflow-y: auto; 
+  height: 100%;  
+}
+
+.mat-checkbox .mat-checkbox-inner-container {
+  transform: scale(1.5); /* Scale the checkbox icon itself */
+}
+.mat-checkbox {
+  font-size: 18px; /* Increase the text size */
+}
+.custom-checkbox {
+  transform: scale(1.5); /* Increase the scale (1.5 is just an example, you can increase or decrease it) */
+  margin-left: 10px;  /* Optional: Space between the checkbox and label */
+}

@@ -1,0 +1,125 @@
+.table {
+    width: 100%;
+    margin-top: 25px;
+  }
+  
+  .body {
+    padding: 30px;
+    padding-top: 20px;
+  }
+  .h1 {
+    font-size: revert;
+    font-weight: 500;
+  }
+  
+  
+  .img {
+    height: 20px;
+    // margin-left: 80px;
+    cursor: pointer;
+  
+  }
+  
+  //Toggle button
+  ::ng-deep {
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+      background-color: #37d111 !important;
+    }
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+      background-color: #d9d9d9 !important;
+    }
+  
+    mat-header-cell,
+    mat-cell {
+      justify-content: center;
+      text-align-last: center;
+      overflow: inherit !important;
+      text-align: center;
+    }
+  }
+  
+  .filter-input {
+    width: 98%;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .gray-text {
+    color: #b9b9b9;
+  }
+  
+  // DevExpress Grid styles Opeb
+  
+  /* Ensure the file input button has proper spacing and styling */
+.upload-btn {
+  width: 100%; /* Ensure button stretches across the width of its container if you want */
+  text-align: center;
+  cursor: pointer;
+}
+
+.file-name {
+  font-size: 14px;
+  color: #555;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+/* Optional: To make the Choose File button bigger or add additional styling */
+.upload-btn {
+  background-color: #848e97; /* Material Blue color */
+  padding: 5px 5px;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  }
+
+/* Data grid toolbar buttons */
+.view-gridbutton {
+  padding: 10px 20px;
+  background-color: #4795e8;  /* Blue background */
+  color: rgb(243, 228, 228);
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px;  /* Add smooth transitions for hover effects */
+}
+.view-gridbutton1 {
+  padding: 10px 20px;
+  background-color: red;  /* Blue background */
+  color: rgb(243, 228, 228);
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 10px;  /* Add smooth transitions for hover effects */
+}
+
+.view-gridbutton:hover {
+  background-color: #0056b3;  /* Darker blue on hover */
+  transform: scale(1.05);  /* Slight zoom-in effect */
+}
+
+.view-gridbutton:focus {
+  outline: none;  /* Remove the default focus outline */
+}
+
+.view-gridbutton:active {
+  background-color: #003366;  /* Even darker blue on button press */
+}
+
+.view-gridbutton:disabled {
+  background-color: #cccccc;  /* Light grey for disabled state */
+  cursor: not-allowed;
+}
+

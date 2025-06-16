@@ -1,0 +1,381 @@
+<div class="container">
+  <mat-sidenav-container class="w-screen">
+    <mat-sidenav
+      #drawer
+      opened="true"
+      disableClose="true"
+      mode="side"
+      #sidenav
+      style="
+        max-width: 340px;
+        background: white;
+        border-radius: 0px;
+        min-height: fit-content;
+        max-height: max-content;
+        height: calc(112vh - 64px);
+        overflow-y: overlay;
+      "
+      padding="30px"
+      autosize
+    >
+      <div class="side-content">
+        <div class="logo flex justify-center items-center py-6">
+          <ng-container *ngIf="getModuleLogo(selectedModule); else showLabel">
+            <img class="img" [src]="getModuleLogo(selectedModule)" />
+          </ng-container>
+          <ng-template #showLabel>
+            <span class="text-xl font-semibold" >{{ selectedModule }}</span>
+          </ng-template>
+        </div>
+        
+        
+        <div class="scrollable-nav-list">
+          <!-- <mat-accordion class="flex flex-col gap-4">
+            <ng-container *ngFor="let route of routes">
+              <ng-container
+                *ngIf="route.pages.length === 0 && getAccess(route.id)"
+              >
+                <mat-nav-list>
+                  <div class="nav-head" (click)="closeSidenav()">
+                    <a
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      routerLinkActive="active-list-item"
+                      mat-list-item
+                      [routerLink]="route.path"
+                    >
+                      <img class="icon" src="{{ route.icon }}" />
+                      {{ route.label }}
+                    </a>
+                  </div>
+                </mat-nav-list>
+              </ng-container>
+
+              <ng-container
+                *ngIf="route.pages.length > 0 && getSubAccess(route)"
+              >
+                <mat-expansion-panel class="mat-elevation-z0">
+                  <mat-expansion-panel-header
+                    class="nav-head"
+                    [expandedHeight]="'48px'"
+                  >
+                    <mat-panel-title class="nav-link">
+                      <img class="icon" src="{{ route.icon }}" />
+                      <span class="nav-link-text">{{ route.label }}</span>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <div class="nav-section">
+                    <mat-nav-list>
+                      <ng-container *ngFor="let page of route.pages">
+                        <div class="nav-item" *ngIf="getAccess(page.id)">
+                          <a
+                            [routerLinkActiveOptions]="{ exact: true }"
+                            routerLinkActive="active-list-item"
+                            mat-list-item
+                            [routerLink]="page.link"
+                          >
+                            {{ page.title }}
+                          </a>
+                        </div>
+                      </ng-container>
+                    </mat-nav-list>
+                  </div>
+                </mat-expansion-panel>
+              </ng-container>
+            </ng-container>
+          </mat-accordion> -->
+          <mat-accordion class="flex flex-col gap-4" >
+            <ng-container *ngFor="let module of routes">
+              <mat-expansion-panel class="mat-elevation-z0" *ngIf="isModuleVisible(module.label)" #panel1 hideToggle [expanded]="true"  >
+                <mat-expansion-panel-header class="nav-head" >
+                  <mat-panel-title class="nav-link" style="padding-bottom: 10px;">
+                    <img class="icon" src="{{ module.icon }}" />
+                    <span class="nav-link-text">{{ module.label }}</span>
+                  </mat-panel-title>
+                  <!-- <mat-icon class="custom-arrow" [class.rotated]="panel1.expanded">expand_more</mat-icon> -->
+ 
+                </mat-expansion-panel-header>
+          
+                <!-- Tabs Inside Module -->
+                <div class="nav-section">
+                  <mat-nav-list>
+                    <ng-container *ngFor="let tab of module.tabs">
+                      <!-- <ng-container *ngIf="getSubAccess(tab)"> -->
+                        <ng-container *ngIf="hasAccessibleMenuItems(tab)">
+                          <mat-expansion-panel
+                          [expanded]="expandedPanel === tab.label"
+                          (opened)="setExpandedPanel(tab.label)"
+                          (closed)="clearExpandedPanel(tab.label)"
+                          class="mat-elevation-z0" #panel2 hideToggle
+                        >
+                        <mat-expansion-panel-header class="nav-head">
+                          <mat-panel-title class="nav-link" >
+                            <mat-icon  class="icon-spacing">folder</mat-icon> <span></span><span class="nav-link-text">{{ tab.label }}</span>
+                          </mat-panel-title>
+                    
+                  <mat-icon class="custom-arrow" [class.rotated]="panel2.expanded">expand_more</mat-icon>
+                        </mat-expansion-panel-header>
+          
+                        <!-- Main Menu Items Inside Tab -->
+                        <mat-accordion [multi]="false">
+                        <div class="nav-section">
+                          <mat-nav-list>
+                            <ng-container *ngFor="let menuItem of tab.menuItems">
+                              <ng-container *ngIf="getSubAccess(menuItem)">
+                              <mat-expansion-panel class="mat-elevation-z0" #panel3 hideToggle>
+                                <mat-expansion-panel-header class="nav-head" >
+                                  <mat-panel-title class="nav-link" style="padding-left: 15px;">
+                                    <mat-icon  class="icon-spacing2">folder_open</mat-icon><span class="nav-link-text">{{ menuItem.label }}</span>
+                                  </mat-panel-title>
+                                
+                  <mat-icon class="custom-arrow" [class.rotated]="panel3.expanded">expand_more</mat-icon>
+                                </mat-expansion-panel-header>
+          
+                                <!-- Components Inside Main Menu Item -->
+                                <div>
+                                  <mat-nav-list style="padding-left:40px;">
+                                    <ng-container *ngFor="let component of menuItem.pages">
+                                      <div class="nav-item" *ngIf="getAccess(component.id)">
+                                        <a
+                                          [routerLinkActiveOptions]="{ exact: true }"
+                                          routerLinkActive="active-component"
+                                          mat-list-item
+                                          [routerLink]="component.link"
+                                          (click)="setActiveComponent(component.link)"
+                                          matTooltipPosition="right"                
+                                          matTooltip="{{ component.title }}" 
+                                        >
+                                          {{ component.title }}
+                                        </a>
+                                      </div>
+                                    </ng-container>
+                                  </mat-nav-list>
+                                </div>
+                              </mat-expansion-panel>
+                              </ng-container>
+                            </ng-container>
+                          </mat-nav-list>
+                        </div>
+                        </mat-accordion>
+                      </mat-expansion-panel>
+                      </ng-container>
+                    </ng-container>
+                  </mat-nav-list>
+                </div>
+                
+              </mat-expansion-panel>
+            </ng-container>
+          </mat-accordion>
+          
+
+          <button
+            mat-icon-button
+            aria-expanded="true"
+            aria-label="Menu"
+            (click)="sidenav.toggle()"
+          >
+            <mat-icon
+              data-mat-icon-type="font"
+              style="
+                color: rgb(4 30 73 / 70%);
+                position: absolute;
+                right: -215px;
+              "
+              >chevron_left</mat-icon
+            >
+          </button>
+        </div>
+      </div>
+    </mat-sidenav>    
+   
+
+    <mat-sidenav-content>
+      <div style="height: 100vh">
+        <div class="content">
+          <mat-toolbar class="blue flex flex-row px-6">
+            <div class="toolbar-container ">
+              <div class="lg:block hidden">
+                <button
+                  mat-icon-button
+                  aria-label="Menu"
+                  (click)="sidenav.toggle()"
+                >
+                  <mat-icon>menu</mat-icon>
+                </button>
+              </div>
+              <div class="lg:hidden flex justify-center items-center">
+                <button mat-icon-button aria-label="Menu" (click)="toggleMenu()">
+                  <mat-icon>menu</mat-icon>
+                </button>
+              </div>
+              <div class="text-container">
+                <span class="lg:text-lg text-sm text-white">{{ data.profile.country }}</span
+                >
+                <span class="subtitle">{{ data.profile.state }}</span>
+              </div>
+            </div>
+            <!-- <span class="title"> {{ data.profile.country  }}</span>
+     <span class="subtitle"> {{ data.profile.state  }}</span> -->
+            <span class="spacer"></span>
+            <!-- <button mat-button class="icon-text" [matMenuTriggerFor]="iconMenu"> <mat-icon class="icon-size">account_circle</mat-icon>{{data.profile.firstname}}</button> -->
+            <button
+            mat-button
+            class="icon-text shadow-button"
+            [matMenuTriggerFor]="iconMenu1"
+          >
+            <mat-icon class="icon-size">swap_vertical_circle</mat-icon>
+            {{selectedModule || 'Module'}}
+          </button>
+
+          <mat-menu #iconMenu1="matMenu">
+            <button mat-menu-item  *ngIf="data.profile.taskid.includes('1')" (click)="onModuleSelect('GOVERNace')" >
+             
+              <span>Governance</span>
+            </button>
+            <button mat-menu-item  *ngIf="data.profile.taskid.includes('3')" (click)="onModuleSelect('e-COMPLIANCE')">
+            
+              <span>E-compliance</span>
+            </button>
+            <button mat-menu-item  *ngIf="data.profile.taskid.includes('2')" (click)="onModuleSelect('Risk')">
+            
+              <span>Risk</span>
+            </button>
+            <button mat-menu-item  *ngIf="data.profile.taskid.includes('4')" (click)="onModuleSelect('grcHAWK')">
+            
+              <span>Commom Admin</span>
+            </button>
+          </mat-menu>
+       
+
+            <button
+              mat-button
+              class="icon-text shadow-button"
+              [matMenuTriggerFor]="iconMenu"
+            >
+              <mat-icon class="icon-size">account_circle</mat-icon>
+              {{ data.profile.firstname }}
+            </button>
+
+            <mat-menu #iconMenu="matMenu">
+              
+              <button mat-menu-item [routerLink]="['raiseQuery']">
+                <mat-icon>query_builder</mat-icon>
+                <span>New Query</span>
+              </button>
+              <button mat-menu-item [routerLink]="['Review-Query']">
+                <mat-icon>query_builder</mat-icon>
+                <span>Review Queries</span>
+              </button>
+             
+              <button mat-menu-item [routerLink]="['track-status']">
+                <mat-icon>track_changes</mat-icon>
+                <span>Track Status</span>
+              </button>
+              <button mat-menu-item [routerLink]="['Notification']">
+                <mat-icon>notifications</mat-icon>
+                <span>Notification</span>
+              </button>
+              <button mat-menu-item [routerLink]="['profile']">
+                <mat-icon>person</mat-icon>
+                <span>Profile</span>
+              </button>
+              <button mat-menu-item (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                <span>Logout</span>
+              </button>
+
+            </mat-menu>
+          </mat-toolbar>
+          <div class="content-inside">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+        <footer style="margin-top: 0px" class="footer">
+          <!-- <app-footer></app-footer> -->
+        </footer>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <div class="backdrop" *ngIf="isMenuOpen" (click)="closeMenu()"></div>
+  
+  <div class="menu-container" >
+    <div class="menu flex flex-col gap-4" [class.open]="isMenuOpen" *ngIf="isMenuOpen">
+      <div class="logo flex justify-center items-center pb-4">
+        <img class="img" src="../../../../assets/images/RiskShortlogo.jpg" />
+      </div>
+      <div class="scrollable-nav-list">
+        <!-- <mat-accordion class="flex flex-col gap-4">
+          <ng-container *ngFor="let route of routes">
+            <ng-container
+              *ngIf="route.pages.length === 0 && getAccess(route.id)"
+            >
+              <mat-nav-list>
+                <div class="nav-head" (click)="closeSidenav()">
+                  <a
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    routerLinkActive="active-list-item"
+                    mat-list-item
+                    [routerLink]="route.path"
+                  >
+                    <img class="icon" src="{{ route.icon }}" />
+                    {{ route.label }}
+                  </a>
+                </div>
+              </mat-nav-list>
+            </ng-container>
+
+            <ng-container
+              *ngIf="route.pages.length > 0 && getSubAccess(route)"
+            >
+              <mat-expansion-panel class="mat-elevation-z0">
+                <mat-expansion-panel-header
+                  class="nav-head"
+                  [expandedHeight]="'60px'"
+                >
+                  <mat-panel-title class="nav-link">
+                    <img class="icon" src="{{ route.icon }}" />
+                    <span class="text-sm">{{ route.label }}</span>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+                <div class="nav-section">
+                  <mat-nav-list>
+                    <ng-container *ngFor="let page of route.pages">
+                      <div class="nav-item" *ngIf="getAccess(page.id)">
+                        <a
+                          [routerLinkActiveOptions]="{ exact: true }"
+                          routerLinkActive="active-list-item"
+                          mat-list-item
+                          [routerLink]="page.link"
+                          (click)="closeMenu()"
+                        >
+                          {{ page.title }}
+                        </a>
+                      </div>
+                    </ng-container>
+                  </mat-nav-list>
+                </div>
+              </mat-expansion-panel>
+            </ng-container>
+          </ng-container>
+        </mat-accordion> -->
+      </div>
+    </div>
+  </div >
+</div>
+
+<!-- <div class="profile row">
+        <button mat-button [matMenuTriggerFor]="menu">
+          <img
+            style="height: 35px"
+            class="icon"
+            src="../../../assets//images//Dashboard/user.png"
+          />
+          {{ data.profile.firstname  }}
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item [routerLink]="['profile']"><mat-icon>home</mat-icon><span>My Account</span></button>
+          <button mat-menu-item (click)="logout()"><mat-icon>logout</mat-icon><span>Logout</span></button>
+        </mat-menu>
+      </div> -->

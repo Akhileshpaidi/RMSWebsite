@@ -1,0 +1,21 @@
+<div class="center" mat-dialog-content>
+    <!-- <div *ngIf="data.success" class="success-icon-container">
+          <div class="success-icon">&#10003;</div>
+        </div>  -->
+    {{ data.message }}
+</div>
+<div class="center" mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true">Ok</button>
+</div>
+<div class="center" *ngIf="data.success" mat-dialog-content>
+    <br>
+    <div class="globalID"><span style="font-weight: bold;">Document Name :</span> {{ data.id.DocumentName }}</div>
+    <div class="globalID"><span style="font-weight: bold;">Document ID: </span>{{ data.id.DocumentID }}</div>
+    <div class="globalID"> <span style="font-weight: bold;">Version Control No: </span>{{ data.id.VersionControlNo }} {{data.id.addDoc_createdDate?.split(' ')[0].toString()}}</div>
+    <div class="globalID"> <span style="font-weight: bold;">Effectivedate: </span>{{ data.id.Effectivedate }}</div>
+
+       </div>
+      
+   
+      
+ 

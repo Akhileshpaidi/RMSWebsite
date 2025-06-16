@@ -1,0 +1,110 @@
+<div class="button">
+  <button class="submit" (click)="downloadAsPdf()">Download as PDF</button>
+</div>
+<div id="contentToConvert" class="container">
+  <div class="main" style="order: 1">
+    <div class="Front-Page">
+      <div class="title">
+        <span>{{ reportname }} Repost on {{ inspectionname }} </span
+        ><br /><br />
+        <span> {{ bridgename }} on NH-39 in the State of Jharkhand</span>
+      </div>
+      <div class="metaData">
+        <h1><b> Client : </b> {{ clientName }}</h1>
+        <h1><b> Reported By : </b> {{ clientName }}</h1>
+      </div>
+      <div>
+        <table class="bordered-table">
+          <tr>
+            <th>Inspected By:</th>
+            <th>Prepared by:</th>
+            <th>Approved by:</th>
+            <th>Report No:</th>
+            <th>Date:</th>
+          </tr>
+          <tr>
+            <td>{{ inspector }}</td>
+            <td>
+              {{ sessionData.profile.firstname }}
+              {{ sessionData.profile.firstname }}
+            </td>
+            <td>Tapan Thakkar</td>
+            <td>DI/2022-23/03</td>
+            <td>20/08/2022</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="BridgeDetails">
+      <div class="heading">Bridge Details</div>
+
+      <div class="content">
+        <table>
+          <tr>
+            <th>Name of Bridge:</th>
+            <td>Telmochu Bridge over River Damodar on NH 39</td>
+          </tr>
+          <tr>
+            <th>Importance of Bridge:</th>
+            <td>Major Bridge</td>
+          </tr>
+          <tr>
+            <th>Diversion option:</th>
+            <td>Only one bridge towards downstream</td>
+          </tr>
+          <tr>
+            <th>Span Arrangement:</th>
+            <td>10 Span – for details please refer drawing 1</td>
+          </tr>
+          <tr>
+            <th>Type of Foundation:</th>
+            <td>
+              A1, P1, P2, P8b & A2 are open foundation And P3, P4, P5, P6, P7 &
+              P8a are well foundation
+            </td>
+          </tr>
+          <tr>
+            <th>Type of Substructure:</th>
+            <td>Solid RCC Pier</td>
+          </tr>
+          <tr>
+            <th>Bearings:</th>
+            <td>Neoprene Bearing</td>
+          </tr>
+          <tr>
+            <th>Type of Superstructure:</th>
+            <td>3 nos of PSC girder with RCC slab</td>
+          </tr>
+          <tr>
+            <th>Type of safety guard:</th>
+            <td>
+              H-Type of hand rail and at few locations it is RCC crash barrier
+            </td>
+          </tr>
+          <tr>
+            <th>Type of Expansion:</th>
+            <td>Buried angle type of expansion joint</td>
+          </tr>
+          <tr>
+            <th>Type of Wearing Coarse:</th>
+            <td>Bituminous Coarse</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="BridgeDetails">
+      <div class="heading">Introduction</div>
+      <div class="content">
+            <div [innerHTML]="introduction"></div>
+      </div>
+    </div>
+
+    <div class="BridgeDetails">
+      <div class="heading">Observation</div>
+      <div class="content">
+            <div [innerHTML]="Observation"></div>
+      </div>
+    </div>
+  </div>
+</div>

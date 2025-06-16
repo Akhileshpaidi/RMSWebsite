@@ -1,0 +1,480 @@
+<div class="form">
+    <form [formGroup]="questionForm" (ngSubmit)="saveQuestion()">
+  <div class="body">
+      <div class="header col">
+        <div style="align-self: self-end">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Create New Question to be Added</h1>
+            <button class="exitbutton" type="button"  (click)="exitPage()">Exit</button>
+          </div>
+            <mat-horizontal-stepper labelPosition="bottom">
+              
+              <mat-step label="Define Question Framework" state="chat">
+                <br>
+              <br>
+                  <div class="row">
+                      <div class="box">
+                        <mat-form-field appearance="fill" class="form-field">
+                          
+                          <mat-label>Enter Question Description
+                            </mat-label>
+                          <textarea matInput  matInput #Question minlength="0" maxlength="1500"  
+                          formControlName="question" required style="min-height: 50px;overflow: auto;"
+                          (input)="onInput()"></textarea>
+                          <mat-hint align="start"> Max 1500 Characters</mat-hint>
+                          <mat-hint align="end">{{Question.value.length}}/1500</mat-hint>
+                        </mat-form-field>
+  
+              </div>
+              <div class="box">
+                 
+                <mat-form-field appearance="fill" class="form-field">
+                            
+                  <mat-label>Mention Objective/ Relevance in Assessment</mat-label>
+                  <textarea matInput  #objective minlength="0" maxlength="1500"  formControlName="objective"
+                   required  (input)="onInput()" style="min-height: 50px;overflow: auto;"></textarea>
+                  <mat-hint align="start" > Max 1500 Characters</mat-hint>
+                  <mat-hint align="end">{{objective.value.length}}/1500</mat-hint>
+                  </mat-form-field>
+            </div>
+            </div>
+          <br>
+            <!-- <div class="row">
+              <div class="box">
+              <mat-label>Choose image:</mat-label>
+             
+                  <dx-file-uploader
+                    selectButtonText="Select photo"
+                    labelText=""
+                    accept="image/*"
+                    uploadMode="useForm"
+                    (onValueChanged)="handleFileSelection($event)"></dx-file-uploader>
+                 
+                </div>
+              </div> -->
+          
+  
+         <div class="row">    
+     
+     
+        <!-- <div>
+            <mat-label style="display: contents;">Select Expected Response Type
+                <label style="color: red;">*</label>
+            </mat-label>
+        </div> -->
+      <div class="box">
+                <dx-select-box 
+        label="Select Expected Response Type"
+            valueExpr="id"
+            displayExpr="text"
+            [dataSource]="resptypedata"
+            [inputAttr]="{ 'aria-label': 'id' }"
+            [value]="resptype[0].id"
+            [(ngModel)]="selectedType"
+            (onValueChanged)="selectOption($event)" 
+            formControlName="response_type">
+            
+      </dx-select-box>
+        </div>
+        <div class="box" *ngIf="OptionA">
+          <!-- <div>
+          <mat-label style="display: contents;">Mention No. of Selection Choices <label style="color: red;">*</label> </mat-label>
+        </div> -->
+        
+          <dx-number-box
+          [value]="optionCount"
+         
+          [min]="2"
+          [max]="10"
+          [showSpinButtons]="true"
+            [showClearButton]="true"
+            label="Mention No. of Selection Choices*"
+            labelMode="floating"
+            [(ngModel)]="selectedCount"
+            (onValueChanged)="updateOptionsArray($event)"
+            formControlName="no_of_selectionchoices"
+            
+        >
+        </dx-number-box>
+        
+          </div>
+    </div>
+    <br>
+  <div class="row">
+    <div class="box" *ngIf="OptionB">
+    <!-- <div>
+    <mat-label style="display: contents;"></mat-label>
+  </div> -->
+  
+    <!-- <mat-form-field appearance="fill" class="form-field">
+                          
+      <mat-label>Enter Full 
+        Response To The Question
+        </mat-label>
+      <textarea matInput formControlName="fullresponse"></textarea>
+    </mat-form-field> -->
+  
+  </div>
+  
+  </div>
+  <br>
+  
+  <div class="box"  *ngIf="OptionC">
+    <!-- <div>
+    <mat-label style="display: contents;">Add List of Choices <label style="color: red;">*</label> </mat-label>
+  </div> -->
+  <div formArrayName="options">
+    <p *ngFor="let option of options.controls; let i = index" >
+    <mat-form-field appearance="fill" class="form-field"   >             
+      <mat-label>Option {{ i + 1 }}</mat-label>
+      <textarea matInput [formControlName]="i"></textarea>
+    </mat-form-field>
+     </p>
+  
+  </div>
+  </div>
+  <div class="row">
+  <div class="box" *ngIf="Answers">
+    <!-- <div>
+    <mat-label style="display: contents;">Correct Answer<label style="color: red;">*</label>
+    
+    </mat-label>
+  </div> -->
+  <div>
+    <!-- <mat-form-field appearance="outline" class="form-field">
+                          
+      <mat-label>Enter Correct Answer
+        </mat-label> -->
+      <!-- <textarea matInput required formControlName="correct_answer"></textarea> -->
+      <dx-number-box
+      
+      [value]="1"
+      [min]="1"
+      [max]="questionForm.get('no_of_selectionchoices').value"
+      [showSpinButtons]="true"
+        [showClearButton]="true"
+        label="Correct Answer"
+        labelMode="floating"
+        
+       formControlName="correct_answer">
+    </dx-number-box>
+  </div>
+  </div>
+    <!-- </mat-form-field> -->
+    <!-- <div>
+      <mat-label style="display: contents;">Mark this Question as Favourite/ Default 
+        <label style="color: red;">*</label></mat-label>
+    </div> -->
+    <div class="box">
+      <dx-select-box 
+      label="Mark this Question as Favourite/ Default*"
+      displayExpr="text"
+      valueExpr="id"
+      [dataSource]="data"
+      [inputAttr]="{ 'aria-label': 'id' }"
+      [value]="ChooseOptions[1].id"
+      [(ngModel)]="selectedOption"
+       formControlName="questionmarked_favourite">
+      
+    </dx-select-box>
+    
+    </div>
+  
+  </div>
+  
+  <br>
+  <div class="row">
+   <!-- <div>
+    <mat-label style="display: contents;">Question Hint</mat-label>
+  </div> -->
+  <div class="box">
+    <mat-form-field appearance="fill" class="form-field">
+                          
+      <mat-label> Question Hint
+        </mat-label>
+      <textarea matInput  matInput #Obj_Doc minlength="0" maxlength="250"  
+      formControlName="question_hint" required style="min-height: 50px;overflow: auto;"
+      (input)="onInput()"></textarea>
+      <mat-hint align="start"> Max 250 Characters</mat-hint>
+      <mat-hint align="end">{{Obj_Doc.value.length}}/250</mat-hint>
+    </mat-form-field>
+    
+  </div>
+  
+    <div class="box">
+    <mat-label>Choose image:</mat-label>
+   
+        <dx-file-uploader
+          selectButtonText="Select photo"
+          labelText=""
+          accept="image/*"
+          uploadMode="useForm"
+          (onValueChanged)="handleFileSelection($event)"></dx-file-uploader>
+       
+      </div>
+    
+  </div>
+  
+  <br>
+      <div class="button">
+        <!-- <button class="grey-button" matStepperPrevious>Back</button> -->
+        <button class="Custombutton" matStepperNext type="button" (click)="validation()">Next</button>
+      </div>
+              </mat-step>
+  
+            
+              
+  <mat-step label="Set Question Scoring Parameter" state="chat">
+    <br>
+    <br>
+    <div class="box">
+      <!-- <div>
+      <mat-label style="display: contents;">Set Score Weightage
+      <label style="color: red;">*</label></mat-label>
+    </div> -->
+    <div>
+      <dx-number-box
+      [value]="1"
+      [min]="1"
+      [max]="10"
+      [showSpinButtons]="true"
+        [showClearButton]="true"
+        label="Set Score Weightage*"
+        labelMode="floating"
+       formControlName="score_weightage">
+    </dx-number-box>
+     </div>
+     <!-- <div>
+      <mat-label style="display: contents;">Select Competency Check Level 
+      <label style="color: red;">*</label></mat-label>
+    </div> -->
+    <div>
+      <dx-select-box 
+      valueExpr="check_level_id"
+      label="Select Competency Check Level*"
+      displayExpr="skill_Level_Name"
+        [dataSource]="CheckLevelData"
+        formControlName="check_level"
+        selectionMode="single" 
+        [searchEnabled]="true"
+        placeholder=""
+        (onValueChanged)="handleCheckLevelChange($event)">
+      
+    </dx-select-box>
+    </div>
+      </div>
+  
+      <br>
+      
+     
+      <div class="box">
+        <!-- <div>
+        <mat-label style="display: contents;">Show Competency Check Level Weightage
+           <label style="color: red;">*</label></mat-label>
+      </div> -->
+  
+      <div>
+        <dx-number-box
+        [value]="checklevel_weightage"
+        label="Show Competency Check Level Weightage*"
+        [min]="0.01"
+        [max]="10"
+        [showSpinButtons]="true"
+          [showClearButton]="true"
+          label="Enter a Value"
+          labelMode="floating"
+        formControlName="checklevel_weightage"
+        class="readonly-input">
+      </dx-number-box>
+       </div>
+       <!-- <div>
+        <mat-label style="display: contents;">Estimated Time to Answer this Question(In Minutes)
+  <label style="color: red;">*</label></mat-label>
+      </div> -->
+      <div>
+        <dx-number-box
+        label="Estimated Time to Answer this Question(In Minutes)*"
+        [value]="1"
+        [min]="1"
+        [max]="100"
+        [showSpinButtons]="true"
+          [showClearButton]="true"
+          label="Enter a Value"
+          labelMode="floating"
+         formControlName="estimated_time">
+      </dx-number-box>
+       </div>
+        </div>
+       
+          <br>
+                <div class="button">
+                  <button class="grey-button" matStepperPrevious type="button">Back</button>
+                  <button class="Custombutton" matStepperNext type="button">Next</button>
+                </div>
+              </mat-step>
+  
+  
+              <mat-step label="Question Attributes" state="chat">
+                <br>
+                <br>
+                
+                <div class="box">
+                  <!-- <div>
+                  <mat-label style="display: contents;">Keywords/ Tags
+                  </mat-label>
+                </div> -->
+                <div>
+                  <mat-form-field class="example-chip-list" appearance="fill">
+                                        
+                    <mat-label>Enter Keywords/ Tags
+                      </mat-label>
+                      <mat-chip-list #chipList aria-label="Fruit selection">
+                        <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
+                          {{tag.name}}
+                          <button matChipRemove>
+                            <mat-icon>cancel</mat-icon>
+                          </button>
+                        </mat-chip>
+                        <input #chipListInput
+                               [matChipInputFor]="chipList"
+                               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                               [matChipInputAddOnBlur]="addOnBlur"
+                               (matChipInputTokenEnd)="add($event)"   
+                               formControlName="keywords"
+                               >
+                      </mat-chip-list>
+                  </mat-form-field>
+                  
+                </div>
+                <!-- <div>
+                  <mat-label style="display: contents;">Allow Random Selection by Assessor
+  
+                     <label style="color: red;">*</label></mat-label>
+                </div> -->
+                <div>
+                  <dx-select-box 
+                  label="Allow Random Selection by Assessor*"
+                  valueExpr="id"
+                  displayExpr="text"
+                  [dataSource]="ChooseOptions"
+                  selectionMode="single" 
+        [searchEnabled]="true"
+        placeholder=""
+                  formControlName="assessor_randomselection">
+                  
+                </dx-select-box>
+                </div>
+                </div>
+                <br>
+              
+                <div  class="box">
+                  <!-- <div>
+                  <mat-label style="display: contents;">Allow Random Setting in Assessment
+                    <label style="color: red;">*</label></mat-label>
+                </div> -->
+                
+                  <div>
+                  <dx-select-box 
+                  label="Allow Random Setting in Assessment*"
+                  valueExpr="id"
+                  displayExpr="text"
+                  [dataSource]="ChooseOptions"
+                  selectionMode="single" 
+        [searchEnabled]="true"
+        placeholder=""
+                   formControlName="assessment_randomsetting">
+                                </dx-select-box>
+                </div>
+                <!-- Map Question to Subject<label style="color: red;">*</label>  -->
+  <div>
+    <dx-select-box 
+    label="Map Question to Subject*"           
+    valueExpr="subject_id"
+    displayExpr="subject_Name"
+    [dataSource]="SubjectData"  
+    (onValueChanged)="getSubTypes($event)"
+    selectionMode="single" 
+    [searchEnabled]="true"
+    placeholder=""
+   formControlName="subjectid">
+  
+  </dx-select-box>
+  </div>
+                </div>
+               
+                <br>
+                <div  class="box">
+                  <!-- <div>
+                  <mat-label style="display: contents;">Map Question to Topic
+                    <label style="color: red;">*</label></mat-label>
+                </div> -->
+                
+                  <div>
+                    <dx-select-box 
+                    label="Map Question to Topic*"     
+                      
+                    valueExpr="topic_id"
+                    displayExpr="topic_Name"
+                    [dataSource]="TopicData"
+                    [(value)]="Selectedtopic"
+                    selectionMode="single" 
+                    [searchEnabled]="true"
+                    placeholder=""
+                    formControlName="topicid">
+                 
+              </dx-select-box>
+                </div>
+                <div></div>
+                </div>
+                
+  <br>
+  
+  
+  
+                <div class="button">
+                  <button class="grey-button" matStepperPrevious type="button">Back</button>
+                  <button class="Custombutton" matStepperNext type="button">Next</button>
+                </div>
+              </mat-step>
+               
+              <mat-step label="Question Add-ONS" state="chat">
+                <br>
+                <br>
+              
+                <div class="box">
+                  <!-- <div>
+                  <mat-label style="display: contents;">Explanation / Reference to Governance Control Document</mat-label>
+                </div> -->
+                <div>
+                  <mat-form-field appearance="fill" class="form-field">
+                                        
+                    <mat-label>Enter Explanation / Reference to Governance Control Document
+                      </mat-label>
+                    <textarea matInput formControlName="ref_to_governance_control"></textarea>
+                  </mat-form-field>
+                  
+                </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="button">
+                  <button class="grey-button" matStepperPrevious type="button">Back</button>
+                  <button class="Custombutton" matSteppersave type="submit">Save</button>
+                </div>
+              </mat-step>
+              
+              <!-- Icon overrides. -->
+              <ng-template matStepperIcon="phone">
+                <mat-icon>call_end</mat-icon>
+              </ng-template>
+              <ng-template matStepperIcon="chat">
+                <mat-icon>forum</mat-icon>
+              </ng-template>
+            </mat-horizontal-stepper>
+      </div>
+          </div>
+        </div>
+  </form>
+  </div>
+        

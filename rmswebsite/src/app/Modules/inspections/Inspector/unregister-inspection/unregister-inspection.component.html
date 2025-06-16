@@ -1,0 +1,171 @@
+<!-- <p>unregister-inspection works!</p>
+Project No Chainage Of Bridge Carriage Way Type Of Bridge Type Of Foundation
+Type Of Superstructure Type Alternate Route -->
+
+<div class="body">
+  <div class="row">
+    <img
+      style="height: 30px"
+      src="../../../../assets//images/Inspection/file-plus.svg"
+    />
+    <h2 class="header">Register Bridge</h2>
+  </div>
+  <hr />
+  <form
+    [formGroup]="createAddOnBridgeForm"
+    (ngSubmit)="createAddOnBridge(createAddOnBridgeForm.value)"
+  >
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Bridge Name </mat-label>
+          <input [formControl]="name" matInput name="name" required />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Project No</mat-label>
+          <mat-select [formControl]="selectedproject">
+            <mat-option *ngFor="let element of project" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Alternate Route</mat-label>
+          <mat-select [formControl]="selectedtypeofalternativeroute">
+            <mat-option
+              *ngFor="let element of typeofalternativeroute"
+              [value]="element.id"
+            >
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayoutAlign="center center">
+      <div class="box1">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Chainage Of Bridge in meter </mat-label>
+
+          <input
+            [formControl]="chainageinmeter"
+            matInput
+            name="chainageinmeter"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Chainage Of Bridge in kelo meter </mat-label>
+
+          <input
+            [formControl]="chainageinkelometer"
+            matInput
+            name="chainageinkelometer"
+            required
+          />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Carriageway First Digit</mat-label>
+          <mat-select [formControl]="selectedtypeofcarriagewayfirstdigit">
+            <mat-option
+              *ngFor="let element of typeofcarriagewayfirstdigit"
+              [value]="element.id"
+            >
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Carriageway Second Digit</mat-label>
+          <mat-select [formControl]="selectedtypeofcarriagewayseconddigit">
+            <mat-option
+              *ngFor="let element of typeofcarriagewayseconddigit"
+              [value]="element.id"
+            >
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Type of Bridge</mat-label>
+          <mat-select [formControl]="selectedtypeofbridge">
+            <mat-option
+              *ngFor="let element of typeofbridge"
+              [value]="element.id"
+            >
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Foundation of Bridge</mat-label>
+          <mat-select [formControl]="selectedtypeoffoundation">
+            <mat-option
+              *ngFor="let element of typeoffoundation"
+              [value]="element.id"
+            >
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Type of Super Structure</mat-label>
+          <mat-select [formControl]="selectedtypeofsuperstructure">
+            <mat-option
+              *ngFor="let element of typeofsuperstructure"
+              [value]="element.id"
+            >
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Type of Structure</mat-label>
+          <mat-select [formControl]="selectedtypeofstructure">
+            <mat-option
+              *ngFor="let element of mypeofstructure"
+              [value]="element.id"
+            >
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- <div class="button">
+      <button class="Custombutton" mat-button type="submit">
+        Save & Continue
+      </button>
+    </div> -->
+
+    <div class="button">
+      <button class="grey-button" mat-button (click)="Cancel()">Cancel</button>
+      <button class="Custombutton" mat-button type="submit">Save & Continue</button>
+    </div>
+  </form>
+</div>

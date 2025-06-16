@@ -1,0 +1,203 @@
+<div class="form">
+  <div class="body">
+    <div class="header">
+      <div style="align-self: self-end">
+        <br />
+        <h2 class="title" style="align-items: center">
+          {{ isViewMode ? 'View Activity Workgroup details' : 'Create Activity Workgroup' }}
+        </h2>
+      </div>
+    </div>
+
+    <!-- Create Activity Workgroup Form Section -->
+    <form
+      *ngIf="!isViewMode"
+      [formGroup]="createworkgroup"
+      (ngSubmit)="onSave(createworkgroup.value)"
+    >
+      <div>
+        <h3><label> Activity Workgroup Mapping: </label></h3>
+      </div>
+
+      <div class="row">
+        <div class="box">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Name of Activity Workgroup</mat-label>
+            <input
+              matInput
+              #titleinput
+              formControlName="nameactivity"
+              maxlength="50"
+            />
+            <mat-hint align="start">Min 1 - Max 50 Characters</mat-hint>
+            <mat-hint align="end">{{ titleinput.value.length }}/50</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="box">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Description of Activity Workgroup</mat-label>
+            <textarea
+              matInput
+              #titleinput
+              formControlName="Activitydesc"
+              maxlength="150"
+            ></textarea>
+            <mat-hint align="start">Min 1 - Max 150 Characters</mat-hint>
+            <mat-hint align="end">{{ titleinput.value.length }}/150</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <br />
+
+      <div class="box">
+        <dx-drop-down-box
+          formControlName="department"
+          [(value)]="selectedOption3"
+          placeholder="Select Department*"
+          [showClearButton]="true"
+          [(opened)]="isGridBoxOpened"
+          valueExpr="locationdepartmentmappingid"
+          displayExpr="department_Master_name"
+          [dataSource]="department"
+          searchEnabled="true"
+          height="40px"
+        >
+          <div *dxTemplate="let data of 'content'">
+            <dx-data-grid
+              [dataSource]="department"
+              [selection]="{ mode: 'multiple' }"
+              [hoverStateEnabled]="true"
+              [columns]="gridColumns3"
+              [(selectedRowKeys)]="selectedOption3"
+              [filterRow]="{ visible: true }"
+              [scrolling]="{ mode: 'virtual' }"
+              [showColumnHeaders]="true"
+              height="220%"
+            >
+            </dx-data-grid>
+          </div>
+        </dx-drop-down-box>
+      </div>
+
+      <br />
+
+      <div>
+        <h3><label> Map Compliance User Roles: </label></h3>
+      </div>
+
+      <div class="admin">
+        <div class="user-detail-role">
+          <label style="font-weight: bold">Select Admin/Functional Role:</label>
+          <div class="radio-container">
+            <div *ngFor="let role of roleData" class="radio-item">
+              <input
+                type="radio"
+                [formControlName]="'roles'"
+                [value]="role.rolE_ID"
+                [id]="'radio' + role.rolE_ID"
+                name="selectedRole"
+              />
+              <label [for]="'radio' + role.rolE_ID">{{ role.rolE_NAME }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="button">
+        <button class="grey-button" (click)="Cancel()">Cancel</button>
+        <button class="Custombutton">Save</button>
+      </div>
+    </form>
+
+    <!-- View User Workgroup Section -->
+    <div class="card-body1" *ngIf="isViewMode">
+      <div id="app-container">
+        <dx-data-grid
+          id="activity_Workgroup_id"
+          [dataSource]="dataSource1"
+          [showBorders]="true"
+          [allowColumnResizing]="true"
+          [columnAutoWidth]="true"
+          [allowColumnReordering]="true"
+          width="100%"
+          (onExporting)="exportGrid($event)"
+        >
+          <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+          <dxo-header-filter [visible]="true"></dxo-header-filter>
+          <dxi-column
+            dataField="activity_Workgroup_id"
+            caption="Activity Workgroup ID"
+            [width]="100"
+          ></dxi-column>
+          <dxi-column
+            dataField="entity_Master_Name"
+            caption="Entity Name"
+          ></dxi-column>
+          <dxi-column
+            dataField="unit_location_Master_name"
+            caption="Unit Location Name"
+          ></dxi-column>
+          <dxi-column
+            dataField="department_Master_name"
+            caption="Department Name"
+          ></dxi-column>
+          <dxi-column dataField="rolE_NAME" caption="ROLE NAME"></dxi-column>
+          <dxi-column
+            dataField="unigueActivityid"
+            caption="Activity ID"
+          ></dxi-column>
+          <dxi-column
+            dataField="name_ActivityWorkgroup"
+            caption="Activity Name"
+          ></dxi-column>
+          <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+          <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+          <dxo-filter-row [visible]="true"></dxo-filter-row>
+          <dxo-search-panel [visible]="true"></dxo-search-panel>
+          <dxo-group-panel [visible]="true"></dxo-group-panel>
+          <dxo-selection mode="single"></dxo-selection>
+          <dxo-summary>
+            <dxi-total-item
+              column="activity_Workgroup_id"
+              summaryType="count"
+            ></dxi-total-item>
+          </dxo-summary>
+          <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+          <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+          <dxo-pager
+            [visible]="true"
+            [allowedPageSizes]="[5, 10, 20, 'all']"
+            [showPageSizeSelector]="true"
+            [showInfo]="true"
+            infoText="Page {0} of {1} ({2} items)"
+            [showNavigationButtons]="true"
+          >
+          </dxo-pager>
+
+          <dxo-toolbar>
+            <dxi-item name="groupPanel"></dxi-item>
+            <dxi-item name="addRowButton" showText="always"></dxi-item>
+            <dxi-item name="exportButton"></dxi-item>
+            <dxi-item name="columnChooserButton"></dxi-item>
+            <dxi-item name="searchPanel"></dxi-item>
+          </dxo-toolbar>
+          <dxo-export [enabled]="true" [formats]="['xlsx', 'pdf']">
+          </dxo-export>
+        </dx-data-grid>
+      </div>
+    </div>
+    <div class="button-container">
+      <button *ngIf="isViewMode" class="arrow-button back-button" (click)="showFormMode()">
+        Back
+      </button>
+    
+      <button *ngIf="!isViewMode" class="arrow-button view-button" (click)="showViewMode()">
+        Click to View Workgroup
+      </button>
+    </div>
+    
+    
+  </div>
+</div>

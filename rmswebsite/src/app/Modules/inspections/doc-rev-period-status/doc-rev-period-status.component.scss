@@ -1,0 +1,45 @@
+.button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+  }
+  .boxNew {
+    //display: flex;
+    padding-left: 10px; 
+    gap:10px;
+    flex-direction: row;
+    width: 70%;
+  }
+  .boxNew> * {
+    flex: 1 none none;
+    
+  }
+
+  .header{
+    padding-left: 10px;
+    //padding-bottom: 20px;
+    padding-top: 10px;
+  }
+
+  ::ng-deep #form-container {
+    margin: 10px;
+  }
+  
+   
+  .wrapper{
+    padding: 10px;
+    
+  }
+  
+  ::ng-deep #form-container {
+    margin: 10px;
+  }
+  
+  ::ng-deep .long-title h3 {
+    font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+    font-weight: 200;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+  }

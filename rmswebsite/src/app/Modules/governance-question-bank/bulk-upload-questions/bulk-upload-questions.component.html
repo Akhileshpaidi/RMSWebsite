@@ -1,0 +1,131 @@
+
+
+
+
+
+  <div class="form">
+    <div class="body">
+        <div class="header col">
+          <div style="align-self: self-end">
+      <h1 class="title">Bulk Upload Questions</h1>
+      <br>
+      <form [formGroup]="bulkUploadForm">
+      <div class="wrapper">
+        
+            <div  class="box" >
+                <div>
+                  
+                 
+              
+                
+                    <dx-select-box 
+                    label="Select Subject Name"    
+                    labelMode="floating"
+                    valueExpr="subject_id"
+                    displayExpr="subject_Name"
+                    [dataSource]="SubjectData"  
+                    (onValueChanged)="getSubTypes($event)"
+                   formControlName="subjectid"
+                   selectionMode="single"
+                   >
+                               </dx-select-box>
+            
+            
+              </div>
+              
+             
+                
+              
+                <div>
+                  <dx-select-box 
+                  label="Select Topic Name"    
+                  labelMode="floating"
+                  valueExpr="topic_id"
+                  displayExpr="topic_Name"
+                  [dataSource]="TopicData"
+                  [(value)]="Selectedtopic"
+                  formControlName="topicid">
+               
+            </dx-select-box>
+              </div>
+              </div>
+              <br>
+              <div  class="box">
+               
+              
+                <div>
+                <dx-select-box 
+                label="Select Check Level"    
+                labelMode="floating"
+                valueExpr="check_level_id"
+                displayExpr="skill_Level_Name"
+                  [dataSource]="CheckLevelData"
+                  formControlName="check_level"
+                  (onValueChanged)="handleCheckLevelChange($event)">
+                
+              </dx-select-box>
+              </div>
+             
+
+            
+              
+              <div>
+                <dx-number-box
+                label="Check Level Weightage"    
+                labelMode="floating"
+                [value]="checklevel_weightage"
+                [min]="0.01"
+                [max]="10"
+                [showSpinButtons]="true"
+                  [showClearButton]="true"
+                  label="Check Level Weightage"
+                  labelMode="floating"
+                formControlName="checklevel_weight"
+                class="readonly-input">
+              </dx-number-box>
+               </div>
+                </div>
+           <br>
+<div class="box">
+  <mat-card style="width: 300px; margin: 20px;">
+    <mat-card-title></mat-card-title>
+ 
+    <mat-card-content>
+       
+              
+        <input type="file" (change)="onFileSelected($event)" formControlName="file" />
+        <br>
+      
+    </mat-card-content>
+</mat-card>
+<div >
+  <button class="CustomDownloadButton" (click)="downloadExcelFile()"  type="button">Download Excel File</button> 
+
+  </div>
+</div>
+   
+   
+    <div class="button">
+    
+        <button class="Custombutton" (click)="SubmitForm()"  type="button">Submit</button>
+      </div>
+
+             <br>
+             <br>
+         
+        </div>
+      </form>
+          </div>
+      
+      
+        </div>
+      </div>
+      </div>
+     
+   
+
+
+
+ 
+
+ 

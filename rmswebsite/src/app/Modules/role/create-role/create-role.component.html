@@ -1,0 +1,222 @@
+<div class="form">
+<div class="body">
+  <div class="row">
+    <img
+      style="height: 30px"
+      src="../../../../assets//images//Dashboard/Users.svg"
+    />
+    <h2 class="header">Activity Role Management</h2>
+  </div>
+  <hr />
+
+  <form [formGroup]="createRoleForm" (ngSubmit)="createRole(createRoleForm.value)">
+      <!-- <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Module Type</mat-label>
+          <mat-select formControlName="typemodule" required>
+          <mat-option *ngFor="let element of typemodule" [value]="element.task_id"  disableOptionCentering > {{ element.task_name }}
+          </mat-option>
+          </mat-select>
+        
+        </mat-form-field>
+      </div> -->
+      <mat-label style="font-size: medium;">Select Type Of User Role : </mat-label>
+      <mat-radio-group formControlName="radiobutton" style="padding-left: 30px;" value="1">
+        <mat-radio-button value="1">Internal</mat-radio-button>
+        <mat-radio-button value="2" style="padding-left: 10px;">External</mat-radio-button>
+      </mat-radio-group>
+<div>
+  <br>
+</div>
+      <div class="row" >
+        <div class="box">
+          <dx-select-box 
+            formControlName="typemodule"
+            label="Select Module Type *"
+            labelMode="floating"
+            valueExpr="task_id"
+            displayExpr="task_name"
+            [dataSource]="getModuleTypes"
+            [searchEnabled]="true"
+            height="40px"
+            selectionMode="single" 
+            placeholder="Module Type"
+            (onValueChanged)="roleComponentIdList($event)">
+        </dx-select-box>
+        <!-- <mat-error *ngIf="createRoleForm.get('typemodule').hasError('required')">Module Type Required</mat-error> -->
+        </div>
+            <!-- <div class="box">
+          <dx-select-box 
+          formControlName="rolenamebymodule"
+          label="Select Role Type*"
+          labelMode="floating"
+          [searchEnabled]="true"
+          valueExpr="roletypeid"
+          displayExpr="roletypename"
+          [dataSource]="rolesbymodule"
+          selectionMode="single" 
+         placeholder="Role Type"
+         (onValueChanged)="roleComponentIdList($event)">
+    </dx-select-box>
+            </div> -->
+            </div>
+            <div class="row" >
+                <div class="box">
+                  <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>Role Name</mat-label>
+                    <input matInput #namecompliance minlength="1" maxlength="100" placeholder="Enter Role Name"     formControlName="roleName" required />
+                    <mat-hint align="end">{{namecompliance.value.length}}/100 chrs</mat-hint>
+                    <!-- <mat-error *ngIf="createcompliance.get('Compliance_Name').hasError('required')">Compliance Name is required</mat-error>
+                    <mat-error *ngIf="createcompliance.get('Compliance_Name').hasError('minlength')">Compliance Name must be at least 5 characters</mat-error>
+                    <mat-error *ngIf="createcompliance.get('Compliance_Name').hasError('maxlength')">Compliance Name cannot exceed 250 characters</mat-error> -->
+                  </mat-form-field>
+            </div>
+
+            <div class="box">
+              <mat-form-field appearance="fill" class="form-field">
+                <mat-label>Role Description </mat-label>
+                <input matInput #descriptioncompliance maxlength="150" placeholder="Enter Role Description" formControlName="description" />
+                <!-- <textarea matInput #descriptioncompliance maxlength="150" formControlName="description" class="scrollable-textarea"></textarea> -->
+                <mat-hint align="end">{{descriptioncompliance.value.length}}/150 chrs</mat-hint>
+    </mat-form-field>
+            </div>
+      </div>
+      <mat-form-field class="filter-form-field">
+        <mat-label>Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Enter Text to  Search " #input>
+      </mat-form-field>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
+        <ng-container matColumnDef="menuItemSrNo">
+          <th mat-header-cell *matHeaderCellDef> Menu Item Sr No </th>
+          <ng-container  *matCellDef="let element">
+  
+          <td mat-cell *ngIf="element.rowspan > 0" [attr.rowspan]="element.rowspan > 0 ? element.rowspan : null" >
+              {{ element.menuItemIndex }}
+          </td>
+        </ng-container>
+  
+        </ng-container>
+      
+        <ng-container matColumnDef="mainMenuItem">
+          <th mat-header-cell *matHeaderCellDef> Main Menu Item </th>
+          <ng-container *matCellDef="let element">
+  
+          <td mat-cell *ngIf="element.rowspan > 0" [attr.rowspan]="element.rowspan > 0 ? element.rowspan : null">
+              {{ element.menuItemName }}
+          </td>
+        </ng-container>
+  
+        </ng-container>
+      
+        <ng-container matColumnDef="components">
+          <th mat-header-cell *matHeaderCellDef> Components </th>
+          
+          <td mat-cell *matCellDef="let element"> 
+            {{ element.name }} 
+          </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let element"> {{ element.description }} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="grantAccess">
+          <th mat-header-cell *matHeaderCellDef> Grant Access </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-slide-toggle
+              class="toggle"
+              [checked]="element.status === 'Active'"
+              (change)="changeStatus($event, element)"
+              [disabled]="changecomponents[element.id]"
+            ></mat-slide-toggle>
+          </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="mandatory">
+          <th mat-header-cell *matHeaderCellDef> Mandatory </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-checkbox
+              [class.inactive-checkbox]="element.status !== 'Active'"
+              [checked]="element.mandatory === 'yes'"
+              [disabled]="element.status !== 'Active'"
+              (change)="onCheckboxChange($event, element)"
+            ></mat-checkbox>
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="7"> No data matching the filter "{{ input.value }}" </td>
+        </tr>
+      </table>
+      
+      
+      
+
+
+
+
+
+      
+    <!-- <table>
+      <thead>
+        <tr class="table_head">
+          <th>Menu Item Sr No</th>
+          <th>Main Menu Item</th>
+          <th>Sr No</th>
+          <th>Components</th>
+          <th>Description</th>
+          <th>Grant Access</th>
+          <th>Mandatory</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let item of components; let menuItemIndex = index">
+          <ng-container *ngIf="item.components.length > 0; else emptyRow">
+            <tr *ngFor="let component of item.components; let componentIndex = index">
+              <ng-container *ngIf="componentIndex === 0; else emptyCell">
+                <td [attr.rowspan]="item.components.length">{{ menuItemIndex + 1 }}</td>
+                <td class="menu_item" [attr.rowspan]="item.components.length">{{ item.menuItemName }}</td>
+              </ng-container>
+              <td>{{ componentIndex + 1 }}</td>
+              <td>{{ component.name }}</td>
+              <td>{{ component.description }}</td>
+              <td>
+                <mat-slide-toggle
+                  class="toggle"
+                  [checked]="component.status == 'Active'"
+                  (change)="changeStatus($event, component)"
+                  [disabled]="changecomponents[component.id]"
+                ></mat-slide-toggle>
+              </td>
+              <td class="check">
+                <mat-checkbox
+                  [class.inactive-checkbox]="component.status !== 'Active'"
+                  [disabled]="component.status !== 'Active'"
+                  (change)="onCheckboxChange($event, component)"
+                ></mat-checkbox>
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+        <ng-template #emptyRow>
+          <tr>
+            <td colspan="7">No data available</td>
+          </tr>
+        </ng-template>
+        <ng-template #emptyCell></ng-template>
+      </tbody>
+    </table>
+     -->
+
+    
+  
+    <div class="button">
+      <button class="grey-button" mat-button (click)="Cancel()">Cancel</button>
+      <button class="Custombutton" mat-button type="submit">Create</button>
+    </div>
+  </form>
+</div>
+</div>

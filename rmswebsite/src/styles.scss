@@ -1,0 +1,344 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/font-awesome/css/font-awesome.css';
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$space: 1rem;
+
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.main {
+  padding: 30px;
+  padding-top: 20px;
+}
+//custom submit button
+.Custombutton {
+  margin-left: 10px;
+  display: block;
+  width: 30%;
+  font-family: inherit;
+ background: linear-gradient(119.62deg,#000046,rgba(28,181,224,.7254901961));
+  color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+  margin-top: $space * 2;
+
+  &:hover,
+  &:focus {
+    background-color: #6a6a6a;
+  }
+}
+
+.previousbutton {
+  margin-left: 10px;
+  display: block;
+  width: 30%;
+  font-family: inherit;
+ background: linear-gradient(119.62deg, #874f4f, rgba(224, 57, 28, 0.725));
+//  background: linear-gradient(119.62deg,#000046,rgba(224, 57, 28, 0.725));
+ color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+  margin-top: $space * 2;
+
+  &:hover,
+  &:focus {
+    background-color: #6a6a6a;
+  }
+}
+.reviewbutton{
+  margin-left: 10px;
+  display: block;
+  width: 30%;
+  font-family: inherit;
+ background: orange;
+//  background: linear-gradient(119.62deg,#000046,rgba(224, 57, 28, 0.725));
+ color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+  margin-top: $space * 2;
+
+  &:hover,
+  &:focus {
+    background-color: #6a6a6a;
+  }
+}
+// create buttom
+.createButton {
+  display: block;
+  font-family: inherit;
+  background: #4ceea4;
+  color: #fff;
+  border: 0;
+  border-radius: 0.25rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  right: 20px;
+  margin-right: 5px;
+  &:hover,
+  &:focus {
+    background-color: #6a6a6a;
+  }
+}
+
+.blue {
+  background: linear-gradient(119.62deg,#000046,rgba(28,181,224,.7254901961));
+}
+
+.col {
+  display: flex;
+  gap: 15px;
+  margin-bottom: -20px;
+}
+.col > * {
+  flex: 1 1 160px;
+}
+
+// Global Table styling
+mat-header-row {
+  background: #f5f5f5 !important;
+}
+
+::ng-deep {
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #37d111 !important;
+  }
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #d9d9d9 !important;
+  }
+  // .mat-select-arrow-wrapper{
+  //   margin-right: 30px !important;
+  // }
+  mat-header-cell,
+  mat-cell {
+    justify-content: center;
+  }
+}
+
+.header {
+  font-size: revert !important;
+  font-weight: 500 !important;
+}
+
+ .mat-step-header .mat-step-icon-selected{
+  background-color: Orange !important;
+}
+ .mat-step-header .mat-step-icon-state-done{
+  background-color: #37d111 !important;
+}
+ .mat-step-header .mat-step-icon-state-edit {
+   background-color: #37d111 !important;
+ }
+
+//form style
+mat-form-field {
+  width: 100%;
+}
+
+// .mat-form-field--inline {
+//   display: flex;
+//   flex-direction: row;
+//   width: 100%;
+// }
+
+// .mat-form-field--inline .mat-form-field:nth-child(1) {
+//   margin-right: 40px;
+// }
+
+.box {
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  width: 100%;
+}
+.box > * {
+  flex: 1 1 160px;
+  
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.grey-button1{
+  width: 40%;
+  display: block;
+  font-family: inherit;
+  background-color:#556F83;
+  color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+  margin-top: $space * 2;
+
+
+ 
+}
+
+.Save-button{
+  width: 40%;
+  display: block;
+  font-family: inherit;
+  background-color:#479d06;
+  color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+  margin-top: $space * 2;
+
+
+ 
+}
+
+
+.grey-button{
+  width: 30%;
+  display: block;
+  font-family: inherit;
+  background-color: #f5f5f5;
+  color: #556f83;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+  margin-top: $space * 2;
+
+
+ 
+}
+
+.grey-button2{
+  width: 30%;
+  display: block;
+  font-family: inherit;
+  background-color: #847c7c;
+  color: #f8f9fa;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+  margin-top: $space * 2;
+
+
+ 
+}
+
+mat-form-field.mat-form-field.mat-form-field-appearance-outline > div.mat-form-field-wrapper > div.mat-form-field-flex > div.mat-form-field-infix  { padding: 0.5em 0px }
+mat-form-field.mat-form-field.mat-form-field-appearance-outline > div.mat-form-field-wrapper > div.mat-form-field-flex > div.mat-form-field-infix > span.mat-form-field-label-wrapper { top: -1.1em; }
+
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform: translateY(-1.1em) scale(.75);
+    width: 133.33333%;
+}
+
+// Error Message
+.error{
+  margin-bottom: 15px;
+  color: red;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  background: #f2dede;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.mat-select-value {
+  overflow: visible !important
+}
+
+.margin-top{
+  margin-top: 30px;
+}
+
+
+.hover-hand {
+  cursor: pointer;
+}
+$space: 1rem;
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+.form {
+  //display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // background-color: #21e1ff;
+  //color: #ffffff !important;
+ // background:#3b92d4 !important;
+ //background:#556f83 !important;
+ background-color: #fff;
+  margin: ($space * 2) ($space * 2) 0;
+  box-shadow: 0 0 $space rgba(0, 0, 0, 0.03),
+    0 $space ($space * 2) rgba(0, 0, 0, 0.05),
+    0 ($space * 2) ($space * 4) rgba(0, 0, 0, 0.05),
+    0 ($space * 4) ($space * 8) rgba(0, 0, 0, 0.05);
+}
+
+
+::ng-deep input[type="text"] {
+  ime-mode: disabled;
+}
+mat-form-field {
+  font-size: 16px; /* Base size for everything inside */
+}
+
+mat-form-field .mat-form-field-label {
+  font-size: 16px; /* Label text */
+}
+
+mat-select .mat-select-value {
+  font-size: 16px; /* Selected value text */
+}
+::ng-deep .mat-option {
+  font-size: 16px; /* Dropdown option text */
+}

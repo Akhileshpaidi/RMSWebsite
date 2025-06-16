@@ -1,0 +1,269 @@
+<div class="table-container">
+  <table class="table" *ngIf="paginatedData.length > 0">
+    <tbody>
+      <tr>  
+        <td colspan="2"><strong>Entity Name:  </strong>{{ paginatedData[0].entityName || 'N/A'}}</td>   
+        <td colspan="2"><strong>Unit Location Name: </strong>{{ paginatedData[0].unitLocationName || 'N/A'}}</td> 
+      </tr>
+      <tr>
+        <td colspan="1"><strong>Compliance ID:  </strong>{{ paginatedData[0].complianceID  || 'N/A'}}</td>   
+        <td colspan="3"><strong>Compliance Name:  </strong>{{ paginatedData[0].complianceName }}</td> 
+      </tr>    
+        <tr>  
+        <td colspan="4"><strong>Compliance Description:  </strong>{{ paginatedData[0].recurrence || 'N/A'}}</td> 
+      </tr>
+      <tr>
+        <td colspan="2"><strong>Act Name:  </strong>{{ paginatedData[0].actName || 'N/A'}}</td>   
+        <td colspan="2"><strong>Rule Name:  </strong>{{ paginatedData[0].ruleName || 'N/A'}}</td> 
+      </tr>
+      <tr>
+        <td colspan="1"><strong>Section/ Rule/ Regulation: </strong>{{ paginatedData[0].recurrence || 'N/A'}}</td>   
+        <td colspan="1"><strong>StatutoryForm:  </strong>{{ paginatedData[0].statutoryForm || 'N/A'}}</td> 
+        <td colspan="1"><strong>Compliance Period:  </strong>{{paginatedData[0].compliancePeriod || 'N/A'}}
+          <br>
+          {{paginatedData[0].recurrence}}
+        </td>   
+        <td colspan="1"><strong>Risk Classification:  </strong>{{ paginatedData[0].riskClassification || 'N/A'}}</td> 
+      </tr>
+      <tr>
+        <td colspan="1"><strong>Compliance Type:  </strong>{{ paginatedData[0].complianceType || 'N/A'}}</td>   
+        <td colspan="1"><strong>Category of Law:  </strong>{{ paginatedData[0].categoryLaw || 'N/A'}}</td> 
+        <td colspan="1"><strong>Compliance Due Date:  </strong>{{ paginatedData[0].dueDate || 'N/A'}}</td>   
+        <td colspan="1"><strong>Approved Remedial Comply Date:  </strong>{{ paginatedData[0].remedialDate || 'N/A'}}</td> 
+      </tr>
+      <tr>
+        <td colspan="1"><strong>Is Authorization Workflow applied?:  </strong>{{ paginatedData[0].authWorkflow || 'N/A'}}</td>   
+        <td colspan="1"><strong>Is Audit Workflow applied?:  </strong>{{ paginatedData[0].auditWorkflow || 'N/A'}}</td> 
+        <td colspan="1"><strong>Compliance Stage Progress:  </strong>{{ paginatedData[0].compliance_stage_progress || 'N/A'}}</td>   
+        <td colspan="1"><strong>Compliance Status: </strong> {{ paginatedData[0].complianceStage || 'N/A'}}</td> 
+      </tr>
+      <tr>
+        <td colspan="4"><strong>Person Responsible:  </strong>{{ paginatedData[0].recurrence || 'N/A'}}</td>   
+      </tr>    
+    </tbody>
+  </table>
+    <table class="table" *ngIf="paginatedData.length > 0">
+      <thead>
+        <tr>
+          <th colspan="4" class="header-left">Jurisdiction Location :</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Law Type</strong></td>
+          <td>{{ paginatedData[0].law_type || 'N/A'}}</td>
+          <td><strong>Regulatory Authority</strong></td>
+          <td>{{ paginatedData[0].regulator || 'N/A'}}</td>
+        </tr>
+        <tr>
+          <td><strong>Jurisdiction Category</strong></td>
+          <td>{{ paginatedData[0].jurisdiction_category || 'N/A'}}</td>
+          <td><strong>Country Name</strong></td>
+          <td>{{ paginatedData[0].country_name || 'N/A' }}</td>
+        </tr>
+        <tr>
+          <td><strong>State / Region Name</strong></td>
+          <td>{{ paginatedData[0].state_name || 'N/A' }}</td>
+          <td><strong>District / Locality Name</strong></td>
+          <td>{{ paginatedData[0].jurisdiction_district || 'N/A' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <div *ngFor="let compliance of paginatedData; let i = index"> -->
+    
+      <div class="pager" *ngIf="totalCompliance > 1">
+        <button mat-button (click)="onPrevious()" class="pager-button" [disabled]="currentIndex === 0">Previous</button>
+        <span>Compliance {{ currentIndex + 1 }} of {{ totalCompliance }}</span>
+        <button mat-button (click)="onNext()" class="pager-button" [disabled]="currentIndex >= totalCompliance - 1">Next</button>
+        <!-- <button mat-button (click)="onRemove()" class="warn" [disabled]="totalCompliance <= 1">Remove Compliance</button> -->
+      </div>
+
+      <div class="attachment-upload-container" *ngIf="NumberOfAttachments > 0">
+        <h3><strong>Support Attachment(s):</strong></h3>
+        
+        <div class="row align-items-center file-upload-section" >
+          <!-- File Upload Button -->
+          <div class="col-3">
+            <button mat-raised-button color="primary" class="upload-btn" (click)="fileInput.click()" [disabled]=" attachments.length >= maxAttachments">Choose File <span *ngIf="isMandatory" class="mandatory-mark">*</span></button>
+            <input #fileInput type="file" (change)="onFileSelected($event)" hidden>
+            <p class="file-name" *ngIf="selectedFiles">{{ selectedFiles.length }} file(s) selected</p>
+          </div>
+      
+          <!-- Nature of Attachment (Optional) -->
+          <div class="col-5">
+            <mat-form-field appearance="outline" class="nature-input">
+              <mat-label>Nature of Attachment</mat-label>
+              <input matInput [(ngModel)]="nature_of_attachment" placeholder="Enter Text" maxlength="100" [disabled]="attachments.length >= maxAttachments">
+              <mat-hint align="end">{{ nature_of_attachment.length || 0 }}/100</mat-hint>
+            </mat-form-field>
+          </div>
+      
+          <!-- Attach Button -->
+          <div class="col-2">
+            <button mat-raised-button color="accent" class="attach-btn" [disabled]="!selectedFiles.length || attachments.length >= maxAttachments" (click)="onAttach()">Attach</button>
+          </div>
+        </div>
+      
+        <!-- Uploaded Attachments Table -->
+        <div class="uploaded-attachments-table" *ngIf="attachments.length > 0">
+          <table mat-table [dataSource]="attachments" class="mat-elevation-z8 attachment-table">
+            <ng-container matColumnDef="fileName">
+              <th mat-header-cell *matHeaderCellDef>File Name</th>
+              <td mat-cell *matCellDef="let attachment">{{ attachment.file.name }}</td>
+            </ng-container>
+      
+            <ng-container matColumnDef="nature_of_attachment">
+              <th mat-header-cell *matHeaderCellDef>Nature of Attachment</th>
+              <td mat-cell *matCellDef="let attachment">{{ attachment.nature_of_attachment || 'N/A' }}</td>
+            </ng-container>
+      
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let attachment">
+                <button mat-icon-button color="warn" (click)="removeAttachment(attachment)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+      
+            <tr mat-header-row *matHeaderRowDef="['fileName', 'nature_of_attachment', 'actions']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['fileName', 'nature_of_attachment', 'actions'];"></tr>
+          </table>
+        </div>
+      
+        <!-- Add More Information -->
+        <div class="row add-more-info" *ngIf="NumberOfAttachments > 0">
+          <div class="text-color">
+            <p>{{ maxAttachments - attachments.length }} more attachments can be added</p>
+          </div>
+        </div>
+      </div>
+
+   <!-- </div> -->
+  <div class="form-container">
+    <div class="title-container">
+      <h2 class="title">Compliance Update Information:</h2>
+    </div>
+    <div class="form-section"> 
+      <div class="form-field-row date-container">
+        <mat-form-field appearance="outline" class="select-field">
+          <mat-label><strong><span style="font: bold; color: black;">Applicability Status</span></strong></mat-label>
+          <mat-select [(ngModel)]="selectedOption" (selectionChange)="onStatusChange()">
+            <mat-option value="1">Applicable</mat-option>
+            <mat-option value="2">Not Applicable</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-field-row date-container">
+        <mat-form-field appearance="outline" class="date-field">
+            <mat-label><strong>Actual Complied Date</strong></mat-label>
+            <input 
+                matInput 
+                [matDatepicker]="picker" 
+                placeholder="Choose a date" 
+                [disabled]="selectedOption !== '1'" 
+                [(ngModel)]="actualCompliedDueDate" 
+                [max]="maxDate">
+                <!-- (ngModelChange)="validateDate($event)"> -->
+            <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="selectedOption !== '1'"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    
+    </div>
+      <div class="form-section">
+        <div class="form-field-row text-container">
+          <mat-form-field appearance="outline">
+            <mat-label><strong>Amount Involved/ Paid</strong></mat-label>
+            <input matInput placeholder="Value" [(ngModel)]="amountInvolved"
+                   [disabled]="selectedOption === '2'">
+          </mat-form-field>
+        </div>
+        
+        <div class="form-field-row text-container">
+          <mat-form-field appearance="outline">
+            <mat-label><strong>Penalty/ Interest Paid</strong></mat-label>
+            <input matInput placeholder="Value" [(ngModel)]="penaltyInterestPaid"
+                   [disabled]="selectedOption === '2'">
+          </mat-form-field>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col">
+          <mat-form-field appearance="outline" class="uniform-height width2-input">
+            <mat-label><strong>Updation Remarks</strong></mat-label>
+            <input matInput placeholder="Enter" [(ngModel)]="updationRemarks" maxlength="250"
+                   [required]="selectedOption === '2'">
+            <mat-hint align="end">{{updationRemarks.length || 0}}/250</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+      
+        <!-- Buttons -->
+        <div class="button-section">
+          <button mat-button (click)="onCancel()" class="cancel-button">Cancel</button>
+          <button mat-button (click)="onUpdate()" class="update-button">Update</button>
+        </div>
+      </div>
+    <!-- <form [formGroup]="UpdateComplianceForm">
+      <div class="form-container">
+        <div class="title-container">
+          <h2 class="title">Compliance Update Information:</h2>
+        </div>
+        <div class="form-section"> 
+          <div class="form-field-row date-container">
+            <mat-form-field appearance="outline" class="select-field">
+              <mat-label><strong><span style="font: bold; color: black;">Applicability Status</span></strong></mat-label>
+              <mat-select formControlName="applicabilityStatus" (selectionChange)="onStatusChange()">
+                <mat-option value="1">Applicable</mat-option>
+                <mat-option value="2">Not Applicable</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="form-field-row date-container">
+            <mat-form-field appearance="outline" class="date-field">
+              <mat-label><strong>Actual Complied Date</strong></mat-label>
+              <input 
+                matInput 
+                [matDatepicker]="picker" 
+                placeholder="Choose a date" 
+                [disabled]="UpdateComplianceForm.get('actualCompliedDueDate')?.disabled" 
+                formControlName="actualCompliedDueDate" 
+                [max]="maxDate">
+              <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="UpdateComplianceForm.get('actualCompliedDueDate')?.disabled"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="form-field-row text-container">
+            <mat-form-field appearance="outline">
+              <mat-label><strong>Amount Involved/ Paid</strong></mat-label>
+              <input matInput placeholder="Value" formControlName="amountInvolved" [disabled]="UpdateComplianceForm.get('amountInvolved')?.disabled">
+            </mat-form-field>
+          </div>
+          <div class="form-field-row text-container">
+            <mat-form-field appearance="outline">
+              <mat-label><strong>Penalty/ Interest Paid</strong></mat-label>
+              <input matInput placeholder="Value" formControlName="penaltyInterestPaid" [disabled]="UpdateComplianceForm.get('penaltyInterestPaid')?.disabled">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="outline" class="uniform-height width2-input">
+              <mat-label><strong>Updation Remarks</strong></mat-label>
+              <input matInput placeholder="Enter" formControlName="updationRemarks" maxlength="250" [required]="UpdateComplianceForm.value.applicabilityStatus === '2'">
+              <mat-hint align="end">{{UpdateComplianceForm.get('updationRemarks')?.value.length || 0}}/250</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="button-section">
+          <button mat-button (click)="onCancel()" class="cancel-button">Cancel</button>
+          <button mat-button (click)="onUpdate()" class="update-button">Update</button>
+        </div>
+      </div>
+    </form> -->
+    
+    

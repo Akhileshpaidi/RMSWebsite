@@ -1,0 +1,428 @@
+<div class="form">
+    <div class="body">
+      <div class="row">
+        <img
+          style="height: 30px"
+          src="assets/images/Dashboard/Users.svg"
+        />
+        <h2 class="header">Create TPA User</h2>
+      </div>
+      <hr />
+    
+      <form
+        [formGroup]="createUserForm"
+        (ngSubmit)="createUser(createUserForm.value)"
+      >
+      <div fxLayoutAlign="center center">
+        <div class="box">
+      <!-- <dx-select-box 
+      formControlName="module" 
+      label="Select Module Name*"
+      labelMode="floating"
+      valueExpr="task_id"
+      displayExpr="task_name"
+      [dataSource]="taskuserdata"
+      height="40px"
+      selectionMode="single" 
+     placeholder=""
+     >
+    </dx-select-box> -->
+    
+    <!-- <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Select Moduel</mat-label>
+      <mat-select formControlName="modules" multiple  class="box2" disableOptionCentering >
+        <mat-option *ngFor="let element of modules" [value]="element.task_id" >
+          {{ element.task_name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+        </div>
+    </div>
+    <div>
+      <br>
+    </div>
+        <div fxLayoutAlign="center center">
+          <div class="box">
+            <dx-select-box 
+            formControlName="country" 
+            [searchEnabled]="true"
+            label="Select TPA Entity Name*"
+            labelMode="floating"
+            valueExpr="tpaenityid"
+            displayExpr="tpaenityname"
+            [dataSource]="TPAEntityName"
+            height="40px"
+            selectionMode="single" 
+           placeholder=""
+           (onValueChanged)="getdat($event)"
+             disableOptionCentering >
+      </dx-select-box>
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>User Name </mat-label>
+              <input
+                matInput
+                formControlName="firstname"
+                name="firstname"
+                required
+              />
+            </mat-form-field> -->
+         <!-- <dx-select-box 
+            formControlName="state"
+            label="Select Unit Location*"
+            labelMode="floating"
+            valueExpr="unit_location_Master_id"
+            displayExpr="unit_location_Master_name"
+            [dataSource]="UnitMaster"
+            height="40px"
+            selectionMode="single" 
+            [(value)]="selectedentity"
+           placeholder="" disableOptionCentering >
+      </dx-select-box> -->
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>TPA Description</mat-label>
+        <input matInput formControlName="tpadescription" name="tpadescription"  type="text" readonly/>
+        <mat-error *ngIf="createUserForm.get('tpadescription')">
+          Tpa description is required
+        </mat-error>
+        </mat-form-field>
+          </div>
+        </div>
+        <div>
+          <br>
+        </div>
+      
+    
+        <div fxLayoutAlign="center center">
+          <div class="box">
+    
+    
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>User Name </mat-label>
+              <input
+                matInput
+                formControlName="firstname"
+                name="firstname"
+                required
+              />
+              <mat-error *ngIf="createUserForm.get('firstname')">
+                User Name is required
+              </mat-error>
+            </mat-form-field> 
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Email Id</mat-label>
+              <input
+                matInput
+                formControlName="emailid"
+                name="emailid"
+                required
+                type="text"
+              />
+            </mat-form-field> -->
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Login ID</mat-label>
+              <input
+                matInput
+                formControlName="username"
+                name="usR_LOGIN"
+                required (input)="usernameValidator()"
+                type="text"
+              />
+              <mat-error *ngIf="createUserForm.get('username')">
+                User Login is required
+              </mat-error>
+              <!-- <mat-error *ngIf="createUserForm.get('username')!.hasError('usernameTaken')">
+                User Login is already present
+              </mat-error> -->
+              <!-- <mat-error *ngIf="createUserForm.get('username1')">
+                User Login is already exist
+              </mat-error> -->
+            </mat-form-field>
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Employee Id</mat-label>
+              <input
+                matInput
+                formControlName="employeeId"
+                name="employeeId"
+                required
+                type="text"
+              />
+            </mat-form-field> -->
+          </div>
+        </div>
+        <div fxLayoutAlign="center center">
+          <div class="box">
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Email Id</mat-label>
+              <input
+                matInput
+                formControlName="emailid"
+                name="emailid"
+                required
+                type="email"
+              />
+              <mat-error *ngIf="createUserForm.get('emailid')">
+                Please include an '@' in the email address
+              </mat-error>
+            </mat-form-field>
+            <!-- <dx-select-box 
+            formControlName="country" 
+            label="Select Entity Name*"
+            labelMode="floating"
+            valueExpr="entity_Master_id"
+            displayExpr="entity_Master_Name"
+            [dataSource]="EntityName"
+              
+            selectionMode="single" 
+           placeholder=""
+           (onValueChanged)="getUnitLocation($event)">
+           
+         
+      </dx-select-box> -->
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Mobile Number</mat-label>
+        <input
+          matInput
+          formControlName="mobilenumber"
+          name="mobilenumber"
+          
+          type="tel"
+          #input
+          
+         
+          pattern="[0-9]*"
+            maxlength="10"
+      /> 
+      <mat-hint *ngIf="!createUserForm.get('mobilenumber')" align="end">{{input.value.length}}/10</mat-hint>
+      <mat-error *ngIf="createUserForm.get('mobilenumber')">
+          Mobilenumber is required. Length: {{input.value.length}}/10
+      </mat-error>
+      </mat-form-field>
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Country</mat-label>
+              <input
+                matInput
+                formControlName="country"
+                name="country"
+                required
+                type="text"
+              />
+            </mat-form-field> -->
+    
+            
+            <!-- <dx-select-box 
+            formControlName="state"
+            label="Select Unit Location*"
+            labelMode="floating"
+            valueExpr="unit_location_Master_id"
+            displayExpr="unit_location_Master_name"
+            [dataSource]="UnitMaster"
+             
+            selectionMode="single" 
+           placeholder="">
+      </dx-select-box> -->
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>State</mat-label>
+              <input
+                matInput
+                formControlName="state"
+                name="state"
+                required
+                type="text"
+              />
+            </mat-form-field> -->
+    
+            <!-- <dx-select-box 
+            formControlName="city" 
+            label="Select Department Name*"
+            labelMode="floating"
+            valueExpr="department_Master_id"
+            displayExpr="department_Master_name"
+            [dataSource]="Departmentmaster"
+              
+            selectionMode="single" 
+           placeholder=""
+        >
+           
+         
+      </dx-select-box> -->
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>City</mat-label>
+              <input
+                matInput
+                formControlName="city"
+                name="city"
+                required
+                type="text"
+              />
+            </mat-form-field> -->
+          </div>
+        </div>
+
+
+        <div fxLayoutAlign="center center">
+          <div class="box">
+
+            
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Designation</mat-label>
+              <mat-select formControlName="Designation" name="designation" required>
+                <mat-option *ngFor="let designation of designations" [value]="designation.name">
+                  {{ designation.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="createUserForm.get('Designation')">
+                Designation is required
+              </mat-error>
+            </mat-form-field>
+
+
+
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Tpa User Address</mat-label>
+              <input matInput formControlName="address" name="address" type="text" />
+              <mat-error *ngIf="createUserForm.get('address')">
+                Address is required
+              </mat-error>
+              </mat-form-field>
+            <!-- <dx-select-box 
+            formControlName="city" 
+            label="Select Department Name*"
+            labelMode="floating"
+            valueExpr="department_Master_id"
+            displayExpr="department_Master_name"
+            [dataSource]="Departmentmaster"
+            selectionMode="single" 
+           placeholder=""
+           height="40px" disableOptionCentering >    
+      </dx-select-box> -->
+            <!-- <mat-form-field style="width: fit-content" appearance="outline">
+              <mat-label>Birth Date</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                formControlName="dob"
+                name="dob"
+                required
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field> -->
+    
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Mobile Number</mat-label>
+              <input
+                matInput
+                formControlName="mobilenumber"
+                name="mobilenumber"
+                required
+                type="text"
+              />
+            </mat-form-field> -->
+    
+          
+           
+            
+          </div>
+        </div>
+    <div fxLayoutAlign="center center" >
+    <div class="box">
+      
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Create Password</mat-label>
+          <input
+            matInput 
+            #input
+            formControlName="createPassword"
+            [type]="hide ? 'password' : 'text'"
+            name="createPassword"
+            required
+          />
+          <mat-icon matSuffix (click)="hide = !hide">{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+         
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Confirm Password</mat-label>
+          <input
+            matInput
+            formControlName="cnfirmPassword" 
+            [type]="hide1 ? 'password' : 'text'"
+            name="cnfirmPassword"
+            required
+            #confirm
+          />
+          <mat-error *ngIf="confirmPasswordMismatch()">Password does not match</mat-error>
+          <mat-icon matSuffix (click)="hide1 = !hide1">{{ hide1 ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </mat-form-field>
+    </div>
+    
+        </div>
+        <div fxLayoutAlign="center center">
+    
+          <div class="box">
+           
+           
+            <!-- <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Select Role</mat-label>
+              <mat-select formControlName="roles" multiple  class="box2" disableOptionCentering >
+                <mat-option *ngFor="let element of roles" [value]="element.rolE_ID" >
+                  {{ element.rolE_NAME }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+            <label></label>
+          </div>
+          
+          <!-- <div class="box">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Create Password</mat-label>
+              <input
+              matInput 
+              #input
+                formControlName="createPassword"
+                [type]="hide ? 'password' : 'text'"
+                name="createPassword"
+                required
+                type="password"
+              />
+              <mat-icon matSuffix (click)="hide = !hide">{{
+                hide ? "visibility_off" : "visibility"
+              }}</mat-icon>
+              <mat-hint align="end">{{input.value?.length || 0}}/8</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>Confirm Password</mat-label>
+              <input
+              matInput
+                formControlName="cnfirmPassword"
+                [type]="hide1 ? 'password' : 'text'"
+                name="confirmPassword"
+                required
+                #confirm
+                type="password"
+              />
+              <mat-error *ngIf="confirmPasswordMismatch">Password does not match</mat-error>
+              <mat-icon matSuffix (click)="hide1 = !hide1">{{
+                hide1 ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </mat-form-field>
+          </div> -->
+        </div>
+        <div>
+          Note* Password must contain at least one number, one uppercase,one special character, a
+          lowercase letter and at least 8 characters
+        </div>
+        <!-- <div class="button">
+          <button class="Custombutton" mat-button type="submit">Submit</button>
+          <button class="gray" mat-button type="submit">Submit</button>
+        </div> -->
+        <div class="margin-top"></div>
+        <div class="button">
+          <button class="grey-button" mat-button (click)="Cancel()">Cancel</button>
+          <button class="Custombutton" mat-button type="submit">Create</button>
+        </div>
+      </form>
+    </div>
+    </div>

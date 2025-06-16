@@ -1,0 +1,345 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+        <h1>Create Locational Compliance Mapping </h1>
+      </div>
+      <br>
+    
+        
+      <div >
+        <label>
+            Criteria  Selection:
+       </label></div>
+
+       <br>
+    
+<br>
+<form [formGroup]="import"   (ngSubmit)="createUser(import.value)" >
+       <div >
+        <h3> <label>
+         <!-- <input  type="checkbox"  name="selection"   (change)="setSelection('visible')" value="visible" *ngIf="selection === 'visible' "> -->
+  
+  
+  
+  
+  
+  
+         Based on Free Text Search
+         </label></h3>
+     </div>
+       <div class="row" >
+        <div class="box">
+          <dx-select-box 
+          formControlName="categorylaw"
+          label="category of Law"
+          labelMode="floating"
+          search="true"
+          valueExpr="category_of_law_ID"
+          displayExpr="law_Categoryname"
+          [dataSource]="categorylaw"
+          height="40px"
+          [searchEnabled]="true"
+          selectionMode="single" 
+         placeholder=""
+         disableOptionCentering >
+    </dx-select-box>
+
+        </div>
+        <div class="box">
+    
+      <dx-select-box 
+      formControlName="actRulename"
+      label="Select Act/Rule Name"
+      labelMode="floating"
+      valueExpr="act_rule_regulatory_id"
+      displayExpr="actrulename"
+      [dataSource]="actrulename"
+      search="true"
+      height="40px"
+      [searchEnabled]="true"
+      selectionMode="single" 
+     placeholder=""
+     disableOptionCentering >
+</dx-select-box>
+          </div>
+        </div>
+
+        <div >
+            <h3> <label>
+                <!-- <input  type="checkbox"  name="selection1"   (change)="setSelection1('visible1')" value="visible1" *ngIf="selection1 === 'visible1' "> -->
+                 Based on Jurisdiction search
+             </label></h3>
+         </div>
+         <div  >
+         <div class="row">
+            <div class="box">
+              <dx-select-box 
+              formControlName="naturelaw"
+              label="Nature  of Law"
+              labelMode="floating"
+              valueExpr="law_type_id"
+              displayExpr="type_of_law"
+              [dataSource]="naturelaw"
+              height="40px"
+              [searchEnabled]="true"
+              selectionMode="single" 
+             placeholder=""
+             disableOptionCentering >
+        </dx-select-box>
+            </div>
+            <div class="box">
+              <dx-select-box 
+              formControlName="regulatoryAuthority"
+              label="Regulatory Authority"
+              labelMode="floating"
+              valueExpr="regulatory_authority_id"
+              displayExpr="regulatory_authority_name"
+              [dataSource]="regulatory"
+              height="40px"
+              [searchEnabled]="true"
+              selectionMode="single" 
+             placeholder=""
+             disableOptionCentering >
+        </dx-select-box>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="box">
+              <dx-select-box 
+              formControlName="jurisdictioncategory"
+              label="Jurisdiction  category "
+              labelMode="floating"
+              valueExpr="jurisdiction_category_id"
+              displayExpr="jurisdiction_categoryname"
+              [dataSource]="jurisdiction"
+              height="40px"
+              [searchEnabled]="true"
+              selectionMode="single" 
+             placeholder=""
+             disableOptionCentering >
+        </dx-select-box>
+            </div>
+            <div class="box">
+              <dx-select-box 
+              formControlName="country"
+              label="Country Name"
+              labelMode="floating"
+              valueExpr="jurisdiction_country_id"
+              displayExpr="name"
+              [dataSource]="country"
+              height="40px"
+              [searchEnabled]="true"
+              selectionMode="single" 
+             placeholder=""
+             (onValueChanged)="getstate($event)"  disableOptionCentering >
+        </dx-select-box>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="box">
+              <dx-select-box 
+              formControlName="state"
+              label="state /Region "
+              labelMode="floating"
+              valueExpr="id"
+              displayExpr="name"
+              [dataSource]="state"
+              height="40px"
+              [searchEnabled]="true"
+              selectionMode="single" 
+             placeholder=""
+             (onValueChanged)="getdistrict($event)" disableOptionCentering >
+        </dx-select-box>
+            </div>
+            <div class="box">
+              <dx-select-box 
+              formControlName="distict"
+              label="District/Location"
+              labelMode="floating"
+              valueExpr="jurisdiction_location_id"
+              displayExpr="jurisdiction_district"
+              [dataSource]="district"
+              height="40px"
+              [searchEnabled]="true"
+              selectionMode="single" 
+             placeholder=""
+             disableOptionCentering >
+        </dx-select-box>
+            </div>
+          </div>
+        </div>
+          <div >
+            <h3> <label>
+                <!-- <input  type="checkbox"  name="selection2"   (change)="setSelection2('visible2')" value="visible2"  *ngIf="selection2 === 'visible2' "> -->
+                 Based on other Factor
+             </label></h3>
+         </div>
+       
+         <div class="row" >
+            <div class="box">
+              <dx-select-box 
+              formControlName="business" 
+              label="Select Business Sector"
+              labelMode="floating"
+              valueExpr="businesssectorid"
+              displayExpr="businesssectorname"
+              [dataSource]="businesssector"
+              search="true"
+              height="40px"
+              [searchEnabled]="true"
+              selectionMode="single" 
+             placeholder=""
+             disableOptionCentering >
+        </dx-select-box>
+    
+            </div>
+            <div class="box">
+                <dx-select-box 
+                formControlName="industury"
+                label="Select industry type"
+                labelMode="floating"
+                search="true"
+                valueExpr="industrytypeid"
+                displayExpr="industrytypename"
+                [dataSource]="industrytype"
+                height="40px"
+                [searchEnabled]="true"
+                selectionMode="single" 
+               placeholder=""
+               disableOptionCentering >
+          </dx-select-box>
+              </div>
+            </div>
+            <div class="margin-top"></div>
+            <div class="button">
+                <button class="grey-button"  (click)="Cancel()" >Reset</button> 
+            <button  class="Custombutton"  >Search</button>
+            </div>
+          </form>
+      <div>
+        <h3>
+            <label>
+            Search Result from  Company Compliance Content Library
+            </label>
+        </h3>
+      </div>
+    
+      <div class="card-body">
+        <form [formGroup]="maplocation"   (ngSubmit)="createmapp(maplocation.value)" >
+        <div id="app-container">
+            <dx-data-grid
+              id="dataGrid"
+              key="create_company_compliance_id"
+              formControlName="complianceid"
+              [dataSource]="dataSource"
+              [showBorders]="true"
+              [allowColumnResizing]="true"
+              [columnAutoWidth]="true"
+              (onSelectionChanged)="handleSelectionChanges($event)"
+              [showBorders]="true"
+              [allowColumnReordering]="true"
+            >
+        
+              <dxi-column dataField="create_company_compliance_id" caption=" Global Compliance ID">
+              
+              
+              </dxi-column>
+              <dxi-column dataField="compliance_name" caption="Compliance Name">
+              </dxi-column>
+              <dxi-column dataField="actregulatoryname" caption="Act Name">
+              </dxi-column>
+              <dxi-column dataField="act_rule_name" caption="Rule Name">
+              </dxi-column>
+              <dxi-column dataField="subscription_type" caption="Content/Subscription Type">
+              </dxi-column>
+              <dxi-column dataField="company_compliance_id" caption="Compliance Id">
+              </dxi-column>
+              <dxi-column dataField="mapping_status" caption="Company Mapping  Status" visible="false">
+              </dxi-column>
+        
+              <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+              <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+              <dxo-filter-row [visible]="true"></dxo-filter-row>
+              <dxo-search-panel [visible]="true"></dxo-search-panel>
+              <dxo-group-panel [visible]="true"></dxo-group-panel>
+        
+              <dxo-selection mode="multiple">
+                
+              </dxo-selection>
+              <dxo-paging [pageSize]="10"></dxo-paging>
+              <dxo-pager
+                  [showPageSizeSelector]="true"
+                  [allowedPageSizes]="[10, 25, 50, 100]"
+                ></dxo-pager>
+        
+              <dxo-summary>
+                <dxi-total-item column="create_company_compliance_id" summaryType="count">
+                </dxi-total-item>
+              </dxo-summary>
+              
+        
+              <dxo-toolbar>
+                <dxi-item name="exportButton"></dxi-item>
+                <dxi-item name="columnChooserButton"></dxi-item>
+                <dxi-item name="searchPanel"></dxi-item>
+              </dxo-toolbar>
+        
+             
+            </dx-data-grid>
+          </div>
+
+<br>
+          <div>
+            <h3>
+                <label>
+                    Map To Compliance Department
+                </label>
+            </h3>
+          </div>
+          <br>
+              <div class="box">
+                <div>
+                 
+                    <dx-drop-down-box
+                    formControlName="department"
+                    [(value)]="selectedOption3"
+                    [inputAttr]="{ 'aria-label': 'Owner' }"
+                    placeholder="Select Department*"
+                    [showClearButton]="true"
+                    labelMode="floating"
+                    valueExpr="locationdepartmentmappingid"
+                    displayExpr="departmentname"
+                    [dataSource]="department"
+                    searchEnabled="true"
+                    height="40px" >
+                   <div *dxTemplate="let data of 'content'">
+                    <dx-data-grid
+                    [dataSource]="department"
+                      [selection]="{ mode: 'multiple' }"
+                      [hoverStateEnabled]="true"
+                      [columns]="gridColumns3"
+                      [(selectedRowKeys)]="selectedOption3"
+                      [filterRow]="{ visible: true }"
+                      [scrolling]="{ mode: 'virtual' }"
+                      [showColumnHeaders]="true"
+                      height="220%"
+                    >
+                    </dx-data-grid>
+                  </div>
+    
+                  </dx-drop-down-box>
+                  </div>
+                </div>
+<br>
+        
+          <div class="margin-top"></div>
+          <div class="button">
+              <button class="grey-button"  (click)="Cancel()" >Cancel</button> 
+          <button  class="Custombutton"  >Location Compliance Mapping Generation</button>
+          </div>
+        </form>
+      </div>
+    </div>

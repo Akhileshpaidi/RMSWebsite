@@ -1,0 +1,221 @@
+<div class="form">
+    <div class="body">
+        <div class="header">
+            <div style="align-self:self-end;">
+                <h1 class="title">Create Alert & Reminders</h1>
+            </div>
+       
+    
+    <div>
+        <form [formGroup]="alertsForm" (ngSubmit)="onSubmit()">
+            <table class="table" >
+                <thead>
+                    <tr>
+                        <th >Workflow Activity</th>
+                        <th>Expected Action (in days)</th>
+                        <th>Reminder Alerts (in days)</th>
+                        <th>Notification Mail Alerts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  style="width: 10%;" formGroupName="review">
+                        <td style="width: 15%;" >Review</td>
+                        <td  style="width: 30%;">
+                            <div class="box" >
+                                <mat-form-field appearance="outline"  style="width: 1px;" >
+                                    <input matInput id="reviewDays" type="number" [min]="0" formControlName="reviewDays" placeholder="Days" style="width: 100px;">
+                                </mat-form-field>
+                                <!-- <mat-form-field appearance="outline"  style="width: 80px;"> -->
+                                    <!-- <mat-select id="approvalPeriodicity" formControlName="reviewPeriodicity" placeholder="Review Periodicity" >
+                                        <mat-option *ngFor="let option of periodicityOptions" [value]="option">{{ option }}</mat-option>
+                                    </mat-select> -->
+                                    <dx-select-box
+                                    class="Review custom-scroll"
+                                    formControlName="reviewPeriodicity"
+                                    placeholder="Review Periodicity"
+                                    [dataSource]="ReviewerperiodicityOptions"
+                                    displayExpr="name"
+                                    valueExpr="name"
+                                    [searchEnabled]="true">
+                                </dx-select-box>
+                                <!-- </mat-form-field> -->
+                                <!-- <div class="box"  style="width: 30px;">
+                                    <mat-checkbox id="reviewHolidayFactor" formControlName="reviewHolidayFactor">Include Holiday Factor</mat-checkbox>
+                                </div> -->
+                            </div>
+                        </td>
+                        <td>
+                            <div class="box" style="width: 70px;">
+                                <mat-form-field appearance="outline"  style="width: 80px;">
+                                    <input matInput id="reviewReminderDays" [(ngModel)]="defaultindicative"  type="number" formControlName="reviewReminderDays" placeholder="Days" [min]="1">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline"   style="width: 230px; min-width: 230px; flex: 0 0 230px;">
+                                    <input matInput id="reviewReminderPeriodicity" type="text" formControlName="reviewReminderPeriodicity" placeholder="Periodicity" [(ngModel)]="defaultReviewDate" readonly >
+                                </mat-form-field>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="box">
+                                <dx-select-box formControlName="reviewNotification" label="Notification Alert List*" labelMode="floating" valueExpr="notificationMailAlertid" displayExpr="nameofAlert" [dataSource]="Notification" [searchEnabled]="true" height="40px" selectionMode="single" placeholder=""></dx-select-box>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="width: 30px;" formGroupName="approval">
+                        <td >Approve</td>
+                        <td  style="width: 250px;">
+                            <div class="box" >
+                                <mat-form-field appearance="outline"  style="width: 30px;">
+                                    <input matInput id="approvalDays" type="number" formControlName="approvaldays" placeholder="Days" [min]="1">
+                                </mat-form-field>
+                                <!-- <mat-form-field appearance="outline"  style="width: 80px;">
+                                    <mat-select id="approvalPeriodicity" formControlName="approvalPeriodicity" placeholder="Approval Periodicity">
+                                        <mat-option *ngFor="let option of periodicityOptions" [value]="option">{{ option }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+                                <dx-select-box
+                                
+                                formControlName="approvalPeriodicity"
+                                placeholder="Approval Periodicity"
+                                [dataSource]="ApproverperiodicityOptions"
+                                displayExpr="name"
+                                valueExpr="name"
+                                [searchEnabled]="true">
+                            </dx-select-box>
+                                <!-- <div class="box"  style="width: 30px;">
+                                    <mat-checkbox id="approvalHolidayFactor" formControlName="includeHolidays">Include Holiday Factor</mat-checkbox>
+                                </div> -->
+                            </div>
+                        </td>
+                        <td>
+                            <div class="box" style="width: 80px;">
+                                <mat-form-field appearance="outline"  style="width: 80px;">
+                                    <input matInput id="approvalReminderDays" type="number" [(ngModel)]="defaultindicative1" formControlName="reminderDays" placeholder="Days" [min]="1">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline"   style="width: 230px; min-width: 230px; flex: 0 0 230px;">
+                                    <input matInput id="approvalReminderPeriodicity" type="text" formControlName="approvalReminderPeriodicity" placeholder="Periodicity" [(ngModel)]="defaultApprovalDate" readonly>
+                                </mat-form-field>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="box">
+                                <dx-select-box formControlName="approvalNotification" label="Notification Alert List*" labelMode="floating" valueExpr="notificationMailAlertid" displayExpr="nameofAlert" [dataSource]="Notification" [searchEnabled]="true" height="40px" selectionMode="single" placeholder=""></dx-select-box>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="width: 30px;" formGroupName="audit">
+                        <td >Audit</td>
+                        <td style="width: 250px;">
+                            <div class="box" >
+                                <mat-form-field appearance="outline" style="width: 80px;">
+                                    <input matInput id="auditDays" type="number" formControlName="auditDays" placeholder="Days" [min]="0">
+                                </mat-form-field>
+                                <!-- <mat-form-field appearance="outline"  style="width: 80px;">
+                                    <mat-select id="auditPeriodicity" formControlName="auditPeriodicity" placeholder="Audit Periodicity">
+                                        <mat-option *ngFor="let option of periodicityOptions" [value]="option">{{ option }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+                                <dx-select-box
+                               
+                                formControlName="auditPeriodicity"
+                                placeholder="Audit Periodicity"
+                                [dataSource]="AuditperiodicityOptions"
+                                displayExpr="name"
+                                valueExpr="name"
+                                [searchEnabled]="true">
+                            </dx-select-box>
+                                <!-- <div class="box"  style="width: 30px;">
+                                    <mat-checkbox id="auditHolidayFactor" formControlName="auditHolidayFactor">Include Holiday Factor</mat-checkbox>
+                                </div> -->
+                            </div>
+                        </td>
+                        <td>
+                            <div class="box" style="width: 80px;">
+                                <mat-form-field appearance="outline"  style="width: 80px;">
+                                    <input matInput id="auditReminderDays" type="number" [(ngModel)]="defaultindicative2" formControlName="auditReminderDays" placeholder="Days" [min]="1">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline"  style="width: 230px; min-width: 230px; flex: 0 0 230px;">
+                                    <input matInput id="auditReminderPeriodicity" type="text" formControlName="auditReminderPeriodicity" placeholder="Periodicity" [(ngModel)]="defaultAduitDate" readonly>
+                                </mat-form-field>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="box">
+                                <dx-select-box formControlName="auditNotification" label="Notification Alert List*" labelMode="floating" valueExpr="notificationMailAlertid" displayExpr="nameofAlert" [dataSource]="Notification" [searchEnabled]="true" height="40px" selectionMode="single" placeholder=""></dx-select-box>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="button">
+                <button class="grey-button"  (click)="Cancel()" >Cancel</button>
+                <button type="submit" class="Custombutton">Save Configuration</button>
+            </div>
+        </form>
+  
+        <h2 class="title"><label>View Alerts &Reminders </label></h2>
+        <div class="card-body1">
+            <div id="app-container">
+              <dx-data-grid id="alerts_reminders_id"
+                [dataSource]="dataSource1"
+                [showBorders]="true"
+                [allowColumnResizing]="true"
+                [columnAutoWidth]="true"
+                [allowColumnReordering]="true"
+                (onExporting)="exportGrid($event)" >
+                
+                <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                
+                <dxi-column dataField="alerts_reminders_id" caption="Alerts_reminders_id" [width]="100"></dxi-column>
+                <dxi-column dataField="workactivity" caption="Workflow Activity"></dxi-column>
+                <dxi-column dataField="expectedDays" caption="Expected Action Days"></dxi-column>
+                <dxi-column dataField="expectedperiodicity" caption="Expected Alert periodicity"></dxi-column>
+                
+                <!-- <dxi-column dataField="expectedhoilday" caption="Expected Holiday">
+
+                </dxi-column> -->
+                
+                <dxi-column dataField="reminderalertdays" caption="Reminder Alert Days"></dxi-column>
+                <dxi-column dataField="reminderalertperidicty" caption="Reminder Alert peridicty"></dxi-column>
+                <dxi-column dataField="nameofAlert" caption="Notification Mail Alert" value="NotificationMailAlertid"></dxi-column>
+              
+                <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxo-group-panel [visible]="true"></dxo-group-panel>
+                <dxo-selection mode="single"></dxo-selection>
+                
+                <dxo-summary>
+                  <dxi-total-item column="alerts_reminders_id" summaryType="count"></dxi-total-item>
+                </dxo-summary>
+                
+                <dxo-scrolling rowRenderingMode="virtual"></dxo-scrolling>
+                <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                
+                <dxo-pager
+                  [visible]="true"
+                  [allowedPageSizes]="[5, 10, 20, 'all']"
+                  [showPageSizeSelector]="true"
+                  [showInfo]="true"
+                  infoText="Page {0} of  {1} ({2} items)"
+                  [showNavigationButtons]="true">
+                </dxo-pager>
+              
+                <dxo-toolbar>
+                  <dxi-item name="groupPanel"></dxi-item>
+                  <dxi-item name="addRowButton" showText="always"></dxi-item>
+                  <dxi-item name="exportButton"></dxi-item>
+                  <dxi-item name="columnChooserButton"></dxi-item>
+                  <dxi-item name="searchPanel"></dxi-item>
+                </dxo-toolbar>
+              
+                <dxo-export [enabled]="true" [formats]="['xlsx', 'pdf']"></dxo-export>
+              </dx-data-grid>
+            </div>
+          </div>
+          
+    </div>
+</div>
+    </div>
+</div>

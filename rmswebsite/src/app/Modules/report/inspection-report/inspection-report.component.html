@@ -1,0 +1,415 @@
+<div class="body">
+  <div class="row">
+    <h2 class="header">Report Form</h2>
+  </div>
+  <hr />
+  <form [formGroup]="reportForm">
+    <div class="progressBar">
+      <mat-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="reportForm">
+          <ng-template matStepLabel>Authorities</ng-template>
+          <div fxLayoutAlign="center center">
+            <div class="box">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Report Name</mat-label>
+                <input formControlName="reportName" matInput />
+              </mat-form-field>
+             
+            </div>
+          </div>
+          <h1>Bridge Details</h1>
+          <div fxLayoutAlign="center center">
+            <div class="box">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Select Project</mat-label>
+                <mat-select
+                  formControlName="selectedProject"
+                  (selectionChange)="selectBridge($event)"
+                >
+                  <mat-option
+                    *ngFor="let element of project"
+                    [value]="element.id"
+                    >{{ element.name }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Select Bridge</mat-label>
+                <mat-select
+                  formControlName="selectedBridge"
+                  (selectionChange)="selectInspection($event)"
+                >
+                  <mat-option
+                    *ngFor="let element of bridge"
+                    [value]="element.id"
+                    >{{ element.name }} -- {{ element.buid }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Select Inspection</mat-label>
+                <mat-select
+                  formControlName="selectedInspection"
+                  (valueChange)="getPhotographs($event)"
+                >
+                  <mat-option
+                    *ngFor="let element of inspection"
+                    [value]="element"
+                  >
+                    {{ element.inspectionname }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <h1>Co-ordinates</h1>
+          <div fxLayoutAlign="center center">
+            <div class="box">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Starting Point</mat-label>
+                <input formControlName="startingpoint" matInput />
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Ending Point</mat-label>
+                <input formControlName="endingpoint" matInput />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <h1>Client</h1>
+          <div fxLayoutAlign="center center">
+            <div class="box">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Name</mat-label>
+                <input formControlName="clientName" matInput />
+              </mat-form-field>
+
+              <input id="file-upload" type="file" onchange="updateFileName()" />
+            </div>
+          </div>
+          <h1>Report By</h1>
+          <div fxLayoutAlign="center center">
+            <div class="box">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Name</mat-label>
+                <input formControlName="reportedBy" matInput />
+              </mat-form-field>
+              <input id="file-upload" type="file" onchange="updateFileName()" />
+            </div>
+          </div>
+          <div class="button">
+            <button class="grey-button" matStepperPrevious>Back</button>
+            <button
+              class="submit"
+              (click)="draftReport(reportForm.value)"
+              type="button"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Introduction</ng-template>
+          <div class="container">
+            <header class="header1">
+              <h1>Introduction</h1>
+            </header>
+            <angular-editor
+              [ngModel]="reportForm.get('Introduction')?.value"
+              [config]="config"
+              formControlName="Introduction"
+            ></angular-editor>
+          </div>
+
+          <div class="button">
+            <button class="grey-button" matStepperPrevious>Back</button>
+            <button
+              class="submit"
+              (click)="draftReport(reportForm.value)"
+              type="button"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Observation</ng-template>
+
+          <div class="container">
+            <header class="header1">
+              <h1>Observation</h1>
+            </header>
+            <angular-editor
+              [ngModel]="reportForm.get('Observation')?.value"
+              [config]="config"
+              formControlName="Observation"
+            ></angular-editor>
+          </div>
+          <div class="button">
+            <button class="grey-button" matStepperPrevious>Back</button>
+            <button
+              class="submit"
+              (click)="draftReport(reportForm.value)"
+              type="button"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Remedies</ng-template>
+
+          <div class="shortTerm">
+            <div class="row">
+              <div class="lhs">
+                <h1>Short term remedies:</h1>
+              </div>
+              <div class="rhs">
+                <div class="button">
+                  <button
+                    class="submit"
+                    style="width: fit-content"
+                    type="button"
+                    (click)="importShortTermRemedy()"
+                  >
+                    Import Short Term Remedy
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="empty" *ngIf="shortTermRemedies.length == 0">
+              --No data selected--
+            </div>
+            <div class="remedy-content" *ngIf="shortTermRemedies.length > 0">
+              <table class="remedy-table">
+                <thead>
+                  <tr>
+                    <th>SR. No.</th>
+                    <th>Remedy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let rem of shortTermRemedies; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ rem.text }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="longTerm">
+            <div class="row">
+              <div class="lhs">
+                <h1>Long term remedies:</h1>
+              </div>
+              <div class="rhs">
+                <div class="button">
+                  <button
+                    class="submit"
+                    style="width: fit-content"
+                    type="button"
+                    (click)="importLongTermRemedy()"
+                  >
+                    Import Long Term Remedy
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="empty" *ngIf="longTermRemedies.length == 0">
+              --No data selected--
+            </div>
+            <div class="remedy-content" *ngIf="longTermRemedies.length > 0">
+              <table class="remedy-table">
+                <thead>
+                  <tr>
+                    <th>SR. No.</th>
+                    <th>Remedy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let rem of longTermRemedies; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ rem.text }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="button">
+            <button class="grey-button" matStepperPrevious>Back</button>
+            <button
+              class="submit"
+              (click)="draftReport(reportForm.value)"
+              type="button"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Methodology</ng-template>
+
+          <div class="container">
+            <header class="header1">
+              <h1>Methodology for Lifting of Span</h1>
+            </header>
+            <angular-editor
+              [ngModel]="reportForm.get('Methodology')?.value"
+              [config]="config"
+              formControlName="Methodology"
+            ></angular-editor>
+          </div>
+          <div class="button">
+            <button class="grey-button" matStepperPrevious>Back</button>
+            <button
+              class="submit"
+              (click)="draftReport(reportForm.value)"
+              type="button"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Photographs</ng-template>
+          <div class="container" style="margin-bottom: 20px">
+            <header class="header1">
+              <h1>Photographs of the bridge</h1>
+            </header>
+            <div class="grid-container">
+              <div class="grid-item" *ngFor="let image of imageList">
+                <img
+                  [src]="image.imageUrl"
+                  alt="Image"
+                  (click)="toggleImageSelection(image.id)"
+                  [class.selected]="isImageSelected(image.id)"
+                />
+                <mat-icon *ngIf="isImageSelected(image.id)" class="check-icon"
+                  >check_circle</mat-icon
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="button">
+            <button class="grey-button" matStepperPrevious>Back</button>
+            <button
+              class="submit"
+              (click)="selectedImages()"
+              type="button"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Billing</ng-template>
+          <div class="container">
+            <header class="header1">
+              <h1>Bill of Quantity</h1>
+            </header>
+
+            <div class="table">
+              <ng-container
+                *ngIf="dataSource.data.length === 0; else showTable"
+              >
+                <p>Please select a bridge first.</p>
+              </ng-container>
+              <ng-template #showTable>
+                <mat-table #table [dataSource]="dataSource">
+                  <!-- SrNo Column -->
+                  <ng-container matColumnDef="srno">
+                    <mat-header-cell *matHeaderCellDef> Sr No </mat-header-cell>
+                    <mat-cell *matCellDef="let element; let i = index">
+                      {{ paginator.pageIndex * paginator.pageSize + i + 1 }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <!-- Description Column -->
+                  <ng-container matColumnDef="Description">
+                    <mat-header-cell *matHeaderCellDef>
+                      Description
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.Description }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <!-- Qty Column -->
+                  <ng-container matColumnDef="Qty">
+                    <mat-header-cell *matHeaderCellDef> Qty </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.Qty }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <!-- Unit Column -->
+                  <ng-container matColumnDef="Unit">
+                    <mat-header-cell *matHeaderCellDef> Unit </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.Unit }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <!-- Amount Column -->
+                  <ng-container matColumnDef="Amount">
+                    <mat-header-cell *matHeaderCellDef>
+                      Amount
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.Amount }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <!-- Amount Column -->
+                  <ng-container matColumnDef="Rate">
+                    <mat-header-cell *matHeaderCellDef> Rate </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                      {{ element.Rate }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <mat-header-row
+                    *matHeaderRowDef="displayedColumns"
+                  ></mat-header-row>
+                  <mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                  ></mat-row>
+                </mat-table>
+              </ng-template>
+              <mat-paginator
+                [hidden]="true"
+                #paginator
+                [pageSize]="15"
+                [pageSizeOptions]="[15, 20]"
+              >
+              </mat-paginator>
+            </div>
+          </div>
+          <div class="button">
+            <button class="grey-button" matStepperPrevious>Back</button>
+            <button class="submit" type="button" matStepperNext>Next</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </div>
+  </form>
+</div>

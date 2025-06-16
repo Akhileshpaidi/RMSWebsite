@@ -1,0 +1,141 @@
+<div class="form">
+    <div class="body">
+        <div class="header col">
+            <div style="align-self: self-end">
+              <div class="header">
+              <h1>Reactivate Risk Statement</h1>
+            </div>
+            </div>
+          </div>
+          <br>
+          <div class="boxNew">
+               
+              <dx-drop-down-box 
+              formControlName="Statement"
+              style="width: 700px;"
+              [dropDownOptions]="{width: '1300px'}"
+              [(value)]="selectedValue"
+                valueExpr="riskStatementID"
+                [deferRendering]="false"
+                [displayExpr]="gridBox_displayExprDropdown"
+                placeholder="Select Risk Statement"
+                [inputAttr]="{ 'aria-label': 'Owner' }"
+                [showClearButton]="true"
+                [dataSource]="gridDataSource"
+                [(opened)]="isGridBoxOpened" 
+                (onValueChanged)="onDropdownValueChanged($event)"
+              >
+                <div *dxTemplate="let data of 'content'">
+                  <dx-data-grid
+                  [wordWrapEnabled]="true"
+                  [columnAutoWidth]="true"
+                  [columnHidingEnabled]="false"
+                  [showBorders]="true"
+                    [dataSource]="gridDataSource"
+                    [columns]="gridColumns"
+                    [hoverStateEnabled]="true"
+                    [(selectedRowKeys)]="selectedValue"
+                height="100%"
+                width="100%"
+          >
+                   <dxo-selection mode="single"></dxo-selection>
+                    <dxo-filter-row [visible]="true"></dxo-filter-row>
+                    <dxo-scrolling mode="virtual"></dxo-scrolling>
+                    <dxo-header-filter [visible]="true" [allowSearch]="true">
+                      <dxo-search [enabled]="true"></dxo-search>
+                    </dxo-header-filter>
+                   
+                                   <dxo-group-panel [visible]="true"></dxo-group-panel>
+                    <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+                    <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                  </dx-data-grid>
+                </div>
+              </dx-drop-down-box>
+            </div>
+            <br>
+            <br>
+            <div *ngIf="visibleStepper">
+                <form [formGroup]="Riskform"   (ngSubmit)="onSubmit()">
+                      <div class="row">
+                        <div class="box">
+                    <mat-form-field  appearance="fill" class="form-field">
+                      <mat-label>Risk statement/Heading </mat-label>
+                      <input matInput  #titleinput  formControlName="riskstatement" required  maxlength="250" >
+                      <mat-hint align="start" >Min 5 - Max 250 Characters</mat-hint>
+                      <mat-hint align="end">{{titleinput.value.length}}/250</mat-hint> 
+                    </mat-form-field>
+                        </div>
+                        <div class="box">
+                    <mat-form-field  appearance="fill" class="form-field">
+                      <mat-label>Risk Description</mat-label>
+                      <textarea matInput   #titleinput1 formControlName="riskdescription" maxlength="2500" ></textarea>
+                      <mat-hint align="start" >Min 5 - Max 2500 Characters</mat-hint>
+                      <mat-hint align="end">{{titleinput1.value.length}}/2500</mat-hint> 
+            
+            
+                    </mat-form-field>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                      <h3><label>Source Of Risk Statement</label> </h3>
+                    </div>
+                    <div formArrayName="references">
+                      <div *ngFor="let reference of references.controls; let key = index;">
+                        <div [formGroupName]="key"> 
+                          <div class="row">
+                            <div class="box">
+                              <mat-form-field appearance="fill" class="form-field">
+                                <mat-label>Select Option</mat-label>
+                                <mat-select formControlName="referenceType" >
+                                  <mat-option value="weblink">Weblink</mat-option>
+                                  <mat-option value="file">File Attachment</mat-option>
+                                  <mat-option value="Text">Text Field</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                              <mat-form-field appearance="fill" class="form-field" *ngIf="reference.get('referenceType')?.value === 'weblink'">
+            
+                                <mat-label>Weblink</mat-label>
+                                <input formControlName="referencetypeValue" matInput>
+                              </mat-form-field>
+                              <mat-form-field appearance="fill" class="form-field" *ngIf="reference.get('referenceType')?.value === 'file'">
+            
+                                <mat-label>File Attachment</mat-label>
+                                <div class="file-input-container">
+                                  <input matInput formControlName="file_attachment" [value]="reference.get('file_attachment')?.value" readonly style="width: auto;">
+            
+                                  <label class="file-input-button">
+                                    Attach
+                                    <input type="file" accept=".pdf,.doc,.docx,image/jpeg,image/png"  (change)="onMainFileSelected($event, key)">
+                                  </label>
+                                </div>
+                        
+                              </mat-form-field>
+                              <mat-form-field appearance="fill" class="form-field" *ngIf="reference.get('referenceType')?.value === 'Text'">
+            
+                                <mat-label>Text</mat-label>
+                                <input formControlName="referenceText" matInput>
+                              </mat-form-field>
+          
+                              <div>
+                                <label class="CustomLabel" (click)="removeReferenceField(key)">Remove</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
+                    
+                          <button class="file-input-button" type="button" (click)="addReferenceField()" >Add More</button>
+                    <div class="margin-top"></div>
+                    <div class="button">
+                      <button class="grey-button"  (click)="Cancel()" >cancel</button>
+                    <button  class="Custom_button"  type="submit" >Submit</button>
+                    </div>
+                </form>
+            </div>
+
+    </div>
+</div>

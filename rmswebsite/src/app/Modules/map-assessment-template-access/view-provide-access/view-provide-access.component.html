@@ -1,0 +1,180 @@
+<div class="form">
+  <div class="body">
+    <div class="header">
+        <div style="align-self:self-end;">
+            <h1 class="title"> View User  Access Assessment</h1>
+        </div>
+    </div>
+    <div class="box" style="width: 1070px;padding-left: 80px;">
+            
+      <dx-select-box 
+      formControlName="Entity_Master_id"
+      label="Select Entity Name*"
+      labelMode="floating"
+      valueExpr="entityId"
+      displayExpr="entityName"
+      [dataSource]="EntityName1"
+      [searchEnabled]="true"
+      selectionMode="single" 
+     placeholder=""
+     (onValueChanged)="getUnitLocation($event)">
+     
+   
+</dx-select-box>
+
+
+
+  <dx-select-box 
+  formControlName="Unit_location_Master_id"
+  label="Select Unit Location*"
+  labelMode="floating"
+  [searchEnabled]="true"
+  valueExpr="unitId"
+  displayExpr="unitName"
+  [dataSource]="UnitMaster"
+  [(value)]="Selectedunit"
+  selectionMode="single" 
+ placeholder=""
+ (onValueChanged)="getgriddatauser($event)"
+   >
+  
+</dx-select-box>
+<!-- (onValueChanged)="getgriddata($event)" -->
+        <!-- <div>
+        <label>
+          Select Document</label>
+          
+        </div> -->
+      </div>
+      <br>
+  
+    <div class="box"  >
+
+      <div class="dx-field-value">
+
+      <dx-drop-down-box
+      [(value)]="selectedOption"
+       [(opened)]="isUserBoxOpened1"
+       [displayExpr]="gridBox_displayEpxr"
+       valueExpr="userloactionmappingID"
+       [deferRendering]="false"
+       width="100%"
+       label="Select User"
+       placeholder="Select User*"
+       [inputAttr]="{ 'aria-label': 'Owner' }"
+       [showClearButton]="true"
+       [dataSource]="Userinfo"
+       (onValueChanged)="getgriddata($event)"
+     >
+       <div *dxTemplate="let data of 'content'">
+         <dx-data-grid
+         [dataSource]="Userinfo"
+           [columns]="usergridColumns"
+           [hoverStateEnabled]="true"
+           [(selectedRowKeys)]="selectedOption"
+           height="100%"
+             width="100%"
+             [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+         >
+                          
+                         <dxo-selection mode="single"></dxo-selection>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-scrolling mode="virtual"></dxo-scrolling>
+      <dxo-header-filter [visible]="true" [allowSearch]="true">
+        <dxo-search [enabled]="true"></dxo-search>
+      </dxo-header-filter>
+      <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+      <dxo-pager
+      [visible]="true"
+      [allowedPageSizes]="[10,20, 'all']"
+     
+      [showPageSizeSelector]="true"
+     
+      [showInfo]="true"
+      infoText="Page {0} of  {1} ({2} items)"
+      [showNavigationButtons]="true">
+    </dxo-pager>
+
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+      <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+      <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+         </dx-data-grid>
+       </div>
+     </dx-drop-down-box>
+ </div>
+    </div>
+    <br>
+  
+
+<br>
+<br>
+
+    <div class="box">
+      <div id="grid" style="width: 200px;">
+        <dx-data-grid
+       
+          id="assessement_ProvideAccessID"
+          [dataSource]="gridDataSource"
+          key="assessement_ProvideAccessID"
+          valueExpr="assessement_ProvideAccessID"
+          [showBorders]="true"
+          [allowColumnReordering]="true"
+         
+          [wordWrapEnabled]="true"
+                  
+             [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+          [columnAutoWidth]="true"
+        >
+                  
+                      
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-scrolling mode="virtual"></dxo-scrolling>
+      <dxo-header-filter [visible]="true" [allowSearch]="true">
+        <dxo-search [enabled]="true"></dxo-search>
+      </dxo-header-filter>
+      <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+      <dxo-pager
+      [visible]="true"
+      [allowedPageSizes]="[10,20, 'all']"
+     
+      [showPageSizeSelector]="true"
+     
+      [showInfo]="true"
+      infoText="Page {0} of  {1} ({2} items)"
+      [showNavigationButtons]="true">
+    </dxo-pager>
+
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+      <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+      <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+   
+       
+          <!-- <dxi-column dataField="Assessment Provide ID"  valueExpr="assessement_ProvideAccessID"
+          displayExpr="assessement_ProvideAccessID"></dxi-column> -->
+          <dxi-column caption=" Assesment Template ID" dataField="assessementTemplateID" valueExpr="assessementTemplateID"
+          displayExpr="title_Doc"></dxi-column>
+          <dxi-column dataField="assessment_name"  caption="Assessment Name"  valueExpr="assessment_name"
+          displayExpr="assessment_name"></dxi-column>
+        
+          <dxi-column dataField="entity_Master_Name" caption="Entity Name" valueExpr="entity_Master_id"
+          displayExpr="entity_Master_Name" ></dxi-column>
+          <dxi-column dataField="unit_location_Master_name" caption="Unit Location Name" valueExpr="Unit_location_Master_id"
+          displayExpr="unit_location_Master_name" ></dxi-column>
+         
+          <dxi-column dataField="total_questions" caption="Total Question" valueExpr="total_questions"
+          displayExpr="total_questions" ></dxi-column>
+          <dxi-column dataField="total_estimated_time" caption="Toatl Estimate Time" valueExpr="total_estimated_time"
+          displayExpr="total_estimated_time" ></dxi-column>
+          <dxi-column dataField="verson_no" caption="Version No" valueExpr="verson_no"
+          displayExpr="verson_no" ></dxi-column>
+          <dxi-column dataField="permissions" caption="UserPermissions" valueExpr="Ass_User_PermissionListid"
+          displayExpr="permissions" ></dxi-column>
+        </dx-data-grid>
+      </div>
+      </div>
+  </div>
+</div>

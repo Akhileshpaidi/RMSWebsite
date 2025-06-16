@@ -1,0 +1,91 @@
+/* Global Styles */
+.button{
+  color: blue($color: #31366f);
+}
+/* Global Styles */
+body {
+font-family: Arial, sans-serif;
+background-color: #f2f2f2;
+margin: 0;
+padding: 0;
+}
+
+/* Container Styles */
+.container {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+grid-template-rows: repeat(3, auto);
+gap: 15px;
+background-color: #fff;
+border: 1px solid #ccc;
+border-radius: 5px;
+margin: 20px;
+padding: 20px;
+box-sizing: border-box;
+}
+
+/* Input Container Styles */
+md-input-container {
+width: 100%;
+}
+
+md-input-container label {
+font-weight: bold;
+}
+
+/* Select Styles */
+select {
+width: 100%;
+padding: 8px;
+box-sizing: border-box;
+border: 1px solid #ccc;
+border-radius: 4px;
+background-color: #f8f8f8;
+}
+
+/* Button Styles */
+button {
+background-color: #4caf50;
+color: white;
+padding: 10px 15px;
+margin: 5px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+button:hover {
+background-color: #45a049;
+}
+
+/* compliance-report.component.css */
+
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+button {
+  margin-right: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}

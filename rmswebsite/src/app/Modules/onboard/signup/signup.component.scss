@@ -1,0 +1,231 @@
+$space: 1rem;
+
+.body {
+  margin: auto;
+  width: 100%;
+  padding: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+    helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #6a6a6a;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.012em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  // position: fixed;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+}
+a,
+a label {
+  cursor: pointer;
+}
+
+.navbar,
+.footer {
+  width: 100%;
+  padding: $space ($space * 0.5);
+  background-color: #dadada;
+  text-align: center;
+  font-weight: 700;
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.form {
+  // padding-top: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  margin: ($space * 2) ($space * 2) 0;
+  box-shadow: 0 0 $space rgba(0, 0, 0, 0.03),
+    0 $space ($space * 2) rgba(0, 0, 0, 0.05),
+    0 ($space * 2) ($space * 4) rgba(0, 0, 0, 0.05),
+    0 ($space * 4) ($space * 8) rgba(0, 0, 0, 0.05);
+}
+
+.form__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: ($space * 2);
+}
+
+.form__footer {
+  margin-top: 40px;
+  align-self: self-end;
+  font-size: small;
+}
+
+.form__content__header {
+  text-align: center;
+  margin: 0 0 0;
+}
+
+.form__content__heading {
+  margin: 0 0 ($space * 0.5);
+}
+
+.form__content__description {
+  color: gray;
+  font-size: 0.875rem;
+  text-align-last: left;
+  // margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1%;
+}
+
+.form__submit {
+  text-align: center;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  background: #556f83;
+  color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+
+  &:hover,
+  &:focus {
+    background-color: #6a6a6a;
+  }
+}
+
+.form__submit a {
+  font-size: 0.875rem;
+}
+
+@media (min-width: 48rem) {
+  .body {
+    flex-direction: row;
+  }
+
+  .form {
+    margin: 0;
+    box-shadow: none;
+  }
+
+  .form__content {
+    width: $space * 26;
+    // margin-bottom: 60px;
+  }
+
+  .cta__content {
+    max-width: 32rem;
+    margin: auto;
+  }
+}
+
+@media (min-width: 72rem) {
+  .form__content {
+    width: $space * 32;
+    // padding: ($space * 4);
+  }
+}
+
+.signUp {
+  color: #064ad1;
+}
+
+.forgotPass {
+  color: #064ad1;
+  text-align-last: left;
+  margin-left: 1%;
+}
+
+.box {
+  display: flex;
+  gap: 15px;
+  margin-bottom: -20px;
+}
+.box > * {
+  flex: 1 1 160px;
+}
+
+.header {
+  text-align-last: left;
+}
+
+.logo {
+  width: 100px;
+  height: 58px;
+  left: 610px;
+  top: 59px;
+  margin-bottom: unset;
+}
+
+.h1 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  margin-bottom: unset;
+  margin-top: 20px;
+}
+
+.margin {
+  margin-top: 10px;
+}
+.margin2 {
+  margin-top: 20px;
+}
+
+.btn3 {
+  background-color: #f5f5f5;
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  color: #556f83;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+
+  &:hover,
+  &:focus {
+    background-color: #ececec;
+  }
+}
+
+@media (max-width:768px) {
+  .image-body {
+    display: none;
+  }
+}
+
+
+input:required:not(:checked) + label {
+  color: red;
+}

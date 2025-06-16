@@ -1,0 +1,298 @@
+.table {
+  width: 100%;
+  margin-top: 25px;
+}
+.button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  gap: 20px;
+}
+.form-fields{
+  width: 50%;
+}
+.col-md-4{
+  width: 20%;
+}
+.header{
+  padding-left: 10px;
+  //padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+::ng-deep #form-container {
+  margin: 10px;
+}
+.label {
+  font-size: 18px; /* Adjust as needed */
+  font-style: normal;
+  color: black;
+}
+ 
+.wrapper{
+  padding: 10px;
+  
+}
+
+.body {
+  padding: 30px;
+  padding-top: 20px;
+}
+.h1 {
+  font-size: revert;
+  font-weight: 500;
+}
+
+.img {
+  height: 20px;
+  cursor: pointer;
+}
+
+::ng-deep {
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #37d111 !important;
+  }
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #d9d9d9 !important;
+  }
+  
+  // .mat-select-arrow-wrapper{
+  //   margin-right: 30px !important;
+  // }
+
+  mat-header-cell,
+  mat-cell {
+    justify-content: center;
+  }
+  .mat-slide-toggle {
+    margin-left: 10px;
+  }
+}
+.filter-input {
+  width: 98%;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.gray-text {
+  color: #b9b9b9;
+}
+mat-radio-group {
+  display: flex;
+  flex-direction: row; /* or row for horizontal layout */
+}
+
+/* Styling for each mat-radio-button */
+mat-radio-button {
+margin-bottom: 100px; /* Adjust the bottom margin for vertical layout */
+margin-right: 50px; /* Adjust the right margin for horizontal layout */
+}
+
+/* Styling for the selected mat-radio-button */
+mat-radio-button.mat-radio-checked {
+color: #2196f3; /* Change the color when selected */
+}
+
+/* Styling for the label of mat-radio-button */
+.mat-radio-label {
+font-size: 16px;
+font-weight: bold;
+}
+.table {
+width: 100%;
+margin-top: 25px;
+}
+.button {
+display: flex;
+align-items: right;
+justify-content: right;
+gap: 20px;
+}
+
+.body {
+padding: 30px;
+padding-top: 20px;
+}
+.h1 {
+font-size: revert;
+font-weight: 500;
+}
+.img {
+height: 20px;
+cursor: pointer;
+}
+::ng-deep .mat-tooltip {
+  font-size: 16px; 
+  background-color: #606064 !important; 
+  color: #f6f7ee !important;
+}
+::ng-deep {
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #37d111 !important;
+}
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: #d9d9d9 !important;
+}
+
+.remarks-container{
+  width: 80%;
+  height: auto;
+}
+
+mat-header-cell,
+mat-cell {
+  justify-content: center;
+}
+.mat-slide-toggle {
+  margin-left: 10px;
+}
+}
+.filter-input {
+width: 98%;
+padding: 8px 12px;
+border-radius: 4px;
+border: 1px solid #ccc;
+margin-top: 20px;
+font-size: 16px;
+}
+
+.gray-text {
+color: #b9b9b9;
+}
+
+.selected-file {
+  background-color:rgb(15, 108, 189); /* Or any other style you prefer */
+  color: #e3e0e0;
+  border-radius: 12px; /* Adjust the radius value as needed */
+  &:hover,
+  &:focus {
+    background: linear-gradient(135deg, #3ebbec, #8ad3f0);
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+  }
+}
+
+
+.document-step-container {
+display: flex;
+justify-content: space-between;
+}
+
+.document-viewer-container {
+flex: 1; /* Takes up half the space */
+/* Add any additional styling here */
+}
+
+.file-list-container {
+flex: 1; /* Takes up the other half */
+/* Add any additional styling here */
+}
+
+.button-container {
+/* Styling for your button container */
+}
+.button {
+display: flex;
+align-items: right;
+justify-content: right;
+gap: 20px;
+}
+
+.boxNew {
+//display: flex;
+padding-left: 10px; 
+gap:10px;
+flex-direction: row;
+width: 70%;
+}
+.boxNew> * {
+flex: 1 none none;
+
+}
+
+.wrapper{
+padding: 20px;
+
+}
+// .example-headers-align .mat-expansion-panel-header-description {
+//   justify-content: space-between;
+//   align-items: center;
+// }
+
+.header{
+padding-left: 10px;
+padding-bottom: 20px;
+padding-top: 10px;
+}
+
+::ng-deep #form-container {
+margin: 10px;
+}
+
+::ng-deep .long-title h3 {
+font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+font-weight: 200;
+font-size: 28px;
+text-align: center;
+margin-bottom: 20px;
+}
+.table-container {
+max-width: 1000px; /* Set the maximum width of the container */
+margin: 10px; /* Center the container horizontally */
+}
+
+.mat-table {
+width: 100%; /* Set the width of the table to 100% of its container */
+}
+.textsize{
+  color: black;
+}
+.pdf-viewer-container {
+  position: relative;
+  width: 100%;
+  height: 93vh;  
+}
+
+// /* Dark black overlay for the top-right corner */
+.pdf-viewer-container .overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30%; 
+  height: 10%;  
+  background-color: transparent; 
+  z-index: 10;  
+  pointer-events: all; 
+}
+
+.transparent-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 17px); 
+  height: calc(100% - 3px); 
+  background: transparent; 
+  z-index: 999;
+  pointer-events: all; 
+  clip-path: polygon(
+    0 0,
+    30px 0, /* Allow from 30px after the left */
+    30px 30px,
+    calc(100% - 30px) 30px, /* Allow until 30px before the right */
+    calc(100% - 30px) 0,
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+}
+
+/* PDF viewer container for scrolling */
+ngx-doc-viewer {
+  position: relative;
+  z-index: 5; 
+  overflow-y: auto; 
+  height: 100%;  
+}

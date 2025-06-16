@@ -1,0 +1,107 @@
+
+<div class="form">
+  <div class="body">
+    <div class="header">
+      <div style="align-self:self-end;">
+      <div class=" card">
+        <div class=" card-header">
+          <h1 class=" title">Document Classification</h1>
+        </div>
+        <div class="card-body">
+
+<div id="app-container">
+  <dx-data-grid id="dataGrid"
+    [dataSource]="dataSource"
+    [showBorders]="true"
+   
+    [allowColumnResizing]="true"
+    [columnAutoWidth]="true"
+    [allowColumnReordering]="true"
+    
+    (onExporting)="exportGrid($event)">
+    <dxi-column dataField="natureOf_Doc_id" caption="Document Classification ID">
+      <dxo-form-item [visible]="false">
+    </dxo-form-item></dxi-column>
+    <dxi-column dataField="natureOf_Doc_Name" caption="Document Classification">
+      <dxi-validation-rule type="required"></dxi-validation-rule> 
+      <!-- <dxo-lookup [dataSource]="AuthorityTypeData" valueExpr="authorityTypeID" displayExpr="authorityTypeName" ></dxo-lookup>   -->
+  </dxi-column>
+  <!-- <dxi-column dataField="authorityName" caption="Authority Name">
+    <dxi-validation-rule type="required"></dxi-validation-rule>   
+</dxi-column> -->
+<dxi-column dataField="natureOf_Doc_Desc" [width]="400"  editCellTemplate="dataCellTemplate" caption="Description">
+   
+</dxi-column>
+    <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+    <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-search-panel [visible]="true"></dxo-search-panel>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+    <dxo-selection mode="single"></dxo-selection>
+    <dxo-summary>
+      <dxi-total-item
+          column="natureOf_Doc_id"
+          summaryType="count">
+      </dxi-total-item>
+      
+  </dxo-summary>
+  <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+  <dxo-pager
+  [visible]="true"
+  [allowedPageSizes]="[5, 10,20, 'all']"
+ 
+  [showPageSizeSelector]="true"
+ 
+  [showInfo]="true"
+  infoText="Page {0} of  {1} ({2} items)"
+  [showNavigationButtons]="true"
+>
+</dxo-pager>
+    <dxo-editing
+      mode="popup"
+      [allowUpdating]="true"
+      [allowDeleting]="true"
+      [allowAdding]="true">
+      <dxo-popup
+        title="Add Document Classification"
+        [showTitle]="true"
+        [width]="900"
+        [height]="500"
+      >
+      </dxo-popup>
+    </dxo-editing>
+    <div class="dx-textarea" *dxTemplate="let data of 'dataCellTemplate'">  
+      <dx-text-area  
+        class="dx-texteditor-input"
+        style="resize: vertical;"
+        [inputAttr]="{ 'aria-label': 'Notes' }"
+        [autoResizeEnabled]="true"  
+        [value]="data.value"  
+        (onValueChanged)="onValueChanged($event, data)"
+      ></dx-text-area>  
+    </div> 
+
+    <dxo-toolbar>
+      <dxi-item name="groupPanel"></dxi-item>
+     
+      <dxi-item name="addRowButton" showText="always"></dxi-item>
+      <dxi-item name="exportButton"></dxi-item>
+      <dxi-item name="columnChooserButton"></dxi-item>
+      <dxi-item name="searchPanel"></dxi-item>
+  </dxo-toolbar>
+
+
+    <dxo-export 
+      [enabled]="true"
+      [formats]="['xlsx', 'pdf']"
+    >
+    </dxo-export>
+  </dx-data-grid>
+  
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

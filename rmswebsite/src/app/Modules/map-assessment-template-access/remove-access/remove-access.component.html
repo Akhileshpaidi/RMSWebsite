@@ -1,0 +1,146 @@
+<div class="form">
+  <div class="header col">
+  <div style="align-self: self-end">
+
+
+    <div class="header">
+        <div style="align-self:self-end;">
+            <h1 class="title"> Assessment Template Remove Access</h1>
+        </div>
+    </div>
+   
+<br>
+
+   
+<br>
+    <div class="boxNew">
+                <div>
+                <label>
+                  Select Assessment Template</label>
+                  
+                </div>
+                
+                    <div class="dx-field-value">
+                      <dx-drop-down-box style="width: 900px;"
+                      [dropDownOptions]="{width: '1400px'}"
+                      [(value)]="gridBoxValue"
+                      [(opened)]="isGridBoxOpened"
+                      valueExpr="assessement_ProvideAccessID"
+                       [deferRendering]="false"
+                       [displayExpr]="gridBox_displayExpr"
+                       placeholder=" Select Assessment Template"
+                       [inputAttr]="{ 'aria-label': 'Owner' }"
+                       [showClearButton]="true"
+                       [dataSource]="gridDataSource"
+                       formControlName="assessement_ProvideAccessID"
+                        keyExpr="assessement_ProvideAccessID" 
+                       (onOptionChanged)="onGridBoxOptionChanged($event)"
+                       >
+                          
+                            <div *dxTemplate="let data of 'content'">
+                              <dx-data-grid
+                              [dataSource]="gridDataSource"
+                              [columns]="gridColumns"
+                                [hoverStateEnabled]="true"
+                               [(selectedRowKeys)]="gridBoxValue"
+                            height="100%"
+                             width="100%"
+             [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+                      >
+                              
+                                  
+                         <dxo-selection mode="single"></dxo-selection>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-scrolling mode="virtual"></dxo-scrolling>
+      <dxo-header-filter [visible]="true" [allowSearch]="true">
+        <dxo-search [enabled]="true"></dxo-search>
+      </dxo-header-filter>
+      <dxo-paging [enabled]="true" [pageSize]="5" ></dxo-paging>
+      <dxo-pager
+       [visible]="true"
+     [allowedPageSizes]="[ 10,20, 'all']"
+    
+     [showPageSizeSelector]="true"
+    
+     [showInfo]="true"
+     infoText="Page {0} of  {1} ({2} items)"
+      [showNavigationButtons]="true">
+    </dxo-pager>
+
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+      <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+      <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+    </dx-data-grid>
+                            </div>
+                          </dx-drop-down-box>
+              </div>
+              </div>
+<form [formGroup]="Ass_editProvideAccess_form" (ngSubmit)="ProvideAccessRemove()" >
+        
+              <br>
+               <div class="box">
+
+                
+                  <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>Entity Name</mat-label>
+                     <input matInput  formControlName="entity_Master_Name" readonly />
+                  </mat-form-field>
+
+         
+                  <mat-form-field appearance="fill" class="form-field">
+                    <mat-label>Unit Location</mat-label>
+                     <input matInput  formControlName="unit_location_Master_name" readonly />
+                  </mat-form-field>
+
+               </div>
+               <br>
+      <div class="box">     
+        <dx-drop-down-box
+        [(value)]="selectedOption"  
+        [(opened)]="isUserBoxOpened"       
+        [inputAttr]="{ 'aria-label': 'Owner' }"
+         placeholder="Select User(s) Name*"
+         [showClearButton]="true"
+         [dataSource]="Userinfo"
+         valueExpr="userloactionmappingID"
+         displayExpr="firstname"
+         [showClearButton]="true"
+         formControlName="firstname"
+         (onOptionChanged)="onuserchange($event)"
+          >
+          <div *dxTemplate="let data of 'content'">
+
+            <dx-data-grid
+            [dataSource]="Userinfo"
+            [columns]="usergridColumns"
+              [hoverStateEnabled]="true"
+              [(selectedRowKeys)]="selectedOption"
+          height="100%"
+           width="100%"
+             [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+    >
+            
+              <dxo-selection mode="single"></dxo-selection>
+              <dxo-filter-row [visible]="true"></dxo-filter-row>
+              <dxo-scrolling mode="virtual"></dxo-scrolling>
+              <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+            </dx-data-grid>
+          
+              </div>
+             </dx-drop-down-box>
+       <div></div>
+      </div>
+        
+
+          <div class="button">
+            <button class="grey-button" (click)="onClick()">Cancel</button>
+            <button class="Custombutton" type="submit">Remove Access</button>
+          </div>
+</form>
+  </div>
+  </div>
+</div>

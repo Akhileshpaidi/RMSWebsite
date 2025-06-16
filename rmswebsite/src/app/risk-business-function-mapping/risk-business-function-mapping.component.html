@@ -1,0 +1,183 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+        <h1>Business Function Mapping</h1>
+      </div>
+
+
+      
+<form [formGroup]="Businessfunction" (ngSubmit)="createUser(Businessfunction.value)" >
+    <br>
+    <div class="row">
+    <div class="box">
+        <mat-form-field  appearance="fill" class="form-field">
+            <mat-label>Risk Business Function Name </mat-label>
+            <input matInput  #titleinput  formControlName="businessname"  maxlength="250" >
+            <mat-hint align="start" >Min 1 - Max 50 Characters</mat-hint>
+            <mat-hint align="end">{{titleinput.value.length}}/50</mat-hint> 
+          </mat-form-field>
+              </div>
+              <div class="box">
+          <mat-form-field  appearance="fill" class="form-field">
+            <mat-label>Risk Business Function Description </mat-label>
+            <textarea matInput   #titleinput1 formControlName="businessdescription" maxlength="2500" ></textarea>
+            <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+            <mat-hint align="end">{{titleinput1.value.length}}/150</mat-hint> 
+  
+  
+          </mat-form-field>
+    </div>
+</div>
+    <div class="box">
+       <div>
+         <dx-select-box 
+         formControlName="department"
+         label="Select Department Type"
+         labelMode="floating"
+         valueExpr="department_Master_id"
+         displayExpr="department_Master_name"
+         [searchEnabled]="true"
+         [dataSource]="Department"  
+         
+         selectionMode="single" 
+           >    </dx-select-box>
+        
+         </div>
+    
+    </div>
+    <br>
+    <h3>
+    <label>  Map to:</label></h3>
+     <div class="box">
+      <div>
+     
+    
+    
+       <dx-select-box 
+       formControlName="entity"
+       label="Select Entity"
+    labelMode="floating"
+    valueExpr="entity_Master_id"
+    displayExpr="entity_Master_Name"
+    [dataSource]="Entity"  
+    [searchEnabled]="true"
+    (onValueChanged)="getunitlocation($event)"
+    selectionMode="single" 
+    placeholder=""
+       > </dx-select-box>
+    
+     
+    </div>
+    
+    
+     <div >
+    
+       <dx-drop-down-box 
+       formControlName="location"
+       [(value)]="selectedOption"         
+       [inputAttr]="{ 'aria-label': 'Owner' }"
+       placeholder="Select  unit  location*"
+       label="Select  unit  location*"
+       [showClearButton]="true"
+       labelMode="floating"
+       valueExpr="unit_location_Master_id"
+       displayExpr="unit_location_Master_name"
+       [dataSource]="location"
+       height="40px" >   
+      <div *dxTemplate="let data of 'content'">
+       <dx-data-grid    
+       [dataSource]="location"
+       [columns]="gridColumns"
+         [selection]="{ mode: 'multiple' }"
+         [hoverStateEnabled]="true"
+         [(selectedRowKeys)]="selectedOption"
+         [filterRow]="{ visible: true }"
+         [scrolling]="{ mode: 'virtual' }"
+         [showColumnHeaders]="false"
+         height="100%"
+       >
+       </dx-data-grid>
+     </div> 
+    </dx-drop-down-box>
+    
+     </div>
+    
+     </div>
+     <div class="margin-top"></div>
+     <div class="button">
+      <button class="grey-button"  (click)="Cancel()" >Cancel</button>
+       <button class="Custombutton"  >Submit</button>
+     </div>
+    </form>
+    <h2><label>View Business Function Mapping </label></h2>
+<div class="card-body1">
+  <div id="app-container">
+      <dx-data-grid id="riskBusinessfunctionid"
+      [dataSource]="dataSource1"
+      [showBorders]="true"
+     
+      [allowColumnResizing]="true"
+      [columnAutoWidth]="true"
+      [allowColumnReordering]="true"
+      (onExporting)="exportGrid($event)">
+      <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+     <dxo-header-filter [visible]="true"></dxo-header-filter>
+     <dxi-column dataField="riskBusinessfunctionid" caption="Business Function ID" [width]="100"></dxi-column>
+     <dxi-column dataField="riskbusinessname" caption="Business Function Name"></dxi-column>
+     <dxi-column dataField="riskbusinessdescription" caption="Business Description"></dxi-column>
+     <dxi-column dataField="entity_Master_Name" caption="Entity Name" value="entity_Master_id"></dxi-column>
+     <dxi-column dataField="unit_location_Master_name" caption="Unit Location Name" value="unit_location_Master_id"></dxi-column>
+     <dxi-column dataField="department_Master_name" caption="Department Name" value="department_Master_id"></dxi-column>
+      <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+      <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-search-panel [visible]="true"></dxo-search-panel>
+      <dxo-group-panel [visible]="true"></dxo-group-panel>
+      <dxo-selection mode="single"></dxo-selection>
+      <dxo-summary>
+          <dxi-total-item
+              column="riskBusinessfunctionid"
+              summaryType="count">
+          </dxi-total-item>
+          
+      </dxo-summary>
+      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+      <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+      <dxo-pager
+      [visible]="true"
+      [allowedPageSizes]="[5, 10,20, 'all']"
+     
+      [showPageSizeSelector]="true"
+     
+      [showInfo]="true"
+      infoText="Page {0} of  {1} ({2} items)"
+      [showNavigationButtons]="true"
+    >
+    </dxo-pager>
+      <dxo-editing
+              mode="popup"  
+            
+              [allowDeleting]="true"
+            ></dxo-editing>
+
+    <dxo-toolbar>
+    <dxi-item name="groupPanel"></dxi-item>
+
+<dxi-item name="addRowButton" showText="always"></dxi-item>
+<dxi-item name="exportButton"></dxi-item>
+<dxi-item name="columnChooserButton"></dxi-item>
+<dxi-item name="searchPanel"></dxi-item>
+    </dxo-toolbar>
+    <dxo-export 
+    [enabled]="true"
+    [formats]="['xlsx', 'pdf']"
+  >
+  </dxo-export>
+</dx-data-grid>
+  </div>
+
+</div>
+      </div>
+    </div>
+   

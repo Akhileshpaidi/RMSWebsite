@@ -1,0 +1,179 @@
+
+
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+        <div class=" card">
+          <div class=" card-header">
+            <h1 class=" title">My Mitigation Tasks
+
+            </h1>
+          </div>
+          <div class="card-body">
+  
+  <div >
+   
+    <dx-drop-down-box style="width: 550px;"
+    [dropDownOptions]="{width: '1200px'}"
+    [(value)]="gridBoxValue"
+[(opened)]="isGridBoxOpened"
+[displayExpr]="gridBox_displayExpr"
+    valueExpr="trackerID"
+     [deferRendering]="false"
+     label="Select one Assessment"
+     placeholder=" "
+     [inputAttr]="{ 'aria-label': 'Owner' }"
+     [showClearButton]="true"
+     [dataSource]="gridDataSource"
+
+   
+     (onOptionChanged)="onGridBoxOptionChanged($event)">
+        
+          <div *dxTemplate="let data of 'content'">
+            <dx-data-grid
+            [dataSource]="gridDataSource"
+            [columns]="gridColumns"
+              [hoverStateEnabled]="true"
+              
+              [(selectedRowKeys)]="gridBoxValue"
+                   [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+                  height="100%"
+                  width="100%"
+         >
+         
+    >
+        
+            
+    <dxo-selection mode="single"></dxo-selection>
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+    <dxo-header-filter [visible]="true" [allowSearch]="true">
+      <dxo-search [enabled]="true"></dxo-search>
+    </dxo-header-filter>
+    <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+    <dxo-pager
+    [visible]="true"
+    [allowedPageSizes]="[ 10,20, 'all']"
+   
+    [showPageSizeSelector]="true"
+   
+    [showInfo]="true"
+    infoText="Page {0} of  {1} ({2} items)"
+    [showNavigationButtons]="true">
+  </dxo-pager>
+
+  <dxo-group-panel [visible]="true"></dxo-group-panel>
+    <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+
+                 </dx-data-grid>
+          </div>
+        </dx-drop-down-box> 
+
+<br>
+<br>
+<br>
+<br>
+    <form  *ngIf="visibleGrid">
+
+
+        <dx-data-grid
+
+        [dataSource]="dataSource"
+       
+
+        [columns]="gridColumnsforTasks"
+        [hoverStateEnabled]="true"
+         [allowColumnResizing]="true"
+[columnAutoWidth]="true"
+[allowColumnReordering]="true"
+(onExporting)="exportGrid($event)"
+                  height="100%"
+                  width="100%"
+        [(selectedRowKeys)]="SelectedTask"
+        style="border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);"
+      >
+       
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-scrolling mode="virtual"></dxo-scrolling>
+        <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+          <dxo-export 
+                [enabled]="true"
+                [formats]="['xlsx', 'pdf']"
+              >
+              </dxo-export>
+        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+      <!-- "View" button template -->
+<div *dxTemplate="let data of 'SumitButtonTemplate'">
+<button class="view-grid-button" (click)="onViewButtonClick(data.data)">Open</button>
+</div>
+</dx-data-grid>
+
+
+<div *ngIf="isPopupVisible" class="popup-container">
+  <div class="backdrop"></div>
+  <div class="popup">
+    <h2>Selected Mitigation Task Details</h2>
+    <form [formGroup]="taskForm" (ngSubmit)="UpdateAction()">
+      <div class="popup-content-grid">
+        <ng-container *ngFor="let column of gridColumnsforTasks">
+          <div class="popup-content">
+            <!-- Display the caption -->
+            <label [for]="column.dataField">{{ column.caption }}:</label>
+        
+            <!-- Check if the field is 'remarks' -->
+            <ng-container *ngIf="['remarks', 'suggestions','management_remarks'].includes(column.dataField); else normalInput">
+              <textarea style="font-weight: normal; width: 100%;" 
+                        [id]="column.dataField" 
+                        [name]="column.dataField" 
+                        [readonly]="true">{{ selectedRowData[column.dataField] }}</textarea>
+            </ng-container>
+        
+            <!-- Normal input field for other columns -->
+            <ng-template #normalInput>
+              <input type="text" 
+                     [id]="column.dataField" 
+                     [name]="column.dataField" 
+                     [readonly]="true" 
+                     [value]="selectedRowData[column.dataField]">
+            </ng-template>
+        
+          </div>
+        </ng-container>
+        
+      </div>
+    <br>
+      <div class="popup-content">
+        <label for="fileUpload">Upload File:</label>
+        <input type="file" id="fileUpload" formControlName="FilePath" name="fileUpload" (change)="onMainFileSelected($event)">
+      </div>
+    <br>
+      <div class="popup-content">
+        <label for="pO_remarks">Task Completion Remarks:</label>
+        <textarea id="pO_remarks" formControlName="PoRemarks" name="pO_remarks"></textarea>
+      </div>
+    
+      <div class="button-container">
+        <button class="popup-buttonback-button" type="button" (click)="goBack()">Close</button>
+        <button class="popup-button submit-button" type="submit">Submit</button>
+      </div>
+    </form>
+    
+  </div>
+</div>
+
+
+ </form>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ 
+ 
+
+

@@ -1,0 +1,369 @@
+<div class="body">
+  <div class="row">
+    <h2 class="header">Review Inspection Form</h2>
+  </div>
+  <hr />
+  <form
+    [formGroup]="inspectioForm"
+    (ngSubmit)="submitInspection(inspectioForm.value)"
+  >
+    <div class="progressBar">
+      <mat-stepper [linear]="isLinear" #stepper>
+        <mat-step [stepControl]="inspectioForm">
+          <form [formGroup]="inspectioForm">
+            <ng-template matStepLabel>General Details</ng-template>
+            <h1>Basic Details</h1>
+
+            <div fxLayoutAlign="center center">
+              <div class="box">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Inspection Name </mat-label>
+                  <input
+                    matInput
+                    formControlName="inspectionname"
+                    name="inspectionname"
+                    [(ngModel)]="inspectionData.inspectionname"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Bridge Name </mat-label>
+                  <input
+                    matInput
+                    formControlName="bridgename"
+                    name="bridgename"
+                    [(ngModel)]="inspectionData.bridgename"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxLayoutAlign="center center">
+              <div class="box">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>BUID</mat-label>
+                  <input
+                    matInput
+                    formControlName="buid"
+                    name="buid"
+                    [(ngModel)]="inspectionData.buid"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Next Review Date </mat-label>
+                  <input
+                    matInput
+                    formControlName="nextreviewdate"
+                    name="nextreviewdate"
+                    [(ngModel)]="inspectionData.nextreviewdate"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayoutAlign="center center">
+              <div class="box">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Start Date</mat-label>
+                  <input
+                    matInput
+                    formControlName="startdate"
+                    name="startdate"
+                    [(ngModel)]="inspectionData.startdate"
+                    readonly
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>End Date </mat-label>
+                  <input
+                    matInput
+                    formControlName="enddate"
+                    name="enddate"
+                    [(ngModel)]="inspectionData.enddate"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayoutAlign="center center">
+              <div class="box">
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Description</mat-label>
+                  <input
+                    matInput
+                    formControlName="description"
+                    name="description"
+                    [(ngModel)]="inspectionData.description"
+                    readonly
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="button">
+              <button type="button" class="submit" matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <!-- Section Loop  -->
+        <div formArrayName="section">
+          <!-- <div *ngFor="let section of section().controls; let secIndex = index; "> -->
+          <div
+            *ngFor="let section of inspectionData.section; let secIndex = index"
+          >
+            <div [formGroupName]="secIndex">
+              <mat-step
+                [stepControl]="inspectioForm"
+                label="{{ section.sectionname }}"
+              >
+                <!-- sub section loop  -->
+                <div formArrayName="subsection">
+                  <div
+                    *ngFor="
+                      let subsection of inspectionData.section[secIndex]
+                        .subsection;
+                      let subsecIndex = index
+                    "
+                  >
+                    <div [formGroupName]="subsecIndex">
+                      <h1 style="font-size: xx-large">
+                        {{ subsection.subsectionname }}
+                      </h1>
+                      <!-- question loop  -->
+                      <div class="margin-top"></div>
+                      <div formArrayName="questions">
+                        <div
+                          *ngFor="
+                            let question of inspectionData.section[secIndex]
+                              .subsection[subsecIndex].questions;
+                            let questionindex = index
+                          "
+                        >
+                          <div fxLayoutAlign="center center">
+                            <div [formGroupName]="questionindex" class="box">
+                              <div
+                                *ngIf="question.questiontype == 1"
+                                class="text"
+                              >
+                                <mat-label style="font-size: large">
+                                  <span class="Q"
+                                    ><b>
+                                      Question {{ questionindex + 1 }}</b
+                                    ></span
+                                  >
+                                  <span class="Tab"></span
+                                  >{{ question.question }}
+                                </mat-label>
+
+                                <div style="font-size: large; margin-top: 10px">
+                                  <span class="A"><b> Answer:</b></span>
+                                  <span class="Tab"></span
+                                  >{{ question.response }}
+                                </div>
+                                <div
+                                  style="margin-top: 10px; margin-bottom: 20px"
+                                >
+                                  <mat-radio-group
+                                    formControlName="review"
+                                    class="row"
+                                  >
+                                    <mat-radio-button value="Ok"
+                                      >Ok</mat-radio-button
+                                    >
+                                    <mat-radio-button value="Not Ok"
+                                      >Not Ok</mat-radio-button
+                                    >
+                                  </mat-radio-group>
+                                </div>
+                                <div class="margin-top"></div>
+                              </div>
+                              <div
+                                *ngIf="question.questiontype == 2"
+                                class="list"
+                              >
+                                <mat-label
+                                  id="example-radio-group-label"
+                                  style="font-size: large"
+                                >
+                                  <span class="Q"
+                                    ><b>
+                                      Question {{ questionindex + 1 }}</b
+                                    ></span
+                                  >
+                                  <span class="Tab"></span
+                                  >{{ question.question }}
+                                </mat-label>
+                                <mat-radio-group
+                                  [disabled]="true"
+                                  aria-labelledby="example-radio-group-label"
+                                  class="example-radio-group"
+                                  formControlName="response"
+                                  readonly
+                                >
+                                  <mat-radio-button
+                                    [disabled]="true"
+                                    class="example-radio-button"
+                                    *ngFor="
+                                      let options of inspectionData.section[
+                                        secIndex
+                                      ].subsection[subsecIndex].questions[
+                                        questionindex
+                                      ].options
+                                    "
+                                    [checked]="options.key == question.response"
+                                    [value]="options.key"
+                                  >
+                                    {{ options.value }}
+                                  </mat-radio-button>
+                                </mat-radio-group>
+
+                                <div
+                                  style="margin-top: 10px; margin-bottom: 20px"
+                                >
+                                  <mat-radio-group
+                                    formControlName="review"
+                                    class="row"
+                                  >
+                                    <mat-radio-button value="Ok"
+                                      >Ok</mat-radio-button
+                                    >
+                                    <mat-radio-button value="Not Ok"
+                                      >Not Ok</mat-radio-button
+                                    >
+                                  </mat-radio-group>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="button">
+                  <button
+                    (click)="getInspection()"
+                    class="grey-button"
+                    type="button"
+                    matStepperPrevious
+                  >
+                    Back
+                  </button>
+                  <button
+                    class="submit"
+                    type="button"
+                    matStepperNext
+                    (click)="draftInspection(inspectioForm.value)"
+                  >
+                    Next
+                  </button>
+                </div>
+              </mat-step>
+            </div>
+          </div>
+        </div>
+        <!-- </div> -->
+        <mat-step>
+          <ng-template matStepLabel>Preview</ng-template>
+          <div class="formData" #pdfTable>
+            <div class="margin-top"></div>
+            <hr />
+            <div class="header col">
+              <div style="align-self: self-end">
+                <h1 class="h2">Survey Summary</h1>
+              </div>
+              <div style="text-align: -webkit-right">
+                <button
+                  type="button"
+                  (click)="exportform()"
+                  class="grey-button"
+                >
+                  Export
+                </button>
+              </div>
+            </div>
+
+            <div
+              *ngFor="
+                let section of inspectionData.section;
+                let secIndex = index
+              "
+            >
+              <div class="margin-top"></div>
+
+              <div class="sectionNAme header col">
+                <div style="align-self: self-end">
+                  <h1 class="h1">{{ section.sectionname }}</h1>
+                </div>
+              </div>
+
+              <div class="margin-top"></div>
+
+              <div
+                *ngFor="
+                  let subsection of section.subsection;
+                  let subsecIndex = index
+                "
+              >
+                <h2>
+                  {{ subsecIndex + 1 }} <span>)</span>
+                  {{ subsection.subsectionname }}
+                </h2>
+                <div
+                  *ngFor="
+                    let questions of subsection.questions;
+                    let questionindex = index
+                  "
+                >
+                  <h3>
+                    {{ questionindex + 1 }} <span>)</span>
+                    {{ questions.question }}
+                    <span *ngIf="questions.mandatory == 0">*</span>
+                  </h3>
+
+                  <div *ngIf="questions.questiontype !== 2">
+                    <h3>Answer: {{ questions.response }}</h3>
+                  </div>
+
+                  <div *ngIf="questions.questiontype == 2">
+                    <mat-radio-group
+                      aria-labelledby="example-radio-group-label"
+                      class="example-radio-group"
+                      formControlName="response"
+                    >
+                      <mat-radio-button
+                        class="example-radio-button"
+                        *ngFor="
+                          let options of inspectionData.section[secIndex]
+                            .subsection[subsecIndex].questions[questionindex]
+                            .options
+                        "
+                        [checked]="options.key == questions.response"
+                        [value]="options.key"
+                        readonly
+                      >
+                        {{ options.value }}
+                      </mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="button">
+            <button
+              class="reject"
+              type="button"
+              (click)="reject(inspectioForm.value)"
+            >
+              REJECT
+            </button>
+            <button class="submit" type="submit">APPROVE</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </div>
+  </form>
+</div>

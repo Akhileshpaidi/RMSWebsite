@@ -1,0 +1,360 @@
+
+//bharath
+.example-button-container > button {
+  margin: 0 12px;
+  border-radius: 20px; /* Adjust the value to control the curve of the corners */
+}
+.custom-table {
+  width: 100%;
+}
+
+.mat-card-header {
+  display: flex;
+  flex-direction: column; /* Stack title and subtitle vertically */
+}
+
+.custom-table {
+  .mat-row {
+    height: 50px; /* Adjust the height as needed */
+  }
+  
+  .mat-cell, .mat-header-cell {
+    padding: 4px 8px; /* Adjust padding to make cells more compact */
+    font-style: bold;
+    color: #000000;
+    //text-align: center;
+    font-size: 15px;
+  }
+}
+
+
+.shadow-button {
+ //background-color: #76c8e9; /* Button background color */
+  //color: white; /* Text and icon color */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Add shadow */
+  transition: box-shadow 0.3s ease-in-out, background-color 0.3s ease-in-out; /* Smooth transition for shadow and background color */
+}
+
+.shadow-button:hover {
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+ // background-color: #062691; /* Darker background color on hover */
+}
+
+  
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  overflow: auto; /* Allow scrolling if content overflows */
+  padding: 2px; /* Padding inside each card-content */
+  box-sizing: border-box; /* Include padding in width and height */
+}
+
+.menu-item-card {
+  position: relative; /* For absolute positioning of the icon button */
+  padding: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  width: 1000px; /* Fixed width for each card */
+  height: auto; /* Adjust height to fit content */
+  margin: 1px; /* Space around each card */
+
+}  
+
+.flex-item {
+  flex: 1 1 calc(33.333% - 4px); /* Adjust width to fit three items per row */
+  box-sizing: border-box; /* Ensure padding is included in width */
+  padding: 0px; /* Adjust padding if necessary */
+}
+.compliance-list {
+  margin: 10px;
+  padding: 10px;
+  border: 2px solid #000000; /* Example border */
+  box-sizing: border-box;
+}
+
+
+.custom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 100px; /* Adds space between the elements */
+}
+
+.custom-text {
+  flex: 1;
+  white-space: nowrap; /* Prevents text from wrapping */
+  color:#020000;
+  font-size: 15px;
+}
+
+.custom-search {
+  flex: 0 0 200px; /* Fixes the search box width */
+  min-width: 300px; /* Ensures a minimum width */
+  border-radius: 20px;
+}
+
+.custom-select {
+  flex: 0 0 150px; /* Fixes the selection box width */
+  min-width: 300px; /* Ensures a minimum width */
+}
+
+@media (max-width: 768px) {
+  .custom-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .custom-text,
+  .custom-search,
+  .custom-select {
+    width: 100%;
+    margin-bottom: 10px; /* Adds spacing for smaller screens */
+  }
+}
+// .info-icon {
+//   cursor: pointer;
+//   color: #f44336; /* Red color for warning */
+//   margin-left: 8px;
+//   vertical-align: middle;
+// }
+
+
+
+
+/* Circular button with the icon occupying the full size */
+.corner-icon-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: transparent;
+  color: #08aed8;
+  border: none;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.corner-icon-button:hover {
+  background-color: rgba(209, 206, 247, 0.1); /* Light blue hover effect */
+}
+
+.blue-info-icon {
+  font-size: 26px; /* Large icon size */
+  color: #2494fd; /* Blue color */
+}
+.stage-badge {
+  margin: 0 auto;
+  display: inline-block; /* Keep the badge size small */
+  cursor: default; /* Optional: Make it non-clickable */
+  text-align: center;
+}
+
+.custom-padding {
+  padding: 20px; /* Adds 20px padding to all sides */
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px; /* Space between flex items */
+}
+
+/* styles.css or your component's CSS file */
+
+/* Custom styles for the tab group */
+.custom-tab-group {
+background-color: #f5f5f5; /* Background color for the tab group */
+border-radius: 4px; /* Optional: rounded corners for the tab group */
+margin-top: 20px; /* Margin on top of the tab group */
+}
+
+/* Custom styles for tab labels */
+.mat-tab-label {
+color: #333; /* Default color for tab labels */
+font-weight: normal; /* Default font weight */
+padding: 10px 20px; /* Padding around the tab labels */
+}
+
+/* Active tab label style */
+.mat-tab-label-active {
+color: rgb(127, 181, 251); /* Color for the active tab label */
+font-weight: bold; /* Bold font for the active tab label */
+border-bottom: 2px solid rgb(127, 181, 251); /* Underline for the active tab */
+}
+
+/* Tab header styles */
+.mat-tab-header {
+background-color: #ffffff; /* Background color for the tab header */
+border-bottom: 1px solid #e0e0e0; /* Border below the tab header */
+}
+
+/* Tab content styles */
+.mat-tab-body {
+padding: 20px; /* Padding inside the tab content */
+}
+
+/* Custom Tab Group Styles */
+.custom-tab-group {
+margin: 10px; /* Add margin around the tab group */
+padding: 10px; /* Add padding inside the tab group */
+}
+
+/* Custom Tab Styles */
+.custom-tab {
+padding: 10px; /* Add padding inside each tab */
+}
+
+/* Add spacing between elements within tabs */
+.tab-content {
+margin-top: 20px; /* Margin top for spacing between content */
+}
+
+/* Style for dx-select-box containers */
+.select-box-container {
+margin-bottom: 15px; /* Margin bottom for spacing between select boxes */
+}
+
+/* Style for buttons */
+.Custombutton {
+margin: 2px;
+}
+
+/* Style for the table */
+.custom-table {
+margin-top: 20px; /* Margin top for spacing above the table */
+}
+
+
+
+/* Style for search and select fields */
+.custom-search {
+margin-right: 10px; /* Margin right for spacing between search and select fields */
+}
+
+.custom-select {
+margin-left: 10px; /* Margin left for spacing between select fields */
+}
+
+/* Style for filter buttons */
+.example-button-container button {
+margin: 5px; /* Margin for spacing between filter buttons */
+}
+.highlight-button {
+box-shadow: 0 0 0 4px currentColor; /* Circular highlight around the button */
+border-radius: 50px; /* Rounded corners */
+}
+
+button.mat-raised-button {
+transition: box-shadow 0.3s ease;
+}
+
+
+// .due-container {
+// display: flex;
+// flex-direction: column;
+// justify-content: space-between;
+// }
+
+// .original-date {
+// margin-bottom: 4px; /* Small margin between original date and due date */
+// /* Optional: To highlight the original date */
+// }
+
+// .due-date {
+// font-size: 1em;     /* Regular size for the due date */
+// margin-bottom: 4px; /* Small margin between due date and remaining days */
+// font-weight: bold;  
+// }
+
+// .remaining-days {
+// margin-top: 4px; /* Small margin at the top of the remaining days */
+// font-size: 1em; /* Smaller text for remaining days */
+// //color: gray;      /* Optional: Lighter color for remaining days */
+// }
+
+.due-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.due-date {
+  font-size: 1.2em; /* Adjust the size for the date */
+  font-weight: bold; /* Only the date is bold */
+  margin-bottom: 2px;
+}
+
+.due-month {
+  font-size: 1em;
+  margin-bottom: 2px; /* Ensure it is on a new line and spaced properly */
+  text-transform: uppercase; /* Converts month to uppercase */
+}
+
+.due-year {
+  font-size: 1em;
+  margin-bottom: 4px;
+}
+
+.additional-text {
+  font-size: 0.9em;
+  color: gray;
+}
+
+
+
+
+/* Optional: Styles for specific button sizes */
+.Custombutton {
+font-size: 12px; /* Adjust button text size */
+padding: 4px 8px; /* Adjust button padding */
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adds spacing between elements */
+  height: 50px; /* Uniform height */
+}
+
+.department-container, .show-data-container, .Custombutton {
+  display: flex;
+  align-items: center;
+  height: 100%; /* Ensures all elements have the same height */
+}
+
+.department-container {
+  width: 50%;
+}
+
+.show-data-container {
+  width: 33%;
+}
+
+.Custombutton {
+  width: 17%;
+}
+
+dx-drop-down-box, dx-select-box, .Custombutton button {
+  width: 100%;
+  height: 100%;
+}
+
+.Custombutton button {
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+.Custombutton {
+  display: flex;
+  gap: 10px; /* Adds spacing between buttons */
+  height: 50px; /* Ensures consistent height */
+  align-items: center;
+}

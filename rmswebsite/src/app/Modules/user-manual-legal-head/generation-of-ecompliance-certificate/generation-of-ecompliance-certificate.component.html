@@ -1,0 +1,309 @@
+<h1>Generation of e-Compliances Certificate</h1>
+<div class="form-container">
+    <div class="content">
+         <!-- <div class="border-details">Details</div> -->
+        <h2 class="h2">Enter following details for generating compliance certificate:</h2>
+        <form [formGroup]="formdata">
+    
+            <div class="form-group">
+                <label for="typeofcompliancecertificate" class="label">1. Type of Compliance Certificate:</label>
+                <div class="space"></div>
+                <div class="radio-buttons">
+                  <input type="radio" value="Overview" formControlName="typeofcompliancecertificate" class="radio-button"> Overview
+                  <input type="radio" value="Detailed" formControlName="typeofcompliancecertificate" class="radio-button"> Detailed
+                </div>
+              </div>
+              
+         
+              <div class="box">
+    
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Select certificate date</mat-label>
+                    <input matInput  type="date" (input)="formatDate($event)" />
+                   
+                    
+                  </mat-form-field>
+     <mat-form-field appearance="outline" class="form-control">
+              <mat-label>Certificate to be addressed to</mat-label>
+              <input matInput  type="text" required />
+            </mat-form-field>
+              </div>
+            
+            
+       
+    
+        
+    
+        
+        
+    
+    <!-- <div class="boxNew">
+        <label for="Selectdate">2.Select Certificate Date(dd-mm-yyyy):</label>
+        <label for="name">     </label>
+        <input type="text" name="Selectdate" class="form-control" formControlName="Selectdate">
+    
+       
+    
+    </div> -->
+    <div class="box">
+        <div fxLayoutAlign="center center">
+            <mat-form-field appearance="outline" class="form-control">
+                <mat-label>Name of the Comapny</mat-label>
+                <input matInput type="text" class="custom-outline-input" required  />
+              </mat-form-field>
+           
+        </div>
+        
+        <div fxLayoutAlign="center center">
+          
+            <mat-form-field appearance="outline" class="form-control">
+              <mat-label>Address line 1</mat-label>
+              <input matInput type="text" required  />
+            </mat-form-field>
+          
+        </div>
+    </div>
+    <div class="box">
+        <div fxLayoutAlign="center center">
+            <mat-form-field appearance="outline" class="form-control">
+                <mat-label>Address line 2</mat-label>
+                <input matInput />
+              </mat-form-field>
+           
+        </div>
+        
+        <div fxLayoutAlign="center center">
+          
+            <mat-form-field appearance="outline" class="form-control">
+              <mat-label>Address line 3</mat-label>
+              <input matInput  />
+            </mat-form-field>
+          
+        </div>
+    </div>
+     <div class="box">
+                  <div>
+                    <dx-select-box 
+                    formControlName="DocTypeID"
+                    label="Select Company"
+                    labelMode="floating"
+                    valueExpr="docTypeID"
+                    displayExpr="docTypeName"
+                   
+                    selectionMode="single" 
+                    
+                   placeholder=""
+                     >
+                 
+              </dx-select-box>
+              </div>
+               
+               
+              <div>
+    
+                <dx-select-box 
+                 formControlName="Doc_CategoryID"   
+                label="Select Department"
+                labelMode="floating"
+                valueExpr="doc_CategoryID"
+                displayExpr="doc_CategoryName"
+                
+                selectionMode="single" 
+               placeholder=""
+               
+              
+                >
+             
+          </dx-select-box>
+    
+              
+            </div>
+              </div>
+    
+             
+        <br>
+            <div class="box">
+                <div>
+                  <dx-select-box 
+                  formControlName="DocTypeID"
+                  label="Select Stage of Compliance"
+                  labelMode="floating"
+                  valueExpr="docTypeID"
+                  displayExpr="docTypeName"
+                 
+                  selectionMode="single" 
+                  
+                 placeholder=""
+                   >
+               
+            </dx-select-box>
+            </div>
+             
+             
+            <div>
+    
+                <mat-form-field appearance="outline" class="form-field">
+                  <mat-label>Period of Compliance data   Form </mat-label>
+                  <input matInput formControlName="Eff_Date" type="date" required />
+                </mat-form-field>
+    
+            </div>
+          </div>
+            
+    
+    
+          <div class="box">
+            <div>
+    
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Period of Compliance data   TO </mat-label>
+                    <input matInput formControlName="Eff_Date" type="date" required />
+                  </mat-form-field>
+    
+              
+          </div>
+        
+          <div fxLayoutAlign="center center">
+            <div class="box">
+                <div>
+                    <dx-select-box 
+                    formControlName="DocTypeID"
+                    label="Select Risk Category"
+                    labelMode="floating"
+                    valueExpr="docTypeID"
+                    displayExpr="docTypeName"
+                   
+                    selectionMode="single" 
+                    
+                   placeholder=""
+                     >
+                 
+              </dx-select-box>
+              </div>
+          </div>
+        </div>
+        </div>
+        <div class="boxNew">
+            <label for="name">    </label>
+            <label for="name">     </label>
+            <button type="button" class="btn btn-primary"(click)="handleonsubmit()">Generate Certificate</button>
+        </div>
+
+    </form>
+    </div>
+    </div>
+<!-- <mat-form-field appearance="outline" class="form-control">
+    <mat-label>Address line 2 </mat-label>
+    <input
+      matInput
+      name="firstname"
+      required
+    />
+  </mat-form-field> 
+   -->
+<!-- <div class="boxNew">
+     <label for="EtrRecidetails">3.Enter Recipients Details:</label>
+    <label for="name">     </label>
+    <input type="text" name="EtrRecidetails" class="form-control" formControlName="EtrRecidetails">
+
+    </div> --> 
+
+
+<!-- <div class="boxNew">
+    <label for="CertificateAddress">a.Certificate to be addressed to </label>
+    <label for="name">     </label>
+    <input type="text" name="CertificateAddress" [class.is-invalid]="f['CertificateAddress'].invalid && f['CertificateAddress'].touched" class="form-control" formControlName="CertificateAddress" >
+    
+</div>
+
+
+<div class="boxNew">
+    <label for="nameofcompany">b.Name of the Company <span class="color:'red'"></span></label>
+    <label for="name">     </label>
+    <input type="text" name="nameofcompany" [class.is-invalid]="f['nameofcompany'].invalid && f['nameofcompany'].touched" class="form-control" formControlName="nameofcompany"></div>
+
+
+<div class="boxNew">
+    <label for="Addressline1">c.Address line 1:</label>
+    <label for="name">     </label>
+    <input type="text" name="Addressline1" [class.is-invalid]="f['Addressline1'].invalid && f['Addressline1'].touched" class="form-control" formControlName="Addressline1">
+
+</div>
+<div class="boxNew">
+    <label for="Addressline2">d.Address line 2: <span class="color:red"></span></label>
+    <label for="name">     </label>
+    <input type="text" name="Addressline2" class="form-control" formControlName="Addressline2">
+</div>
+
+
+<div class="boxNew">
+    <label for="Addressline3">e.Address line 3: <span class="color:red"></span></label>
+    <label for="name">     </label>
+    <input type="text" name="Addressline3" class="form-control" formControlName="Addressline3">
+</div>
+
+
+<div class="boxNew">
+    <label for="Selectcompany">Select Company: <span class="color:red"></span></label>
+    <label for="name">     </label>
+    <select id="Selectcompany" class="form-control" formControlName="Selectcompany">
+        <option value="" disabled>Select a company</option>
+        <option value="usa">Neemus</option>
+        <option value="canada">wipro</option>
+        <option value="uk">HCL</option>
+      </select>
+</div>
+<div class="boxNew">
+    <label for="selectdept">Select Department: <span class="color:red"></span></label>
+    <label for="selectdept">     </label>
+    <select id="selectdept" class="form-control" formControlName="selectdept">
+        <option value="" disabled>Select a Department</option>
+        <option value="usa">IT</option>
+        <option value="canada">HR</option>
+        <option value="uk">Finance</option>
+      </select>
+
+</div>
+<div class="boxNew">
+    <label for="stageofcompliance">Select Stage of Compliance: <span class="color:red"></span></label>
+    <label for="name">     </label>
+    <select id="stageofcompliance" class="form-control" formControlName="stageofcompliance">
+        <option value="" disabled>All</option>
+        <option value="usa"></option>
+        <option value="canada"></option>
+        <option value="uk"></option>
+      </select>
+
+</div>
+<div class="boxNew">
+<label for="fromdate">Select period for compliance data: <span class="color:red"></span></label>
+<label for="name1">     </label>
+<div class="formdat1">
+    <label for="fromdate">from</label>
+    <input type="text" name="fromdate"  class="form-control" formControlName="fromdate">
+    <label for="todate">To</label>
+    <input type="text" name="todate"  class="form-control" formControlName="todate">
+</div>
+
+
+    
+
+</div>
+<div class="boxNew">
+    <label for="riskcategory">Select period for compliance data: <span class="color:red"></span></label>
+    <label for="name">     </label>
+    <select id="riskcategory" class="form-control" formControlName="riskcategory">
+        <option value="" disabled>All</option>
+        <option value="usa"></option>
+        <option value="canada"></option>
+        <option value="uk"></option>
+      </select>
+</div> -->
+    
+   
+
+
+
+
+
+    

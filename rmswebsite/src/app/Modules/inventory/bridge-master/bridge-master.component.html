@@ -1,0 +1,930 @@
+
+<div class="form">
+
+<div class="body">
+  <div class="header col">
+    <div style="align-self: self-end">
+      <div class="header">
+      <h1>Saved Draft</h1>
+    </div>
+    </div>
+  </div>
+</div>
+<div class="wrapper">
+<div class="boxNew ">
+
+<label> Select Saved Draft</label>
+   <dx-drop-down-box style="width: 700px;"
+    [dropDownOptions]="{width: '1300px'}"
+    [(value)]="selectedValue"
+    [(opened)]="isGridBoxOpened"
+      valueExpr="addDoc_id"
+      [deferRendering]="false"
+      [displayExpr]="gridList"
+      placeholder="Select Saved Draft"
+      [inputAttr]="{ 'aria-label': 'Owner' }"
+      [showClearButton]="true"
+      [dataSource]="gridDataSource"
+      (onValueChanged)="getUpdateFormData($event)"
+    >
+      <div *dxTemplate="let data of 'content'">
+        <dx-data-grid
+        [wordWrapEnabled]="true"
+        [columnAutoWidth]="true"
+        [columnHidingEnabled]="false"
+        [showBorders]="true"
+          [dataSource]="gridDataSource"
+          [columns]="gridColumns"
+          [hoverStateEnabled]="true"
+          [(selectedRowKeys)]="selectedValue"
+      height="100%"
+      width="100%"
+>
+      <!-- <div *dxTemplate="let item of 'item'">
+        <span title="item[gridBox_displayExpr]">{{item[gridBox_displayExpr]}}</span>
+      </div> -->
+        
+      <dxo-selection mode="single"></dxo-selection>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-scrolling mode="virtual"></dxo-scrolling>
+      <!-- <dxo-header-filter [visible]="true" [allowSearch]="true">
+        <dxo-search [enabled]="true"></dxo-search>
+      </dxo-header-filter> -->
+      <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+      <dxo-pager
+      [visible]="true"
+      [allowedPageSizes]="[5, 10,20, 'all']"
+     
+      [showPageSizeSelector]="true"
+     
+      [showInfo]="true"
+      infoText="Page {0} of  {1} ({2} items)"
+      [showNavigationButtons]="true"
+    >
+    </dxo-pager>
+
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+      <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+      <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+        </dx-data-grid>
+      </div>
+    </dx-drop-down-box>
+  
+</div>
+</div>
+
+
+<br>
+
+<form  > 
+
+<mat-horizontal-stepper labelPosition="bottom" class="wrapper" *ngIf="visibleStepper">
+      
+ 
+  <mat-step label="Document Nomenclature" state="phone" >
+    <form [formGroup]="form1" >
+
+      <div class="box">
+        <div fxLayoutAlign="center center">
+          <div class="box">
+           
+            <dx-select-box 
+            valueExpr="docTypeID"
+            displayExpr="docTypeName"
+            label="Document Type"
+            [dataSource]="DocTypeArray"  
+            (onValueChanged)="getDocTypes($event)"
+           formControlName="documenttype">
+             >    </dx-select-box>
+          </div>
+        </div>
+
+
+      
+          <div fxLayoutAlign="center center">
+            <div class="box">
+            <dx-select-box 
+
+              valueExpr="doc_CategoryID"
+             displayExpr="doc_CategoryName"
+             label="Document Category"
+              [dataSource]="DocumentCategoryData"  
+              (onValueChanged)="getsubDocTypes($event)"
+             formControlName="docCategory"
+             [(value)]="SelectedCategory"
+              >
+           
+          </dx-select-box>
+      </div>
+          
+          </div>
+</div>
+<br>
+          <div class="box">
+            <div fxLayoutAlign="center center">
+              <div class="box">
+                               <dx-select-box 
+                valueExpr="doc_SubCategoryID"
+              displayExpr="doc_SubCategoryName"
+              label="Document Sub Category"
+              [dataSource]="DocumentSubCategoryData"  
+              [(value)]="SelectedSubCategory"
+              formControlName="docsubCat">
+              
+               ></dx-select-box>
+             
+              </div>
+            </div>
+
+      <div class="box">
+        <div fxLayoutAlign="center center">
+            <mat-form-field appearance="fill" class="form-field">
+           <mat-label>Title of Document </mat-label>
+           <input matInput #titleinput minlength="5" maxlength="100"   formControlName="doctitle" class="readonly-input" readonly />
+           <mat-hint align="start" >No change allowed</mat-hint>
+           <mat-hint align="end">{{titleinput.value.length}}/100</mat-hint>
+           <!-- <div *ngIf="myForm.get('Title_Doc').hasError('required') && myForm.get('Title_Doc').touched">
+            title of Document is required.
+          </div> -->
+        </mat-form-field>
+      </div>
+    </div>
+    </div>
+
+    <br>
+  <div class="box">
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Sub Title of Document </mat-label>
+          <textarea matInput #subtitleinput minlength="5" maxlength="100" formControlName="subtitle"
+          (input)="onInput()"  ></textarea>
+          <mat-hint align="start">Min 5 - Max 100 Characters</mat-hint>
+         <mat-hint align="end">{{subtitleinput.value.length}}/100</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+ 
+      <div class="box">
+        <div fxLayoutAlign="center center">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Objective of Document </mat-label>
+          <textarea matInput  #Obj_Doc minlength="5" maxlength="1500"  formControlName="objective" 
+          (input)="onInput()"></textarea>
+        <mat-hint align="start">Min 5 - Max 1500 Characters</mat-hint>
+              <mat-hint align="end">{{Obj_Doc.value.length}}/1500</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="button">
+    <button class="Custombutton" matStepperNext type="button" (click)="stepperNav1()">Next</button>
+ </div>
+    </form>
+</mat-step>
+
+<mat-step label="Uploaded Main And Supported Files" state="phone" >
+
+  <ng-template matStepLabel>Upload Main, Supported Files</ng-template>
+  <div >
+    <!-- <table mat-table [dataSource]="files" >
+
+     
+      <ng-container matColumnDef="fileCategory">
+        <th mat-header-cell *matHeaderCellDef> File Category </th>
+        <td mat-cell *matCellDef="let filecat"> {{ filecat.fileCategory }} </td>
+      </ng-container>
+
+      
+      <ng-container matColumnDef="documentName">
+        <th mat-header-cell *matHeaderCellDef> Document Name </th>
+        <td mat-cell *matCellDef="let filecat"> {{ filecat.document_Name }} </td>
+      </ng-container>
+
+    
+
+      <tr mat-header-row *matHeaderRowDef="['fileCategory', 'documentName']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['fileCategory', 'documentName']"></tr>
+    </table> -->
+
+  </div>
+  <br>
+  <br>  
+  <div class="container">
+    <div class="row">
+                     <div class="col-md-6">
+        <div class="file-section">
+          <h5>Main Document Upload <span class="required-asterisk">*</span></h5>
+          <input type="file" [accept]="FileTypes" 
+          (change)="onMainFileSelected($event)" #mainFileInput required>
+          <div class="note">
+          <span class="note"
+          >Allowed 1 file(max <span>{{ maxSize }}</span>MB) <span>{{ FileTypes }}</span></span>
+        
+          <div *ngIf="mainErrorMessage" class="error-message">{{ mainErrorMessage }}</div>
+        </div>
+</div>
+        <div class="file-section">
+          <h5>Supported Files</h5>
+          <input type="file" [accept]="allowedFileTypes" (change)="onFileSelected($event)" #supportFilesInput multiple [disabled]="!isMainFileUploaded">
+          <div class="note">
+            <label for="supportFilesInput">Selected Documents: {{ selectedFiles.length }}</label>
+            <div *ngFor="let file of selectedFiles">
+              <div>{{ file.name }}</div>
+            </div><br>
+          <span class="note"
+          >Allowed Maximum <span>{{ maxDocuments }}</span> files(max <span>{{ maxSizeInMB }}</span>MB) <span>{{ allowedFileTypes }}</span></span>
+        
+          <div *ngIf="errorMessages?.length > 0">
+            <div *ngFor="let message of errorMessages" style="color: red;">{{ message }}</div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column for File Names and Actions -->
+      <div class="col-md-6">
+        <div *ngIf="mainFile" class="file-display">
+          <h6>Main Document</h6>
+          <div class="file-details">
+            <span>{{ mainFile.name }}</span>
+            <button mat-mini-fab color="warn" (click)="removeMainFile()">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+        
+        <div *ngIf="selectedFiles.length > 0" class="files-display">
+          <h6>Supported Files</h6>
+          <div *ngFor="let file of selectedFiles; let i = index" class="file-display">
+            <span>{{ file.name }}</span>
+            <button mat-mini-fab color="warn" (click)="removeFile(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="button">
+    <button class="grey-button" matStepperPrevious type="button">Back</button>
+  <button class="Custombutton"  (click)="MainDocSaveDraft()">Save Draft</button>
+    <button class="Custombutton"  (click)="SecondStepperDiscard()">Discard</button>
+  
+   <button class="Custombutton" matStepperNext type="button" (click)="stepperNav4()">Next</button>
+   
+  </div>
+<!-- 
+  <div class="table-container">
+    <table mat-table [dataSource]="files" class="mat-elevation-z8">
+
+     
+      <ng-container matColumnDef="fileCategory">
+        <th mat-header-cell *matHeaderCellDef> File Category </th>
+        <td mat-cell *matCellDef="let filecat"> {{ filecat.fileCategory }} </td>
+      </ng-container>
+
+    
+      <ng-container matColumnDef="documentName">
+        <th mat-header-cell *matHeaderCellDef> Document Name </th>
+        <td mat-cell *matCellDef="let filecat"> {{ filecat.document_Name }} </td>
+      </ng-container>
+
+    
+
+      <tr mat-header-row *matHeaderRowDef="['fileCategory', 'documentName']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['fileCategory', 'documentName']"></tr>
+    </table>
+  </div> -->
+  <!-- <div class="button">
+    <button class="grey-button" matStepperPrevious>Back</button>
+    <button class="Custombutton"  matStepperNext>Next</button>
+ </div> -->
+</mat-step>
+
+<mat-step label="Add Document Attributes" state="phone" >
+  <form [formGroup]="form2" >
+ 
+    <div class="box">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Select Document Confidentiality</mat-label>
+  
+        
+          <mat-select
+          formControlName="docConfidentiality"
+          (selectionChange)="selectDocConfidentiality($event)" 
+          disableOptionCentering  >
+       <mat-option *ngFor="let element of project1" [value]="element.name">{{
+          element.name
+        }}</mat-option>
+      </mat-select>
+    
+
+      </mat-form-field>
+   
+   
+ <div fxLayoutAlign="center center" *ngIf="phoneno">
+  <div class="box">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Choose OTP Delivery Method</mat-label>
+      <mat-select 
+      
+      matInput  
+       disableOptionCentering 
+        formControlName="OtpMethod" >
+          <mat-option value="mobile" disabled>OTP on Mobile</mat-option>
+          <mat-option value="email" >OTP on Email</mat-option>
+          <mat-option value="both" disabled>OTP on both Mobile and Email</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+  </div>
+   
+  
+  <div class="box">
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <!-- <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Effective Date</mat-label>
+          <input matInput formControlName="effDate" type="date" required />
+        </mat-form-field> -->
+        <dx-date-box
+        formControlName="effDate"
+        placeholder=""
+        label="Effective Date"
+        labelMode="floating"
+        [showClearButton]="true"
+        [useMaskBehavior]="true"
+        displayFormat="dd/MMM/yyyy"
+        type="date"
+       
+      
+        
+      >
+      </dx-date-box>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <!-- <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Date of initial creation of Document</mat-label>
+          <input matInput formControlName="initialCreationDate" type="date" required />
+        </mat-form-field> -->
+        <!-- <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Date of initial creation of Document</mat-label>
+          <input matInput formControlName="initialCreationDate" type="date" required />
+        </mat-form-field> -->
+        <dx-date-box 
+           formControlName="initialCreationDate"
+          label="Date of Initial Creation Of Document"
+          labelMode="floating"
+          [showClearButton]="true"
+          [useMaskBehavior]="true"
+          displayFormat="dd/MMM/yyyy"
+          type="date"  
+          
+          [max]="form2?.get('effDate')?.value" > </dx-date-box>
+        
+      </div>
+    </div>
+  </div>
+  <br/>
+  <div class="box">
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Document Internal Number</mat-label>
+          <input matInput formControlName="docIntNum"  />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Document Internal Version Number</mat-label>
+          <input matInput formControlName="docIntVerNum"  />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div fxLayoutAlign="center center">
+    
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Document Physical Vault Location</mat-label>
+          <input matInput formControlName="docPhyValLoc" />
+        </mat-form-field>
+      </div>
+    
+  
+      <div class="box">
+    <mat-form-field appearance="fill" class="form-field" >
+      <mat-label>Select Type</mat-label>
+      
+    
+      
+        <mat-select
+       
+        [(value)]="selectedprocessownerType"
+        (selectionChange)="selectProcessOwner($event)" 
+        disableOptionCentering  
+        >
+     <mat-option *ngFor="let type of processowner" [value]="type.id" >{{
+        type.name
+      }}</mat-option>
+    </mat-select>
+  
+
+    </mat-form-field>
+    <div fxLayoutAlign="center center" *ngIf="TextBox">
+      <div class="box">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Document Process Owner</mat-label>
+          <input matInput   (change)="OnTextboxChange($event)" formControlName="docProcOwner" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div  fxLayoutAlign="center center" *ngIf="DropdownBox">
+      <div class="box" >
+
+
+        <div class="dx-field-value" > 
+          <dx-drop-down-box 
+          [dropDownOptions]="{width: '555px'}"
+           label="Select Document Process Owner"
+           
+          labelMode="floating"
+          [deferRendering]="false"
+          [displayExpr]="gridBox_displayExpr"
+           [(value)]="gridBoxValue"
+           [(opened)]="isUserBoxOpened" 
+          
+           valueExpr="usR_ID"
+    (onOptionChanged)="onGridBoxOptionChanged($event)"
+     
+           [inputAttr]="{ 'aria-label': 'Owner' }"
+           [showClearButton]="true"
+           [dataSource]="Userinfo"
+         
+         >
+           <div *dxTemplate="let data of 'content'" >
+             <dx-data-grid
+
+             [dataSource]="Userinfo"
+             [columns]="usergridColumns"
+             [hoverStateEnabled]="false"
+             [(selectedRowKeys)]="gridBoxValue"
+             height="100%"
+             (onSelectionChanged)="onSelectionProcessOwnerChanged($event)"
+           >
+             <dxo-selection mode="multiple"></dxo-selection>
+             <dxo-filter-row [visible]="true"></dxo-filter-row>
+             <dxo-scrolling mode="virtual"></dxo-scrolling>
+             <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+
+
+
+             </dx-data-grid>
+           </div>
+         </dx-drop-down-box>
+     </div>
+     
+
+        <!-- <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Select Document Process Owner</mat-label>
+          <mat-select
+          formControlName="Doc_process_Owner"
+          (selectionChange)="selectInspection($event)"
+        >
+          
+        </mat-select>
+        </mat-form-field> -->
+      </div>
+    </div>
+</div>
+
+
+   </div>
+<div Class="box">
+   <div class="box">
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Select Type</mat-label>
+
+        <mat-select
+       
+         [(value)] ="selecteddocapproverType"
+        (selectionChange)="selectdocApprover($event)" 
+        disableOptionCentering  >
+     <mat-option *ngFor="let type of docapprover" [value]="type.id">{{
+        type.name
+      }}</mat-option>
+    </mat-select>
+
+    </mat-form-field>
+    <div fxLayoutAlign="center center" *ngIf="TextBox2">
+      <div class="box">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Search Document Approver</mat-label>
+          <input matInput  (change)="OnDocApproverChange($event)" formControlName="docApprover" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="DropdownBox2">
+      <div class="box">
+
+
+
+            <div class="dx-field-value">
+              <dx-drop-down-box
+
+              [dropDownOptions]="{width: '555px'}"
+              label="Select Document Approver"
+              labelMode="floating"
+              [deferRendering]="false"
+              [displayExpr]="docApprover_displayExpr"
+               [(value)]="gridBoxValue1"
+               [(opened)]="isUserBoxOpened1" 
+               valueExpr="usR_ID"
+        (onOptionChanged)="onGridBoxOptionChanged1($event)"
+     
+               [inputAttr]="{ 'aria-label': 'Owner' }"
+               [showClearButton]="true"
+               [dataSource]="Userinfo"
+              
+             >
+               <div *dxTemplate="let data of 'content'">
+                 <dx-data-grid
+                 [dataSource]="Userinfo"
+                   [columns]="usergridColumns"
+                   [hoverStateEnabled]="true"
+                   [(selectedRowKeys)]="gridBoxValue1"
+                   height="100%"
+                   (onSelectionChanged)="onSelectionDocumentApprover($event)"
+                 >
+                   <dxo-selection mode="multiple"></dxo-selection>
+                   <dxo-filter-row [visible]="true"></dxo-filter-row>
+                   <dxo-scrolling mode="virtual"></dxo-scrolling>
+                   <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                 </dx-data-grid>
+               </div>
+             </dx-drop-down-box>
+         </div>
+
+
+        <!-- <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Select Document Approver</mat-label>
+          <mat-select
+          formControlName="Doc_Approver"
+          (selectionChange)="selectInspection($event)"
+        >
+          
+        </mat-select>
+        </mat-form-field> -->
+      </div>
+    </div>
+</div>
+
+<div fxLayoutAlign="center center">
+  <div class="box">
+    <!-- <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Date of Document Approval</mat-label>
+      <input matInput formControlName="dateOfDocApprovel"  type="date" required />
+    </mat-form-field> -->
+    <dx-date-box
+    formControlName="dateOfDocApprovel"
+    placeholder=""
+    label="Date of Document Approval"
+    labelMode="floating"
+    [showClearButton]="true"
+    [useMaskBehavior]="true"
+    displayFormat="dd/MMM/yyyy"
+    type="date"
+    [max]="form2.get('effDate')?.value"
+    
+  >
+  </dx-date-box>
+  </div>
+</div>
+</div>
+
+<div class="box">
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <!-- <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Date of Document Last Revision</mat-label>
+        <input matInput formControlName="docLastRevDate" type="date" />
+      </mat-form-field> -->
+      <dx-date-box
+      formControlName="docLastRevDate"
+      placeholder=""
+      label="Date of Document Last Revision"
+      labelMode="floating"
+      [showClearButton]="true"
+      [useMaskBehavior]="true"
+      displayFormat="dd/MMM/yyyy"
+      type="date"
+      [max]="form2?.get('effDate')?.value"
+      
+    >
+    </dx-date-box>
+    </div>
+  </div>
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <!-- <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Publishing Authority Type </mat-label>
+        <mat-select   (valueChange)="getAuthorityNamebyId($event)" formControlName="pubAutType" > 
+          <mat-option *ngFor=" let AuthType of AuthorityTypeArray" [value]="AuthType.authorityTypeID">{{AuthType.authorityTypeName}}</mat-option>
+        </mat-select>
+      </mat-form-field> -->
+      <dx-select-box 
+      formControlName="pubAutType"
+      label="Publishing Authority Type *"
+      labelMode="floating"
+      valueExpr="authorityTypeID"
+      displayExpr="authorityTypeName"
+      [dataSource]="AuthorityTypeArray"
+      selectionMode="single" 
+     placeholder=""
+     (onValueChanged)="getauthorityname($event)"
+      >
+   
+</dx-select-box>
+
+
+    </div>
+  </div>
+  </div>
+  <br>
+  
+  <div class="box">
+    <div fxLayoutAlign="center center">
+      <div class="box">
+
+        <dx-select-box 
+          formControlName="NameOfAuth"
+          label="Name of Authority *"
+          labelMode="floating"
+          valueExpr="authoritynameID"
+          displayExpr="authorityName"
+          [dataSource]="AuthorityNameData"
+          selectionMode="single" 
+         placeholder=""
+         [(value)]="SelectedAuthType"
+
+        >
+       
+    </dx-select-box>
+        <!-- <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Name of Authority </mat-label>
+          <mat-select formControlName="NameOfAuth" > 
+            <mat-option *ngFor="let AuthName of AuthorityName" [value]="AuthName.authoritynameID" >{{AuthName.authorityName}}</mat-option>
+          </mat-select>
+        </mat-form-field> -->
+      </div>
+    </div>
+
+
+  
+      <div fxLayoutAlign="center center">
+        <div class="box">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Document Classification</mat-label>
+            <mat-select  formControlName="NatureOfDoc" >
+              <mat-option *ngFor="let natureofdocument of NatureOfDocument" [value]="natureofdocument.natureOf_Doc_id">{{natureofdocument.natureOf_Doc_Name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+</div>
+<div class="box">
+  <div fxLayoutAlign="center center">
+<div class="box">
+<mat-form-field appearance="fill" class="form-field">
+<mat-label>Keywords/tags</mat-label>
+<mat-chip-list #chipList aria-label="Fruit selection">
+  <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
+    {{tag.name}}
+    <button matChipRemove>
+      <mat-icon>cancel</mat-icon>
+    </button>
+  </mat-chip>
+
+<input #chipListInput
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)"   
+      >
+</mat-chip-list>
+</mat-form-field>
+</div>
+</div>
+<div></div>
+</div>
+<div class="button">
+  <button class="grey-button" matStepperPrevious type="button">Back</button>
+          <button class="Custombutton"  (click)="AttributesSaveDraft()" >Save Draft</button>
+              <button class="Custombutton"  (click)="SecondStepperDiscard()" >Discard</button> 
+          <button class="Custombutton" matStepperNext type="button"  (click)="stepperNav2()">Next</button>
+   </div>
+</form>
+</mat-step>
+ 
+
+<mat-step label="Document Add-ON" >
+  <br>
+  <br>
+  <form [formGroup]="form3" >
+  <div class="box" style="display: flex; justify-content: space-between;">
+  
+      
+        <div style="flex: 1; margin-right: 20px;">
+      <label>
+        Document review frequency  
+<input type="checkbox"  (change)="onCheckboxChange($event)" [(ngModel)]="isPanelVisible"> 
+      </label>
+
+    <br>
+    <br>
+     
+      <div *ngIf="isPanelVisible">
+                      <div class="box">
+  
+
+                         <div fxLayoutAlign="center center" *ngIf="TextBox1">
+                          <div class="box"  >
+                           
+                             
+                                <dx-number-box 
+                                formControlName="freq_period"
+                                [value]="1"
+                                [min]="1"
+                                [max]="999"
+                                [showSpinButtons]="true"
+                                  [showClearButton]="true"
+                                  label="Enter Here"
+                                  labelMode="floating"
+                              >
+                              </dx-number-box>
+                               
+                              
+                            
+                          </div>
+                        </div>
+                        <div  fxLayoutAlign="center center" style="margin-top: 20px;">
+                          <div class="box">
+<mat-form-field appearance="fill" class="form-field">
+  <mat-label>Select Frequency period</mat-label>
+
+    <mat-select
+    formControlName="freq_period_type"
+   
+    disableOptionCentering  >
+ <mat-option *ngFor="let element of project4" [value]="element.name">{{
+    element.name
+  }}</mat-option>
+</mat-select>
+
+</mat-form-field>
+                          </div>
+                        </div>
+
+<div fxLayoutAlign="center center">
+  <div class="box">
+    <dx-date-box
+    formControlName="review_start_Date"
+    labelMode="floating"
+    label="Start Date for next Review"
+    [showClearButton]="true"
+    [useMaskBehavior]="true"
+    displayFormat="dd/MMM/yyyy"
+    type="date"
+    [min]="minDate"  
+  >
+  </dx-date-box>
+
+  </div>
+</div>
+
+        </div>
+      </div>
+     
+        </div>
+      </div>
+        <div class="box">
+      <div style="flex: 1; margin-left: 20px;">
+      <label>
+        Document Linking  
+        <input  type="checkbox"  (change)="ondoclinkChange($event)" [(ngModel)]="isdoclinkpanelVisible"> 
+      </label>
+     <br>
+     <br>
+   
+      <div *ngIf="isdoclinkpanelVisible"  style="height: 25%;">
+      
+       
+            <dx-drop-down-box 
+            formControlName="pubdoc" 
+           [(value)]="SelectedOption"
+              [inputAttr]="{ 'aria-label': 'Owner' }"
+              valueExpr="addDoc_id"
+            [displayExpr]="gridBox_displayExpr1"
+              [deferRendering]="false"
+             placeholder="Select published
+              documents"
+              [showClearButton]="true"
+              style="height: 155%;"   
+              [dataSource]="publDoc"                
+            >
+            <div *dxTemplate="let data of 'content'">
+              <dx-data-grid
+              [dataSource]="publDoc"
+                [columns]="publiDocColumns"
+                [hoverStateEnabled]="true"
+               
+                [(selectedRowKeys)]="SelectedOption"
+                height="100%"
+              >
+              
+                <dxo-selection mode="multiple"></dxo-selection>
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-scrolling mode="virtual"></dxo-scrolling>
+                <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+              </dx-data-grid>
+            </div>
+          </dx-drop-down-box>
+            </div>
+    
+  </div>
+</div>
+ 
+<div class="box">
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Publisher comments </mat-label>
+        <textarea  matInput  #comments maxlength="1500" formControlName="publishercomments"   class="scrollable-textarea"  ></textarea>
+        <mat-hint align="start" >Max 1500 Characters</mat-hint>
+        <mat-hint align="end">{{comments.value.length}}/1500</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+
+  </div>
+  <div class="box">
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Indicative reading time </mat-label>
+        <input matInput #indicative_reading_time min="0" max="999"   type="number"  formControlName="indicativereadingtime"   />
+        <mat-hint align="start" >Max 999 values</mat-hint>
+        <mat-hint align="end">{{indicative_reading_time.value.length}}/999</mat-hint>
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayoutAlign="center center">
+   
+    <div class="box">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Time period </mat-label>
+        <mat-select
+      formControlName="timeperiod"
+      (selectionChange)="changeTimePeriod($event)"
+      disableOptionCentering>
+      <mat-option *ngFor="let period of tmperiod" [value]="period.name">{{
+        period.name
+      }}</mat-option>
+    </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<div class="button">
+
+   
+  <button class="grey-button" type="button" matStepperPrevious>Back</button>
+ 
+  <button class="Custombutton" matSteppersave type="submit" (click)="SubmitUpdateForm()" >Publish Document </button>
+  
+</div>
+ </form>
+</mat-step>
+
+
+<ng-template matStepperIcon="phone">
+  <mat-icon>call_end</mat-icon>
+</ng-template>
+<ng-template matStepperIcon="chat">
+  <mat-icon>forum</mat-icon>
+</ng-template> 
+
+
+
+</mat-horizontal-stepper>
+</form> 
+
+</div> 

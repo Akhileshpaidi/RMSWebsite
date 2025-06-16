@@ -1,0 +1,261 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+        <h1>Compliance Department Mapping</h1>
+      </div>
+    </div>
+
+    <div class="radio-buttons">
+      <label>Select Type:</label>
+      
+      <label class="radio-option">
+        <input type="radio" name="selectionType" (change)="setSelectionType('Departmentlocation')" value="Departmentlocation">
+        <span>Department-Location(s)</span>
+      </label>
+      
+      <label class="radio-option">
+        <input type="radio" name="selectionType" (change)="setSelectionType('locationDepartmentg')" value="locationDepartmentg">
+        <span>Location-Department(s)</span>
+      </label>
+    </div>
+    
+
+   <div><br></div>
+
+<form [formGroup]="Departmentlocation" *ngIf="selectionType === 'Departmentlocation'  && isInternalSelection()"  (ngSubmit)="createUser(Departmentlocation.value)" >
+<br>
+<div class="box">
+   <div>
+     <dx-select-box 
+     formControlName="department"
+     label="Select Department Type"
+     labelMode="floating"
+     valueExpr="department_Master_id"
+     displayExpr="department_Master_name"
+     [searchEnabled]="true"
+     [dataSource]="Department"  
+     
+     selectionMode="single" 
+       >    </dx-select-box>
+    
+     </div>
+
+</div>
+<br>
+<h3>
+<label>  Map to:</label></h3>
+ <div class="box">
+  <div>
+ 
+
+
+   <dx-select-box 
+   formControlName="entity"
+   label="Select Entity"
+labelMode="floating"
+valueExpr="entity_Master_id"
+displayExpr="entity_Master_Name"
+[dataSource]="Entity"  
+[searchEnabled]="true"
+(onValueChanged)="getunitlocation($event)"
+selectionMode="single" 
+placeholder=""
+   > </dx-select-box>
+
+ 
+</div>
+
+
+ <div >
+
+   <dx-drop-down-box 
+   formControlName="location"
+   [(value)]="selectedOption"         
+   [inputAttr]="{ 'aria-label': 'Owner' }"
+   placeholder="Select  unit  location*"
+   label="Select  unit  location*"
+   [showClearButton]="true"
+   labelMode="floating"
+   valueExpr="unit_location_Master_id"
+   displayExpr="unit_location_Master_name"
+   [dataSource]="location"
+   height="40px" >   
+  <div *dxTemplate="let data of 'content'">
+   <dx-data-grid    
+   [dataSource]="location"
+   [columns]="gridColumns"
+     [selection]="{ mode: 'multiple' }"
+     [hoverStateEnabled]="true"
+     [(selectedRowKeys)]="selectedOption"
+     [filterRow]="{ visible: true }"
+     [scrolling]="{ mode: 'virtual' }"
+     [showColumnHeaders]="false"
+     height="100%"
+   >
+   </dx-data-grid>
+ </div> 
+</dx-drop-down-box>
+
+ </div>
+
+ </div>
+ <div class="margin-top"></div>
+ <div class="button">
+  <button class="grey-button"  (click)="Cancel()" >Cancel</button>
+   <button class="Custombutton"  >Submit</button>
+ </div>
+</form>
+
+<form [formGroup]="locationDepartment"  *ngIf="selectionType === 'locationDepartmentg'  && isExternalSelection()" (ngSubmit)="createexternal(locationDepartment.value)" >
+<br>
+<div class="box">
+   <div>
+     <dx-select-box 
+     formControlName="entitylocation"
+     label="Select Entity"
+     labelMode="floating"
+     valueExpr="entity_Master_id"
+     displayExpr="entity_Master_Name"
+     [searchEnabled]="true"
+     [dataSource]="entitylocation"  
+     (onValueChanged)="getunitlocation1($event)"
+     selectionMode="single" 
+       >    </dx-select-box>
+    
+     </div>
+  
+  
+ <div>
+
+   <dx-select-box 
+   formControlName="unitlocation"
+   label="Select unit location"
+labelMode="floating"
+valueExpr="unit_location_Master_id"
+displayExpr="unit_location_Master_name"
+[dataSource]="unitlocation"  
+[searchEnabled]="true"
+selectionMode="single" 
+placeholder=""
+   > </dx-select-box>   
+</div>
+ </div>
+ <br>
+
+ <h3>
+  <label>  Map to:</label></h3>
+ <div class="box">
+
+   <dx-drop-down-box 
+   formControlName="departmentlocation"
+   [(value)]="selectedOption1"         
+   [inputAttr]="{ 'aria-label': 'Owner' }"
+   placeholder="Select  Department*"
+   label="Select  Department*"
+   [showClearButton]="true"
+   labelMode="floating"
+   valueExpr="department_Master_id"
+   displayExpr="department_Master_name"
+   [dataSource]="departmentlocation"
+   height="40px" >   
+  <div *dxTemplate="let data of 'content'">
+   <dx-data-grid    
+   [dataSource]="departmentlocation"
+     
+     [selection]="{ mode: 'multiple' }"
+     [hoverStateEnabled]="true"
+     [columns]="gridColumns1"
+     [(selectedRowKeys)]="selectedOption1"
+     [filterRow]="{ visible: true }"
+     [scrolling]="{ mode: 'virtual' }"
+     [showColumnHeaders]="false"
+     height="100%"
+   >
+   </dx-data-grid>
+ </div> 
+</dx-drop-down-box>
+ </div>
+ 
+ <div class="margin-top"></div>
+ <div class="button">
+  <button class="grey-button"  (click)="Cancel()" >Cancel</button>
+   <button class="Custombutton"  >Submit</button>
+ </div>
+
+
+
+</form>
+<br>
+<br>
+<br>
+
+<h2><label>View Compliance Department Mapping </label></h2>
+<div class="card-body1">
+  <div id="app-container">
+      <dx-data-grid id="locationdepartmentmappingid"
+      [dataSource]="dataSource1"
+      [showBorders]="true"
+     
+      [allowColumnResizing]="true"
+      [columnAutoWidth]="true"
+      [allowColumnReordering]="true"
+      (onExporting)="exportGrid($event)">
+      <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+     <dxo-header-filter [visible]="true"></dxo-header-filter>
+     <dxi-column dataField="locationdepartmentmappingid" caption="Department Location Mapping ID" [width]="100"></dxi-column>
+     <dxi-column dataField="entity_Master_Name" caption="Entity Name" value="entity_Master_id"></dxi-column>
+     <dxi-column dataField="unit_location_Master_name" caption="Unit Location Name" value="unit_location_Master_id"></dxi-column>
+     <dxi-column dataField="department_Master_name" caption="Department Name" value="department_Master_id"></dxi-column>
+      <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+      <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-search-panel [visible]="true"></dxo-search-panel>
+      <dxo-group-panel [visible]="true"></dxo-group-panel>
+      <dxo-selection mode="single"></dxo-selection>
+      <dxo-summary>
+          <dxi-total-item
+              column="locationdepartmentmappingid"
+              summaryType="count">
+          </dxi-total-item>
+          
+      </dxo-summary>
+      <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+      <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+      <dxo-pager
+      [visible]="true"
+      [allowedPageSizes]="[5, 10,20, 'all']"
+     
+      [showPageSizeSelector]="true"
+     
+      [showInfo]="true"
+      infoText="Page {0} of  {1} ({2} items)"
+      [showNavigationButtons]="true"
+    >
+    </dxo-pager>
+      <!-- <dxo-editing
+              mode="popup"  
+            
+              [allowDeleting]="true"
+            ></dxo-editing> -->
+
+    <dxo-toolbar>
+    <dxi-item name="groupPanel"></dxi-item>
+
+<dxi-item name="addRowButton" showText="always"></dxi-item>
+<dxi-item name="exportButton"></dxi-item>
+<dxi-item name="columnChooserButton"></dxi-item>
+<dxi-item name="searchPanel"></dxi-item>
+    </dxo-toolbar>
+    <dxo-export 
+    [enabled]="true"
+    [formats]="['xlsx', 'pdf']"
+  >
+  </dxo-export>
+</dx-data-grid>
+  </div>
+
+</div>
+</div>
+</div>
+     

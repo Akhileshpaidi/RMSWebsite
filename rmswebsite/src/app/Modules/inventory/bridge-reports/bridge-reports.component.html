@@ -1,0 +1,509 @@
+<div class="body">
+  <div class="row">
+    <img style="height: 30px" src="../../../../assets//images/Inspection/file-plus.svg" />
+    <h2 class="header">Document Add-ON</h2>
+  </div>
+  <hr />
+  <form [formGroup]="bridgeReportForm" (ngSubmit)="getReport(bridgeReportForm.value)">
+    <!-- <div style="display: flex;flex-direction: row-reverse;margin-bottom:10px;">
+      <button class="Custombutton" mat-button type="submit"> Download Report </button>
+    </div> -->
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Document Review frequency</mat-label>
+          <mat-select [formControl]="selectedproject" (selectionChange)="getBridges($event)">
+            <mat-option *ngFor="let element of projectData" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="bridgeData!=null" appearance="outline" class="form-field">
+          <mat-label>Bridge Name</mat-label>
+          <mat-select [formControl]="selectedBridge" (selectionChange)="getBridgeData($event)" multiple>
+            <mat-option *ngFor="let element of bridgeData" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Document Linking</mat-label>
+          <mat-select [formControl]="selectedproject" (selectionChange)="getBridges($event)">
+            <mat-option *ngFor="let element of projectData" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="bridgeData!=null" appearance="outline" class="form-field">
+          <mat-label>Bridge Name</mat-label>
+          <mat-select [formControl]="selectedBridge" (selectionChange)="getBridgeData($event)" multiple>
+            <mat-option *ngFor="let element of bridgeData" [value]="element.id">
+              {{ element.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Publisher comments </mat-label>
+          <input matInput formControlName="name" name="name" required />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Indicative reading time </mat-label>
+          <input matInput formControlName="name" name="name" required />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Time period </mat-label>
+          <input matInput formControlName="name" name="name" required />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Version Reported date </mat-label>
+          <input matInput formControlName="name" name="name" required />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Last edited Date </mat-label>
+          <input matInput formControlName="name" name="name" required />
+        </mat-form-field>
+      </div>
+    </div>
+    <!-- <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">Low Viscosity Epoxy Grout</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectedlowViscosityEpoxyGroutManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'lowViscosityEpoxyGrouts')">
+            <mat-option *ngFor="let element of lowViscosityEpoxyGrouts" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectedlowViscosityEpoxyGroutMaterial"
+            (selectionChange)="setUnitRate($event,'lowViscosityEpoxyGrouts')">
+            <mat-option *ngFor="let element of unitRateOptions[1]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-lowViscosityEpoxyGrouts" required [value]="selectedUnitRates[1]"
+            (keyup)="onChange($event,1)" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">Polymer Modified Cement Grout</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectedpolymerModifiedCementGroutManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'lowViscosityEpoxyGrouts')">
+            <mat-option *ngFor="let element of polymerModifiedCementGrouts" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectedpolymerModifiedCementGroutMaterial"
+            (selectionChange)="setUnitRate($event,'polymerModifiedCementGrouts')">
+            <mat-option *ngFor="let element of unitRateOptions[2]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-polymerModifiedCementGrouts" required [value]="selectedUnitRates[2]"
+            (keyup)="onChange($event,2)" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">PMC Mortar</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectedpmcMortarManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'pmcMortars')">
+            <mat-option *ngFor="let element of pmcMortars" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectedpmcMortarMaterial" (selectionChange)="setUnitRate($event,'pmcMortars')">
+            <mat-option *ngFor="let element of unitRateOptions[3]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-selectedpmcMortar" required [value]="selectedUnitRates[3]"
+            (keyup)="onChange($event,3)" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">Water Sprout</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectedwaterSproutManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'waterSprouts')">
+            <mat-option *ngFor="let element of waterSprouts" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectedwaterSproutMaterial"
+            (selectionChange)="setUnitRate($event,'waterSprouts')">
+            <mat-option *ngFor="let element of unitRateOptions[4]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-selectedpmcMortar" required [value]="selectedUnitRates[4]"
+            (keyup)="onChange($event,4)" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">Ralling (Excluding Steel & Concrete)</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectedrallingManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'rallings')">
+            <mat-option *ngFor="let element of rallings" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectedrallingMaterial" (selectionChange)="setUnitRate($event,'rallings')">
+            <mat-option *ngFor="let element of unitRateOptions[5]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-selectedralling" required [value]="selectedUnitRates[5]"
+            (keyup)="onChange($event,5)" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">Kerb Beam (300mm*400mm) - Labour Only</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectedkerbBeamManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'rallings')">
+            <mat-option *ngFor="let element of kerbBeams" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectedkerbBeamMaterial" (selectionChange)="setUnitRate($event,'kerbBeams')">
+            <mat-option *ngFor="let element of unitRateOptions[6]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-selectedralling" required [value]="selectedUnitRates[6]"
+            (keyup)="onChange($event,6)" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">Expansion Joint (only labour & excluding concrete
+          breaking)</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectedexpansionJointManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'expansionJoints')">
+            <mat-option *ngFor="let element of expansionJoints" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectedexpansionJointMaterial"
+            (selectionChange)="setUnitRate($event,'expansionJoints')">
+            <mat-option *ngFor="let element of unitRateOptions[7]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-selectedexpansionJoint" required [value]="selectedUnitRates[7]"
+            (keyup)="onChange($event,7)" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">Dismantling of RCC Wearing Grout</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectedrccWearingGroutManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'rccWearingGrouts')">
+            <mat-option *ngFor="let element of rccWearingGrouts" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectedrccWearingGroutMaterial"
+            (selectionChange)="setUnitRate($event,'rccWearingGrouts')">
+            <mat-option *ngFor="let element of unitRateOptions[8]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-selectedrccWearingGrout" required [value]="selectedUnitRates[8]"
+            (keyup)="onChange($event,8)" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">Dismantling of Bituminous Wearing Grout</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectedbituminousWearingGroutManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'bituminousWearingGrouts')">
+            <mat-option *ngFor="let element of bituminousWearingGrouts" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectedbituminousWearingGroutMaterial"
+            (selectionChange)="setUnitRate($event,'bituminousWearingGrouts')">
+            <mat-option *ngFor="let element of unitRateOptions[9]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-selectedrccWearingGrout" required [value]="selectedUnitRates[9]"
+            (keyup)="onChange($event,9)" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">Wrapping</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectedwrappingManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'wrappings')">
+            <mat-option *ngFor="let element of wrappings" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectedwrappingMaterial" (selectionChange)="setUnitRate($event,'wrappings')">
+            <mat-option *ngFor="let element of unitRateOptions[10]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-selectedwrapping" required [value]="selectedUnitRates[10]"
+            (keyup)="onChange($event,10)" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">Bearing Replacement</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectedbearingReplacementManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'wrappings')">
+            <mat-option *ngFor="let element of bearingReplacements" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectedbearingReplacementMaterial"
+            (selectionChange)="setUnitRate($event,'wrappings')">
+            <mat-option *ngFor="let element of unitRateOptions[11]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-selectedbearingReplacement" required [value]="selectedUnitRates[11]"
+            (keyup)="onChange($event,11)" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">Microconcrete For Repairing Patch</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectedmicroconcreteManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'microconcretes')">
+            <mat-option *ngFor="let element of microconcretes" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectedmicroconcreteMaterial"
+            (selectionChange)="setUnitRate($event,'microconcretes')">
+            <mat-option *ngFor="let element of unitRateOptions[12]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-selectedmicroconcrete" required [value]="selectedUnitRates[12]"
+            (keyup)="onChange($event,12)" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">Nipples For Low Viscosity Polymer Grout</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectednipplesLowViscosityManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'nipplesLowViscosity')">
+            <mat-option *ngFor="let element of nipplesLowViscosity" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectednipplesLowViscosityMaterial"
+            (selectionChange)="setUnitRate($event,'nipplesLowViscosity')">
+            <mat-option *ngFor="let element of unitRateOptions[13]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-selectednipplesLowViscosity" required [value]="selectedUnitRates[13]"
+            (keyup)="onChange($event,13)" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">Nipples for Polymer Modified Cement Grout</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectednipplesModifiedCementGroutManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'nipplesModifiedCementGrout')">
+            <mat-option *ngFor="let element of nipplesModifiedCementGrout" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectednipplesModifiedCementGroutMaterial"
+            (selectionChange)="setUnitRate($event,'nipplesModifiedCementGrout')">
+            <mat-option *ngFor="let element of unitRateOptions[14]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-selectednipplesModifiedCementGrout" required [value]="selectedUnitRates[14]"
+            (keyup)="onChange($event,14)" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayoutAlign="center center" *ngIf="showUnitRates">
+      <div class="box">
+        <b style="margin-left:15px" fxLayoutAlign="start center">Sealing of Cracks With Epoxy Mortar</b>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Manufacturer</mat-label>
+          <mat-select [formControl]="selectedsealingsOfCrackManufacturer"
+            (selectionChange)="changeMaterialDropdown($event,'sealingsOfCracks')">
+            <mat-option *ngFor="let element of sealingsOfCracks" [value]="element">
+              {{ element.manufacturername }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Material</mat-label>
+          <mat-select [formControl]="selectedsealingsOfCrackMaterial"
+            (selectionChange)="setUnitRate($event,'sealingsOfCracks')">
+            <mat-option *ngFor="let element of unitRateOptions[15]" [value]="element">
+              {{ element.materialname }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rate</mat-label>
+          <input matInput name="rate-selectedsealingsOfCrack" required [value]="selectedUnitRates[15]"
+            (keyup)="onChange($event,15)" />
+        </mat-form-field> -->
+      <!-- </div> -->
+    <!-- </div> -->
+  </form>
+</div>

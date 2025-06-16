@@ -1,0 +1,119 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+        <h1>Update Compliance Locational  Mapping </h1>
+      </div>
+
+    </div>
+            <div  class="box">
+                <div>
+                <dx-drop-down-box 
+             formControlName="compliance"
+             [(value)]="selectedOption1"         
+             [inputAttr]="{ 'aria-label': 'Owner' }"
+             placeholder="Select compliance Type*"
+             label="Select compliance  *"
+             [showClearButton]="true"
+             labelMode="floating"
+             valueExpr="compliance_location_Mapping_id"
+             [displayExpr]="gridBox_displayExpr"
+             [(opened)]="isGridBoxOpened"
+             [dataSource]="compliancelocation"
+             (onValueChanged)="getUpdateFormData($event)"
+             >   
+            <div *dxTemplate="let data of 'content'">
+             <dx-data-grid    
+             [dataSource]="compliancelocation"
+             [columns]="gridColumns1"
+               [hoverStateEnabled]="true"
+               [(selectedRowKeys)]="selectedOption1"
+               [showColumnHeaders]="true"
+               height="500%"
+             >
+             <dxo-selection mode="single"></dxo-selection>
+      <dxo-filter-row [visible]="true"></dxo-filter-row>
+      <dxo-scrolling mode="virtual"></dxo-scrolling>
+      <dxo-header-filter [visible]="true" [allowSearch]="true">
+        <dxo-search [enabled]="true"></dxo-search>
+      </dxo-header-filter>
+      <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+      <dxo-pager
+      [visible]="true"
+      [allowedPageSizes]="[10,20, 'all']"
+     
+      [showPageSizeSelector]="true"
+     
+      [showInfo]="true"
+      infoText="Page {0} of  {1} ({2} items)"
+      [showNavigationButtons]="true">
+    </dxo-pager>
+
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
+      <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+      <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+      
+             </dx-data-grid>
+           </div> 
+          </dx-drop-down-box>
+        </div>
+            </div>
+
+            <br>
+            <br>
+
+            <from [formGroup]="compliancelocationmap"  >
+               <div  class="box">
+                <div>
+
+                    <dx-select-box 
+                    formControlName="department"
+                    label="Select Department"
+                 labelMode="floating"
+                 valueExpr="locationdepartmentmappingid"
+                 displayExpr="departmentname"
+                 [dataSource]="department"  
+                 [searchEnabled]="true"
+                 selectionMode="single" 
+                 placeholder=""
+                    > </dx-select-box>
+                 
+                    <!-- <dx-drop-down-box
+                    formControlName=""
+                    [(value)]="selectedOption3"
+                    [inputAttr]="{ 'aria-label': 'Owner' }"
+                    placeholder="Select Department*"
+                    [showClearButton]="true"
+                    labelMode="floating"
+                    valueExpr="locationdepartmentmappingid"
+                    displayExpr="departmentname"
+                    [dataSource]="department"
+                    searchEnabled="true"
+                    height="40px" >
+                   <div *dxTemplate="let data of 'content'">
+                    <dx-data-grid
+                    [dataSource]="department"
+                      [selection]="{ mode: 'single' }"
+                      [hoverStateEnabled]="true"
+                      [columns]="gridColumns3"
+                      [(selectedRowKeys)]="selectedOption3"
+                      [filterRow]="{ visible: true }"
+                      [scrolling]="{ mode: 'virtual' }"
+                      [showColumnHeaders]="true"
+                      height="220%"
+                    >
+                    </dx-data-grid>
+                  </div>
+    
+                  </dx-drop-down-box> -->
+                  </div>
+               </div>
+               <div class="margin-top"></div>
+               <div class="button">
+                <button class="grey-button"  (click)="Cancel()" >Cancel</button>
+                 <button class="Custombutton"   (click)="SubmitUpdateForm()">Update</button>
+               </div>
+          </from>
+
+    </div>
+</div>

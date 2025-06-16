@@ -1,0 +1,210 @@
+
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="title">BP Maturity Rating Scale Indicators</h1>
+                </div>
+                <div class="card-body">
+                    <div id="app-container"> 
+                        <dx-data-grid id="dataGrid"
+                        [dataSource]="dataSource"
+                        [showBorders]="true"
+                        [editing]="{
+                          mode: 'popup',
+                          allowUpdating: true,
+                          allowDeleting: true,
+                          allowAdding: true,
+                          popup: {
+                            title: popupTitle,  
+                            showTitle: true,
+                            width: 700,
+                            height: 525
+                          }
+                        }"
+                        (onEditingStart)="onEditingStart($event)"
+                        (onInitNewRow)="onInitNewRow($event)"
+                        (onEditCanceled)="onEditCanceled($event)"
+                        [allowColumnResizing]="true"
+                        [columnAutoWidth]="true"
+                        [allowColumnReordering]="true"
+                        (onExporting)="exportGrid($event)">
+  
+                        <dxi-column dataField="bpMaturityRatingScaleIndicators_id"  caption="Bp Maturity Rating Scale ID"[visibleIndex]="1" [width]="100">
+                          <dxo-form-item [visible]="false">
+                          </dxo-form-item>
+                        </dxi-column>
+                        <dxi-column dataField="bpMaturityRatingScaleIndicators_name" caption="BP Maturity Rating Name" [visibleIndex]="2" [width]="120">
+                            <dxi-validation-rule type="required"></dxi-validation-rule>   
+                            <dxi-validation-rule type="stringLength" [max]="50" message="max 50 Characters allowed"></dxi-validation-rule>  
+                        </dxi-column>
+                        
+                     
+                        <dxi-column dataField="bpMaturityRatingScaleIndicators_desc" [width]="400" editCellTemplate="dataCellTemplate"  caption="Scale Indicator Description" [visibleIndex]="5" [width]="150">
+                          
+                        </dxi-column>
+                        <dxi-column dataField="bpMaturityRatingScaleIndicators_rating_min"  caption="BpMaturityRatingScaleIndicators Minimum Value" dataType="number"  [editorOptions]="{min: 1, max: 10}" [visibleIndex]="3" [width]="100"
+                        [validationRules]="[
+                        { type: 'range', min: 1, max: 10 },
+                  
+                      ]">
+                      <dxi-validation-rule type="required"></dxi-validation-rule> 
+                        </dxi-column>
+
+                        <dxi-column dataField="bpMaturityRatingScaleIndicators_rating_max"  caption="BpMaturityRatingScaleIndicators Maximum Value" dataType="number"  [editorOptions]="{min: 1, max: 10}" [visibleIndex]="4" [width]="100"
+                        [validationRules]="[
+                        { type: 'range', min: 1, max: 10 },
+                    
+                      ]">
+                      <dxi-validation-rule type="required"></dxi-validation-rule> 
+                        </dxi-column>
+<!--                        
+                        <dxi-column 
+                          dataField="bpMaturityRatingScaleIndicators_rating_min" 
+                          caption="Min Range"
+                      
+                          editCellTemplate="minRangeTemplate">
+                          <dxi-validation-rule type="required"></dxi-validation-rule>
+      </dxi-column>
+  
+  <dxi-column 
+      dataField="bpMaturityRatingScaleIndicators_rating_max" 
+      caption="Max Range"
+     
+      editCellTemplate="maxRangeTemplate">
+      <dxi-validation-rule type="required"></dxi-validation-rule>
+  </dxi-column> -->
+ 
+ 
+ 
+  
+                        
+                       
+                       
+                        
+                        
+                        <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+                        <dxo-search-panel [visible]="true"></dxo-search-panel>
+                        <dxo-group-panel [visible]="true"></dxo-group-panel>
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-summary>
+                            <dxi-total-item
+                                column="bpMaturityRatingScaleIndicators_id"
+                                summaryType="count">
+                            </dxi-total-item>
+                            
+                        </dxo-summary>
+                        
+  
+                        
+                        <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                        <dxo-pager
+                        [visible]="true"
+                        [allowedPageSizes]="[5, 10,20, 'all']"
+                       
+                        [showPageSizeSelector]="true"
+                       
+                        [showInfo]="true"
+                        infoText="Page {0} of  {1} ({2} items)"
+                        [showNavigationButtons]="true"
+                      >
+                      </dxo-pager>
+  
+                        <!-- <dxo-editing
+                        mode="popup"
+                        [allowUpdating]="true"
+                        [allowDeleting]="true"
+                        [allowAdding]="true">
+                        <dxo-popup
+                        title="Add BP Maturity Rating Scale Indicators"
+                        [showTitle]="true"
+                        [width]="700"
+                        [height]="525"
+                       
+                      ></dxo-popup>
+                      </dxo-editing> -->
+                      <div class="dx-textarea" *dxTemplate="let data of 'dataCellTemplate'">  
+                        <dx-text-area  
+                          class="dx-texteditor-input"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           b
+                          style="resize: vertical;"
+                          [inputAttr]="{ 'aria-label': 'Notes' }"
+                          [autoResizeEnabled]="true"  
+                          [value]="data.value"  
+                          (onValueChanged)="onValueChanged($event, data)"
+                        ></dx-text-area>  
+                      </div> 
+                      
+                     
+                      <div *dxTemplate="let data of 'minRangeTemplate'">
+                        <label>Set Scale Indicators Range:1-100 </label>
+                        <dx-range-slider
+                        [min]="1"
+                        [max]="100"
+                        [(start)]="data.data.bpMaturityRatingScaleIndicators_rating_min"
+                        [(end)]="data.data.bpMaturityRatingScaleIndicators_rating_max"
+                        (onValueChanged)="onRangeValueChanged($event, data.data)">
+                  </dx-range-slider>
+                        <dx-number-box
+                            [(value)]="data.data.bpMaturityRatingScaleIndicators_rating_min"
+                            [min]="1"
+                            [max]="100"
+                            [showSpinButtons]="true"
+                            (onValueChanged)="onMinValueChanged($event, data.data)">
+                            <div *ngIf="data.data.bpMaturityRatingScaleIndicators_rating_min < 1 || data.data.bpMaturityRatingScaleIndicators_rating_min > 100" class="error-message">
+                              Value must be between 1 and 100
+                            </div>
+                        </dx-number-box>
+                       
+  
+                      
+                    </div>
+                    
+                    
+                    <div *dxTemplate="let data of 'maxRangeTemplate'">
+                      <br>
+                      <br>
+                      <br>
+                        <dx-number-box
+                            [(value)]="data.data.bpMaturityRatingScaleIndicators_rating_max"
+                            [min]="1"
+                            [max]="100"
+                            [showSpinButtons]="true"
+                            (onValueChanged)="onMaxValueChanged($event, data.data)">
+                            <div *ngIf="data.data.bpMaturityRatingScaleIndicators_rating_max < 1 || data.data.bpMaturityRatingScaleIndicators_rating_max > 100" class="error-message">
+                              Value must be between 1 and 100
+                            </div>
+                        </dx-number-box>
+  
+                      
+                    </div>
+                  
+
+  
+  
+  
+                      <dxo-toolbar>
+                      <dxi-item name="groupPanel"></dxi-item>
+       
+        <dxi-item name="addRowButton" showText="always"></dxi-item>
+        <dxi-item name="exportButton"></dxi-item>
+        <dxi-item name="columnChooserButton"></dxi-item>
+        <dxi-item name="searchPanel"></dxi-item>
+                      </dxo-toolbar>
+                      <dxo-export 
+                      [enabled]="true"
+                      [formats]="['xlsx', 'pdf']"
+                    >
+                    </dxo-export>                   
+                  </dx-data-grid>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>

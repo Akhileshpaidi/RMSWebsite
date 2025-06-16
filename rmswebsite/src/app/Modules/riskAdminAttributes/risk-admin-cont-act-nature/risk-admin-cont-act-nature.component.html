@@ -1,0 +1,122 @@
+
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self:self-end;">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="title">Control Activity Nature</h1>
+                </div>
+                <div class="card-body">
+                    <div id="app-container">
+                        <dx-data-grid id="dataGrid"
+                        [dataSource]="dataSource"
+                        [showBorders]="true"
+                       
+                        [columnAutoWidth]="true"
+                        [allowColumnReordering]="true"
+                        (onExporting)="exportGrid($event)">
+
+                        <dxi-column dataField="risk_admin_control_activity_Nature_id" caption="Control Activity Nature ID">
+                            <dxo-form-item [visible]="false">
+                            </dxo-form-item> 
+                        </dxi-column>
+                        <dxi-column dataField="risk_admin_ControlActivityType_id" [width]="500" caption="Select Control Activity Type">
+                            <dxo-lookup [dataSource]="Getloss_event_threat_category" valueExpr="risk_admin_ControlActivityType_id" displayExpr="risk_admin_ControlActivityType_name" ></dxo-lookup>  
+                        </dxi-column>
+                       
+                        
+                        <dxi-column dataField="risk_admin_control_activity_Nature_name" caption="Control Activity Nature Name">
+                            <dxi-validation-rule type="required"></dxi-validation-rule>   
+                            <dxi-validation-rule type="stringLength" [max]="50" message="max 50 Characters allowed"></dxi-validation-rule>  
+                        </dxi-column>
+                        <dxi-column dataField="short_code_for_activity_nature" caption="Short Code for Control Activity Nature">
+                            <dxi-validation-rule type="required"></dxi-validation-rule>   
+                            <dxi-validation-rule type="stringLength" [min]="2" [max]="4" message="min 2 and max 4 Characters allowed"></dxi-validation-rule>  
+                        </dxi-column>
+                        <dxi-column dataField="risk_admin_control_activity_Nature_desc" [width]="500" caption="Short Code for Control Activity Nature">
+                            <dxo-form-item   editorType="dxTextArea"
+                            [colSpan]="2"
+                            [editorOptions]="{ height: 80 }">
+                            </dxo-form-item>
+                            <dxi-validation-rule type="stringLength" [max]="150" message="max 150 Characters allowed"></dxi-validation-rule>
+
+                        </dxi-column>
+                       
+                        <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+                        <dxo-search-panel [visible]="true"></dxo-search-panel>
+                        <dxo-group-panel [visible]="true"></dxo-group-panel>
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-summary>
+                            <dxi-total-item
+                                column="risk_admin_control_activity_Nature_id"
+                                summaryType="count">
+                            </dxi-total-item>
+                            
+                        </dxo-summary>
+                        <dxo-editing
+                        mode="popup"
+                        [allowUpdating]="isUpdateIconVisible"
+                        [allowDeleting]="isUpdateIconVisible"
+                        [allowAdding]="true">
+                        <dxo-popup
+                        title="Control Activity Nature"
+                        [showTitle]="true"
+                        [width]="700"
+                        [height]="525"
+                       
+                      ></dxo-popup>
+                      </dxo-editing>
+
+
+                        
+                        <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                        <dxo-pager
+                        [visible]="true"
+                        [allowedPageSizes]="[5, 10,20, 'all']"
+                       
+                        [showPageSizeSelector]="true"
+                       
+                        [showInfo]="true"
+                        infoText="Page {0} of  {1} ({2} items)"
+                        [showNavigationButtons]="true"
+                      >
+                      </dxo-pager>
+
+                        <!-- <dxo-editing
+                        mode="popup"
+                        [allowUpdating]="true"
+                        [allowDeleting]="true"
+                        [allowAdding]="true">
+                        <dxo-popup
+                        title="Add Loss Event Threat Category (L2)"
+                        [showTitle]="true"
+                        [width]="700"
+                        [height]="525"
+                       
+                      ></dxo-popup>
+                      </dxo-editing> -->
+                      <dxo-toolbar>
+                      <dxi-item name="groupPanel"></dxi-item>
+       
+        <dxi-item name="addRowButton" showText="always"></dxi-item>
+        <dxi-item name="exportButton"></dxi-item>
+        <dxi-item name="columnChooserButton"></dxi-item>
+        <dxi-item name="searchPanel"></dxi-item>
+                      </dxo-toolbar>
+                      <dxo-export 
+                      [enabled]="true"
+                      [formats]="['xlsx', 'pdf']"
+                    >
+                    </dxo-export>                   
+                  </dx-data-grid>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="center" mat-dialog-content>
+    <!-- <div *ngIf="data.success" class="success-icon-container">
+          <div class="success-icon">&#10003;</div>
+        </div>  -->
+    {{ data.message }}
+</div>
+<div class="center" mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="true">Ok</button>
+</div>
+<br>
+<div class="center" *ngIf="data.success" mat-dialog-content>
+    <div class="globalID">{{ data.id }}</div>
+    </div>
+ 

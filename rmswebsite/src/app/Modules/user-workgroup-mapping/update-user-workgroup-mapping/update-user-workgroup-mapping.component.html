@@ -1,0 +1,116 @@
+<div class="form">
+    <div class="body">
+      <div class="header">
+        <div style="align-self: self-end">
+          <br>
+          <h2 class=" title" style="align-items: center;">Edit User Activity Workgroup
+            </h2>
+        </div>
+      </div> 
+      <br>
+ 
+      <div class="box">
+            
+        <dx-drop-down-box
+        formControlName="user"
+        [(value)]="selectedOption4"
+        [inputAttr]="{ 'aria-label': 'Owner' }"
+        placeholder="Select User(s) Activity*"
+        [showClearButton]="true"
+        labelMode="floating"
+        valueExpr="usR_ID"
+        displayExpr="firstname"
+        [dataSource]="username"
+        searchEnabled="true"
+        [(opened)]="isGridBoxOpened"
+        height="40px"
+        (onValueChanged)="getUpdateFormData($event)" >
+       <div *dxTemplate="let data of 'content'">
+        <dx-data-grid
+        [dataSource]="username"
+          [selection]="{ mode: 'single' }"
+          [hoverStateEnabled]="true"
+          [columns]="gridColumns4"
+          [(selectedRowKeys)]="selectedOption4"
+          [filterRow]="{ visible: true }"
+          [scrolling]="{ mode: 'virtual' }"
+          [showColumnHeaders]="true"
+          height="280%"
+        >
+        </dx-data-grid>
+      </div>
+
+      </dx-drop-down-box>
+          
+  </div>
+  <br>
+
+  <form [formGroup]="UpdateForm" (ngSubmit)="SubmitUpdateForm()"> 
+      <div class="row">
+        <div class="box">
+            <mat-form-field  appearance="fill" class="form-field">
+              <mat-label>Name of User Workgroup Mapping</mat-label>
+              <input matInput #titleinput formControlName="name"  maxlength="50">
+              <mat-hint align="start" >Min 1 - Max 50 Characters</mat-hint>
+            <mat-hint align="end">{{titleinput.value.length}}/50</mat-hint>
+            </mat-form-field>
+         
+          </div>
+          
+            <div class="box">
+              <mat-form-field  appearance="fill" class="form-field">
+                <mat-label>Description of User Workgroup Mapping </mat-label>
+                <textarea matInput #titleinput formControlName="userdesc"  maxlength="150"></textarea>
+                <mat-hint align="start" >Min 1 - Max 150 Characters</mat-hint>
+            <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint>
+              </mat-form-field>
+            </div>
+        </div>
+
+        <br>
+        <div>
+            <h3>
+                <label>
+                    Activity Workgroup Mapping Details
+                </label>
+            </h3>
+        </div>
+        <div class="box">
+        
+              <dx-drop-down-box
+              formControlName="activity"
+              [(value)]="selectedOption3"
+              [inputAttr]="{ 'aria-label': 'Owner' }"
+              placeholder="Select Activity*"
+              [showClearButton]="true"
+              labelMode="floating"
+              valueExpr="activity_Workgroup_id"
+              displayExpr="name_ActivityWorkgroup"
+              [dataSource]="activity"
+              searchEnabled="true"
+              height="40px" >
+             <div *dxTemplate="let data of 'content'">
+              <dx-data-grid
+              [dataSource]="activity"
+                [selection]="{ mode: 'single' }"
+                [hoverStateEnabled]="true"
+                [columns]="gridColumns3"
+                [(selectedRowKeys)]="selectedOption3"
+                [filterRow]="{ visible: true }"
+                [scrolling]="{ mode: 'virtual' }"
+                [showColumnHeaders]="true"
+                height="220%"
+              >
+              </dx-data-grid>
+            </div>
+
+            </dx-drop-down-box>
+                
+        </div>
+        <div class="button"> 
+            <button class="grey-button"  (click)="Cancel()" >Cancel</button>         
+            <button  class="Custombutton"   >Update</button>
+         </div>
+      </form>
+    </div>
+    </div>

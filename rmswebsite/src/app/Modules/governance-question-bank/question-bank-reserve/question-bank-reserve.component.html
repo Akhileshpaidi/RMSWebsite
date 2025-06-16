@@ -1,0 +1,402 @@
+<div class="form">
+  <div class="body">
+    <div class="header">
+      <div style="align-self:self-end;">
+        <h1>Question Bank Reserve</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="boxNew">
+
+    <!-- <label>
+      Select Question</label> -->
+
+
+
+    <div class="dx-field-value">
+      <dx-drop-down-box        style="width: 700px;"
+    [dropDownOptions]="{width: '1400px'}" 
+    [(value)]="gridBoxValue"
+     [(opened)]="isGridBoxOpened" 
+     valueExpr="question_id"
+        [deferRendering]="false" 
+        [displayExpr]="gridBox_displayExpr"
+         placeholder="Select Question"
+        [inputAttr]="{ 'aria-label': 'Owner' }" 
+        [showClearButton]="true"
+          [columnAutoWidth]="true"
+         [dataSource]="gridDataSource"
+        (onOptionChanged)="onGridBoxOptionChanged($event)">
+        <div *dxTemplate="let data of 'content'">
+          <dx-data-grid [dataSource]="gridDataSource" 
+          [columns]="gridColumns" 
+          [hoverStateEnabled]="true"
+            [(selectedRowKeys)]="gridBoxValue"
+                height="100%"
+      width="100%"
+       [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true">
+           <dxo-selection mode="single"></dxo-selection>
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-scrolling mode="virtual"></dxo-scrolling>
+                <dxo-header-filter [visible]="true" [allowSearch]="true">
+                  <dxo-search [enabled]="true"></dxo-search>
+                </dxo-header-filter>
+                <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+                <dxo-pager
+                [visible]="true"
+                [allowedPageSizes]="[5, 10,20, 'all']"
+               
+                [showPageSizeSelector]="true"
+               
+                [showInfo]="true"
+                infoText="Page {0} of  {1} ({2} items)"
+                [showNavigationButtons]="true">
+              </dxo-pager>
+          
+              <dxo-group-panel [visible]="true"></dxo-group-panel>
+                <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+                <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+          </dx-data-grid>
+        </div>
+      </dx-drop-down-box>
+
+    </div>
+  </div>
+  <br>
+  <form [formGroup]="questionForm" *ngIf="visibleStepper" style="margin-left: 10px;margin-right: 10px;">
+
+    <mat-horizontal-stepper labelPosition="bottom">
+
+      <mat-step label="Define Question Framework" state="chat">
+        <br>
+        <br>
+        <div class="box">
+          <div>
+            <mat-form-field appearance="fill" class="form-field">
+
+              <mat-label>Enter Question Description</mat-label>
+              <textarea matInput required formControlName="question" class="readonly-input" readonly></textarea>
+            </mat-form-field>
+          </div>
+          <div>
+
+            <mat-form-field appearance="fill" class="form-field">
+
+              <mat-label>Mention Objective/ Relevance in Assessment</mat-label>
+              <textarea matInput formControlName="objective" class="readonly-input" readonly></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="box">
+          <!-- <div>
+    <mat-label style="display: contents;">Select Expected Response Type
+        <label style="color: red;">*</label>
+    </mat-label>
+  </div> -->
+          <div>
+            <dx-select-box label="Select Expected Response Type" valueExpr="id" displayExpr="text"
+              [dataSource]="resptypedata" [inputAttr]="{ 'aria-label': 'id' }" [value]="resptype[0].id"
+              formControlName="response_type" class="readonly-input">
+
+            </dx-select-box>
+          </div>
+          <div *ngIf="OptionA">
+            <!-- <div>
+    <mat-label style="display: contents;">Mention No. of Selection Choices <label style="color: red;">*</label> </mat-label>
+    </div> -->
+
+            <dx-number-box [value]="optionCount" [min]="2" [max]="10" [showSpinButtons]="true" [showClearButton]="true"
+              label="Mention No. of Selection Choices" labelMode="floating" formControlName="no_of_selectionchoices"
+              class="readonly-input">
+            </dx-number-box>
+
+          </div>
+        </div>
+
+        <br>
+        <div class="box" *ngIf="OptionB">
+          <!-- <div>
+  <mat-label style="display: contents;"></mat-label>
+  </div> -->
+          <div>
+            <!-- <mat-form-field appearance="fill" class="form-field">
+                  
+  <mat-label>Enter Full 
+  Response To The Question
+  </mat-label>
+  <textarea matInput formControlName="fullresponse" class="readonly-input" readonly></textarea>
+  </mat-form-field> -->
+          </div>
+        </div>
+        <br>
+
+        <div class="box" *ngIf="OptionC">
+          <!-- <div>
+  <mat-label style="display: contents;">Add List of Choices <label style="color: red;">*</label> </mat-label>
+  </div> -->
+          <div formArrayName="options">
+            <p *ngFor="let option of options.controls; let i = index" [formGroupName]="i">
+              <mat-form-field appearance="fill" class="form-field">
+                <mat-label>Option {{ i + 1 }}</mat-label>
+                <textarea matInput formControlName="value" class="readonly-input" readonly></textarea>
+                <input type="hidden" formControlName="id" class="readonly-input" readonly>
+              </mat-form-field>
+            </p>
+
+          </div>
+        </div>
+
+   
+        <!-- <div>
+  <mat-label style="display: contents;">Correct Answer<label style="color: red;">*</label></mat-label>
+  </div> -->
+        <div class="box">
+<div  *ngIf="Answers">
+          <dx-number-box label="Correct Answer" [value]="1" [min]="1" [max]="10" [showSpinButtons]="true"
+            [showClearButton]="true" labelMode="floating" formControlName="correct_answer" class="readonly-input">
+          </dx-number-box>
+
+        
+</div>
+
+        <!-- <div>
+    <mat-label style="display: contents;">Question Hint</mat-label>
+    </div> -->
+        <div >
+          <mat-form-field appearance="fill" class="form-field">
+
+            <mat-label>Enter Question Hint
+            </mat-label>
+            <textarea matInput formControlName="question_hint" class="readonly-input" readonly></textarea>
+          </mat-form-field>
+        </div>
+</div>
+
+<div class="box">
+  <!-- <div>
+  <mat-label style="display: contents;">Mark this Question as Favourite/ Default 
+  <label style="color: red;">*</label></mat-label>
+  </div> -->
+
+  <div>
+    <dx-select-box label="Mark this Question as Favourite/ Default" displayExpr="text" valueExpr="id"
+      [dataSource]="data" [inputAttr]="{ 'aria-label': 'id' }" [value]="ChooseOptions[1].id"
+      formControlName="questionmarked_favourite" class="readonly-input">
+      
+
+    </dx-select-box>
+  </div>
+  <div></div>
+</div>
+<div class="box">
+  <img [src]="sanitizedImage" alt="" width="60" height="200" [hidden]="isImageHidden">
+  <label></label>
+  <label></label>
+</div>
+<br>
+<br>
+<div class="button">
+  <!-- <button class="grey-button" matStepperPrevious>Back</button> -->
+  <button class="Custombutton" matStepperNext type="button">Next</button>
+</div>
+</mat-step>
+
+
+
+<mat-step label="Set Question Scoring Parameter" state="chat">
+  <br>
+  <br>
+  <div class="box">
+    <!-- <div>
+  <mat-label style="display: contents;">Set Score Weightage
+  <label style="color: red;">*</label></mat-label>
+  </div> -->
+    <div>
+      <dx-number-box label="Set Score Weightage" [value]="1" [min]="1" [max]="10" [showSpinButtons]="true"
+        [showClearButton]="true" label="Enter a Value" labelMode="floating" formControlName="score_weightage"
+        class="readonly-input">
+      </dx-number-box>
+    </div>
+
+    <!-- <div>
+    <mat-label style="display: contents;">Select Competency Check Level 
+    <label style="color: red;">*</label></mat-label>
+    </div> -->
+
+    <div>
+      <dx-select-box label="Select Competency Check Level" valueExpr="check_level_id" displayExpr="skill_Level_Name"
+        [dataSource]="CheckLevelData" formControlName="check_level" class="readonly-input">
+
+      </dx-select-box>
+
+    </div>
+  </div>
+
+  <br>
+
+
+  <br>
+  <div class="box">
+    <!-- <div>
+  <mat-label style="display: contents;">Show Competency Check Level Weightage
+   <label style="color: red;">*</label></mat-label>
+  </div> -->
+    <div>
+      <dx-number-box label="Show Competency Check Level Weightage" [value]="checklevel_weightage" [min]="0.01"
+        [max]="10" [showSpinButtons]="true" [showClearButton]="true" labelMode="floating"
+        formControlName="checklevel_weightage" class="readonly-input">
+      </dx-number-box>
+    </div>
+    <!--  
+    <div>
+    <mat-label style="display: contents;">Estimated Time to Answer this Question(In Minutes)
+    <label style="color: red;">*</label></mat-label>
+    </div> -->
+    <div>
+      <dx-number-box [value]="1" [min]="1" [max]="100" [showSpinButtons]="true" [showClearButton]="true"
+        label="Estimated Time to Answer this Question(In Minutes)" labelMode="floating" formControlName="estimated_time"
+        class="readonly-input">
+      </dx-number-box>
+
+    </div>
+
+  </div>
+  <br>
+
+  <br>
+  <div class="button">
+    <button class="grey-button" matStepperPrevious type="button">Back</button>
+    <button class="Custombutton" matStepperNext type="button">Next</button>
+  </div>
+</mat-step>
+
+
+<mat-step label="Question Attributes" state="chat">
+  <br>
+  <br>
+
+  <div class="box">
+    <!-- <div>
+          <mat-label style="display: contents;">Keywords/ Tags</mat-label>
+        </div> -->
+    <div>
+      <mat-form-field class="example-chip-list" appearance="fill">
+
+        <mat-label>Enter Keywords/ Tags
+        </mat-label>
+        <mat-chip-list #chipList aria-label="Fruit selection">
+          <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
+            {{tag.name}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input #chipListInput [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" formControlName="keywords">
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+
+    <!-- <div>
+          <mat-label style="display: contents;">Allow Random Selection by Assessor
+  
+             <label style="color: red;">*</label></mat-label>
+        </div> -->
+
+    <div>
+      <dx-select-box label="Allow Random Selection by Assessor" valueExpr="id" displayExpr="text"
+        [dataSource]="data" formControlName="assessor_randomselection" class="readonly-input" >
+
+      </dx-select-box>
+
+    </div>
+  </div>
+  <br>
+
+
+  <div class="box">
+    <!-- <div>
+          <mat-label style="display: contents;">Allow Random Setting in Assessment
+            <label style="color: red;">*</label></mat-label>
+        </div> -->
+    <div>
+      <dx-select-box label="Allow Random Setting in Assessment" valueExpr="id" displayExpr="text"
+        [dataSource]="ChooseOptions" formControlName="assessment_randomsetting" class="readonly-input">
+
+      </dx-select-box>
+    </div>
+    <dx-select-box label="Map Question to Subject" valueExpr="subject_id" displayExpr="subject_Name"
+      [dataSource]="SubjectData" formControlName="subjectid" class="readonly-input">
+
+    </dx-select-box>
+  </div>
+
+  <br>
+
+  <div class="box">
+    <!-- <div>
+          <mat-label style="display: contents;">Map Question to Topic
+            <label style="color: red;">*</label></mat-label>
+        </div> -->
+
+    <div>
+      <dx-select-box label="Map Question to Topic" valueExpr="topic_id" displayExpr="topic_Name"
+        [dataSource]="TopicData" [(value)]="Selectedtopic" formControlName="topicid" class="readonly-input">
+      </dx-select-box>
+    </div>
+    <div></div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+
+
+  <div class="button">
+    <button class="grey-button" matStepperPrevious type="button">Back</button>
+    <button class="Custombutton" matStepperNext type="button">Next</button>
+  </div>
+</mat-step>
+
+<mat-step label="Question Add-ONS" state="chat">
+  <br>
+  <br>
+
+  <div class="box">
+    <!-- <div>
+          <mat-label style="display: contents;">Explanation / Reference to Governance Control Document</mat-label>
+        </div> -->
+    <div>
+      <mat-form-field appearance="fill" class="form-field">
+
+        <mat-label>Enter Explanation / Reference to Governance Control Document
+        </mat-label>
+        <textarea matInput formControlName="ref_to_governance_control" class="readonly-input" readonly></textarea>
+      </mat-form-field>
+
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="button">
+    <button class="grey-button" matStepperPrevious type="button">Back</button>
+
+  </div>
+</mat-step>
+
+<!-- Icon overrides. -->
+<ng-template matStepperIcon="phone">
+  <mat-icon>call_end</mat-icon>
+</ng-template>
+<ng-template matStepperIcon="chat">
+  <mat-icon>forum</mat-icon>
+</ng-template>
+</mat-horizontal-stepper>
+
+
+</form>
+</div>

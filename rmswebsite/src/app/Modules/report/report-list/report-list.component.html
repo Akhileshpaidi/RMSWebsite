@@ -1,0 +1,518 @@
+
+<div class="form">
+<div class="body">
+  <div class="header col">
+    <div style="align-self: self-end">
+      <h1 class=" title">Provide Access </h1>
+      <div class="radio-buttons">
+        <!-- <label>
+          Choose Selection Type:
+        </label>
+          <label >
+            <input type="radio" name="selectionType" (change)="setSelectionType('single')"> Single Document Selection
+          </label>
+          <label>
+            <input type="radio" name="selectionType" (change)="setSelectionType('multiple')"> Multiple Document Selection
+          </label>
+        </div>
+       
+     
+
+      <br>
+        <div class="radio-buttons1">
+        <label  *ngIf="selectionType !== 'single'" >
+          <input type="radio" name="filterType"  (change)="filterGrid('Direct Upload')" > Direct Upload 
+        </label>
+        <label *ngIf="selectionType !== 'single'" class="class">
+          <input type="radio" name="filterType"  (change)="filterGrid('Create Document')"> Web Editor
+        </label>
+      </div>   -->
+      <form [formGroup]="form" >
+      <div class="box" style="width: 1070px;padding-left: 80px;">
+        
+        <dx-select-box 
+             formControlName="Entity_Master_id"
+             label="Select Entity Name*"
+             labelMode="floating"
+             valueExpr="entity_Master_id"
+             displayExpr="entity_Master_Name"
+             [dataSource]="EntityName"
+             [searchEnabled]="true"
+             selectionMode="single" 
+            placeholder=""
+            (onValueChanged)="getUnitLocation($event)">
+            
+          
+       </dx-select-box>
+      
+    
+
+         <dx-select-box 
+         formControlName="Unit_location_Master_id"
+         label="Select Unit Location*"
+         labelMode="floating"
+         [searchEnabled]="true"
+         valueExpr="unitid"
+         displayExpr="unitname"
+         [dataSource]="UnitMaster"
+         [(value)]="Selectedunit"
+         selectionMode="single" 
+        placeholder=""
+        (onValueChanged)="getgriddata($event)"
+          >
+      
+   </dx-select-box>
+      </div>
+    
+     
+      <mat-horizontal-stepper labelPosition="bottom">
+     
+        <mat-step label="Select Document(s)" state="chat" >
+          
+         <div class="box">
+          <div id="grid" style="width: 200px;">
+            <dx-data-grid
+            formControlName="addDoc_id"
+              id="addDoc_id"
+              [dataSource]="gridDataSource"
+              key="addDoc_id"
+              valueExpr="addDoc_id"
+              [showBorders]="true"
+              [allowColumnReordering]="true"
+              (onSelectionChanged)="handleSelectionChanges($event)"
+              [wordWrapEnabled]="true"
+              [columnAutoWidth]="true"
+            >
+            <dxo-selection
+            [selectAllMode]="allMode"
+            [showCheckBoxesMode]="checkBoxesMode"
+            mode="multiple"
+          ></dxo-selection>
+          <dxo-header-filter [visible]="true" [allowSearch]="true">
+            <dxo-search [enabled]="true"></dxo-search>
+          </dxo-header-filter>
+          <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+          <dxo-pager
+          [visible]="true"
+          [allowedPageSizes]="[5, 10,20, 'all']"
+         
+          [showPageSizeSelector]="true"
+         
+          [showInfo]="true"
+          infoText="Page {0} of  {1} ({2} items)"
+          [showNavigationButtons]="true">
+        </dxo-pager>
+    
+        <dxo-group-panel [visible]="true"></dxo-group-panel>
+          <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+              <dxo-search-panel
+              [visible]="true"
+              [width]="240"
+             
+           ></dxo-search-panel>
+              <dxo-filter-row [visible]="true"></dxo-filter-row>
+              <dxi-column dataField="document_Id" caption="Document_Id" valueExpr="document_Id"
+              displayExpr="Document_Id" ></dxi-column>
+              <dxi-column dataField="versionControlNo" caption="Version ControlNot" valueExpr="versionControlNo"
+              displayExpr="versionControlNo" ></dxi-column>
+              <dxi-column dataField="addDoc_id"  valueExpr="addDoc_id"  [visible]="false"
+              displayExpr="addDoc_id"></dxi-column>
+              <dxi-column caption="Name of Document" dataField="title_Doc" valueExpr="addDoc_id"
+              displayExpr="title_Doc"></dxi-column>
+              <dxi-column dataField="docTypeName"  caption="Document Type"  valueExpr="docTypeID"
+              displayExpr="docTypeName"></dxi-column>
+              <dxi-column dataField="doc_CategoryName" caption="Category" valueExpr="Doc_CategoryID"
+              displayExpr="doc_CategoryName"></dxi-column>
+              <dxi-column dataField="doc_SubCategoryName" caption="Sub-Category" valueExpr="doc_SubCategoryID"
+              displayExpr="doc_SubCategoryName"></dxi-column>
+              
+             
+              <dxi-column dataField="authorityTypeName" caption="Authority Type" valueExpr="authorityTypeID"
+              displayExpr="authorityTypeName"></dxi-column>
+              <dxi-column dataField="authorityName" caption="Authority Name" valueExpr="authoritynameID"
+              displayExpr="authorityName"></dxi-column>
+              <dxi-column dataField="natureOf_Doc_Name" caption="Document Classifcation" valueExpr="natureOf_Doc_id"
+              displayExpr="natureOf_Doc_Name" ></dxi-column>
+              <dxi-column dataField="keywords_tags" caption="Keywords_tags" valueExpr="keywords_tags"
+              displayExpr="keywords_tags" ></dxi-column>
+           
+            </dx-data-grid>
+          </div>
+          </div>
+          
+
+
+                   <div  class="button">
+            <button class="Custombutton" matStepperNext>Next</button>
+          </div>
+        </mat-step>
+       
+
+
+          <mat-step label="Select User(s)" state="chat">
+     
+
+            <div class="box">
+
+              <!-- <dx-select-box 
+              formControlName="Entity_Master_id"
+              label="Select Entity Name*"
+              labelMode="floating"
+              valueExpr="entity_Master_id"
+              displayExpr="entity_Master_Name"
+              [dataSource]="EntityName"
+                
+              selectionMode="single" 
+             placeholder=""
+             (onValueChanged)="getUnitLocation($event)">
+             
+           
+        </dx-select-box>
+       -->
+     
+
+          <!-- <dx-select-box 
+          formControlName="Unit_location_Master_id"
+          label="Select Unit Location*"
+          labelMode="floating"
+          valueExpr="unit_location_Master_id"
+          displayExpr="unit_location_Master_name"
+          [dataSource]="UnitMaster"
+          [(value)]="Selectedunit"
+          selectionMode="single" 
+         placeholder=""
+         (onValueChanged)="getUserData($event)"
+           >
+       
+    </dx-select-box> -->
+    <dx-drop-down-box
+    formControlName="user_location_mapping_id"
+    labelMode="floating"
+    label="Select User(s)"
+    [(value)]="selectedOption"
+    [(opened)]="isUserBoxOpened"
+    [displayExpr]="gridBox_displayExpr"
+    valueExpr="user_location_mapping_id" 
+    [dataSource]="Userinfo1"
+    [deferRendering]="false"
+    placeholder=""
+    [inputAttr]="{ 'aria-label': 'Owner' }"
+    [showClearButton]="true"
+    [searchEnabled]="true"
+>
+    <div *dxTemplate="let data of 'content'">
+        <dx-data-grid
+            [dataSource]="Userinfo1"
+            [columns]="usergridColumns"
+            [hoverStateEnabled]="true"
+            [(selectedRowKeys)]="selectedOption"
+            height="100%"
+        >
+            <dxo-selection mode="multiple"></dxo-selection>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-scrolling mode="virtual"></dxo-scrolling>
+            <dxo-header-filter [visible]="true" [allowSearch]="true">
+              <dxo-search [enabled]="true"></dxo-search>
+            </dxo-header-filter>
+            <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+            <dxo-pager
+            [visible]="true"
+            [allowedPageSizes]="[ 10,20, 'all']"
+           
+            [showPageSizeSelector]="true"
+           
+            [showInfo]="true"
+            infoText="Page {0} of  {1} ({2} items)"
+            [showNavigationButtons]="true">
+          </dxo-pager>
+      
+          <dxo-group-panel [visible]="true"></dxo-group-panel>
+            <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+        </dx-data-grid>
+    </div>
+</dx-drop-down-box>
+
+             </div>
+             <br>
+              <div class="box">
+                
+                  <!-- <dx-drop-down-box
+                  formControlName="USR_ID"
+                  labelMode="floating"
+                  label="Select User(s)"
+                  [(value)]="selectedOption"
+                  [(opened)]="isUserBoxOpened"
+                  [displayExpr]="gridBox_displayExpr"
+                  valueExpr="usR_ID" 
+                  [dataSource]="Userinfo1"
+                  [deferRendering]="false"
+                  placeholder=""
+                  [inputAttr]="{ 'aria-label': 'Owner' }"
+                  [showClearButton]="true"
+              >
+                  <div *dxTemplate="let data of 'content'">
+                      <dx-data-grid
+                          [dataSource]="Userinfo1"
+                          [columns]="usergridColumns"
+                          [hoverStateEnabled]="true"
+                          [(selectedRowKeys)]="selectedOption"
+                          height="100%"
+                      >
+                          <dxo-selection mode="multiple"></dxo-selection>
+                          <dxo-filter-row [visible]="true"></dxo-filter-row>
+                          <dxo-scrolling mode="virtual"></dxo-scrolling>
+                          <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                      </dx-data-grid>
+                  </div>
+              </dx-drop-down-box> -->
+              <dx-drop-down-box
+              formControlName="doc_perm_rights_id"
+              labelMode="floating"
+              label="Select UserPermission Right(s)"
+                [(value)]="selectedOption1"
+               [inputAttr]="{ 'aria-label': 'Owner' }"
+              label="Select UserPermission Right(s)"
+              placeholder=""
+                [showClearButton]="true"
+                [dataSource]="dropdownOptions"
+                valueExpr="doc_perm_rights_id"
+                displayExpr="publish_Name"
+                [showClearButton]="true"
+                [searchEnabled]="true"
+                 >
+                 <div *dxTemplate="let data of 'content'">
+                  <dx-data-grid
+                  [dataSource]="dropdownOptions"
+                  [columns]="['publish_Name']"
+                  [selection]="{ mode: 'multiple' }"
+                  [hoverStateEnabled]="true"
+                  [filterRow]="{ visible: false }"
+                  [scrolling]="{ mode: 'virtual' }"
+                  [height]="230"
+                  [showColumnHeaders]="false"
+                  [(selectedRowKeys)]="selectedOption1"
+                    >
+                    </dx-data-grid>
+                     </div>
+                    </dx-drop-down-box>
+              
+           
+  
+             <!-- <dx-select-box
+             label="Select User Permissions"
+             [(value)]="selectedOption"
+             [dataSource]="dropdownOptions"
+            [showClearButton]="true"
+             [showSelectionControls]="true" 
+             [selectionMode]="'multiple'" 
+             (onValueChanged)="selectInspection1($event.value)"
+           ></dx-select-box> -->
+           <!-- <dx-drop-down-box
+                       formControlName="doc_perm_rights_id"
+                       labelMode="floating"
+                       label="Select UserPermission Right(s)"
+                         [(value)]="selectedOption1"
+                        [inputAttr]="{ 'aria-label': 'Owner' }"
+                         placeholder=""
+                         [showClearButton]="true"
+                         [dataSource]="dropdownOptions"
+                         valueExpr="doc_perm_rights_id"
+                         displayExpr="publish_Name"
+                         [showClearButton]="true"
+                          >
+                          <div *dxTemplate="let data of 'content'">
+                           <dx-data-grid
+                           [dataSource]="dropdownOptions"
+                           [columns]="['publish_Name']"
+                           [selection]="{ mode: 'multiple' }"
+                           [hoverStateEnabled]="true"
+                           [filterRow]="{ visible: false }"
+                           [scrolling]="{ mode: 'virtual' }"
+                           [height]="120"
+                           [showColumnHeaders]="false"
+                           [(selectedRowKeys)]="selectedOption1"
+                             >
+                             </dx-data-grid>
+                              </div>
+                             </dx-drop-down-box> -->
+
+
+
+
+              </div>
+  
+              <div class="box" >
+          
+                <h2 >User Acknowledgement</h2>
+                </div>
+
+                <div class="box">
+                  
+                  <label>
+                    Provide Validity of Document 
+                    <input type="checkbox" formControlName="validitydocument" (change)="onCheckboxChange6($event)" [(ngModel)]="isPanelVisible6" >
+         
+                  </label>
+                  <div *ngIf="isPanelVisible6">
+                    <div class="box">
+                    
+                      <dx-date-box
+                      formControlName="startDate"
+                      placeholder=""
+                      label="Select start Date"
+                      labelMode="floating"
+                      [showClearButton]="true"
+                      [useMaskBehavior]="true"
+                      displayFormat="dd/MMM/yyyy"
+                      type="date"
+                      [min]="minDate"
+       
+                    ></dx-date-box>
+
+                    <dx-date-box
+                    formControlName="endDate"
+                    placeholder=""
+                    label="Select End Date"
+                    labelMode="floating"
+                    [showClearButton]="true"
+                    [useMaskBehavior]="true"
+                    displayFormat="dd/MMM/yyyy"
+                    type="date"
+                    [min]="form.get('startDate').value"
+     
+                  ></dx-date-box>
+                    </div>        
+                  </div>
+                </div>
+                <br>
+                
+                <div class="box" style="display: flex; justify-content: space-between;">
+                <!-- <input type="checkbox" (change)="onCheckboxChange($event)" [(ngModel)]="isChecked"> Check me -->
+              
+                  <label>
+                    Request for Acknowledgement 
+                    <input type="checkbox" formControlName="ack_status" (change)="onCheckboxChange($event)" [(ngModel)]="isPanelVisible"> 
+                  </label>
+    <br>
+    <br>
+                
+                  
+                  <div *ngIf="isPanelVisible">
+                    <!-- Your panel content goes here -->
+                    <div class="box">
+                      
+                <dx-date-box
+                formControlName="duedate"
+                placeholder=""
+                label="Select Due Date"
+                labelMode="floating"
+                [showClearButton]="true"
+                [useMaskBehavior]="true"
+                displayFormat="dd/MMM/yyyy"
+                type="date"
+                [min]="form.get('startDate').value "
+                [max]="form.get('endDate').value || null "
+ 
+              ></dx-date-box>
+                   
+<!--                     
+                      <mat-form-field appearance="outline" class="form-field">
+                        <mat-label>Select Due Date</mat-label>
+                      <input matInput formControlName="duedate" [min]="minDate" required type="date" [(ngModel)]="selectedDate" (keydown)="$event.preventDefault()"/>
+                      </mat-form-field> -->
+                      
+                      <!-- OR
+
+                      <mat-form-field appearance="outline" class="form-field">
+                        
+                        <mat-label>Enter Timeline(in Days)</mat-label>
+                        <input matInput formControlName="timeline" name="name"  type="number" required />
+                      </mat-form-field> -->
+                    </div>
+                 
+                  </div>
+                  
+               
+                </div>
+                <div class="box" style="display: flex; justify-content: space-between;"  *ngIf="isPanelVisible">
+                  <!-- <input type="checkbox" (change)="onCheckboxChange($event)" [(ngModel)]="isChecked"> Check me -->
+                  
+                    <label>
+                      Optional Reminder
+                      <input type="checkbox" formControlName="optionalreminder" (change)="onCheckboxChange1($event)" [(ngModel)]="isPanelVisible1"> 
+                    </label>
+      <br>
+      <br>
+             <div *ngIf="isPanelVisible1 ">
+               <div class="box">
+                <mat-form-field appearance="outline" class="form-field" >
+                        
+                 <mat-label>Every </mat-label>
+                <input matInput formControlName="noofdays" name="name"  [min]="1"
+                 type="number" />
+               </mat-form-field>
+               <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Time period </mat-label>
+                <mat-select
+              formControlName="timeperiod"
+              (selectionChange)="changeTimePeriod($event)"
+              disableOptionCentering>
+              <mat-option *ngFor="let period of tmperiod" [value]="period.name">{{
+                period.name
+              }}</mat-option>
+            </mat-select>
+              </mat-form-field>
+                  </div> 
+                  </div>
+                
+                   </div>
+                
+                <div class="box">
+                  
+                    <label>
+                      Provide User Track Reminder on Document Reading
+                      <input type="checkbox" formControlName="trakstatus" (change)="onCheckboxChange2($event)" [(ngModel)]="isPanelVisible2" >
+           
+                    </label>
+      <br>
+      <br>
+      <div *ngIf="isPanelVisible2">
+        <!-- Your panel content goes here -->
+        <div class="box">
+      <mat-form-field appearance="outline" class="form-field">
+                        
+        <mat-label>Every</mat-label>
+        <input matInput formControlName="everyday" name="name"  [min]="1"  type="number" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Time period </mat-label>
+        <mat-select
+      formControlName="reqtimeperiod"
+      (selectionChange)="changereqTimePeriod($event)"
+      disableOptionCentering>
+      <mat-option *ngFor="let period of requiredtmperiod" [value]="period.name">{{
+        period.name
+      }}</mat-option>
+    </mat-select>
+      </mat-form-field>
+    </div> 
+      </div>
+                  </div>
+                 
+
+              <div class="button">
+              <button class="grey-button" matStepperPrevious>Cancel</button>
+              <button class="Custombutton" (click)="onSubmit()">Notify</button>
+            </div>
+         
+          </mat-step>
+     
+      </mat-horizontal-stepper>
+    
+    </form>
+  </div>
+
+    </div>
+  </div>
+</div>
+</div>

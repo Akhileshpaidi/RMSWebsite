@@ -1,0 +1,785 @@
+<div class="form">
+    <div class="body">
+      <div class="row">
+       
+        <h2 class="header">Request for External Assessment Schedule(One-time Frequency)</h2>
+     
+      </div>
+      <hr />
+      <!-- <div class="radio-buttons">
+         <label>
+        Select Scope Type:
+        </label>
+          <label >
+            <input type="radio" name="selectionType" (change)="setSelectionType('internal')" value="internal">Internal
+          </label>
+          <label>
+            <input type="radio" name="selectionType" (change)="setSelectionType('external')" value="external">External
+          </label>
+        </div> -->
+     
+      <!-- <form [formGroup]="createUserForm" *ngIf="selectionType === 'internal'  && isInternalSelection()"  (ngSubmit)="createUser(createUserForm.value)" >
+
+      <div class="boxNew" style="padding-left: 30px;">
+
+         <dx-drop-down-box style="width: 700px;"
+        formControlName="assettempletid"
+        [dropDownOptions]="{width: '1400px'}" 
+        [(value)]="gridBoxValue"
+        [(opened)]="isGridBoxOpened"
+        valueExpr="ass_template_id"
+         [deferRendering]="false"
+         [displayExpr]="gridBox_displayExpr5"
+         placeholder="Select a Assessement Template"
+         [inputAttr]="{ 'aria-label': 'Owner' }"
+         [showClearButton]="true"
+         [dataSource]="gridDataSource5"
+        
+      
+        >
+            >
+              <div *dxTemplate="let data of 'content'">
+                <dx-data-grid
+                [dataSource]="gridDataSource5"
+                [columns]="gridColumns"
+                  [hoverStateEnabled]="true"
+                  [(selectedRowKeys)]="gridBoxValue"
+              height="100%"
+              width="100%"
+        >
+           <div *dxTemplate="let item of 'item'">
+                <span title="item[gridBox_displayExpr]">{{item[gridBox_displayExpr]}}</span>
+              </div>
+                
+                  <dxo-selection mode="single"></dxo-selection>
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-scrolling mode="virtual"></dxo-scrolling>
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                </dx-data-grid>
+              </div>
+            </dx-drop-down-box> -->
+          
+        <!-- </div>
+      <mat-horizontal-stepper labelPosition="bottom">
+
+    
+ 
+    <mat-step label="  Select Doc Category Preference">
+               
+      <div class="box">
+        <div>
+          <dx-select-box 
+          formControlName="DocumentType"
+          label="Select Document Type"
+          labelMode="floating"
+          valueExpr="docTypeID"
+          displayExpr="docTypeName"
+          [searchEnabled]="true"
+          [dataSource]="DocumentTypeData"  
+          (onValueChanged)="getDocTypes($event)"
+          selectionMode="single" 
+           
+       
+        >
+           >    </dx-select-box>
+         
+          </div>
+       
+       
+      <div>
+
+        <dx-select-box 
+        formControlName="DocumentCategory"
+        label="Select Document Category"
+  labelMode="floating"
+  valueExpr="doc_CategoryID"
+ displayExpr="doc_CategoryName"
+  [dataSource]="Documentcategory"  
+  [searchEnabled]="true"
+  (onValueChanged)="getsubDocTypes($event)"
+  selectionMode="single" 
+  placeholder=""
+        >
+     
+  </dx-select-box>
+
+      
+    </div>
+      </div>
+      <br>
+      <br>
+      <div class="box" style="width: 638px;">
+          <div >
+
+              <dx-select-box 
+              formControlName="DocumentSubCategory"
+              label="Select Document Sub Category"
+              labelMode="floating"
+              valueExpr="doc_SubCategoryID"
+            displayExpr="doc_SubCategoryName"
+            [searchEnabled]="true"
+            [dataSource]="Documentsubcategory"  
+            selectionMode="single" 
+        >
+           
+        </dx-select-box>
+          </div>
+        </div>
+ Button Section -->
+       <br>
+
+  <!-- <div class="button">
+     
+      
+      <button class="Custombutton" matStepperNext type="button">Next</button>
+    </div>
+    <br>
+  </mat-step>
+  <mat-step label="select TPA users">
+
+
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="fill">
+          <mat-label>Requested Date</mat-label>
+          <input
+            matInput
+            type="text"
+            [value]="currentDate"
+            readonly
+          />
+        </mat-form-field>
+  
+        <dx-drop-down-box
+        formControlName="requstingperson1"
+        [(value)]="selectedOption12"         
+        [inputAttr]="{ 'aria-label': 'Owner' }"
+        value="usR_ID"
+        labelMode="floating"
+        placeholder="Select Requesting Person *"
+        [dataSource]="personrequstingdatasource1"
+        [(opened)]="isUserBoxOpened7"
+        [displayExpr]="gridBox_displayExpr22"
+        [deferRendering]="false"
+        [showClearButton]="true"
+     
+      >
+        <div *dxTemplate="let data of 'content'">
+          <dx-data-grid
+          [columns]="usergridColumns"
+          [selection]="{ mode: 'single' }"
+          [dataSource]="personrequstingdatasource1"
+          [(selectedRowKeys)]="selectedOption12"
+          [filterRow]="{ visible: true }"
+          [scrolling]="{ mode: 'virtual' }"
+            [hoverStateEnabled]="true"
+            height="100%"
+          >
+
+           Data grid configuration for the first dropdown -->
+          <!-- </dx-data-grid>
+        </div>
+      </dx-drop-down-box>
+  
+  
+
+  
+      </div>
+    </div>
+    <br>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+
+        <dx-select-box 
+        formControlName="tpaEntityName"
+        label="Select TPA Entity Name*"
+        labelMode="floating"
+        valueExpr="tpaenityid"
+        displayExpr="tpaenityname"
+        [dataSource]="TpaEntityNamedatasocurce"
+        height="40px"
+        [searchEnabled]="true"
+        selectionMode="single" 
+       placeholder=""
+       (onValueChanged)="gettpausers($event)"     disableOptionCentering >
+  </dx-select-box>
+
+
+  <dx-select-box 
+  formControlName="tpauser"
+  label="Select TPA User Name*"
+  labelMode="floating"
+  valueExpr="tpauserid"
+  displayExpr="tpausername"
+  [dataSource]="tpauser"
+  [searchEnabled]="true"
+  height="40px"
+  selectionMode="single" 
+  [(value)]="selectetpa"
+ placeholder=""
+  disableOptionCentering >
+</dx-select-box>
+
+      </div>
+    </div>
+    <br>
+    <div fxLayoutAlign="center center">
+      <div class="box">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Message To TPA</mat-label>
+          <textarea matInput formControlName="tpaDescription1" name="tpaDescription1" required rows="4" ></textarea>
+          <mat-error *ngIf="createUserForm.get('tpaDescription1')">
+            tpaDescription is required
+          </mat-error>
+          </mat-form-field>
+  
+      </div></div>
+       
+    <div class="button">
+     
+      <button class="grey-button" matStepperPrevious>Back</button>
+      <button class="Custombutton" matStepperNext type="button">Next</button>
+    </div>
+  </mat-step> -->
+
+  <!-- <mat-step label="Select Users To Map">
+    <div fxLayoutAlign="center center">
+      <div class="box">
+
+      </div>
+  </div>
+  <div>
+    <br>
+    <div> --> 
+      <!-- <mat-radio-group formControlName="selectedType">
+        <mat-radio-button value="Internal">Internal</mat-radio-button>
+        <mat-radio-button value="External">External</mat-radio-button>
+        <mat-radio-button value="Self">Self</mat-radio-button>
+      </mat-radio-group> -->
+    <!-- </div>
+  </div>
+  <br>
+      <div fxLayoutAlign="center center">
+        <div class="box">
+
+          <dx-select-box 
+          formControlName="enityname"
+          label="Select Entity Name*"
+          labelMode="floating"
+          valueExpr="entity_Master_id"
+          displayExpr="entity_Master_Name"
+          [dataSource]="EntityName"
+          [searchEnabled]="true"
+          height="40px"
+          selectionMode="single" 
+         placeholder=""
+         (onValueChanged)="getUnitLocation($event)"   disableOptionCentering >
+    </dx-select-box>
+    
+        
+      <dx-select-box 
+      formControlName="unitlocation"
+      label="Select Unit Location*"
+      labelMode="floating"
+      valueExpr="unit_location_Master_id"
+      displayExpr="unit_location_Master_name"
+      [dataSource]="UnitMaster"
+      height="40px"
+      selectionMode="single" 
+      [searchEnabled]="true"
+      [(value)]="selectedentity"
+     placeholder="" 
+     (onValueChanged)="getdepartment($event)" disableOptionCentering >
+</dx-select-box>
+
+             </div>
+      </div>
+      <div>
+        <br>
+      </div>
+      <div fxLayoutAlign="center center">
+        <div class="box">
+
+          <dx-drop-down-box 
+          formControlName="department"
+          [(value)]="selectedOption"         
+          [inputAttr]="{ 'aria-label': 'Owner' }"
+          placeholder="Select Business Function(s)*"
+          [showClearButton]="true"
+          labelMode="floating"
+          valueExpr="department_Master_id"
+          displayExpr="department_Master_name"
+          [dataSource]="Departmentmaster"
+          height="40px" 
+         (onValueChanged)="onDepartmentSelectionChange($event)" >   
+         <div *dxTemplate="let data of 'content'">
+          <dx-data-grid    
+          [dataSource]="Departmentmaster"
+            [columns]="departmentColumns"
+            [selection]="{ mode: 'multiple' }"
+            [hoverStateEnabled]="true"
+            [(selectedRowKeys)]="selectedOption"
+            [filterRow]="{ visible: true }"
+            [scrolling]="{ mode: 'virtual' }"
+           
+            [showColumnHeaders]="false"
+            height="100%"
+          >
+        
+
+          Data grid configuration for the first dropdown -->
+          <!-- </dx-data-grid>
+        </div> 
+    </dx-drop-down-box>
+
+          
+
+              
+                  <dx-drop-down-box
+                  formControlName="MapUserList"
+                  [(value)]="selectedOption1"         
+                  [inputAttr]="{ 'aria-label': 'Owner' }"
+                  value="usR_ID"
+                  labelMode="floating"
+                  placeholder="Search and select User(s)*"
+                  [dataSource]="UserDatasource"
+                  [(opened)]="isUserBoxOpened"
+                  (onValueChanged)="onUserSelectionChange($event)"
+                  [displayExpr]="gridBox_displayExpr"
+                
+                  [deferRendering]="false"
+                
+               
+                  [showClearButton]="true"
+                -->
+                
+                  <!-- Content template for the first dropdown -->
+                  <!-- <div *dxTemplate="let data of 'content'">
+                    <dx-data-grid
+                    [columns]="usergridColumns"
+                    [selection]="{ mode: 'multiple' }"
+                    [dataSource]="UserDatasource"
+                    [(selectedRowKeys)]="selectedOption1"
+                    [filterRow]="{ visible: true }"
+                    [scrolling]="{ mode: 'virtual' }"
+                      [hoverStateEnabled]="true"
+                    
+                      height="100%"
+                    >
+          
+                      Data grid configuration for the first dropdown -->
+                    <!-- </dx-data-grid>
+                  </div>
+                </dx-drop-down-box>
+          
+        </div>
+      </div>
+      <div>
+        <br>
+      </div>
+      <div fxLayoutAlign="center center">
+             <div class="box">
+              
+                <dx-drop-down-box
+                formControlName="exemptionUser"
+                [dataSource]="UserDatasourceSecondDropdown"
+                labelMode="floating"
+                placeholder="Search and select User(s) Exempted from Assessment"
+                [(value)]="selectedOption2"
+               
+                valueExpr="usR_ID"
+                [deferRendering]="false"
+                [(opened)]="isUserBoxOpened1"
+                [displayExpr]="gridBox_displayExprExemptionUser"
+                [deferRendering]="false"
+              
+                [inputAttr]="{ 'aria-label': 'Owner' }"
+                [showClearButton]="true"
+
+              > -->
+                <!-- Content template for the second dropdown -->
+                <!-- <div *dxTemplate="let data of 'content'">
+                  <dx-data-grid
+                    [columns]="usergridColumns"
+                    [dataSource]="UserDatasourceSecondDropdown"
+                    [hoverStateEnabled]="true"
+                    [selection]="{ mode: 'multiple' }"
+                    [filterRow]="{ visible: true }"
+                     [scrolling]="{ mode: 'virtual' }"
+                    [(selectedRowKeys)]="selectedOption2"
+                    height="100%"
+
+                  > 
+
+                  > -->
+                    <!-- Data grid configuration for the second dropdown -->
+                  <!-- </dx-data-grid>
+                </div>
+              </dx-drop-down-box>
+            
+             <mat-form-field *ngIf="UserDatasourceSecondDropdown && UserDatasourceSecondDropdown.length > 0" appearance="fill" class="form-field">
+              <mat-label>Mention Reason for Exemption from Assessment</mat-label>
+              <input matInput   formControlName="ExemptedReason" type="text"  />
+
+            </mat-form-field>
+             </div>
+      </div>
+     
+      <div>
+        <br>
+      </div>
+      -->
+  <!-- <div>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Email Id</mat-label>
+        <input
+          matInput
+          formControlName="emailid"
+          name="emailid"
+          required
+          type="email"
+      
+        />
+        <mat-error *ngIf="createUserForm.get('emailid')">
+          Please include an '@' in the email address
+        </mat-error>
+      </mat-form-field>
+    </div> -->
+     
+    
+      <!-- <div class="margin-top"></div>
+      <div class="button">
+        <button class="grey-button" matStepperPrevious>Back</button>
+        <button class="Custombutton"  >Send request</button>
+      </div>
+   
+  </mat-step>
+  </mat-horizontal-stepper>
+</form> -->
+<!-- <br> -->
+<form [formGroup]="createUserForm1" (ngSubmit)="createexternal(createUserForm1.value)" >
+
+  <!-- <mat-horizontal-stepper labelPosition="bottom">
+    <mat-step label="select TPA users"> -->
+
+      <div fxLayoutAlign="center center">
+        <div class="box">
+          <mat-form-field appearance="fill">
+            <mat-label>Requested Date</mat-label>
+            <input
+              matInput
+              type="text"
+              [value]="currentDate | date: 'dd/MMM/yyyy'"
+              readonly
+            />
+          </mat-form-field>
+
+          <dx-drop-down-box
+          formControlName="requstingperson"
+          [(value)]="selectedOption11"         
+          [inputAttr]="{ 'aria-label': 'Owner' }"
+          value="usR_ID"
+          label="Select Requesting Person *"
+          labelMode="floating"
+          placeholder="Select Requesting Person *"
+          [dataSource]="personrequstingdatasource"
+          [(opened)]="isUserBoxOpened6"
+          [searchEnabled]="true"
+          [displayExpr]="gridBox_displayExpr21"
+          [deferRendering]="false"
+          [showClearButton]="true"
+       
+        >
+          <div *dxTemplate="let data of 'content'">
+            <dx-data-grid
+            [columns]="usergridColumns"
+            [selection]="{ mode: 'single' }"
+            [dataSource]="personrequstingdatasource"
+            [(selectedRowKeys)]="selectedOption11"
+            [scrolling]="{ mode: 'virtual' }"
+            [filterRow]="{ visible: true }"
+              [hoverStateEnabled]="true"
+              height="100%"
+            >
+  
+              <!-- Data grid configuration for the first dropdown -->
+            </dx-data-grid>
+          </div>
+        </dx-drop-down-box>
+    
+    
+  
+    
+        </div>
+      </div>
+      <br>
+  <div fxLayoutAlign="center center">
+    <div class="box">
+
+      <dx-select-box 
+      formControlName="tpaEntityNameexternal"
+      label="Select TPA Entity Name*"
+      labelMode="floating"
+      valueExpr="tpaenityid"
+      displayExpr="tpaenityname"
+      [dataSource]="TpaEntityNamedatasocurce1"
+      height="40px"
+      [searchEnabled]="true"
+      selectionMode="single" 
+     placeholder=""
+     (onValueChanged)="gettpausers1($event)" disableOptionCentering >
+</dx-select-box>
+
+
+<dx-select-box 
+formControlName="tpauserexternal"
+label="Select TPA User Name*"
+labelMode="floating"
+valueExpr="tpauserid"
+displayExpr="tpausername"
+[dataSource]="tpauser1"
+[searchEnabled]="true"
+height="40px"
+selectionMode="single" 
+[(value)]="selectetpa1"
+placeholder=""
+disableOptionCentering >
+</dx-select-box>
+
+    </div>
+  </div>
+
+  <br>
+  <div class="box">
+    <div>
+         <dx-select-box 
+         formControlName="EntityMaster"
+         label="Select Entity Name*"
+         labelMode="floating"
+         valueExpr="entity_Master_id"
+         displayExpr="entity_Master_Name"
+         [dataSource]="EntityName"
+         height="40px"
+         [searchEnabled]="true"
+         selectionMode="single" 
+        placeholder=""
+        (onValueChanged)="getUnitLocation($event)"   disableOptionCentering >
+   </dx-select-box>
+
+  
+</div>
+       <div>
+     <dx-select-box 
+     formControlName="UnitLoc"
+     label="Select Unit Location*"
+     labelMode="floating"
+     valueExpr="unit_location_Master_id"
+     displayExpr="unit_location_Master_name"
+     [dataSource]="UnitMaster"
+     height="40px"
+     selectionMode="single" 
+     [(value)]="selectedentity"
+     [searchEnabled]="true"
+    placeholder="" 
+    (onValueChanged)="getdepartment($event)" disableOptionCentering >
+</dx-select-box>
+
+</div>
+            </div>
+            <br>
+  <div fxLayoutAlign="center center">
+    <div class="box">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Message To TPA</mat-label>
+        <textarea matInput formControlName="tpaDescription" name="tpaDescription" required rows="4" ></textarea>
+        <mat-error *ngIf="createUserForm1.get('tpaDescription')">
+          Message To TPA  is required
+        </mat-error>
+        </mat-form-field>
+
+    </div></div>
+     
+    <div class="margin-top"></div>
+    <div class="button">
+      <button class="Custombutton"   >Send request</button>
+    </div>
+    <!-- <button class="Custombutton" matStepperNext type="button">Next</button>
+    </div> -->
+    <!-- </mat-step> -->
+    <!-- <mat-step label=" Select Users To Map ">
+      <div fxLayoutAlign="center center">
+        <div class="box">
+
+          <dx-select-box 
+          formControlName="enityname1"
+          label="Select Entity Name*"
+          labelMode="floating"
+          valueExpr="entity_Master_id"
+          displayExpr="entity_Master_Name"
+          [dataSource]="EntityName1"
+          height="40px"
+          selectionMode="single" 
+          [searchEnabled]="true"
+         placeholder=""
+         (onValueChanged)="getUnitLocation1($event)"   disableOptionCentering >
+    </dx-select-box>
+    
+        
+      <dx-select-box 
+      formControlName="unitlocation1"
+      label="Select Unit Location*"
+      labelMode="floating"
+      valueExpr="unit_location_Master_id"
+      displayExpr="unit_location_Master_name"
+      [dataSource]="UnitMaster1"
+      height="40px"
+      selectionMode="single" 
+      [searchEnabled]="true"
+      [(value)]="selectedentity"
+     placeholder="" 
+     (onValueChanged)="getdepartment1($event)" disableOptionCentering >
+</dx-select-box>
+
+             </div>
+      </div>
+      <div>
+        <br>
+      </div>
+      <div fxLayoutAlign="center center">
+        <div class="box">
+
+          <dx-drop-down-box 
+          formControlName="department1"
+          [(value)]="selectedOption"         
+          [inputAttr]="{ 'aria-label': 'Owner' }"
+          placeholder="Select Business Function(s)*"
+          [showClearButton]="true"
+          labelMode="floating"
+          valueExpr="department_Master_id"
+          displayExpr="department_Master_name"
+          [dataSource]="Departmentmaster1"
+          height="40px" 
+         (onValueChanged)="onDepartmentSelectionChange1($event)" >   
+         <div *dxTemplate="let data of 'content'">
+          <dx-data-grid    
+          [dataSource]="Departmentmaster1"
+            [columns]="departmentColumns"
+            [selection]="{ mode: 'multiple' }"
+            [hoverStateEnabled]="true"
+            [(selectedRowKeys)]="selectedOption"
+            [filterRow]="{ visible: true }"
+            [scrolling]="{ mode: 'virtual' }"
+           
+            [showColumnHeaders]="false"
+            height="100%"
+          >
+        
+
+             Data grid configuration for the first dropdown -->
+          <!-- </dx-data-grid>
+        </div> 
+    </dx-drop-down-box>
+
+          
+
+              
+                  <dx-drop-down-box
+                  formControlName="MapUserList1"
+                  [(value)]="selectedOption1"         
+                  [inputAttr]="{ 'aria-label': 'Owner' }"
+                  value="usR_ID"
+                  labelMode="floating"
+                  placeholder="Search and select User(s)*"
+                  [dataSource]="UserDatasource1"
+                  [(opened)]="isUserBoxOpened"
+                  (onValueChanged)="onUserSelectionChange1($event)"
+                  [displayExpr]="gridBox_displayExpr1"
+                
+                  [deferRendering]="false"
+                
+               
+                  [showClearButton]="true"
+               
+                >
+                  Content template for the first dropdown
+                  <div *dxTemplate="let data of 'content'">
+                    <dx-data-grid
+                    [columns]="usergridColumns"
+                    [selection]="{ mode: 'multiple' }"
+                    [dataSource]="UserDatasource1"
+                    [(selectedRowKeys)]="selectedOption1"
+                    [filterRow]="{ visible: true }"
+                    [scrolling]="{ mode: 'virtual' }"
+                      [hoverStateEnabled]="true"
+                    
+                      height="100%"
+                    >
+          
+                       Data grid configuration for the first dropdown -->
+                    <!-- </dx-data-grid>
+                  </div>
+                </dx-drop-down-box>
+          
+        </div>
+      </div>
+      <div>
+        <br>
+      </div>
+      <div fxLayoutAlign="center center">
+             <div class="box">
+              
+                <dx-drop-down-box
+                formControlName="exemptionUser1"
+                [dataSource]="UserDatasourceSecondDropdown1"
+                labelMode="floating"
+                placeholder="Search and select User(s) Exempted from Assessment"
+                [(value)]="selectedOption2"
+               
+                valueExpr="usR_ID"
+                [deferRendering]="false"
+                [(opened)]="isUserBoxOpened1"
+                [displayExpr]="gridBox_displayExprExemptionUser"
+                [deferRendering]="false"
+              
+                [inputAttr]="{ 'aria-label': 'Owner' }"
+                [showClearButton]="true"
+
+              >
+                
+                <div *dxTemplate="let data of 'content'">
+                  <dx-data-grid
+                    [columns]="usergridColumns"
+                    [dataSource]="UserDatasourceSecondDropdown1"
+                    [hoverStateEnabled]="true"
+                    [selection]="{ mode: 'multiple' }"
+                    [filterRow]="{ visible: true }"
+                     [scrolling]="{ mode: 'virtual' }"
+                    [(selectedRowKeys)]="selectedOption2"
+                    height="100%"
+
+                  >
+
+                  >
+                  
+                  </dx-data-grid>
+                </div>
+              </dx-drop-down-box>
+            
+             <mat-form-field *ngIf="UserDatasourceSecondDropdown1 && UserDatasourceSecondDropdown1.length > 0" appearance="fill" class="form-field">
+              <mat-label>Mention Reason for Exemption from Assessment</mat-label>
+              <input matInput   formControlName="ExemptedReason1" type="text" />
+
+            </mat-form-field>
+             </div>
+      </div>
+   
+    <div class="margin-top"></div>
+    <div class="button">
+      <button class="grey-button" matStepperPrevious>Back</button>
+    
+  </mat-step>   --> 
+  <!-- </mat-horizontal-stepper> -->
+</form>
+
+    </div>
+    </div>

@@ -1,0 +1,59 @@
+/* YourComponent.css */
+.form-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  padding-left: 20px;
+}
+
+.header {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+
+.form-content {
+  padding-left: 20px; /* Adjust the value for your desired padding */
+}
+.mat-form-field .mat-label {
+  font-weight: normal !important; /* Change label text to normal font weight */
+  color: #6c757d;
+}
+.Custombutton {
+  width: 100%; /* Set the button width to 100% */
+}
+/* Add this to your component's CSS/SCSS file */
+.mat-form-field-wrapper {
+  border: 1px solid #ccc; /* Border color */
+  border-radius: 4px; /* Border radius */
+  padding: 8px; /* Padding around the select */
+}
+
+.mat-select-trigger {
+  line-height: 1.5em; /* Adjust line height for better visibility */
+}
+
+/* Add borders to all sides */
+.mat-form-field-wrapper .mat-select {
+  border: none; /* Remove the default border */
+}
+
+.mat-form-field-wrapper .mat-select-panel {
+  border: 1px solid #ccc; /* Border color */
+  border-top: none; /* Remove top border of the panel */
+  border-radius: 0 0 4px 4px; /* Border radius to match the select */
+}
+
+.checkbox-section {
+  margin: 12px 0;
+}
+
+.checkbox-margin {
+  margin: 0 12px;
+}
+.selected-topics {
+  white-space: normal;
+  display: inline-block;
+  max-width: 100%; /* Adjust accordingly */
+  overflow-wrap: break-word;
+}

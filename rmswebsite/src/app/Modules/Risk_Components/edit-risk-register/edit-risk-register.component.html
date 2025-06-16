@@ -1,0 +1,1484 @@
+<div class="form">
+    <div class="body">
+        <div class="header col">
+          <div style="align-self: self-end">
+            <div class="header" *ngIf="register">
+              <button type="button" class="back" (click)="location.back()"><mat-icon>arrow_back</mat-icon></button>
+            <h1>Edit Risk Register</h1>
+          </div>
+         
+      
+        <mat-horizontal-stepper  labelPosition="bottom" #stepper [linear]="true" *ngIf="register">
+          <div *ngIf="visible_Risk" >
+             <mat-step label="Risk "  state="phone" [completed]="Riskstepper" >
+             <form [formGroup]="riskregister">
+               <h2 class="title">Edit Risk Document</h2>
+
+              <div class="box">
+              <dx-select-box
+              formControlName="Entity"
+              label="Entity Name*"
+                labelMode="floating"
+               valueExpr="entity_Master_id"
+              displayExpr="entity_Master_Name"
+                 style="height: 155%;"
+                 [searchEnabled]="true"
+                 selectionMode="single" 
+                 placeholder=""
+                [dataSource]="EntityNameDB"
+               readonly
+                 (onValueChanged)="getUnitLocation($event)"  >
+                <!-- <div *dxTemplate="let data of 'content'">
+                  <dx-data-grid
+                  [dataSource]="EntityNameDB"
+                    [columns]="EntityColumns"
+                    [hoverStateEnabled]="true"
+                    [(selectedRowKeys)]="SelectedEntity" 
+                    height="100%" 
+                  >
+                    <dxo-selection mode="single"></dxo-selection> 
+                    <dxo-filter-row [visible]="true"></dxo-filter-row>
+                    <dxo-scrolling mode="virtual"></dxo-scrolling>
+                    <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                  </dx-data-grid>
+                </div> -->
+              </dx-select-box>
+              <dx-select-box
+              formControlName="Unit"
+              valueExpr="unit_location_Master_id"
+             displayExpr="unit_location_Master_name"
+              label="Select Unit Location*"
+              [searchEnabled]="true"
+              selectionMode="single" 
+              placeholder=""
+            style="height: 155%;" 
+            [disabled]="true"
+             [dataSource]="UnitLocationMaster" 
+            (onValueChanged)="getDepartment($event)" 
+            >
+            <!-- <div *dxTemplate="let data of 'content'">
+
+              <dx-data-grid
+              [dataSource]="UnitLocationMaster"
+                [columns]="UnitLocationColumns"
+                [hoverStateEnabled]="true"
+                [showBorders]="true"
+                [(selectedRowKeys)]="Selectedunit"
+                height="100%"
+
+              >
+
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxo-selection mode="single"></dxo-selection>
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-scrolling mode="virtual"></dxo-scrolling>
+                <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                <dxo-group-panel
+          [visible]="true" [allowColumnDragging]="false"></dxo-group-panel>
+          <dxo-grouping #expand expandMode="rowClick"></dxo-grouping>
+              </dx-data-grid>
+            </div> -->
+               </dx-select-box>
+                        
+             </div>
+             <br>
+             <div class="box">
+                <dx-select-box
+                formControlName="Deparment"
+                valueExpr="department_Master_id"
+                displayExpr="department_Master_name"
+                  [deferRendering]="false"
+                  label="Deparment Name*"
+                  labelMode="floating"
+                  [showClearButton]="true"
+                  style="height: 155%;"  [dataSource]="DepartmentDB" 
+                   (onValueChanged)="getBusinessFunction($event)" 
+                   [disabled]="true" >
+                </dx-select-box>
+                <dx-select-box
+                formControlName="Business"
+              valueExpr="riskBusinessfunctionid"
+                displayExpr="riskbusinessname"
+                  [deferRendering]="false"
+                  label="Business Function*"
+                  labelMode="floating"
+                  [showClearButton]="true"
+                  style="height: 155%;"  [dataSource]="FunctionDB"  >
+                </dx-select-box>
+             </div>
+             <br>
+             <div class="box">
+                <dx-select-box
+                formControlName="BusinessProcess"
+                 valueExpr="businessprocessID"
+                displayExpr="businessProcessName"
+                  [deferRendering]="false"
+                  label="Business Process*"
+                  labelMode="floating"
+                  [showClearButton]="true"
+                  style="height: 155%;"  [dataSource]="BusinessProcessDB" (onValueChanged)="getProcessL1($event)"   >
+                </dx-select-box>
+           <div></div>
+             </div>
+          
+       
+          <br>
+          <div class="box">
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Name of Risk Document/Register</mat-label>
+                  <textarea matInput  #titleinput minlength="0" maxlength="150"  formControlName="RiskRegis"  (input)="onInput()"></textarea>
+                 <mat-hint align="start" >Min 0 - Max 150 Characters</mat-hint>
+                 <mat-hint align="end">{{titleinput.value.length}}/150</mat-hint>
+               </mat-form-field>
+            <mat-form-field appearance="fill" class="form-field">
+             <mat-label>Objective of Risk Document</mat-label>
+                 <textarea matInput  #titleinput minlength="0" maxlength="1500"  formControlName="ObjectiveRisk"  (input)="onInput()"></textarea>
+                <mat-hint align="start" >Min 0 - Max 1500 Characters</mat-hint>
+                <mat-hint align="end">{{titleinput.value.length}}/1500</mat-hint>
+              </mat-form-field>
+          </div>
+          <div class="button">
+            <button class="Custombutton" matStepperNext type="button" (click)="AddStepper(stepper)">Next</button>
+           </div>
+             </form>
+           </mat-step>
+         </div>
+
+           <div *ngIf="visiblestepper">
+       <mat-step label="Risk Definition" state="phone" >
+       <form [formGroup]="Definition" >
+
+           <div class="box">
+            <dx-select-box
+            formControlName="BusinessL1"
+            [inputAttr]="{ 'aria-label': 'Owner' }"
+            label="Business Sub-Process(L1)*"
+            valueExpr="businessProcessL1ID"
+            displayExpr="businessSubProcessL1Name"
+              [deferRendering]="false"
+              labelMode="floating"
+                 [showClearButton]="true"
+                 style="height: 155%;"  [dataSource]="BusinessProcessL1DB"  (onValueChanged)="getProcessL2($event)"
+            >
+            </dx-select-box>
+           <dx-select-box
+           formControlName="BusinessL2"
+           [inputAttr]="{ 'aria-label': 'Owner' }"
+           label="Business Sub-Process(L2)*"
+           valueExpr="businessProcessL2ID"
+           displayExpr="businessSubProcessL2Name"
+             [deferRendering]="false"
+             labelMode="floating"
+                [showClearButton]="true"
+                style="height: 155%;"  [dataSource]="BusinessProcessL2DB" (onValueChanged)="getProcessL3($event)" >
+           </dx-select-box>
+         
+   </div>
+   <div class="box">
+    <dx-select-box
+    formControlName="BusinessL3"
+    [inputAttr]="{ 'aria-label': 'Owner' }"
+    label="Business Sub-Process(L3)*"
+    valueExpr="businessProcessL3ID"
+    displayExpr="businessSubProcessL3Name"
+      [deferRendering]="false"
+      labelMode="floating"
+         [showClearButton]="true"
+         style="height: 155%;"  [dataSource]="BusinessProcessL3DB" >
+    </dx-select-box>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Business Sub-Process Objective</mat-label>
+          <textarea  matInput  #titleinput minlength="0" maxlength="150"  formControlName="SubProcess" (input)="onInput()" ></textarea>
+         <mat-hint align="start" >Min 0 - Max 150 Characters</mat-hint>
+         <mat-hint align="end">{{titleinput.value.length}}/500</mat-hint>
+       </mat-form-field>
+   
+   </div>
+         <h2 class="title">Risk Definition</h2>
+
+         <div class="box">
+          <div>
+           <dx-select-box
+           [(value)]="selectedOption"
+             valueExpr="riskStatementID"
+             displayExpr="riskStatementName"
+             [deferRendering]="false"
+            label="Select one Document"
+             labelMode="floating"
+             [inputAttr]="{ 'aria-label': 'Owner' }"
+             [showClearButton]="false"
+             [dataSource]="gridDataSource"
+             [searchEnabled]="true"
+             formControlName="StatementID"
+             (onValueChanged)="onDropdownValueChanged($event)">
+         </dx-select-box>
+
+</div>
+<div></div>
+         </div>
+
+       <br>
+       <div *ngIf="SearchLibraryPanelVisible">
+            <div class="box">
+             <label> Create and Add to Risk Library</label>
+         </div>
+         <div class="box">
+           <mat-form-field appearance="fill" class="form-field">
+             <mat-label>Risk Statement/Heading</mat-label>
+                 <textarea matInput  #titleinput minlength="0" maxlength="250" readonly formControlName="RiskStatement1" (input)="onInput()"></textarea>
+                <mat-hint align="start" >Min 0 - Max 250 Characters</mat-hint>
+                <mat-hint align="end">{{titleinput.value.length}}/250</mat-hint>
+              </mat-form-field>
+           <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Risk Discription</mat-label>
+                <textarea matInput  #titleinput minlength="0" maxlength="2500" readonly formControlName="RiskDiscrip1" (input)="onInput()"></textarea>
+               <mat-hint align="start" >Min 0 - Max 2500 Characters</mat-hint>
+               <mat-hint align="end">{{titleinput.value.length}}/2500</mat-hint>
+             </mat-form-field>
+         </div>
+         <br>
+         <div class="box">
+           <label> Source Of Risk Statement</label>
+       </div>
+       <div formArrayName="references">
+         <div *ngFor="let reference of references?.controls; let key = index;">
+           <div [formGroupName]="key">
+             <div class="row">
+               <div class="box">
+                 <mat-form-field appearance="fill" class="form-field">
+                   <mat-label>Select Option</mat-label>
+                   <mat-select formControlName="referenceType" [disabled]="disablereferenceType">
+                     <mat-option value="weblink">Weblink</mat-option>
+                     <mat-option value="file">File Attachment</mat-option>
+                     <mat-option value="Text">Text Field</mat-option>
+                   </mat-select>
+                 </mat-form-field>
+
+                 <mat-form-field appearance="fill" class="form-field" *ngIf="reference.get('referenceType')?.value === 'weblink'">
+                   <mat-label>Weblink</mat-label>
+                   <input formControlName="referencetypeValue" matInput [disabled]="disablereferenceType">
+                 </mat-form-field>
+
+                 <mat-form-field appearance="fill" class="form-field" *ngIf="reference.get('referenceType')?.value === 'file'">
+                   <mat-label>File Attachment</mat-label>
+                   <div class="file-input-container">
+                     <input matInput formControlName="file_attachment" [value]="reference.get('file_attachment2')?.value" [disabled]="disablereferenceType" style="width: auto;">
+                     <label class="file-input-button">
+                       Attach
+                       <input type="file" accept=".pdf,.doc,.docx,image/jpeg,image/png" [disabled]="disablereferenceType">
+                     </label>
+                   </div>
+                 </mat-form-field>
+
+                 <mat-form-field appearance="fill" class="form-field" *ngIf="reference.get('referenceType')?.value === 'Text'">
+                   <mat-label>Text</mat-label>
+                   <input formControlName="referencetypeValue1" matInput [disabled]="disablereferenceType">
+                 </mat-form-field>
+
+                 <div>
+                   <label class="CustomLabel">Remove</label>
+                 </div>
+               </div>
+             </div>
+
+           </div>
+         </div>
+       </div>
+       <div>
+
+     </div>
+       </div>
+       <div *ngIf="LibraryPanelVisible">
+         <div class="box">
+          <label> Create and Add to Risk Library</label>
+      </div>
+      <div class="box">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Risk Statement/Heading</mat-label>
+              <textarea matInput  #titleinput minlength="0" maxlength="250"  formControlName="RiskStatement" (input)="onInput()"></textarea>
+             <mat-hint align="start" >Min 0 - Max 250 Characters</mat-hint>
+             <mat-hint align="end">{{titleinput.value.length}}/250</mat-hint>
+           </mat-form-field>
+        <mat-form-field appearance="fill" class="form-field">
+         <mat-label>Risk Discription</mat-label>
+             <textarea matInput  #titleinput minlength="0" maxlength="2500"  formControlName="RiskDiscrip" (input)="onInput()"></textarea>
+            <mat-hint align="start" >Min 0 - Max 2500 Characters</mat-hint>
+            <mat-hint align="end">{{titleinput.value.length}}/2500</mat-hint>
+          </mat-form-field>
+      </div>
+      <br>
+      <div class="box">
+        <label> Source Of Risk Statement</label>
+    </div>
+    <div formArrayName="references">
+      <div *ngFor="let reference of references?.controls; let key = index;">
+        <div [formGroupName]="key">
+          <div class="row">
+            <div class="box">
+              <mat-form-field appearance="fill" class="form-field">
+                <mat-label>Select Option</mat-label>
+                <mat-select formControlName="referenceType2" (selectionChange)="onReferenceTypeChange($event.value, key)">
+                  <mat-option value="weblink">Weblink</mat-option>
+                  <mat-option value="file">File Attachment</mat-option>
+                  <mat-option value="Text">Text Field</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="form-field" *ngIf="reference.get('referenceType2')?.value === 'weblink'">
+
+                <mat-label>Weblink</mat-label>
+                <input formControlName="referencetypeValue2" matInput>
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="form-field" *ngIf="reference.get('referenceType2')?.value === 'file'">
+
+                <mat-label>File Attachment</mat-label>
+                <div class="file-input-container">
+                  <input matInput formControlName="file_attachment2" [value]="reference.get('file_attachment2')?.value"  style="width: auto;">
+
+                  <label class="file-input-button">
+                    Attach
+                    <input type="file" accept=".pdf,.doc,.docx,image/jpeg,image/png"  (change)="onMainFileSelected($event, key)">
+                  </label>
+                </div>
+
+              </mat-form-field>
+              <mat-form-field appearance="fill" class="form-field" *ngIf="reference.get('referenceType2')?.value === 'Text'">
+
+                <mat-label>Text</mat-label>
+                <input formControlName="referencetypeValueText2" matInput>
+              </mat-form-field>
+              <div>
+                <label class="CustomLabel" (click)="removeReferenceField(key)">Remove</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+    <button class="file-input-button" type="button" (click)="addReferenceField()" >Add More</button>
+  </div>
+    </div>
+
+     <br>
+     <div class="button">
+
+     <button class="Custombutton"  type="button" (click)="DefintionDiscard()" >Discard</button>
+       <button class="Custombutton" matStepperNext type="button">Next</button>
+      </div>
+       </form>
+     </mat-step>
+     <mat-step label="Risk Attributes" state="phone" >
+       <form [formGroup]="Attributes" >
+         <h2 class="title">Risk Attributes</h2>
+       <div class="box">
+         <mat-form-field appearance="fill" class="form-field">
+           <mat-label>Risk Root Cause</mat-label>
+           <textarea  matInput #Obj_Doc minlength="5" maxlength="2500"
+           formControlName="RootCause"  style="min-height: 50px;overflow: auto;"
+           (input)="onInput()" ></textarea>
+           <mat-hint align="start">Min 5 - Max 2500 Characters</mat-hint>
+           <mat-hint align="end">{{Obj_Doc.value.length}}/2500</mat-hint>
+         </mat-form-field>
+         <!-- <dx-select-box
+         formControlName="Typerisk"
+          [inputAttr]="{ 'aria-label': 'Owner' }"
+           valueExpr="risk_Admin_typeOfRisk_id"
+         displayExpr="risk_Admin_typeOfRisk_name"
+           [deferRendering]="false"
+           label="Risk Event Frequency*"
+           labelMode="floating"
+           [showClearButton]="true"
+           style="height: 155%;"
+           [dataSource]="TypeofriskDB"  >
+         </dx-select-box> -->
+       </div>
+        <div class="box">
+         <dx-select-box
+         formControlName="Typerisk"
+          [inputAttr]="{ 'aria-label': 'Owner' }"
+           valueExpr="risk_Admin_typeOfRisk_id"
+         displayExpr="risk_Admin_typeOfRisk_name"
+           [deferRendering]="false"
+           label="Type of Risk*"
+           labelMode="floating"
+           [showClearButton]="true"
+           style="height: 155%;"
+           [dataSource]="TypeofriskDB"  >
+         </dx-select-box>
+
+         <dx-select-box
+         formControlName="RiskClassification"
+            [inputAttr]="{ 'aria-label': 'Owner' }"
+        valueExpr="risk_admin_classification_id"
+        displayExpr="risk_admin_classification_name"
+        [deferRendering]="false"
+       label="Risk Of Classification*"
+        labelMode="floating"
+       [showClearButton]="true"
+       style="height: 155%;"
+       [dataSource]="RiskClassificationDB">
+          </dx-select-box>
+        </div>
+        <br>
+        <div class="box">
+         <dx-select-box
+         formControlName="Catergrisation"
+           [inputAttr]="{ 'aria-label': 'Owner' }"
+           valueExpr="risk_admin_risk_categorization_id"
+         displayExpr="risk_admin_risk_categorizationName"
+           [deferRendering]="false"
+           label="Risk Catergrisation*"
+           labelMode="floating"
+           [showClearButton]="true"
+           style="height: 155%;"
+           [dataSource]="RiskCatergrisationDB"  >
+         </dx-select-box>
+         <dx-select-box
+         formControlName="Causelist"
+            [inputAttr]="{ 'aria-label': 'Owner' }"
+        valueExpr="risk_admin_causeList_id"
+        displayExpr="risk_admin_causeListName"
+        [deferRendering]="false"
+       label="Risk Cause List*"
+        labelMode="floating"
+       [showClearButton]="true"
+       style="height: 155%;"
+       [dataSource]="RiskCauselistDB">
+          </dx-select-box>
+        </div>
+        <br>
+        <h2>Risk Characteristics:</h2>
+        <div class="box">
+         <dx-select-box
+         formControlName="AMLCompliance"
+          [deferRendering]="false"
+          valueExpr="AML_name"
+          displayExpr="AML_name"
+          label="AML/ Compliance Risk"
+           labelMode="floating"
+           [showClearButton]="true"
+           style="height: 155%;"
+           [dataSource]="RiskAMLDB"
+          >
+         </dx-select-box>
+         <dx-select-box
+         formControlName="ModelRisk"
+          [deferRendering]="false"
+          valueExpr="Model_name"
+          displayExpr="Model_name"
+          label="Model Risk"
+           labelMode="floating"
+           [showClearButton]="true"
+           style="height: 155%;"
+           [dataSource]="ModelDB"
+       >
+         </dx-select-box>
+         <dx-select-box
+         formControlName="ConductRisk"
+          [deferRendering]="false"
+          valueExpr="Conduct_name"
+          displayExpr="Conduct_name"
+          label="Conduct Risk"
+           labelMode="floating"
+           [showClearButton]="true"
+           style="height: 155%;"
+           [dataSource]="ConductDB"
+         >
+         </dx-select-box>
+         <dx-select-box
+         formControlName="ITandCyber"
+          [deferRendering]="false"
+          valueExpr="Cyber_name"
+          displayExpr="Cyber_name"
+          label="IT and Cyber Security Risk"
+           labelMode="floating"
+           [showClearButton]="true"
+           style="height: 155%;"
+           [dataSource]="CyberDB"
+          >
+         </dx-select-box>
+        </div>
+        <br>
+        <div class="box">
+         <dx-select-box
+         formControlName="ThirdParty"
+         [deferRendering]="false"
+          valueExpr="Third_name"
+          displayExpr="Third_name"
+          label="Third Party/ Outsourcing Risk"
+           labelMode="floating"
+           [showClearButton]="true"
+           style="height: 155%;"
+           [dataSource]="ThirdDB"
+         >
+         </dx-select-box>
+         <dx-select-box
+         formControlName="Fraud"
+          [deferRendering]="false"
+          valueExpr="Fraud_name"
+          displayExpr="Fraud_name"
+          label="Fraud Risk"
+           labelMode="floating"
+           [showClearButton]="true"
+           style="height: 155%;"
+           [dataSource]="RiskFraudDB"
+          >
+         </dx-select-box>
+         <dx-select-box
+         formControlName="Legal"
+          [deferRendering]="false"
+          valueExpr="Legal_name"
+          displayExpr="Legal_name"
+          label="Legal Risk"
+           labelMode="floating"
+           [showClearButton]="true"
+           style="height: 155%;"
+           [dataSource]="RiskLegalDB"
+          >
+         </dx-select-box>
+          <dx-select-box
+          formControlName="Operational"
+          valueExpr="Operational_name"
+         displayExpr="Operational_name"
+         [deferRendering]="false"
+        label="Operational Risk"
+         labelMode="floating"
+        [showClearButton]="true"
+        style="height: 155%;"
+        [dataSource]="RiskOperationalDB"
+          >
+           </dx-select-box>
+       </div>
+       <br>
+        <div class="box">
+         <dx-select-box
+         formControlName="Reputational"
+          valueExpr="Reputational_name"
+        displayExpr="Reputational_name"
+        [deferRendering]="false"
+       label="Reputational Risk"
+        labelMode="floating"
+       [showClearButton]="true"
+       style="height: 155%;"
+       [dataSource]="ReputationalDB"
+      >
+          </dx-select-box>
+          <dx-select-box
+          formControlName="FinancialReporting"
+           valueExpr="Reporting_name"
+         displayExpr="Reporting_name"
+         [deferRendering]="false"
+        label="Financial Risk-Reporting"
+         labelMode="floating"
+        [showClearButton]="true"
+        style="height: 155%;"
+        [dataSource]="ReportingDB"
+        >
+           </dx-select-box>
+           <dx-select-box
+           formControlName="FinancialCostImpact"
+            valueExpr="Financialg_name"
+          displayExpr="Financial_name"
+          [deferRendering]="false"
+         label="Financial Risk Cost Impact"
+          labelMode="floating"
+         [showClearButton]="true"
+         style="height: 155%;"
+         [dataSource]="FinancialDB"
+         >
+            </dx-select-box>
+            <div></div>
+        </div>
+        <br>
+
+        <h2>Risk Rating Parameters:</h2>
+        <div class="box">
+         <dx-select-box
+         formControlName="Impact"
+            [inputAttr]="{ 'aria-label': 'Owner' }"
+           valueExpr="risk_admin_riskImpactRating_value"
+         displayExpr="risk_admin_riskImpactRating_name"
+           [deferRendering]="false"
+           label="Risk Impact Rating*"
+           labelMode="floating"
+           [showClearButton]="true"
+           style="height: 155%;"
+           [dataSource]="ImpactDB"  (onValueChanged)="InherentRiskRatingg($event)" >
+         </dx-select-box>
+         <dx-select-box
+         formControlName="Likelihood"
+            [inputAttr]="{ 'aria-label': 'Owner' }"
+        valueExpr="risk_admin_likeoccfact_value"
+        displayExpr="risk_admin_likeoccfact_name"
+        [deferRendering]="false"
+       label="Risk Likelihood Occurrence*"
+        labelMode="floating"
+       [showClearButton]="true"
+       style="height: 155%;"
+       [dataSource]="LikelihoodDB" (onValueChanged)="InherentRiskRatingg($event)">
+          </dx-select-box>
+        </div>
+        <br>
+      <div class="box">
+         <mat-form-field appearance="fill" class="form-field" style="width: 100px;">
+           <mat-label>Inherent Risk Rating*</mat-label>
+           <input matInput formControlName="InherentRating"  (onValueChanged)="RiskPriority($event)"  />
+         </mat-form-field>
+         <div class="col-sm-1">
+           <div class="circle-box" formControlName="InherColor"  [ngStyle]="{'background-color': circleBoxColor}">
+       </div>
+     </div>
+
+     <dx-select-box
+     formControlName="RiskActivityFrequency"
+       valueExpr="activityid"
+    displayExpr="activityname"
+    [deferRendering]="false"
+   label="Risk Activity Frequency*"
+    labelMode="floating"
+   [showClearButton]="true"
+   style="height: 155%;"
+   [dataSource]="RiskFrequencyDB" (onValueChanged)="RiskPriority($event)" >
+      </dx-select-box>
+
+      <mat-form-field appearance="fill" class="form-field" style="width: 100px;">
+       <mat-label>Risk Priority*</mat-label>
+       <input matInput formControlName="Priority"/>
+     </mat-form-field>
+      <div class="col-sm-1">
+       <div class="circle-box2" formControlName="PriorityColor" [ngStyle]="{'background-color': BoxColor}">
+   </div>
+ </div>
+</div>
+
+
+      <br>
+      <div class="box">
+
+       <div class="dx-field">
+         <div class="dx-field-label">Risk Control Effectiveness Rating Scale</div>
+         <div class="dx-field-value">
+           <dx-slider
+             [min]="0"
+             [max]="100"
+             valueChangeMode="onHandleRelease"
+             [(value)]="value"
+           ></dx-slider>
+         </div>
+       </div>
+       <div class="dx-field">
+         <div class="dx-field-label">Slider value</div>
+         <div class="dx-field-value">
+           <dx-number-box
+             [min]="0"
+             [max]="100"
+             formControlName="SliderValue"
+             [showSpinButtons]="true"
+             [(value)]="value"
+             [inputAttr]="{ 'aria-label': 'Slider Value' }"
+             (onValueChanged)="SliderValue($event)" ></dx-number-box>
+         </div>
+       </div>
+       <mat-form-field appearance="fill" class="form-field" style="width: 100px;">
+         <mat-label>Risk Intensity*</mat-label>
+         <input matInput formControlName="Intensity"/>
+       </mat-form-field>
+         <div class="col-sm-1">
+          <div class="circle-box3" formControlName="IntensityColor" [ngStyle]="{'background-color': sliderBoxColor}">
+
+     </div></div>
+      </div>
+           <br>
+         <div class="button">
+           <button class="grey-button" matStepperPrevious type="button">Back</button>
+             <button class="Custombutton"  (click)="AttributesDiscard()">Discard</button>
+           <button class="Custombutton" matStepperNext type="button" (click)="stepper1()">Next</button>
+        </div>
+
+       </form>
+     </mat-step>
+     <mat-step label="Risk Consequences" state="phone" >
+       <form [formGroup]="Consequences" >
+         <h2 class="title">Risk Consequences</h2>
+         <div class="box">
+           <dx-select-box
+           formControlName="CategoryL1"
+         [inputAttr]="{ 'aria-label': 'Owner' }"
+          valueExpr="risk_admin_LETC_L1_id"
+          displayExpr="risk_admin_LETC_L1_Name"
+          [deferRendering]="false"
+         label="Loss Event Threat Category(L1)*"
+          labelMode="floating"
+         [showClearButton]="true"
+         style="height: 155%;"
+         [dataSource]="CategoryL1DB"   (onValueChanged)="CategoryL1($event)">
+         </dx-select-box>
+            <mat-form-field appearance="fill" class="form-field">
+             <mat-label>Loss Event Threat Category(L1) Description</mat-label>
+                 <textarea matInput  #titleinput minlength="0" maxlength="1500"  formControlName="CategoryL1Descrpt"
+                 style="min-height: 50px;overflow: auto;" (input)="onInput()" ></textarea>
+                 <mat-hint align="start">Min 5 - Max 1500 Characters</mat-hint>
+                 <mat-hint align="end">{{Obj_Doc.value.length}}/1500</mat-hint>
+             </mat-form-field>
+         </div>
+         <br>
+         <div class="box">
+           <dx-select-box
+           formControlName="CategoryL2"
+              [inputAttr]="{ 'aria-label': 'Owner' }"
+          valueExpr="risk_admin_letc_l2_id"
+          displayExpr="risk_admin_letc_l2_name"
+          [deferRendering]="false"
+         label="Loss Event Threat Category(L2)*"
+          labelMode="floating"
+         [showClearButton]="true"
+         style="height: 155%;"
+         [dataSource]="CategoryL2DB" (onValueChanged)="CategoryL2($event)" >
+       </dx-select-box>
+            <mat-form-field appearance="fill" class="form-field">
+             <mat-label>Loss Event Threat Category(L2) Description</mat-label>
+                 <textarea matInput  #titleinput minlength="0" maxlength="1500"  formControlName="CategoryL2Descrpt"
+                 style="min-height: 50px;overflow: auto;" (input)="onInput()" ></textarea>
+                 <mat-hint align="start">Min 5 - Max 1500 Characters</mat-hint>
+                 <mat-hint align="end">{{Obj_Doc.value.length}}/1500</mat-hint>
+             </mat-form-field>
+         </div>
+         <br>
+         <div class="box">
+           <dx-select-box
+           formControlName="CategoryL3"
+              [inputAttr]="{ 'aria-label': 'Owner' }"
+          valueExpr="risk_admin_LETC_l3_id"
+          displayExpr="risk_admin_LETC_l3_name"
+          [deferRendering]="false"
+         label="Loss Event Threat Category(L3)*"
+          labelMode="floating"
+         [showClearButton]="true"
+         style="height: 155%;"
+         [dataSource]="CategoryL3DB" (onValueChanged)="CategoryL3($event)">
+       </dx-select-box>
+            <mat-form-field appearance="fill" class="form-field">
+             <mat-label>Loss Event Threat Category(L3) Description</mat-label>
+                 <textarea matInput  #titleinput minlength="0" maxlength="1500"  formControlName="CategoryL3Descrpt"
+                  style="min-height: 50px;overflow: auto;" (input)="onInput()" ></textarea>
+                  <mat-hint align="start">Min 5 - Max 1500 Characters</mat-hint>
+                  <mat-hint align="end">{{Obj_Doc.value.length}}/1500</mat-hint>
+             </mat-form-field>
+         </div>
+         <br>
+         <div class="box">
+           <dx-select-box
+           formControlName="BusinessImpact"
+              [inputAttr]="{ 'aria-label': 'Owner' }"
+          valueExpr="risk_admin_potenBussImpactid"
+          displayExpr="risk_admin_potenBussImpactname"
+          [deferRendering]="false"
+         label="Potential Business Impact*"
+          labelMode="floating"
+         [showClearButton]="true"
+         style="height: 155%;"
+         [dataSource]="BusinessImpactDB" (onValueChanged)="BusinessImpactValue($event)">
+           </dx-select-box>
+            <mat-form-field appearance="fill" class="form-field">
+             <mat-label>Potential Business Impact Description</mat-label>
+                 <textarea matInput  #titleinput minlength="0" maxlength="1500"  formControlName="BusinessImpactDescript"
+                  style="min-height: 50px;overflow: auto;" (input)="onInput()" ></textarea>
+                  <mat-hint align="start">Min 5 - Max 1500 Characters</mat-hint>
+                  <mat-hint align="end">{{Obj_Doc.value.length}}/1500</mat-hint>
+             </mat-form-field>
+          </div>
+         <br>
+         <div class="box">
+           <mat-form-field appearance="fill" class="form-field">
+             <mat-label>Suggestive Priventive Actions</mat-label>
+                 <textarea matInput  #titleinput minlength="0" maxlength="2500"  formControlName="Priventive"
+                 style="min-height: 50px;overflow: auto;" (input)="onInput()" ></textarea>
+                 <mat-hint align="start">Min 5 - Max 2500 Characters</mat-hint>
+                 <mat-hint align="end">{{Obj_Doc.value.length}}/2500</mat-hint>
+             </mat-form-field>
+             <div></div>
+         </div>
+         <div class="button">
+           <button class="grey-button" matStepperPrevious type="button">Back</button>
+             <button class="Custombutton"  (click)="ConsequencesDiscard()">Discard</button>
+           <button class="Custombutton" matStepperNext type="button" (click)="stepper4()">Next</button>
+        </div>
+       </form>
+     </mat-step>
+
+     <mat-step label="Risk Ownership" state="phone" >
+       <form [formGroup]="Ownership">
+         <h1 class="title">Risk Ownership</h1>
+           <div class="box">
+             <dx-select-box
+             formControlName="OwnershipControl"
+         [inputAttr]="{ 'aria-label': 'Owner' }"
+          valueExpr="user_location_mapping_id"
+          displayExpr="firstname"
+          [deferRendering]="false"
+         label="Risk Owner*"
+          labelMode="floating"
+         style="height: 155%;"  [dataSource]="RiskOwnerDB">
+            </dx-select-box>
+            <div></div>
+           </div>
+
+           <br>
+           <div class="box">
+             <dx-select-box
+             formControlName="BusinessProcessOwner"
+          [inputAttr]="{ 'aria-label': 'Owner' }"
+          valueExpr="user_location_mapping_id"
+          displayExpr="firstname"
+          [deferRendering]="false"
+         label="Business Process Owner*"
+          labelMode="floating"
+         [showClearButton]="true"
+         style="height: 155%;" [dataSource]="RiskOwnerDB">
+            </dx-select-box>
+            <div></div>
+           </div>
+           <br>
+           <div class="box">
+             <dx-select-box
+             formControlName="BusinessProcessFunctionHead"
+          [inputAttr]="{ 'aria-label': 'Owner' }"
+          valueExpr="user_location_mapping_id"
+          displayExpr="firstname"
+          [deferRendering]="false"
+         label="Business Process Function Head*"
+          labelMode="floating"
+         [showClearButton]="true"
+         style="height: 155%;" [dataSource]="RiskOwnerDB">
+            </dx-select-box>
+            <div></div>
+           </div> 
+           <br>
+           <div class="box">
+             <label>
+               Risk Document review frequency
+           <input type="checkbox" formControlName="ischecked"  (change)="onCheckboxChange($event)"  [(ngModel)]="isPanelVisible" >
+             </label>
+           </div>
+           <div class="button">
+             <button class="grey-button" matStepperPrevious type="button">Back</button>
+               <button class="Custombutton"  (click)="OwnerShipDiscard()">Discard</button>
+             <!-- <button class="Custombutton" matStepperNext type="button" (click)="stepper5()">Next</button> -->
+             <button class="Custombutton" matStepperNext type="button" (click)="Update()">Next</button>
+          </div>
+       </form>
+     </mat-step>
+     <div *ngIf="isPanelVisible">
+     <mat-step label="Risk Review" state="phone" >
+       <form [formGroup]="Review" >
+         <h1 class="title">Risk Review</h1>
+      <div class="box">
+       <dx-select-box
+       formControlName="Frequency"
+       [inputAttr]="{ 'aria-label': 'Owner' }"
+      valueExpr="Frequency_name"
+      displayExpr="Frequency_name"
+      [deferRendering]="false"
+     label="Repeat Review Frequency required?"
+      labelMode="floating"
+     [showClearButton]="true"
+
+     (onValueChanged)="onFrequencyvisible($event)"
+
+     style="height: 155%;"  [dataSource]="FrequencyDB">
+
+        </dx-select-box>
+        <div *ngIf="FrequencyVisible" >
+        <mat-form-field appearance="fill" class="form-field">
+         <mat-label>Enter Value for repeat frequency</mat-label>
+             <input matInput  #titleinput   formControlName="entervalueDays"  />
+         </mat-form-field>
+         <mat-form-field appearance="fill" class="form-field">
+         <mat-label>Select frequency period</mat-label>
+         <mat-select formControlName="Period"
+        (selectionChange)="SelectFrequencyPeriod($event)"
+        disableOptionCentering  >
+     <mat-option *ngFor="let element of project4" [value]="element.name">{{
+     element.name
+     }}</mat-option>
+</mat-select>
+      </mat-form-field>
+        </div>
+      </div>
+      <br>
+      <div class="box">
+       <div>
+       <dx-date-box
+       label="Start Date for Next Review"
+       labelMode="floating"
+       [showClearButton]="true"
+       [useMaskBehavior]="true"
+       displayFormat="dd/MMM/yyyy"
+       type="date"s
+       [min]="minDate"
+       formControlName="review_start_Date"
+       ></dx-date-box>
+     </div>
+     <div></div>
+     <div></div>
+       </div>
+      <div class="body">
+       <h2 class="title">Notification Setup:</h2>
+       <h3>Select Escalation</h3>
+       <div class="box">
+         <div>
+           <h3> <label>Overdue Reminders :
+               <input  type="checkbox" style="zoom: 1.5;" name="selection4"
+               [checked]=""   formControlName="Overduecheck" (change)="Reminders($event)" [disabled]="true" [(ngModel)]="EnterReminderspanelVisible">
+
+             </label></h3>
+         </div>
+         <div>
+           <h3> <label>1.
+               <input type="checkbox"  style="zoom: 1.5;" name="selection4"
+                 [checked]="" formControlName="Escalationcheck" (change)="onEscaltion($event)" [disabled]="true" [(ngModel)]="EnterDayspanelVisible">
+
+             </label></h3>
+         </div>
+         <div>
+           <h3> <label>2.
+               <input type="checkbox"  style="zoom: 1.5;" name="selection4"
+                 [checked]="" formControlName="Notifierscheck" (change)="onNotifiers($event)" [disabled]="true" [(ngModel)]="NotifierspanelVisible">
+
+             </label></h3>
+         </div>
+         <div>
+           <h3> <label>3.
+               <input type="checkbox"  style="zoom: 1.5;" name="selection4"
+                 [checked]="" formControlName="Additionalcheck" (change)="onAdditional($event)" [disabled]="true" [(ngModel)]="AdditionalpanelVisible" >
+
+             </label></h3>
+         </div>
+     </div>
+     <div class="box">
+
+       <div  *ngIf="EnterReminderspanelVisible" style="height: 25%; width: 0%;">
+         <div  class="box">
+          <mat-label>Before Due Date</mat-label>
+         </div>
+         <div class="box">
+          <div class="row mb-2" >
+             <div class="col-sm-6">
+              <dx-select-box formControlName="dropdown4" label="Select Option" [disabled]="true"
+             labelMode="floating" valueExpr="id" displayExpr="text" [dataSource]="Periodicityds" search="true"
+             height="40px" width="100%" [searchEnabled]="true" selectionMode="single" placeholder="" 
+             disableOptionCentering>
+           </dx-select-box>
+           </div>
+           <div class="col-sm-6">
+             <mat-form-field appearance="fill" class="form-field" style="width: 100px;">
+               <mat-label>Enter Days</mat-label>
+               <input matInput formControlName="entervalue4" readonly  type="number" />
+             </mat-form-field>
+           </div>
+           </div>
+         </div>
+         <div class="box">
+           <mat-label >Default Notifiers:</mat-label>
+                 </div>
+         <div class="box">
+           <div class="box">
+             <div class="col-sm-12">
+                <!-- <dx-tag-box
+           [searchEnabled]="false"
+           [acceptCustomValue]="false"
+           (onCustomItemCreating)="onCustomItemCreating($event)"
+           [inputAttr]="{ 'aria-label': 'User Email IDs' }"
+           formControlName="Def_Notifiers4"
+           [disabled]="true" style="width: 350px;">
+         </dx-tag-box> -->
+         <mat-form-field appearance="fill" class="form-field" style="width: 350px;">
+          <textarea  matInput  #titleinput  formControlName="Def_Notifiers4" (input)="onInput()" readonly></textarea>
+        </mat-form-field>
+         </div>
+
+         </div>
+
+         </div>
+         <div class="box">
+           <mat-label >Additional Notifiers:</mat-label>
+                 </div>
+         <div class="box">
+           <div class="row mb-2">
+             <div class="col-sm-12">
+               <!-- <dx-tag-box
+
+               [value]="tagboxvalue"
+                   [searchEnabled]="true"
+                   valueExpr="emailid" displayExpr="firstname"
+                    [dataSource]="userdatalist"
+                   [acceptCustomValue]="true"
+                    label="Select Users/ Enter email ID’s"
+                   [inputAttr]="{ 'aria-label': 'User Email IDs' }"
+                   (onCustomItemCreating)="onCustomItemCreating1($event)"
+                   style="width: 350px;"
+                   formControlName="Add_Notifiers4"
+                   >
+               </dx-tag-box> -->
+               <mat-form-field appearance="fill" class="form-field" style="width: 350px;">
+                <textarea  matInput  #titleinput  formControlName="Add_Notifiers4" (input)="onInput()" readonly></textarea>
+              </mat-form-field>
+           </div>
+           </div>
+         </div>
+         </div>
+
+     <div *ngIf="EnterDayspanelVisible"  style="height: 25%; width: 0%;">
+     <div  class="box">
+      <mat-label>Before Due Date</mat-label>
+     </div>
+     <div class="box">
+      <div class="row mb-2" >
+         <div class="col-sm-6">
+          <dx-select-box formControlName="dropdown" label="Select Option"
+         labelMode="floating" valueExpr="id" displayExpr="text" [dataSource]="Periodicityds" search="true"
+         height="40px" width="100%" [searchEnabled]="true" selectionMode="single" placeholder=""
+         disableOptionCentering>
+       </dx-select-box>
+       </div>
+       <div class="col-sm-6">
+         <mat-form-field appearance="fill" class="form-field" style="width: 100px;">
+           <mat-label>Enter Days</mat-label>
+           <input matInput formControlName="entervalue"   type="number" />
+         </mat-form-field>
+       </div>
+       </div>
+     </div>
+     <div class="box">
+       <mat-label >Default Notifiers:</mat-label>
+             </div>
+     <div class="box">
+       <div class="box">
+         <div class="col-sm-12">
+             <mat-form-field appearance="fill" class="form-field" style="width: 350px;">
+      <textarea  matInput  #titleinput  formControlName="Def_Notifiers" (input)="onInput()" readonly></textarea>
+    </mat-form-field>
+     </div>
+     
+     </div>
+
+     </div>
+     <div class="box">
+       <mat-label >Additional Notifiers:</mat-label>
+             </div>
+     <div class="box">
+       <div class="row mb-2">
+         <div class="col-sm-12">
+          
+           <mat-form-field appearance="fill" class="form-field" style="width: 350px;">
+            <textarea  matInput  #titleinput  formControlName="Add_Notifiers" (input)="onInput()" readonly></textarea>
+          </mat-form-field>
+       </div>
+       </div>
+     </div>
+     </div>
+
+     <div *ngIf="NotifierspanelVisible"  style="height: 25%; width: 0%;">
+     <div  class="box">
+       <mat-label>Before Due Date</mat-label>
+      </div>
+     <div class="box">
+         <div class="row mb-2" >
+         <div class="col-sm-6">
+           <dx-select-box formControlName="dropdown2" label="Select Option"
+         labelMode="floating" valueExpr="id" displayExpr="text" [dataSource]="Periodicityds" search="true"
+         height="40px" width="100%" [searchEnabled]="true" selectionMode="single" placeholder=""
+         disableOptionCentering>
+       </dx-select-box>
+         </div>
+         <div class="col-sm-6">
+           <mat-form-field appearance="fill" class="form-field" style="width: 100px;">
+             <mat-label>Enter Days</mat-label>
+             <input matInput formControlName="entervalue2"  type="number" />
+           </mat-form-field>
+         </div>
+       </div>
+     </div>
+     <div class="box">
+       <mat-label >Default Notifiers:</mat-label>
+             </div>
+     <div class="box">
+       <div class="row mb-2">
+         <div class="col-sm-12">
+         
+     <mat-form-field appearance="fill" class="form-field" style="width: 350px;">
+      <textarea  matInput  #titleinput  formControlName="Def_Notifiers2" (input)="onInput()" readonly></textarea>
+    </mat-form-field>
+         </div>
+       </div>
+     </div>
+     <div class="box">
+       <mat-label >Additional Notifiers:</mat-label>
+             </div>
+     <div class="box">
+       <div >
+         
+           <mat-form-field appearance="fill" class="form-field" style="width: 350px;">
+            <textarea  matInput  #titleinput  formControlName="Add_Notifiers2" (input)="onInput()" readonly></textarea>
+          </mat-form-field>
+           
+       </div>
+     </div>
+      </div>
+
+      <div *ngIf="AdditionalpanelVisible"  style="height: 25%; width: 0%;">
+       <div  class="box">
+         <mat-label>Before Due Date</mat-label>
+        </div>
+       <div class="box">
+         <div class="row mb-2" >
+           <div class="col-sm-6">
+             <dx-select-box formControlName="dropdown3" label="Select Option"
+             labelMode="floating" valueExpr="id" displayExpr="text" [dataSource]="Periodicityds" search="true"
+             height="40px" width="100%" [searchEnabled]="true" selectionMode="single" placeholder=""
+             disableOptionCentering>
+           </dx-select-box>
+         </div>
+         <div class="col-sm-6">
+           <mat-form-field appearance="fill" class="form-field" style="width: 100px;">
+             <mat-label>Enter Days</mat-label>
+             <input matInput formControlName="entervalue3" type="number"  />
+           </mat-form-field>
+         </div>
+         </div>
+       </div>
+       <div class="box">
+         <mat-label >Default Notifiers:</mat-label>
+               </div>
+       <div class="box">
+           <div >
+          
+         <mat-form-field appearance="fill" class="form-field" style="width: 350px;">
+          <textarea  matInput  #titleinput  formControlName="Def_Notifiers3" (input)="onInput()" readonly></textarea>
+        </mat-form-field>
+         </div>
+       </div>
+       <div class="box">
+         <mat-label >Additional Notifiers:</mat-label>
+               </div>
+       <div class="box">
+           <div >
+           <mat-form-field appearance="fill" class="form-field" style="width: 350px;">
+              <textarea  matInput  #titleinput  formControlName="Add_Notifiers3" (input)="onInput()" readonly></textarea>
+            </mat-form-field>
+         </div>
+       </div>
+     </div>
+     </div>
+
+     </div>
+     <div class="button">
+       <!-- <button class="Custombutton"  (click)="addmorerisks()" [style.visibility]="isButtonVisible ? 'visible' : 'hidden'">Add more Compliance</button> -->
+
+       <button class="grey-button" matStepperPrevious>Back</button>
+       <button class="Custombutton"  (click)="ReviewDiscard()">Discard</button>
+         <button class="Custombutton" matStepperNext type="button" (click)="Update()">next</button>
+
+    </div>
+       </form>
+     </mat-step>
+                   </div>
+   </div>
+  
+       </mat-horizontal-stepper>
+       
+       <div *ngIf="stepperVisible">
+        <!-- <mat-step label="Document" state="phone" > -->
+        <h1 class="title">Risk Document Details:</h1>
+        <form [formGroup]="Statement">
+        <div class="box">
+          <div class="col">
+            <label for="NameRegister">Name Of Risk Register:</label>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="fill" class="form-field">
+              <input matInput id="NameRegister" formControlName="NameRegisterrisk" />
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <label for="NoOfStatements">No Of Risk Statements:</label>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="fill" class="form-field">
+              <input matInput type="number" min="0" id="NoOfStatements" formControlName="NoOfStatements" />
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+      <div class="box">
+        <dx-select-box
+        formControlName="DocTypeID"
+        label="Risk Document Type"
+        labelMode="floating"
+        valueExpr="docTypeID"
+        displayExpr="docTypeName"
+        [dataSource]="DocumentTypeData"
+       selectionMode="single"
+        [searchEnabled]="true"
+        (onValueChanged)="getDocCategory($event)" >
+               </dx-select-box>
+
+               <dx-select-box
+               formControlName="Doc_CategoryID"
+              label="Risk Document Category"
+              labelMode="floating"
+              valueExpr="doc_CategoryID"
+              displayExpr="doc_CategoryName"
+              [dataSource]="DocumentCategoryData"
+              selectionMode="single"
+             [searchEnabled]="true"(onValueChanged)="getsubCategory($event)">
+        </dx-select-box>
+      </div>
+      <br>
+      <div class="box">
+        <dx-select-box
+        formControlName="Doc_SubCategoryID"
+        label="Select Document Sub Category"
+        labelMode="floating"
+        valueExpr="doc_SubCategoryID"
+        displayExpr="doc_SubCategoryName"
+        selectionMode="single"
+        [dataSource]="DocumentSubCategoryData"
+       [searchEnabled]="true">
+       </dx-select-box>
+       <dx-date-box
+       formControlName="Eff_Date"
+       placeholder=""
+       label="Document Effective Date"
+       labelMode="floating"
+       [showClearButton]="true"
+       [useMaskBehavior]="true"
+       displayFormat="dd/MMM/yyyy"
+       type="date"
+        >
+     </dx-date-box>
+      </div>
+      <br>
+   
+      <div class="box">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Select Document Confidentiality</mat-label>
+   
+   
+            <mat-select
+            formControlName="Doc_Confidentiality"
+            (selectionChange)="selectDocConfidentiality($event)"
+            disableOptionCentering  >
+         <mat-option *ngFor="let element of project1" [value]="element.name">{{
+            element.name
+          }}</mat-option>
+        </mat-select>
+   
+   
+        </mat-form-field>
+   
+     <div fxLayoutAlign="center center" *ngIf="phoneno">
+      <div class="box">
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Choose OTP Delivery Method</mat-label>
+          <mat-select
+   
+          matInput
+           disableOptionCentering
+            formControlName="OtpMethod">
+              <mat-option value="mobile" disabled>OTP on Mobile</mat-option>
+              <mat-option value="email" >OTP on Email</mat-option>
+              <mat-option value="both" disabled>OTP on both Mobile and Email</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    </div>
+   
+      <div class="box">
+   
+    <dx-select-box
+    formControlName="NatureOf_Doc_id"
+    label="Document Classification *"
+    labelMode="floating"
+    valueExpr="natureOf_Doc_id"
+    displayExpr="natureOf_Doc_Name"
+    [dataSource]="NatureOfDocument"
+    selectionMode="single"
+    placeholder=""
+    [searchEnabled]="true" >
+    </dx-select-box>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Document Internal Reference No</mat-label>
+      <input matInput formControlName="Doc_internal_num"  />
+    </mat-form-field>
+    </div>
+    <br>
+    <div class="box">
+      <mat-form-field appearance="fill" class="form-field">
+      <mat-label>Document Physical Vault Location</mat-label>
+      <input matInput formControlName="Docphysical"  />
+    </mat-form-field>
+    <dx-select-box
+    formControlName="Functionalhead"
+    label="Business Functional Head"
+    labelMode="floating"
+    valueExpr="user_location_mapping_id"
+    displayExpr="firstname"
+    selectionMode="single"
+    placeholder=""
+    [searchEnabled]="true"
+    [dataSource]="RiskOwnerDB" >
+    </dx-select-box>
+    </div>
+    <br>
+    <div class="box">
+   
+      <div fxLayoutAlign="center center" *ngIf="TextBox2">
+        <div class="box">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label> Document Approver</mat-label>
+             <input matInput  (change)="OnDocApproverChange($event)" />
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayoutAlign="center center" *ngIf="DropdownBox2">
+        <div class="box">
+                <div class="dx-field-value">
+                <dx-drop-down-box
+                formControlName="Doc_Approver"
+                [dropDownOptions]="{width: '555px'}"
+                label="Select Document Approver"
+                labelMode="floating"
+                [deferRendering]="false"
+                [displayExpr]="docApprover_displayExpr"
+                 [(value)]="gridBoxValue1"
+                  valueExpr="usR_ID"
+                  [inputAttr]="{ 'aria-label': 'Owner' }"
+                 [showClearButton]="true"
+                 [dataSource]="Userinfo"
+   
+               >
+                 <div *dxTemplate="let data of 'content'">
+                   <dx-data-grid
+                   [dataSource]="Userinfo"
+                     [columns]="usergridColumns"
+                     [hoverStateEnabled]="true"
+                     [(selectedRowKeys)]="gridBoxValue1"
+                     (onSelectionChanged)="onGridBoxSelectionChanged($event)"
+                     height="100%"
+                   >
+                     <dxo-selection mode="multiple"></dxo-selection>
+                     <dxo-filter-row [visible]="true"></dxo-filter-row>
+                     <dxo-scrolling mode="virtual"></dxo-scrolling>
+                     <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                   </dx-data-grid>
+                 </div>
+               </dx-drop-down-box>
+           </div>
+            </div>
+      </div>
+    <dx-select-box
+    formControlName="Appetite"
+    label="Risk Appetite"
+    labelMode="floating"
+    valueExpr="risk_admin_RiskAppetiteId"
+    displayExpr="risk_admin_RiskAppetiteName"
+    selectionMode="single"
+    [dataSource]="Functionalhead"
+    [searchEnabled]="true" >
+    </dx-select-box>
+    </div>
+    <br>
+    <div class="box">
+   
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label> Risk Appetite Statement</mat-label>
+      <textarea matInput #subtitleinput minlength="5" maxlength="2500" formControlName="appestatement"
+       style="min-height: 50px;" ></textarea>
+      <mat-hint align="start">Min 5 - Max 2500 Characters</mat-hint>
+      <mat-hint align="end">{{subtitleinput.value.length}}/2500</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="form-field">
+      <mat-label> Document Publishing Remarks</mat-label>
+      <textarea matInput formControlName="documentpub"  ></textarea>
+    </mat-form-field>
+    </div>
+    <br>
+    <div class="box">
+      <mat-form-field appearance="fill" class="example-chip-list">
+        <mat-label>Keywords/tags</mat-label>
+        <mat-chip-list #chipList aria-label="Fruit selection">
+          <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
+            {{tag.name}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+        
+        <input #chipListInput
+                  [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)"   
+              >
+        </mat-chip-list>
+        </mat-form-field>
+
+         <div></div>
+    </div>
+    <br>
+   
+   
+    <!-- <div formArrayName="references">
+    <div *ngFor="let reference2 of references2?.controls; let key = index;">
+    <div [formGroupName]="key">
+      <div class="row">
+        <div class="box">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Select Option</mat-label>
+            <mat-select formControlName="referenceType2" (selectionChange)="onReferenceTypeChange2($event.value, key)">
+   
+              <mat-option value="file">File Attachment</mat-option>
+   
+            </mat-select>
+          </mat-form-field>
+   
+          <mat-form-field appearance="fill" class="form-field" *ngIf="reference2.get('referenceType2')?.value === 'file'">
+   
+            <mat-label>File Attachment</mat-label>
+            <div class="file-input-container">
+              <input matInput formControlName="file_attachment2" [value]="reference2.get('file_attachment2')?.value" readonly style="width: auto;">
+   
+              <label class="file-input-button">
+                Attach
+                <input type="file" accept=".pdf,.doc,.docx,image/jpeg,image/png"  (change)="onMainFileSelected2($event, key)">
+              </label>
+            </div>
+   
+          </mat-form-field>
+   
+          <div>
+            <label class="CustomLabel" (click)="removeReferenceField2(key)">Remove</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div> -->
+    <div>
+    <button class="file-input-button" type="button" (click)="addReferenceField2()" >Add More</button>
+    </div>
+    <br>
+    <div class="button">
+   
+      <button class="Custombutton"  (click)="FinalDiscard()">Discard</button>
+    <button class="Custombutton"  (click)="Finish()"  type="button">Finish</button>
+    </div>
+    </form>
+        <!-- </mat-step> -->
+    </div>
+  </div>
+</div>
+</div>
+</div>

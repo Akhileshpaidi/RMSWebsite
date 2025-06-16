@@ -1,0 +1,54 @@
+<div class="body">
+    <div class="row">
+      <img
+        style="height: 30px"
+        src="../../../../assets//images/Inspection/file-plus.svg"
+      />
+      <h2 class="header">Create Project</h2>
+    </div>
+    <hr />
+    <form
+      [formGroup]="createProjectForm"
+      (ngSubmit)="createUpdateProject(createProjectForm.value)"
+    >
+      <div fxLayoutAlign="center center">
+        <div class="box">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Project Name </mat-label>
+            <input matInput formControlName="name" name="name" required />
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayoutAlign="center center">
+        <div class="box">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Company Name</mat-label>
+            <input
+              matInput
+              formControlName="companyName"
+              name="description"
+              required
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayoutAlign="center center">
+        <div class="box">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Project Description</mat-label>
+            <input
+              matInput
+              formControlName="projectDescription"
+              name="projectDescription"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="button">
+        <!-- <button class="Custombutton" mat-button type="submit">Save</button> -->
+        <button class="grey-button" mat-button (click)="Cancel()">Cancel</button>
+        <button class="Custombutton" mat-button type="submit">{{this.projectData? 'Update': 'Create'}}</button>
+      </div>
+    </form>
+  </div>
+  

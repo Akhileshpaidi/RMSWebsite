@@ -1,0 +1,48 @@
+/* otp-dialog.component.scss */
+
+/* Style for the OTP input field */
+.mat-dialog-content input {
+    width: 100%;
+    font-size: 1rem;
+    //padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #0f0569;
+  }
+  
+  /* Optional: Style for the buttons */
+  .mat-dialog-actions button {
+    margin-right: 0.2rem;
+    //padding: 0.8rem; /* Adjust padding for button height */
+    font-size: 0.8rem;
+    /* Set a fixed width for both buttons */
+    transition: background-color 0.3s;
+  
+    /* Default button styles */
+    &:hover {
+        background-color: #2348f1;
+      
+    }
+  
+    /* "Continue" button styles */
+    &.continue-button {
+      background-color: #1707fa;
+      color: #fff;
+      width: 8rem;
+  
+      &:hover {
+        background-color: #007bff;
+      }
+    }
+  
+    /* "Cancel" button styles */
+    &.cancel-button {
+        background-color: #f30707;
+      color: #fff;
+      width: 6rem;
+  
+      &:hover {
+        background-color: #f0811a;
+      }
+    }
+  }
+  

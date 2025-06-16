@@ -1,0 +1,361 @@
+
+<div class="form">
+  <div class="body">
+    <div class="header">
+        <div style="align-self:self-end;">
+            <div class="card">
+              <div style="align-self: self-end">
+                <h1 class="h1">Add User Role</h1>
+              </div>
+          <div class="container-50">
+            <div class="card-body">
+          <form [formGroup]="createUserForm">
+           
+<br>
+            <div class="radio-buttons" >
+              <label>
+              Select Type of User Role
+             </label>
+               <label class="radio-option" >
+                 <input type="radio" name="selectionType" (change)="setSelectionType(1)" value="1"  (change)="onRoleTypeChange(1)" checked>Internal
+               </label>
+               <label class="radio-option">
+                 <input type="radio" name="selectionType" (change)="setSelectionType(2)" value="2" (change)="onRoleTypeChange(2)">External
+               </label>
+             </div>
+          
+             <div><br></div>
+             
+              <div class="row">
+               <div class="box">
+                    <dx-select-box 
+                    formControlName="module" 
+                    label="Select Module Name*"
+                    labelMode="floating"
+                    valueExpr="task_id"
+                    displayExpr="task_name"
+                    [dataSource]="taskuserdata"
+                    [searchEnabled]="true"
+                    height="40px"
+                    selectionMode="single" 
+                   placeholder="" 
+                   (onValueChanged)="onTaskValueChanged($event)"  disableOptionCentering  >
+              </dx-select-box>
+               </div>
+              </div>
+              <div class="visible" *ngIf="selectionType === 1  && isInternalSelection()" >
+                <div class=" row">
+              <div class="box">
+              <dx-select-box 
+              formControlName="User" 
+              label="Select User Name*"
+              labelMode="floating"
+              valueExpr="usR_ID"
+              displayExpr="firstname"
+              [searchEnabled]="true"
+              [dataSource]="username"
+              height="40px"
+              selectionMode="single" 
+             placeholder=""
+             (onValueChanged)="onUserSelect($event)"  disableOptionCentering >
+              </dx-select-box>
+           
+            </div>
+          </div>
+        </div>
+<div class="visble1"  *ngIf="selectionType === 2  && isExternalSelection()" >
+  <div class=" row">
+    <div class="box">
+            <dx-select-box 
+            formControlName="tpaentity" 
+            label="Select TPA Entity*"
+            labelMode="floating"
+            valueExpr="tpaenityid"
+            displayExpr="tpaenityname"
+            [dataSource]="tpaenity"
+            height="40px"
+            selectionMode="single" 
+            placeholder=""
+           (onValueChanged)="gettpauser($event)"  >
+            </dx-select-box> 
+          </div> 
+                 <div class="box">
+               <dx-select-box 
+            formControlName="User" 
+            label="Select TPA User Name*"
+            labelMode="floating"
+            valueExpr="usrid"
+            displayExpr="firstname"
+            [dataSource]="tpausername"
+            height="40px"
+            selectionMode="single" 
+           placeholder=""
+           (onValueChanged)="ontpaUser($event)"  disableOptionCentering >
+            </dx-select-box>
+          </div>
+  </div>
+</div>
+<br>
+<div>
+  <label>
+    Map Location:
+  </label>
+</div>
+<br>
+                <div class="row">
+     <div class="box">
+
+      <dx-select-box 
+      formControlName="country" 
+      label="Select Entity Name*"
+      labelMode="floating"
+      valueExpr="entity_Master_id"
+      displayExpr="entity_Master_Name"
+      [searchEnabled]="true"
+      [dataSource]="EntityName"
+      height="40px"
+      selectionMode="single" 
+     placeholder=""
+     (onValueChanged)="getUnitLocation($event)"   disableOptionCentering  >
+  </dx-select-box>
+     </div>
+            <!-- <dx-select-box 
+    formControlName="country" 
+    label="Select Entity Name*"
+    labelMode="floating"
+    valueExpr="entity_Master_id"
+    displayExpr="entity_Master_Name"
+    [dataSource]="EntityName"
+    height="40px"
+    selectionMode="single" 
+   placeholder=""
+   (onValueChanged)="getUnitLocation($event)"   disableOptionCentering  >
+</dx-select-box> -->
+<div class="box">
+<dx-select-box 
+formControlName="state"
+label="Select Unit Location*"
+labelMode="floating"
+valueExpr="unit_location_Master_id"
+displayExpr="unit_location_Master_name"
+[searchEnabled]="true"
+[dataSource]="UnitMaster"
+height="40px"
+selectionMode="single" 
+[(value)]="selectedentity"
+placeholder=""
+ (onValueChanged)="getuserroles($event)"  disableOptionCentering>
+</dx-select-box>
+</div>
+
+            </div>
+    
+           
+            <div class="row" *ngIf="selectionType === 1  && isInternalSelection()">
+            <div *ngIf="userDetailsVisible" class="user-details-panel">
+                <!-- <div class="user-detail-item"> -->
+                  <div class="box">
+                  <div class="col-sm-4">
+                                        <label>First Name:</label>
+                    {{ selectedUser?.firstname }}
+                </div>
+                <div class="col-sm-4">
+                 <!-- <span  style="margin-right: 295px;"></span> -->
+                    <label >Email:</label>
+                    {{ selectedUser?.emailid }}
+                </div>
+                  <!-- <span  style="margin-right: 245px;"></span> -->
+                  <div class="col-sm-4">
+                    <label>Mobile Number:</label>
+                    {{ selectedUser?.mobilenumber }}
+                  </div>
+                </div>
+                
+                    <div class="box">
+                      <div class="col-sm-4">
+                    <label >Department:</label>
+                    {{ selectedUser?.department_Master_name }}
+                      </div>
+                  <!-- <span  style="margin-right: 230px;"></span> -->
+                  <div class="col-sm-4">
+                    <label>Designation:</label>
+                    {{ selectedUser?.designation }}</div>
+                    <!-- <span  style="margin-right: 295px;"></span> -->
+                    <div class="col-sm-4">
+                    <label >Entity Name:</label>
+                    {{ selectedUser?.entityname }}
+                    </div>
+                  </div>
+                  <div class="box">
+                    <div class="col-sm-4">
+                    <label>Unit Location:</label>
+                    {{ selectedUser?.unit_location_Master_name }}
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="selectionType === 2  && isExternalSelection()">
+              <div *ngIf="userDetailsVisible1" class="user-details-panel">
+                  <!-- <div class="user-detail-item"> -->
+                    <div class="box">
+                    <div class="col-sm-4">
+                                          <label>First Name:</label>
+                      {{ selectedUser?.firstname }}
+                  </div>
+                  <div class="col-sm-4">
+                   <!-- <span  style="margin-right: 295px;"></span> -->
+                      <label >Email:</label>
+                      {{ selectedUser?.emailid }}
+                  </div>
+                    <!-- <span  style="margin-right: 245px;"></span> -->
+                    <div class="col-sm-4">
+                      <label>Mobile Number:</label>
+                      {{ selectedUser?.mobilenumber }}
+                    </div>
+                  </div>
+                  
+                      <div class="box">
+                    <!-- <span  style="margin-right: 230px;"></span> -->
+                    <div class="col-sm-4">
+                      <label>Designation:</label>
+                      {{ selectedUser?.designation }}</div>
+                      <!-- <span  style="margin-right: 295px;"></span> -->
+                      <div class="col-sm-4">
+                      <label >Entity Name:</label>
+                      {{ selectedUser?.tpaentity }}
+                      </div>
+                    </div>
+                    
+                  </div>
+              </div>
+            <div class="space">
+                <div></div>
+            </div>
+            <!-- <div class="form-container">
+<div class="form-group">
+    <dx-date-box
+      id="user_location_mapping_start_Date"
+      formControlName="startDate"
+      placeholder="Select Start Date"
+    ></dx-date-box>
+    
+  </div>
+  
+  <div class="form-group1">
+    <dx-date-box
+      id="user_location_mapping_End_Date"
+      formControlName="endDate"
+      placeholder="Select End Date"
+      min
+    ></dx-date-box>
+  
+  </div>
+            </div> -->
+          <br>
+          
+          <div class="user-detail-role">
+             
+                <label style=" font-weight: bold;">Select Roles :</label>
+             <br>
+                <div class="checkbox-items-container">
+                <div *ngFor="let role of roleData" class="checkbox-item">
+                    <input type="checkbox" [formControlName]=" role.rolE_ID.toString()" [id]="'checkbox_' + role.rolE_ID" [checked]="selectedRoles.includes(role.rolE_ID)" (change)="toggleCheckbox(role.rolE_ID)" style="transform: scale(1.5); margin-right: 5px;">
+                    <label [for]="'checkbox_' + role.rolE_ID" >{{ role.rolE_NAME }}</label>
+                </div>
+                </div>
+             
+       </div>
+
+          </form>
+       
+          </div>
+          <div class="button">
+            <button class="grey-button" type="button" (click)="Cancel()">Cancel</button>
+          <button class="Custombutton" type="button" (click)="onSave()">Save</button>
+        </div>
+          </div>
+        
+        </div></div></div>
+        <div class="card-body1">
+            <div id="app-container">
+                <dx-data-grid id="dataGrid"
+                [dataSource]="dataSource1"
+                [showBorders]="true"
+               
+                [allowColumnResizing]="true"
+                [columnAutoWidth]="true"
+                [allowColumnReordering]="true"
+               
+                (onExporting)="exportGrid($event)">
+                <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+               <dxo-header-filter [visible]="true"></dxo-header-filter>
+               <dxi-column dataField="user_location_mapping_id" caption="User Location Mapping ID" [width]="100"></dxi-column>
+               
+               <dxi-column dataField="name" caption="User Name" value="usR_ID"></dxi-column>
+               <dxi-column dataField="entityname" caption="Entity Name" value="entity_Master_id"></dxi-column>
+               <dxi-column dataField="unit_location_Master_name" caption="Unit Location Name" value="unit_location_Master_id"></dxi-column>
+               <dxi-column dataField="roleNames" caption="Role Names"></dxi-column>
+               <dxi-column dataField="taskname" caption="Modules"></dxi-column>
+               <!-- <dxi-column dataField="user_location_mapping_status" caption="Mapping Status" [visible]="false"></dxi-column> -->
+               
+              <!-- <dxi-column dataField="user_location_mapping_start_Date" caption="Start Date" dataType="date" value="user_location_mapping_start_Date">
+                
+            </dxi-column>
+            <dxi-column dataField="user_location_mapping_End_Date" caption="End Date"  dataType="date" >
+              
+            </dxi-column> -->
+
+
+
+            
+                <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+                <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                <dxo-group-panel [visible]="true"></dxo-group-panel>
+                <dxo-selection mode="single"></dxo-selection>
+                <dxo-summary>
+                    <dxi-total-item
+                        column="user_location_mapping_id"
+                        summaryType="count">
+                    </dxi-total-item>
+                    
+                </dxo-summary>
+                <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+                <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                <dxo-pager
+                [visible]="true"
+                [allowedPageSizes]="[5, 10,20, 'all']"
+               
+                [showPageSizeSelector]="true"
+               
+                [showInfo]="true"
+                infoText="Page {0} of  {1} ({2} items)"
+                [showNavigationButtons]="true"
+              >
+              </dxo-pager>
+                <dxo-editing
+                        mode="popup"  
+                      
+                        [allowDeleting]="true"
+                      ></dxo-editing>
+  
+              <dxo-toolbar>
+              <dxi-item name="groupPanel"></dxi-item>
+
+<dxi-item name="addRowButton" showText="always"></dxi-item>
+<dxi-item name="exportButton"></dxi-item>
+<dxi-item name="columnChooserButton"></dxi-item>
+<dxi-item name="searchPanel"></dxi-item>
+              </dxo-toolbar>
+              <dxo-export 
+              [enabled]="true"
+              [formats]="['xlsx', 'pdf']"
+            >
+            </dxo-export>
+          </dx-data-grid>
+            </div>
+        
+</div>
+</div>
+</div>

@@ -1,0 +1,419 @@
+
+  <div class="form">
+   
+  
+      <div class="body">
+        <div class="header col">
+          <div style="align-self: self-end">
+            <div class="header">
+            <h1>Update Assessment Template</h1>
+          </div>
+          </div>
+        </div> 
+      </div>
+      <div class="wrapper">
+      <div class="boxNew ">
+      
+      <label>Select Assessment Template</label>
+        
+     
+       
+    <dx-drop-down-box style="width: 700px;"
+    [dropDownOptions]="{width: '1400px'}"
+    [(value)]="gridBoxValue"
+    [(opened)]="isGridBoxOpened"
+    valueExpr="ass_template_id"
+     [deferRendering]="false"
+     [displayExpr]="gridBox_displayExpr"
+     placeholder="Select a Template"
+     [inputAttr]="{ 'aria-label': 'Owner' }"
+     [showClearButton]="true"
+     [dataSource]="AssessTemplateList"
+     (onOptionChanged)="onGridBoxOptionChanged($event)"
+
+    >
+        >
+          <div *dxTemplate="let data of 'content'">
+            <dx-data-grid
+            [dataSource]="AssessTemplateList"
+            [columns]="TemplateColumns"
+              [hoverStateEnabled]="true"
+              [(selectedRowKeys)]="gridBoxValue"
+          height="100%"
+          width="100%"
+                            [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+    >
+         
+           <dxo-selection mode="single"></dxo-selection>
+                <dxo-filter-row [visible]="true"></dxo-filter-row>
+                <dxo-scrolling mode="virtual"></dxo-scrolling>
+                <dxo-header-filter [visible]="true" [allowSearch]="true">
+                  <dxo-search [enabled]="true"></dxo-search>
+                </dxo-header-filter>
+                <dxo-paging [enabled]="true" [pageSize]="5"></dxo-paging>
+                <dxo-pager
+                [visible]="true"
+                [allowedPageSizes]="[5, 10,20, 'all']"
+               
+                [showPageSizeSelector]="true"
+               
+                [showInfo]="true"
+                infoText="Page {0} of  {1} ({2} items)"
+                [showNavigationButtons]="true"
+              >
+              </dxo-pager>
+              <dxo-group-panel [visible]="true"></dxo-group-panel>
+              <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+              <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+           
+          
+          
+                           </dx-data-grid>
+          </div>
+        </dx-drop-down-box>
+      
+        
+      </div>
+      </div>
+      
+      
+      
+      <form [formGroup]="AssBuilderForm" >
+      <mat-horizontal-stepper labelPosition="bottom" class="wrapper" *ngIf="visiblestepper" [selectedIndex]="currentStep" >
+            
+      
+       
+      
+  
+      <mat-step label="Update Nomenclature Details" state="phone">
+        <br> <br>
+  <div class="box" >
+    <div>
+    <mat-label style="display: contents;">Assessment Template Type<label style="color: red;">*</label> </mat-label>
+  </div>
+  <div>
+    <dx-select-box 
+    formControlName="AssessmentType"
+      valueExpr="type_id"
+      displayExpr="type_Name"
+      [dataSource]="typedata1"  
+      (onValueChanged)="getSubTypes1($event)">
+     
+</dx-select-box>
+  </div>
+  </div>
+  <br>
+  <div class="box">
+    <div>
+    <mat-label style="display: contents;">Assessment Template Sub-Type<label style="color: red;">*</label> </mat-label>
+  </div>
+  <div>
+    <dx-select-box 
+    formControlName="AssessmentSubType"
+   [(value)]="SelectedSubtype1"
+      valueExpr="subType_id"
+      displayExpr="subType_Name"
+      [dataSource]="subtypedata1"
+      >
+   
+</dx-select-box>
+  </div>
+  </div>
+  <br>
+        <div class="box">
+          <div fxLayoutAlign="center center">
+            <div class="box">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Name of Assessment Template </mat-label>
+                 <input matInput  formControlName="AssessmentName" class="readonly-input" readonly />
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayoutAlign="center center">
+            <div class="box">
+              <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Assessment Template Description</mat-label>
+                 <input matInput  formControlName="AssessmentDescription"  />
+              </mat-form-field>
+            </div>
+          </div>
+  
+      </div>
+  <div class="box">
+      <div fxLayoutAlign="center center">
+        <div class="box">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Assessment Template Keywords/ Tags</mat-label>
+             <input matInput    formControlName="Keywords" />
+          </mat-form-field>
+        </div>
+      </div>
+  </div>
+      
+        <div class="button">
+          <button class="grey-button" matStepperPrevious>Back</button>
+          <button class="Custombutton"  matStepperNext>Next</button>
+         
+        </div>
+    
+         
+        </mat-step>
+        
+       
+        <mat-step label="Update List of Questions" state="chat"  >
+  
+          <br>
+       
+          <div *ngIf="showQuestionForm">
+            <app-create-new-questions (EventMessage)="changeStatusAddQues($event)" [templateId]="ass_template_id"></app-create-new-questions>
+            </div>
+          
+            <br>
+  <div *ngIf="GeneratedDropdown">
+  <div style="align-self: self-end">
+  <h1>Remove Questions</h1>
+  </div>
+  
+          <label>
+            Select Question(s) to be Remove:          
+          </label>
+         <br>
+         <br> 
+  
+         <dx-data-grid
+         [dataSource]="QuestionList"
+         [columns]="gridColumns"
+                           [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+         [hoverStateEnabled]="true"
+         height="100%"
+         [(selectedRowKeys)]="SelectedQuestion"
+         style="border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);"
+       >
+         <dxo-selection mode="multiple"></dxo-selection>
+         <dxo-filter-row [visible]="true"></dxo-filter-row>
+         <dxo-scrolling mode="virtual"></dxo-scrolling>
+         <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+         <dxo-pager
+         [visible]="true"
+         [allowedPageSizes]="[5, 10,20, 'all']"
+        
+         [showPageSizeSelector]="true"
+        
+         [showInfo]="true"
+         infoText="Page {0} of  {1} ({2} items)"
+         [showNavigationButtons]="true"
+       >
+       </dxo-pager>
+                   <!-- "View" button template -->
+                   <div *dxTemplate="let data of 'viewButtonTemplate'">
+                    <button class="view-grid-button" (click)="onViewButtonClick(data.data)">View</button>
+                  </div>
+                </dx-data-grid>
+    
+    <!-- Popup with blurred background -->
+    <div *ngIf="isRowSelected() && isContainerVisible" class="popup-container">
+      <div class="backdrop"></div>
+      <div class="popup">
+        <h2>Selected Question Details</h2>
+        <div *ngFor="let column of containerColumns" class="popup-content">
+          <strong>{{ column.caption }}:</strong> {{ selectedRowData[column.dataField] }}
+        </div>
+        <button class="popup-button" (click)="showGridAndHideContainer()">OK</button>
+      </div>
+    </div>
+            </div>
+  <div *ngIf="AllQuesDropdown">
+    <div  fxLayout="row" fxLayoutGap="20px">
+      <div fxFlex="35%">
+        <mat-label style="display: contents;">Select Questions from
+          <label style="color: red;">*</label>
+      </mat-label>
+      </div>
+      <div  fxFlex="40%">
+        <dx-radio-group
+          [items]="questionsType"
+          [value]="MyQuestionsselectionForAdd" 
+          layout="horizontal"
+          (onValueChanged)="handleQuestionsTypeForAdd($event)"
+          >
+        </dx-radio-group>
+      </div>
+     
+      
+  </div>
+  <div style="align-self: self-end">
+  <h1>Add Questions</h1>
+  </div>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+  <label>Select Question(s) to be added:</label>
+  <button class="Custom_button" type="button" *ngIf="CreateButton" (click)="CreateButtonClick()"> Create New Question</button>
+  </div>
+              
+  
+                  <dx-data-grid
+                  [dataSource]="TotalQuestionsList"
+                  [columns]="gridColumns"
+                  [hoverStateEnabled]="true"
+                  height="100%"
+                               [allowColumnResizing]="true"
+                  [columnAutoWidth]="true"
+                  [allowColumnReordering]="true"
+         [hoverStateEnabled]="true"
+                  [(selectedRowKeys)]="SelectedQuestionForAdd"
+                  style="border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);"
+                >
+                  <dxo-selection mode="multiple"></dxo-selection>
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-scrolling mode="virtual"></dxo-scrolling>
+                  <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+                  <dxo-pager
+                  [visible]="true"
+                  [allowedPageSizes]="[5, 10,20, 'all']"
+                 
+                  [showPageSizeSelector]="true"
+                 
+                  [showInfo]="true"
+                  infoText="Page {0} of  {1} ({2} items)"
+                  [showNavigationButtons]="true"
+                >
+                </dxo-pager>
+                  <!-- "View" button template -->
+                  <div *dxTemplate="let data of 'viewButtonTemplate'">
+                    <button class="view-grid-button" (click)="onViewButtonClick(data.data)">View</button>
+                  </div>
+                </dx-data-grid>
+    
+    <!-- Popup with blurred background -->
+    <div *ngIf="isRowSelected() && isContainerVisible" class="popup-container">
+      <div class="backdrop"></div>
+      <div class="popup">
+        <h2>Selected Question Details</h2>
+        <div *ngFor="let column of containerColumns" class="popup-content">
+          <strong>{{ column.caption }}:</strong> {{ selectedRowData[column.dataField] }}
+        </div>
+        <button class="popup-button" (click)="showGridAndHideContainer()">OK</button>
+      </div>
+    </div>
+                
+                </div>
+  
+  
+  
+  <br>
+  <br>
+  
+         <div class="button">
+           
+          <button class="Custombutton" type="button" *ngIf="GeneratedDropdown" (click)="removeButtonClick()">Remove</button>
+          <button class="grey-button" type="button" *ngIf="BackButton" (click)="BackButtonClick()">Back</button>
+  
+            <button class="Custombutton" type="button" *ngIf="AllQuesDropdown" (click)="addButtonClick()" >Add</button>
+            <button class="Custombutton" type="button" *ngIf="addbutton" (click)="addButton()">Add Questions</button>
+            <button class="Custombutton" type="button" *ngIf="NextButton" matStepperNext>Next</button>
+          </div>
+  
+        </mat-step>
+          
+        <mat-step label="Update Evaluation Criteria/Assessment Permissions" state="phone">
+         <br>
+         <br>
+         <div>
+          <mat-label style="display: contents;font-size:larger;font-weight: bold;">update Evaluation Criteria
+             
+          </mat-label>
+        </div>
+        <br>
+          <div class="box">
+            <div>
+                <mat-label style="display: contents;">Select Map Competency Skill Level
+                    <label style="color: red;">*</label>
+                </mat-label>
+            </div>
+            <div>
+              <dx-select-box 
+              formControlName="CometencySkillLevel"
+                valueExpr="competency_id"
+                displayExpr="competency_Name"
+                [dataSource]="SkillData1"
+              
+               >
+             
+          </dx-select-box>
+            </div>
+          
+        </div>
+  <br>
+  <br>
+  <div>
+    <mat-label style="display: contents;font-size:larger;font-weight: bold;">Assessment Permissions
+       
+    </mat-label>
+  </div>
+  <br>
+                
+                
+<div class="box" >
+  <div>
+  <mat-label style="display: contents;">Select to Show Reference/ Explanation </mat-label>
+</div>
+<div>
+  <dx-select-box 
+  formControlName="ExplanationOpt"
+    valueExpr="id"
+    displayExpr="text"
+    [dataSource]="dataNew1"
+    [inputAttr]="{ 'aria-label': 'id' }"
+    [value]="ChooseOpt_to_showexp[1].id"
+   >
+ 
+</dx-select-box>
+</div>
+  </div>
+  <br>
+
+
+
+<div class="box">
+  <div>
+  <mat-label style="display: contents;">Select to Show Hint </mat-label>
+</div>
+<div>
+  <dx-select-box 
+  formControlName="HintOpt"
+  displayExpr="text"
+  valueExpr="id"
+  [dataSource]="dataNew"
+  [inputAttr]="{ 'aria-label': 'id' }"
+  [value]="ChooseOptions1[1].id"
+   >
+  
+</dx-select-box>
+</div>
+</div>
+<br>
+    
+    
+    
+    <br>
+  
+    
+          <div class="button">
+            <button class="grey-button" matStepperPrevious>Back</button>
+            <button class="Custombutton" type="button" (click)="publishPreview($event, stepper)">update</button>
+           
+          </div>
+      
+           
+          </mat-step>
+      
+      
+      </mat-horizontal-stepper>
+    </form>
+      
+      </div>
+
+    

@@ -1,0 +1,380 @@
+$space: 1rem;
+
+.table {
+    width: 100%;
+    margin-top: 25px;
+  }
+  .button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+  }
+  .buttonModified {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+  
+  .body {
+    padding: 30px;
+    padding-top: 20px;
+  }
+  .h1 {
+    font-size: revert;
+    font-weight: 500;
+  }
+  
+  .img {
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  ::ng-deep {
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+      background-color: #37d111 !important;
+    }
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+      background-color: #d9d9d9 !important;
+    }
+    // .mat-select-arrow-wrapper{
+    //   margin-right: 30px !important;
+    // }
+  
+    mat-header-cell,
+    mat-cell {
+      justify-content: center;
+    }
+    .mat-slide-toggle {
+      margin-left: 10px;
+    }
+  }
+  .filter-input {
+    width: 98%;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .gray-text {
+    color: #b9b9b9;
+  }
+
+  .boxNew {
+    display: flex;
+    padding-left: 30px;
+    gap:0px;
+    flex-direction: row;
+    width: 60%;
+  }
+  .boxNew> * {
+    flex: 1 1 160px;
+    
+  }
+
+
+
+
+  .table {
+    width: 100%;
+    margin-top: 25px;
+  }
+  .button {
+    display: flex;
+    align-items: right;
+    justify-content: right;
+    gap: 20px;
+  }
+  
+  .checkboxBorder{
+    border-style: solid ;
+    border-width: 2px;
+    border-color: gray;  
+    
+  }
+  
+  .body {
+    padding: 30px;
+    padding-top: 20px;
+  }
+  .h1 {
+    font-size: revert;
+    font-weight: 500;
+  }
+  
+  .img {
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  ::ng-deep {
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+      background-color: #37d111 !important;
+    }
+    .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+      background-color: #d9d9d9 !important;
+    }
+    // .mat-select-arrow-wrapper{
+    //   margin-right: 30px !important;
+    // }
+  
+    mat-header-cell,
+    mat-cell {
+      justify-content: center;
+    }
+    .mat-slide-toggle {
+      margin-left: 10px;
+    }
+  }
+  .filter-input {
+    width: 98%;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .gray-text {
+    color: #b9b9b9;
+  }
+
+  /* Add this CSS in your component's style file or your global styles */
+
+.mat-radio-button {
+  margin-right: 100px; /* Adjust the margin between radio buttons */
+}
+
+/* Style the radio button label text */
+.mat-radio-button-label {
+  font-size: 23px; /* Adjust the font size */
+}
+
+/* Style the radio button when it is checked */
+.mat-radio-checked .mat-radio-inner-circle {
+  background-color: #2196F3; /* Change the background color when checked */
+  border-color: #2196F3; /* Change the border color when checked */
+}
+
+/* Style the radio button label text when it is checked */
+.mat-radio-checked .mat-radio-label-content {
+  color: #2196F3; /* Change the text color when checked */
+}
+.exitbutton {
+  margin-left: 30px;
+  display: block;
+  width: 20%;
+  font-family: inherit;
+ background: linear-gradient(119.62deg,#000046,rgba(224, 35, 28, 0.725));
+  color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+  margin-top: $space * 2;
+
+  &:hover,
+  &:focus {
+    background-color: #6a6a6a;
+  }
+  
+}
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd; /* Border color */
+}
+
+/* Style for the header row */
+.header-row {
+  background-color: #f2f2f2; /* Header row background color */
+}
+
+/* Style for the data rows */
+.data-row {
+  border-bottom: 1px solid #ddd; /* Border between rows */
+}
+
+/* Style for cells */
+.mat-cell {
+  padding: 8px; /* Adjust cell padding */
+}
+
+/* Optional: Style for sticky header */
+.mat-header-cell.sticky {
+  background-color: #fff; /* Sticky header background color */
+  border-bottom: 1px solid #ddd; /* Border below sticky header */
+}
+.Custom_button {
+  margin-left: 10px;
+  display: block;
+  width: 15%;
+  font-family: inherit;
+ background: linear-gradient(119.62deg,#000046,rgba(28, 224, 204, 0.725));
+  color: #fff;
+  border: 0;
+  border-radius: $space * 0.25;
+  padding: ($space * 0.75) $space;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: inherit;
+  margin-bottom: $space * 0.5;
+  margin-top: $space * 2;
+
+  &:hover,
+  &:focus {
+    background-color: #6a6a6a;
+  }
+}
+.Custom_button::before {
+  content: "\002B"; /* Unicode for the plus symbol */
+  margin-left: 5px; /* Adjust the margin as needed */
+}
+
+
+.container {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.view-button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.view-grid-button {
+  background-color: #27ae60;
+  color: #fff;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+/* Your component CSS */
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Adjust the transparency as needed */
+  backdrop-filter: blur(5px); /* Adjust the blur intensity as needed */
+  z-index: 1;
+}
+
+.popup {
+  z-index: 2;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: start;
+  position: relative;
+  max-width: 80%; /* Set a maximum width for the popup */
+  margin: auto; /* Center horizontally */
+}
+
+.popup-button {
+  margin-top: 10px; /* Adjust the distance between button and content */
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  width: inherit;
+  cursor: pointer;
+  position: inherit;
+  bottom: 10px; /* Adjust the distance from the bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3; /* Place the button above the content */
+}
+
+/* Hide the grid filter symbols */
+.dx-datagrid-filter-row {
+  display: none;
+}
+.popup-content {
+  margin-bottom: 10px; /* Adjust the gap between <strong> and <button> */
+}
+.mat-radio-button {
+  margin-right: 100px; /* Adjust the margin between radio buttons */
+  }
+  
+  /* Style the radio button label text */
+  .mat-radio-button-label {
+  font-size: 23px; /* Adjust the font size */
+  }
+  
+  /* Style the radio button when it is checked */
+  .mat-radio-checked .mat-radio-inner-circle {
+  background-color: #2196F3; /* Change the background color when checked */
+  border-color: #2196F3; /* Change the border color when checked */
+  }
+  
+  /* Style the radio button label text when it is checked */
+  .mat-radio-checked .mat-radio-label-content {
+  color: #2196F3; /* Change the text color when checked */
+  }
+  .dxi-checkbox {
+    display: inline-block;
+    margin-right: 10px; /* Adjust margins as needed */
+  }
+
+
+  ////=====Escalation Matrix ============////
+//   .table-container {
+//     width: 100%;
+//     //overflow-x: auto; /* Enable horizontal scroll */
+//     overflow-y: auto; /* Enable vertical scroll */
+// }
+// table {
+//     width: 100%;
+//     border-collapse: collapse;
+    
+// }
+// th, td {
+//     border: 1px solid #ddd;
+//     padding: 8px;
+//     text-align: left;
+// }
+// th {
+//     background-color: #f2f2f2;
+// }
+// thead, tbody {
+//     display: block; /* Display as block to enable independent scrolling */
+// }
+// tbody {
+//     max-height: 200px; /* Set the height you need */
+//     overflow-y: auto; /* Enable vertical scrolling for tbody */
+// }
+//   thead th:first-child, tbody td:first-child {
+//     position: sticky;
+//     left: 0;
+//     background: white; /* Ensure the fixed column has a background */
+//     z-index: 1; /* Ensure the fixed column is above other cells */
+// }

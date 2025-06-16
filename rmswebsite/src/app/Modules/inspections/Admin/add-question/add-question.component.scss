@@ -1,0 +1,86 @@
+.body {
+  margin: 30px;
+}
+form {
+  padding: 30px;
+}
+.Custombutton {
+  align-items: center !important;
+  width: 30% !important;
+  height: max-content;
+}
+.button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  gap: 20px;
+}
+
+.checkbox {
+  margin-top: 20px;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent {
+  .mat-checkbox-ripple .mat-ripple-element {
+    background-color: #37d111 !important;
+  }
+
+  .mat-checkbox-background,
+  .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #37d111;
+  }
+}
+
+::ng-deep .mat-checkbox.mat-accent {
+  .mat-checkbox-ripple .mat-ripple-element {
+    background-color: #37d111 !important;
+  }
+}
+
+.body {
+  margin: 30px;
+}
+form {
+  padding: 30px;
+}
+.Custombutton {
+  margin-top: 10px;
+  align-items: center !important;
+}
+.button {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+}
+
+.grey-button {
+  align-items: center !important;
+  display: flex;
+  width: 30%;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.addRow {
+  align-items: center !important;
+  background: #4ceea4;
+  display: flex;
+  width: 30%;
+  justify-content: center;
+}
+
+.x-circle {
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.rating-box {
+  width: 40px;
+  height: 40px;
+}
+
+.rating-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10%;
+}

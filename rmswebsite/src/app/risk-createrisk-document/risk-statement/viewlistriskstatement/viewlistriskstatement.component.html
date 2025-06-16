@@ -1,0 +1,97 @@
+<div class="form">
+  <div class="body">
+    <h2 class="title" style="align-items: center;">View All Risk statement
+    </h2>
+    
+    <div class="card-body" >
+      <div id="app-container">
+       
+        <div class="button" style="margin-left: 60px; ">
+          <button class="Custombutton" (click)="goBack()" style=" width: 160px; height: 40px;" >Add</button>
+        </div>
+     
+          <dx-data-grid
+          id="dataGrid"
+          key="riskStatementID"
+          [dataSource]="viewStatement"
+          [showBorders]="true"
+          [allowColumnResizing]="true"
+          [columnAutoWidth]="true"
+          [rowAlternationEnabled]="true"
+          
+          [allowColumnReordering]="true"
+          (onExporting)="exportGrid1($event)">
+
+<!-- <dxi-column dataField="RiskLibrarySeq"></dxi-column> -->
+<dxi-column dataField="riskStatementName"></dxi-column>
+<dxi-column dataField="riskDescription"></dxi-column>
+<dxi-column dataField="createdOn"></dxi-column>
+<dxi-column dataField="createdBy"></dxi-column>
+
+             <dxi-column cellTemplate="viewButtonTemplate1">
+              <div *dxTemplate="let data of 'viewButtonTemplate1'">
+              <a  href="javascript:void(0)"  (click)="okClicked(data.data.riskStatementID)">View</a>
+            </div>
+           </dxi-column>
+          <dxi-column cellTemplate="viewButtonTemplate">
+            <div *dxTemplate="let data of 'viewButtonTemplate'">
+              <a  href="javascript:void(0)"  (click)="okClicked2(data.data.riskStatementID)">Edit</a>
+             
+            </div>
+          </dxi-column>
+          <dxi-column cellTemplate="viewButtonTemplate3">
+            <div *dxTemplate="let data of 'viewButtonTemplate3'">
+              <a  href="javascript:void(0)"  (click)="okClicked3(data.data.riskStatementID)">Delete</a>
+             
+            </div>
+          </dxi-column>
+          
+          <dxo-header-filter [visible]="true" [allowSearch]="true">
+           <dxo-search [enabled]="true"></dxo-search>
+         </dxo-header-filter>
+         <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+        <dxo-filter-row [visible]="true"></dxo-filter-row>
+        <dxo-search-panel [visible]="true"></dxo-search-panel>
+        <dxo-group-panel [visible]="true"></dxo-group-panel>
+          <dxo-selection mode="single"></dxo-selection>
+          <dxo-summary>
+            <dxi-total-item
+                column="riskStatementID"
+                summaryType="count">
+            </dxi-total-item>
+            
+        </dxo-summary>
+        <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
+        <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
+        <dxo-pager
+        [visible]="true"
+        [allowedPageSizes]="[5, 10,20, 'all']"
+       
+        [showPageSizeSelector]="true"
+       
+        [showInfo]="true"
+        infoText="Page {0} of  {1} ({2} items)"
+        [showNavigationButtons]="true"
+      >
+      </dxo-pager>
+        
+          <dxo-toolbar>
+            <dxi-item name="addRowButton" showText="always"></dxi-item>
+            <dxi-item name="exportButton"></dxi-item>
+            <dxi-item name="columnChooserButton"></dxi-item>
+            <dxi-item name="searchPanel"></dxi-item>
+          </dxo-toolbar>
+          
+        </dx-data-grid>
+        <!-- <dxo-export 
+          [enabled]="true"
+          [formats]="['xlsx', 'pdf']"
+        >
+        </dxo-export> -->
+
+
+          </div>
+       </div>
+      </div>
+</div>>

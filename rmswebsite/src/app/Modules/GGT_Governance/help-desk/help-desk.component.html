@@ -1,0 +1,139 @@
+
+
+<div class="form">
+
+<div class="body">
+    <h1>Help Desk </h1>
+    <form [formGroup]="TaskForm">
+    <div class="box">
+      <dx-select-box
+      formControlName="TaskOwner"
+  [inputAttr]="{ 'aria-label': 'Owner' }"
+   valueExpr="task_id"
+   displayExpr="task_name"
+   [deferRendering]="false"
+  label="Select Module Name*"
+   labelMode="floating"
+  style="height: 155%;" 
+   [dataSource]="TashOwnerDB"
+   (onValueChanged)="getRolenames($event)">
+   
+     </dx-select-box>
+   
+      <dx-select-box
+      formControlName="rolename"
+       [inputAttr]="{ 'aria-label': 'Owner' }"
+       valueExpr="rolE_ID"
+       displayExpr="rolE_NAME"
+        [deferRendering]="false"
+        label=" Select User Role Name*"
+        labelMode="floating"
+        [showClearButton]="true"
+        style="height: 155%;"
+        [dataSource]="UsernameDB"
+        
+        >
+      </dx-select-box>
+      <!-- <div *ngIf="TaskForm.get('rolename').hasError('rolenameExists') && TaskForm.get('rolename').touched" class="error-message">
+        The selected name already exists. Please choose a different one.
+      </div> -->
+   
+
+    </div>
+     <br>
+ 
+<div class="file-section">
+  <h5>Choose Files</h5>
+  <input type="file" accept=".pdf,.doc,.docx"  (change)="onFileSelected($event)" #supportFilesInput multiple >
+  <div class="note">
+    
+    <div *ngFor="let file of selectedFiles">
+      <div>{{ file.name }}</div>
+    </div>
+ 
+  </div>
+</div>
+   <!-- <div class="attachment-upload-container">
+      <h3><strong>Upload File(s):</strong></h3>
+      <div class="row align-items-center file-upload-section">
+              <div class="col-3">
+        <button mat-raised-button color="primary" class="upload-btn" (click)="fileInput.click()">Choose File</button>
+          <input #fileInput type="file" (change)="onFileSelected($event)" hidden formControlName="file">
+        </div>
+            <div class="col-6" *ngIf="selectedFileName">
+          <p class="file-name">{{ selectedFileName }}</p>
+        </div>
+          </div>
+           <div *ngIf="attachedFiles.length">
+        <h4><strong>Attached Files:</strong></h4>
+        <ul>
+          <li *ngFor="let file of attachedFiles">{{ file }}</li>
+        </ul>
+      </div>
+    </div> -->
+    
+  
+  
+    <div class="box">
+        <div class="button">
+        <button class="Custombutton"  (click)="Submit()"  type="button">Submit</button>
+        </div> 
+         </div>
+         <div class="card-body" >
+        
+          <div id="app-container">
+              <dx-data-grid
+              id="dataGrid"
+              key="helpdeskID"
+              formControlName="Viewhelpdesk"
+              [dataSource]="view_Hepl_Desk"
+              [showBorders]="true"
+              [allowColumnResizing]="true"
+              [columnAutoWidth]="true"
+              [rowAlternationEnabled]="true"
+              [allowColumnReordering]="true"
+              [columns]="GridColumns"
+              [height]="400"> 
+              <dxo-header-filter [visible]="true" [allowSearch]="true">
+               <dxo-search [enabled]="true"></dxo-search>
+             </dxo-header-filter>
+              <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+              <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+              <dxo-filter-row [visible]="true"></dxo-filter-row>
+              <dxo-search-panel [visible]="true"></dxo-search-panel>
+              <dxo-group-panel [visible]="true"></dxo-group-panel>
+              <dxo-paging [pageSize]="5"></dxo-paging>
+              <dxo-pager
+                [showPageSizeSelector]="true"
+                [allowedPageSizes]="[10, 25, 50, 100]"
+                [showInfo]="true"
+                [showNavigationButtons]="true"></dxo-pager>
+              
+              <dxo-summary>
+                <dxi-total-item column="serialNumber" summaryType="count"></dxi-total-item>
+              </dxo-summary>
+              
+              <dxo-toolbar>
+                <dxi-item name="exportButton"></dxi-item>
+                <dxi-item name="columnChooserButton"></dxi-item>
+                <dxi-item name="searchPanel"></dxi-item>
+              </dxo-toolbar>
+             
+              <div *dxTemplate="let data of 'viewButtonTemplate'">
+                <button  class="view-gridbutton" (click)="download(data.data)" >Download</button>
+                <button  class="view-gridbutton1" (click)="Delete(data.data)" >Delete</button>
+           
+            </div>
+            
+            </dx-data-grid>
+            
+
+
+              </div>
+                       </div>
+         
+        </form>
+
+ </div>
+</div>
+

@@ -1,0 +1,41 @@
+<div class="body">
+    <div class="row">
+      <img
+        style="height: 30px"
+        src="../../../../assets//images/Inspection/file-plus.svg"
+      />
+      <h2 class="header">Create Manufacturer</h2>
+    </div>
+    <hr />
+    <form
+      [formGroup]="createManufacturerForm"
+      (ngSubmit)="createUpdateManufacturer(createManufacturerForm.value)"
+    >
+      <div fxLayoutAlign="center center">
+        <div class="box">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Manufacturer Name </mat-label>
+            <input matInput formControlName="name" name="name" required />
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayoutAlign="center center">
+        <div class="box">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Description</mat-label>
+            <input
+              matInput
+              formControlName="description"
+              name="description"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="button">
+        <!-- <button class="Custombutton" mat-button type="submit">Save</button> -->
+        <button class="grey-button" mat-button (click)="Cancel()">Cancel</button>
+        <button class="Custombutton" mat-button type="submit">{{this.manufacturerData? 'Update': 'Create'}}</button>
+      </div>
+    </form>
+  </div>
+  

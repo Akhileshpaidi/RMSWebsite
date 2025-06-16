@@ -1,0 +1,176 @@
+<div class="form-container">
+  <div class="title-container">
+    <h2 class="title" style="margin-left: 20px;">Compliance Update Information:</h2>
+    <table style="width: 85%; margin-left: 20px;">
+      <tbody>
+        <tr>
+          <td style="width: 15%;"><strong>Applicability Status</strong></td>
+          <td style="width: 20%;"><strong>Actual Compliance Date</strong></td>
+          <td style="width: 20%;"><strong>Compliance Updation Date</strong></td>
+          <td style="width: 25%;"><strong>Compliance Approval Due Date</strong></td>
+        </tr>
+
+        <tr>
+          <td>{{ complianceData.applicability_status === "1" ? 'Yes' : 'No' }}</td>
+          <td>
+            <mat-form-field appearance="outline" class="date-field">
+              <input 
+                matInput 
+                [matDatepicker]="picker" 
+                placeholder="Choose a date" 
+                [disabled]="complianceData.applicability_status !== '1'" 
+                [(ngModel)]="complianceData.actual_complied_date">
+              <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="complianceData.applicability_status !== '1'"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </td>
+          <td>{{ complianceData.complainceUpdatedDate || 'N/A' }}</td>
+          <td>{{ complianceData.complaincReviewDueDate || 'N/A' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Support Attachments Row -->
+    <table style="width: 80%; margin-left: 20px;">
+      <tr>
+        <td style="width: 100%;">
+          <div class="attachment-upload-container" *ngIf="complianceData.no_of_Attachements > 0">
+            <h3><strong>Support Attachment(s):</strong></h3>
+            <div class="row align-items-center file-upload-section">
+              <div style="flex: 1;">
+                <button mat-raised-button color="primary" (click)="fileInput.click()" [disabled]="attachments.length >= maxAttachments">
+                  Choose File<span *ngIf="isMandatory" class="mandatory-mark">*</span></button>
+                <input #fileInput type="file" (change)="onFileSelected($event)" hidden>
+                <p class="file-name" *ngIf="selectedFiles.length > 0">{{ selectedFiles.length }} file(s) selected</p>
+              </div>
+              <div style="flex: 2; margin-left: 5px;">
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>Nature of Attachment</mat-label>
+                  <input matInput [(ngModel)]="nature_of_attachment" placeholder="Enter Text" maxlength="100">
+                  <mat-hint align="end">{{ nature_of_attachment.length || 0 }}/100</mat-hint>
+                </mat-form-field>
+              </div>
+              <div style="flex: 1; margin-left: 10px;">
+                <button mat-raised-button color="accent" (click)="onAttach()" [disabled]="!selectedFiles.length || attachments.length >= maxAttachments">Attach</button>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <div class="uploaded-attachments-table" *ngIf="attachments.length > 0" style="margin-left: 20px;">
+      <table mat-table [dataSource]="attachments" class="mat-elevation-z8 attachment-table" style="width: 85%;">
+        <ng-container matColumnDef="view">
+          <th mat-header-cell *matHeaderCellDef style="width: 25%;">View Attachments</th>
+          <td mat-cell *matCellDef="let attachment">
+            <a [href]="attachment.filePath" target="_blank" style="text-underline-position: below;" class="attachment-link">View Attachment</a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fileName">
+          <th mat-header-cell *matHeaderCellDef style="width: 40%;">File Name</th>
+          <td mat-cell *matCellDef="let attachment">{{ attachment.fileName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="nature">
+          <th mat-header-cell *matHeaderCellDef style="width: 25%;">Nature of Attachment</th>
+          <td mat-cell *matCellDef="let attachment">{{ attachment.nature_of_attachment || 'N/A' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef style="width: 10%;">Actions</th>
+          <td mat-cell *matCellDef="let attachment">
+            <button mat-icon-button color="warn" (click)="removeAttachment(attachment)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['view', 'fileName', 'nature', 'actions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['view', 'fileName', 'nature', 'actions'];"></tr>
+      </table>
+    </div>
+
+    <div class="row add-more-info" style="margin-left: 20px;">
+      <div class="text-color" *ngIf="complianceData.no_of_Attachements > 0">
+        <p>{{ maxAttachments - attachments.length }} more attachments can be added</p>
+      </div>
+    </div>
+
+    <!-- Amount Paid, Penalty Paid, Remarks -->
+    <div class="form-section">
+      <table style="width: 80%;">
+        <tr>
+          <td style="flex: 1; padding: 5px;">
+            <mat-form-field appearance="outline" class="full-width" style="width: 80%;">
+              <mat-label>Amount Paid</mat-label>
+              <input matInput placeholder="Value" [(ngModel)]="complianceData.amount_paid" [disabled]="complianceData.applicability_status !== '1'">
+            </mat-form-field>
+          </td>
+          <td style="flex: 1; padding: 5px;">
+            <mat-form-field appearance="outline" class="full-width" style="width: 80%;">
+              <mat-label>Penalty Paid</mat-label>
+              <input matInput placeholder="Value" [(ngModel)]="complianceData.penalty_paid" [disabled]="complianceData.applicability_status !== '1'">
+            </mat-form-field>
+          </td>
+          <td style="flex: 2; padding: 5px;">
+            <mat-form-field appearance="outline" class="full-width" style="width: 80%;">
+              <mat-label>Updation Remarks</mat-label>
+              <textarea matInput placeholder="Enter remarks" [(ngModel)]="complianceData.updation_remarks" disabled="true"></textarea>
+            </mat-form-field>
+          </td>
+          <td style="flex: 2; padding: 5px;">
+            <mat-form-field appearance="outline" class="full-width" style="width: 80%;">
+              <mat-label>Reviewer Remarks</mat-label>
+              <textarea matInput placeholder="Enter remarks" [(ngModel)]="complianceData.updation_remarks" disabled="true"></textarea>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Compliance Review Information -->
+  <form [formGroup]="Approverform">
+    <div class="form-container" style="margin-left: 20px;">
+      <div class="title-container">
+        <h2 class="title">Compliance Approval Information:</h2>
+      </div>
+      <div class="form-section">
+        <div class="form-field-row">
+          <div class="form-field-container remarks-container">
+            <mat-form-field appearance="outline" class="remarks-field" style="width: 90%;">
+              <mat-label>Approval Remarks</mat-label>
+              <textarea 
+              matInput 
+              placeholder="Enter remarks (max 250 characters)" 
+              formControlName="ApproverRemarks" 
+              maxlength="250" 
+              rows="4">
+            </textarea>
+            <mat-hint align="end">{{ Approverform.controls['ApproverRemarks'].value?.length || 0 }}/250</mat-hint>
+          </mat-form-field>
+          </div>
+        </div>
+      </div>
+      
+
+      <!-- Buttons -->
+      <div class="button-section">
+        <button mat-raised-button (click)="onReject()" class="reject-button">Reject</button>
+        <button mat-button (click)="onCancel()" class="cancel-button">Cancel</button>
+        <button mat-raised-button (click)="onUpdate()" class="update-button">Confirm</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+

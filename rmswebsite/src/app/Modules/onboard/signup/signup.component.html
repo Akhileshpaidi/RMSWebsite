@@ -1,0 +1,200 @@
+<div class="body">
+  <div class="form image-body">
+    <!-- <img src="../../../../assets/images/signUp.png" style="height: 100vh" /> -->
+  </div>
+  <div class="form">
+    <form
+      class="form__content"
+      action="#!"
+      [formGroup]="signUpform"
+      (ngSubmit)="signUp(signUpform.value)"
+    >
+      <!-- <div class="header"> -->
+        <div class="form__content__header">
+        <img class="logo" src="../../../../assets/images/RiskShortlogo.jpg" />
+        <h1 class="h1">Sign Up</h1>
+        <h3 class="" style="margin-top: 5px">Let’s get you all set up!</h3>
+        <hr />
+      </div>
+<!-- 
+      <div class="error" *ngIf="cpassword.errors?.['confirmedValidator']">
+        Passwords did not match
+      </div> -->
+      <!-- <div class="margin"></div> -->
+
+      <div class="box">
+        <mat-form-field appearance="outline">
+          <mat-label>First Name </mat-label>
+          <input
+            matInput
+            formControlName="firstName"
+            name="firstName"
+            placeholder="First Name"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name </mat-label>
+          <input
+            matInput
+            formControlName="lastName"
+            name="lastName"
+            placeholder="Last Name"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="box">
+        <mat-form-field appearance="outline">
+          <mat-label>Your Employer</mat-label>
+          <input
+            matInput
+            formControlName="employer"
+            name="employer"
+            placeholder="Employer"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Employee Id</mat-label>
+          <input
+            matInput
+            formControlName="employeeId"
+            name="employeeId"
+            placeholder="Employee Id"
+            required
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="box">
+        <mat-form-field style="width: fit-content" appearance="outline">
+          <mat-label>Date of Birth</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="dob"
+            name="dob"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="box">
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <input
+            matInput
+            formControlName="city"
+            name="city"
+            placeholder="City"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>State</mat-label>
+          <input
+            matInput
+            formControlName="state"
+            name="state"
+            placeholder="State"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div class="box">
+        <mat-form-field appearance="outline">
+          <mat-label>Country</mat-label>
+          <input
+            matInput
+            formControlName="country"
+            name="country"
+            placeholder="Country"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Email Address</mat-label>
+          <input
+            matInput
+            formControlName="email"
+            name="email"
+            placeholder="Email ID"
+            required
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="box">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            formControlName="password"
+            [type]="hide ? 'password' : 'text'"
+            name="password"
+            required
+            type="password"
+          />
+          <mat-icon matSuffix (click)="hide = !hide">{{
+            hide ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Confirm Password</mat-label>
+          <input
+            matInput
+            formControlName="cpassword"
+            [type]="hide1 ? 'password' : 'text'"
+            name="cpassword"
+            required
+            type="password"
+          />
+          <mat-icon matSuffix (click)="hide1 = !hide1">{{
+            hide1 ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </mat-form-field>
+      </div>
+      <div>
+        Password must contain at least one number, one uppercase and a lowercase
+        letter and at least 8 characters<br />
+        <!-- Password cannot contain whitespace -->
+      </div>
+      <div class="form__field form__submit margin">
+        <div class="form__content__description">
+          <input required  type="checkbox" id="TC" name="TC" formControlName="TC"  />
+
+          <label for="tansc" for="TC"> I have read and agreed to the </label>
+
+          <div class="forgotPass">
+            <a type="button" (click)="TC()" style="color: #064ad1"
+              >terms of service.</a
+            >
+          </div>
+        </div>
+        <!-- <div class="" style="color: red; text-align-last: left">
+          {{ erroMessage }}
+        </div> -->
+
+        <div class="box margin2">
+          <input class="btn" type="submit" value="Sign Up" />
+          <input
+            class="btn3"
+            type="button"
+            (click)="home()"
+            value="Already have an account?"
+          />
+        </div>
+      </div>
+      <!-- <div class="form__footer">
+        <a style="color: gray" href="#!">Powered by @Shivam Concrete</a>
+      </div> -->
+    </form>
+  </div>
+</div>
