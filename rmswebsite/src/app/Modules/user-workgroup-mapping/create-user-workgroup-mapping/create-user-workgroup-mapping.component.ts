@@ -46,7 +46,7 @@ export class CreateUserWorkgroupMappingComponent {
   dataSource1:any;
   selectedOption3:any[]=[];
   selectedOption4:any[] = [];
-  gridColumns4:any[] =[{ dataField: 'firstname', caption:'Username' }]
+  gridColumns4:any[] =[{ dataField: 'firstname', caption:'Username' },{dataField: 'entity_Master_Name', caption:'Entity Name' },{dataField: 'unit_location_Master_name', caption:'Unit Location' },{dataField: 'department_Master_name', caption:'Department Name' }];
   gridColumns3: any[] = [
     { dataField: 'name_ActivityWorkgroup', caption: 'Name Of Activity' },
     { dataField: 'unigueActivityid', caption: 'Activity Workgroup ID' },
@@ -89,10 +89,12 @@ export class CreateUserWorkgroupMappingComponent {
     });
     
     let user: any = this.session.getUser();
-// console.log(user)
+ console.log(this.userdata)
      this.userdata = JSON.parse(user); //userdata.profile.userid
-   //  alert(JSON.stringify(this.userdata))
+    //alert(JSON.stringify(this.userdata))
+   //  console.log(this.userdata)
      console.log("userid", this.userdata.profile.userid);
+     console.log("unitlocationid", this.userdata.profile.Unit_location_Master_id);
 
      this.activity={
       paginate: true,
@@ -119,7 +121,7 @@ export class CreateUserWorkgroupMappingComponent {
         key: 'usR_ID',
         loadMode: 'raw',
         load:()=>{return new Promise((resolve, reject) => {
-          this.http.get(URL + '/createuser/getuserdetails', {headers})
+          this.http.get(URL + '/UserLocationMapping/GetuserlocationbyUser/'+ this.userdata.profile.userid, {headers})
             .subscribe(res => {
              (resolve(res));
   
@@ -195,7 +197,7 @@ export class CreateUserWorkgroupMappingComponent {
 
 
     };
-    alert(JSON.stringify(payload))
+   // alert(JSON.stringify(payload))
     console.log('payload', payload);
  
  

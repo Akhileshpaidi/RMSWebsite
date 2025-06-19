@@ -1836,18 +1836,18 @@ export const routes = [
 {
   path: '',
   component: AppComponent,
-  label: ' Company Complaince  Content Library',
+  label: ' Company Compliance  Content Library',
   icon: '../../../assets/images/Dashboard/Inventory.svg',
   pages: [
   
     {
       id: ComponentIdList.CreateComplainceContentComponent,
-      title: 'Create Company Complaince content ',
+      title: 'Create Company Compliance Content ',
       link: 'companyComplaincecontent/createcomplaincecontent',
     },
     {
       id: ComponentIdList.ViewCompanyComplianceComponent,
-      title: 'View Company Complaince content ',
+      title: 'View Company Compliance Content ',
       link: 'companyComplaincecontent/viewcompanycompliance',
     }
   ]
@@ -1918,7 +1918,7 @@ pages: [
   },
   {
     id: ComponentIdList.UpdateUserWorkgroupMappingComponent,
-    title: 'update User Workgroup Mapping ',
+    title: 'Update User Workgroup Mapping ',
     link: 'userworkgroupmapping/updateuserworkgroupmapping',
   }
 ]
@@ -1927,24 +1927,24 @@ pages: [
 {
 path: '',
 component: AppComponent,
-label: ' Location Compliance  Mapping',
+label: ' Locational Compliance  Mapping',
 icon: '../../../assets/images/Dashboard/Inventory.svg',
 pages: [
 
   {
     id: ComponentIdList.CreateLocationComplaintMappingComponent,
-    title: 'Create Location  Compliance  Mapping ',
+    title: 'Create Locational  Compliance  Mapping ',
     link: 'locationcomplaincemapping/createlocationcomplaincemapping',
   },
 
   {
     id: ComponentIdList.UpdateLocationComplaintMappingComponent,
-    title: 'Update  Location  Compliance Mapping ',
+    title: 'Update  Locational  Compliance Mapping ',
     link: 'locationcomplaincemapping/Updatelocationcomplaincemapping',
   },
   {
     id: ComponentIdList.ViewCreateLocationCompliantMappingComponent,
-    title: 'View Compliance Location  Mapping ',
+    title: 'View Compliance Locational  Mapping ',
     link: 'locationcomplaincemapping/Viewlocationcomplaincemapping',
   }
 ]

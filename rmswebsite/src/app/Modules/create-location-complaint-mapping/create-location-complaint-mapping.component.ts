@@ -105,7 +105,7 @@ export class CreateLocationComplaintMappingComponent implements OnInit {
     this.import = this.fb.group({
 
       categorylaw:[''],
-      ActRulename :[''],
+      actRulename :[''],
       naturelaw:[''],
       regulatoryAuthority:[''],
       jurisdictioncategory:[''],
@@ -431,7 +431,7 @@ export class CreateLocationComplaintMappingComponent implements OnInit {
     const payload = {
     
       category_of_law_id: value.categorylaw,
-      rule_id:value.actrulename,
+      rule_id:value.actRulename,
       law_type_id: value.naturelaw,
       regulatory_authority_id: value.regulatoryAuthority,
       jursdiction_category_id: value.jurisdictioncategory,

@@ -3,7 +3,7 @@
       <div class="header">
         <div style="align-self: self-end">
           <br>
-          <h2 class=" title" style="align-items: center;">Create User Activity Workgroup
+          <h2 class=" title" style="align-items: center;">Create User  Workgroup
             </h2>
         </div>
       </div>
@@ -39,7 +39,7 @@
                   formControlName="activity"
                   [(value)]="selectedOption3"
                   [inputAttr]="{ 'aria-label': 'Owner' }"
-                  placeholder="Select Activity*"
+                  placeholder="Compliance Activity Workgroup Name/ ID*"
                   [showClearButton]="true"
                   labelMode="floating"
                   valueExpr="activity_Workgroup_id"
@@ -140,7 +140,7 @@
 </h3></div>
 
 <div class="grid-wrapper">
-      <div class="card-body1">
+      <div class="card-body">
         <div id="app-container">
             <dx-data-grid id="user_workgroup_mapping_id"
             [dataSource]="dataSource1"
@@ -154,10 +154,10 @@
            <dxo-header-filter [visible]="true"></dxo-header-filter>
            <dxi-column dataField="user_workgroup_mapping_id" caption="user workgroup mapping id" [width]="100"></dxi-column>
              <dxi-column dataField="user_workgroup_mapping_name" caption="user workgroup mapping name" ></dxi-column>
-             <dxi-column dataField="user_workgroup_mapping_desc" caption="user workgroup mapping Description" ></dxi-column>
+             <dxi-column dataField="user_workgroup_mapping_desc" caption="user workgroup mapping Description"  [visible]="false"></dxi-column>
             <dxi-column dataField="useractivitymappingunigueid" caption="userActivityid" ></dxi-column>
  
-          <dxi-column dataField="firstNames" caption="user(s)" value="usR_ID"></dxi-column>
+          <dxi-column dataField="firstname" caption="user(s)" value="usR_ID"></dxi-column>
           <dxi-column dataField="unigueActivityid" caption="Activity Workgroup id" ></dxi-column>
 
           <dxi-column dataField="name_ActivityWorkgroup" caption="ActivityWorkgroup" value="activity_Workgroup_id"></dxi-column>

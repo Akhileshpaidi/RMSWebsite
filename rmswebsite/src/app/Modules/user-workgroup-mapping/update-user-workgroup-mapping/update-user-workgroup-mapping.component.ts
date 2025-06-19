@@ -89,6 +89,7 @@ export class UpdateUserWorkgroupMappingComponent {
     { dataField: 'department_Master_name', caption: 'Department' },
      { dataField: 'entity_Master_Name', caption: 'Entity' },
      { dataField: 'unit_location_Master_name', caption: 'Unit Location' },
+     { dataField: 'rolE_NAME', caption: 'Role Name' }
 ];
 
 constructor(private http: HttpClient,
@@ -224,7 +225,7 @@ getUpdateFormData(event:any){
   
           // Extract user_workgroup_mapping_id from the response
           const user_workgroup_mapping_id =   response[0].user_workgroup_mapping_id;
-  alert(user_workgroup_mapping_id)
+ // alert(user_workgroup_mapping_id)
           // Update form parameters based on retrieved user_workgroup_mapping_id
           this.updateFormParameters(parseInt(user_workgroup_mapping_id));
   
@@ -252,7 +253,7 @@ updateFormParameters(user_workgroup_mapping_id: number) {
   this.useractivityinfo.user_workgroup_mapping_id = user_workgroup_mapping_id;
   this.useractivityinfo.user_workgroup_mapping_name = this.UpdateForm.value.name;
   this.useractivityinfo.user_workgroup_mapping_desc = this.UpdateForm.value.userdesc;
-  this.useractivityinfo.activityworkgroup_id = this.UpdateForm.value.activity;
+  this.useractivityinfo.activityworkgroup_id = this.UpdateForm.value.activity.toString();
   this.useractivityinfo.createdby = this.userdata.profile.userid;
 }
 

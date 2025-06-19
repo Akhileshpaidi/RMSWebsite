@@ -23,7 +23,8 @@
                (onSelectionChanged)="handleSelectionChanges($event)"
                [allowColumnReordering]="true"
                [columns]="GridColumns"
-               [height]="800"> 
+               [height]="800"
+                 (onExporting)="exportGrid1($event)"> 
                <dxo-header-filter [visible]="true" [allowSearch]="true">
                 <dxo-search [enabled]="true"></dxo-search>
               </dxo-header-filter>
@@ -48,7 +49,11 @@
                  <dxi-item name="columnChooserButton"></dxi-item>
                  <dxi-item name="searchPanel"></dxi-item>
                </dxo-toolbar>
-               
+                 <dxo-export 
+            [enabled]="true"
+            [formats]="['xlsx', 'pdf']"
+          >
+          </dxo-export>
                <div *dxTemplate="let data of 'viewButtonTemplate'">
                  <button class="view-grid-button" (click)="onViewButtonClick(data.data)">View</button>
                </div>
@@ -150,7 +155,7 @@
                     <ol type="1">
                       <ng-container *ngFor="let detail of Details.statutoryDetails">
                         <li>
-                          <ng-container *ngIf="detail.filecategory === 'Weblink'">
+                          <!-- <ng-container *ngIf="detail.filecategory === 'Weblink'">
                             [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ getFileNameFromPath(detail.filepath) }}</a>
                             <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
                             <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
@@ -161,14 +166,27 @@
                               <a [href]="detail.filepath" target="_blank">(View)</a> /
                             </ng-container>
                             <dx-button icon="download"  (click)="download(detail.filepath, detail.fileType)"> </dx-button>
-                          </ng-container>
+                          </ng-container> -->
+                             <ng-container *ngIf="detail.filecategory === 'Weblink'">
+      [weblink] <a [href]="detail.filepath" target="_blank">{{ getFileNameFromPath(detail.filepath) }}</a>
+      <dx-button icon="copy" (onClick)="copyLink(detail.filepath)"> </dx-button>
+      <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
+    </ng-container>
+    <ng-container *ngIf="detail.filecategory !== 'Weblink'">
+      [File Attached] {{ getFileNameFromPath(detail.filepath) }}
+      <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+        <a [href]="detail.filepath" target="_blank">(View)</a> /
+      </ng-container>
+      <dx-button icon="download"  (click)="download(detail.filepath, detail.fileType)"> </dx-button>
+    </ng-container>
+
                         </li>
                       </ng-container> 
                   </ol>
                 </td>
                </tr>
                <tr *ngFor="let Details of SelectedComplianceDetails">  
-                <td colspan="2"><strong>Special Instructions for Statutory Form / Record Updation</strong></td>        
+                <td ><strong>Special Instructions for Statutory Form / Record Updation</strong></td>        
                 <td colspan="2">{{ Details.special_instr_for_statutory || 'N/A'  }}</td>
               </tr>
               <tr *ngFor="let Details of SelectedComplianceDetails">
@@ -218,11 +236,11 @@
             </thead>
             <tbody>
               <tr *ngFor="let Details of SelectedComplianceDetails">
-                <td colspan="2"><strong>Business Sector-Industry Type</strong></td>
+                <td><strong>Business Sector-Industry Type</strong></td>
                 <td colspan="2">{{ Details.businessAndIndustries }}</td>
               </tr>
               <tr *ngFor="let Details of SelectedComplianceDetails">
-                <td colspan="2"><strong>Any Additional Reference</strong></td>
+                <td ><strong>Any Additional Reference</strong></td>
                 <td colspan="2">{{ Details.any_additional_references }}</td>
               </tr>
               <tr *ngFor="let Details of SelectedComplianceDetails">
@@ -258,22 +276,28 @@
                 <td>{{ penalty.additionalreference }}</td>       
               <td>
                   <ol type="1">     
-                  <ng-container *ngFor="let detail of penalty.PenaltyDetails">
-                    <li>
-                      <ng-container *ngIf="detail.filecategory === 'Weblink'">
-                        [weblink] <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">{{ getFileNameFromPath(detail.filepath) }}</a>
-                        <dx-button icon="copy"  (onClick)="copyLink(detail.filepath)"> </dx-button>
-                        <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
-                      </ng-container>
-                      <ng-container *ngIf="detail.filecategory === 'FileAttach'">
-                        [File Attached] {{ getFileNameFromPath(detail.filepath) }}
-                        <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
-                          <a [href]="detail.filepath" target="_blank">(View)</a> /
-                        </ng-container>
-                        <dx-button icon="download"  (click)="download(detail.filepath, detail.fileType)"> </dx-button>
-                      </ng-container>
-                    </li>
-                  </ng-container> 
+ 
+     <ng-container *ngFor="let detail of penalty.penaltyDetails">
+      <li>
+        <ng-container *ngIf="detail.filecategory === 'Weblink'">
+          [weblink]
+          <a [href]="detail.filepath" target="_blank" style="padding-right: 50px;">
+            {{ getFileNameFromPath(detail.filepath) }}
+          </a>
+          <dx-button icon="copy" (onClick)="copyLink(detail.filepath)"> </dx-button>
+          <label *ngIf="linkCopiedStates[detail.filepath]" style="color:red;">Link copied!</label>
+        </ng-container>
+
+        <ng-container *ngIf="detail.filecategory === 'FileAttach'">
+          [File Attached] {{ getFileNameFromPath(detail.filepath) }}
+          <ng-container *ngIf="detail.filepath.endsWith('.pdf') || detail.filepath.endsWith('.docx')">
+            <a [href]="detail.filepath" target="_blank">(View)</a> /
+          </ng-container>
+          <dx-button icon="download" (click)="download(detail.filepath, detail.fileType)"> </dx-button>
+        </ng-container>
+      </li>
+ 
+    </ng-container>
                 </ol>
               </td>
               </tr>

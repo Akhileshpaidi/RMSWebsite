@@ -47,6 +47,7 @@ export class UpdateLocationComplaintMappingComponent implements OnInit {
 compliancedepartmentinfo:Updatecompliancemaping=new Updatecompliancemaping();
 
 gridColumns1: any = [
+  {dataField:'company_compliance_id',caption:'Company Compliance ID'},
   {dataField: 'compliance_name', caption:'Compliance Name' },
   {dataField :'actregulatoryname', caption:'Act Name'},
   {dataField :'act_rule_name', caption:'Rule Name'},

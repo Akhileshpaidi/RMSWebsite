@@ -9,7 +9,11 @@ import { SessionService } from 'src/app/core/Session/session.service';
 import { EncryptionService } from 'src/app/core/encryption.service';
 import { RoleService } from 'src/app/core/services/role/role.service';
 import { UserService } from 'src/app/core/services/user/user.service';
-
+import { Workbook } from 'exceljs';
+import saveAs from 'file-saver';
+import { jsPDF } from 'jspdf';
+import { exportDataGrid } from 'devextreme/excel_exporter';
+import { exportDataGrid as exportDataGridToPdf } from 'devextreme/pdf_exporter';
 import { Subscription, pipe } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -40,10 +44,10 @@ export class ViewCompanyComplianceComponent {
   isVisibleDetails:boolean = false;
   isComplianceListVisible:boolean = true;
   GridColumns: any[] = [
-    // {
-    //   dataField: 'global_compliance_id',
-    //   caption: 'Global Id'
-    // },
+    {
+      dataField: 'company_compliance_id',
+      caption: 'Company Compliance ID'
+    },
     
     {
       dataField: 'act_name',
@@ -66,6 +70,52 @@ export class ViewCompanyComplianceComponent {
       dataField: 'compliance_type',
       caption: 'Compliance Type'
     },
+      {
+      dataField: 'law_Categoryname',
+      caption: 'Category of Law',
+         visible: false
+    },
+      {
+      dataField: 'regulatory_authority_name',
+      caption: 'Regulatory Authority Name',
+      visible: false
+    },
+      {
+      dataField: 'country',
+      caption: 'Country Name',
+         visible: false
+    },
+      {
+      dataField: 'state',
+      caption: 'State Name',
+         visible: false
+    },
+      {
+      dataField: 'JurisdictionLocationDistrict',
+      caption: 'Jurisdiction Location District',
+         visible: false
+    },
+          {
+      dataField: 'compliance_record_name',
+      caption: 'Compliance Record Name',
+         visible: false
+    },
+        {
+      dataField: 'compliance_group_name',
+      caption: 'Compliance Group Name',
+         visible: false
+    },
+        {
+      dataField: 'compliance_notified_name',
+      caption: 'Compliance Notified Name',
+         visible: false
+    },
+        {
+      dataField: 'compliance_risk_criteria_name',
+      caption: 'Compliance Risk Criteria Name',
+         visible: false
+    },
+        
     {
       dataField: 'keywors_tags',
       caption: 'Keywords'
@@ -152,7 +202,35 @@ export class ViewCompanyComplianceComponent {
       }),
      };
   }
-
+exportGrid1(e:any) {
+  if (e.format === 'xlsx') {
+    const workbook = new Workbook(); 
+    const worksheet = workbook.addWorksheet("Main sheet"); 
+    worksheet.addRow(['View Company Compliance']);
+    worksheet.addRow([]);
+    exportDataGrid({ 
+      worksheet: worksheet, 
+      component: e.component,
+    }).then(function() {
+      workbook.xlsx.writeBuffer().then(function(buffer) { 
+        saveAs(new Blob([buffer], { type: "application/octet-stream" }), "viewCompanyCompliance.xlsx"); 
+      }); 
+    }); 
+    e.cancel = true;
+  } 
+  else if (e.format === 'pdf') {
+    //alert("test")
+    const doc = new jsPDF();
+    doc.text('View Company Compliance',75,10);
+    doc.setFontSize(12);
+    exportDataGridToPdf({
+      jsPDFDocument: doc,
+      component: e.component,
+    }).then(() => {
+      doc.save('viewCompanyCompliance.pdf');
+    });
+  }
+  }
   calculateSerialNumber(cellInfo: CellInfo): number {
     return cellInfo.rowIndex + 1;
   }
@@ -306,3 +384,4 @@ interface CellInfo {
 
   
 }
+  

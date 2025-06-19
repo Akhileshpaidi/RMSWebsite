@@ -142,8 +142,8 @@ export class CreateComplainceContentComponent {
   bussinessID: number[] = [];
   bussinessColumns: any = ['businesssectorname'];
   industryColumns: any = ['industrytypename'];
-  RecordFormNames: any = ['statutoryName'];
-  PenaltyNames: any = ['compliancepenaltyName'];
+  RecordFormNames: any = ['statutoryName','applicable_section'];
+  PenaltyNames: any = ['compliancepenaltyName','applicable_section'];
   //selectedOption:any;
   formrequired:string ="No";
   penaltyrequired:string ="No";

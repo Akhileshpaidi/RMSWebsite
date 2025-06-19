@@ -75,7 +75,18 @@ $space: 1rem;
     
   }
 
-
+  .radio-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; /* Space between label groups */
+    margin-top: 1rem;
+  }
+  
+  .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Space between radio and text */
+  }
 
 
   .table {

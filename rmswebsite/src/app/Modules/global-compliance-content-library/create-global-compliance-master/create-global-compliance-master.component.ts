@@ -121,8 +121,8 @@ export class CreateGlobalComplianceMasterComponent implements OnInit  {
   bussinessID: number[] = [];
   bussinessColumns: any = ['businesssectorname'];
   //industryColumns: any = ['industrytypename'];
-  RecordFormNames: any = ['statutoryName'];
-  PenaltyNames: any = ['compliancepenaltyName'];
+  RecordFormNames: any = ['statutoryName','applicable_section'];
+  PenaltyNames: any = ['compliancepenaltyName','applicable_section'];
   //selectedOption:any;
   industryData: any[] = [];
   flattenedIndustryData: any[] = [];
@@ -822,7 +822,7 @@ resetForm(): void {
               loadMode: 'raw',
               load: () => {
                 return new Promise((resolve, reject) => {
-                  this.http.get(URL + '/SupAdmin_statutoryfrom/GetformrecordByID/' + this.act_rule_regulatory_id, { headers })
+                  this.http.get(URL + '/SupAdmin_statutoryfrom/GetformsuprecordByID/' + this.act_rule_regulatory_id, { headers })
                     .subscribe(
                       (res: any) => {
                         this.formsdetails = res;

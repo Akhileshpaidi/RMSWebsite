@@ -19,7 +19,7 @@
        </div> -->
       <mat-radio-group style="padding-left: 30px;" [(ngModel)]="selectionType" (ngModelChange)="setSelectionType($event)">
         <mat-radio-button name="selectionType" value="create" style="padding-left: 10px;">Create Company content</mat-radio-button>
-        <mat-radio-button name="selectionType" value="import">import Subscribed content</mat-radio-button>
+        <mat-radio-button name="selectionType" value="import">Import Subscribed content</mat-radio-button>
       </mat-radio-group>
       
        <div><br></div>
@@ -32,10 +32,10 @@
             <label>
         Content Eligibility:
            </label>
-           <label >
+           <label class="radio-option" >
             <input type="checkbox" name="selectionType"  value="free">Free content
           </label>
-          <label>
+          <label class="radio-option">
             <input type="checkbox" name="selectionType"  value="paid">Paid content
           </label>
         </div>
@@ -75,7 +75,7 @@
             <div class="box">
                 <dx-select-box 
                 formControlName="categorylaw"
-                label="category of Law"
+                label="Category of Law"
                 labelMode="floating"
                 search="true"
                 valueExpr="category_of_law_ID"
@@ -134,7 +134,7 @@
                 <div class="box">
                   <dx-select-box 
                   formControlName="jurisdictioncategory"
-                  label="Jurisdiction  category "
+                  label="Jurisdiction  Category "
                   labelMode="floating"
                   valueExpr="jurisdiction_category_id"
                   displayExpr="jurisdiction_categoryname"
@@ -167,7 +167,7 @@
           <div class="box">
             <dx-select-box 
             formControlName="state"
-            label="state /Region "
+            label="State /Region "
             labelMode="floating"
             valueExpr="id"
             displayExpr="name"
@@ -224,7 +224,7 @@
                 <div class="box">
                     <dx-select-box 
                     formControlName="industry"
-                    label="Select industry type"
+                    label="Select Industry Type"
                     labelMode="floating"
                     search="true"
                     valueExpr="industrytypeid"
@@ -306,7 +306,7 @@
           <div class="margin-top"></div>
                 <div class="button">
                   <button class="grey-button"  (click)="Cancel()" >Cancel</button>
-          <button  class="Custombutton"  (click)="saveSelectedCompliances()">Add to Company Complaince Library Master</button>
+          <button  class="Custombutton"  (click)="saveSelectedCompliances()">Add to Company Compliance Library Master</button>
                 </div>
       </div>
     </form>

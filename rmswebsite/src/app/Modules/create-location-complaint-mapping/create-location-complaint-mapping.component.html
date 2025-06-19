@@ -32,7 +32,7 @@
         <div class="box">
           <dx-select-box 
           formControlName="categorylaw"
-          label="category of Law"
+          label="Category of Law"
           labelMode="floating"
           search="true"
           valueExpr="category_of_law_ID"
@@ -109,7 +109,7 @@
             <div class="box">
               <dx-select-box 
               formControlName="jurisdictioncategory"
-              label="Jurisdiction  category "
+              label="Jurisdiction  Category "
               labelMode="floating"
               valueExpr="jurisdiction_category_id"
               displayExpr="jurisdiction_categoryname"
@@ -142,7 +142,7 @@
             <div class="box">
               <dx-select-box 
               formControlName="state"
-              label="state /Region "
+              label="State /Region "
               labelMode="floating"
               valueExpr="id"
               displayExpr="name"
@@ -199,7 +199,7 @@
             <div class="box">
                 <dx-select-box 
                 formControlName="industury"
-                label="Select industry type"
+                label="Select Industry Type"
                 labelMode="floating"
                 search="true"
                 valueExpr="industrytypeid"
@@ -259,7 +259,15 @@
               </dxi-column>
               <dxi-column dataField="mapping_status" caption="Company Mapping  Status" visible="false">
               </dxi-column>
-        
+            <dxi-column dataField="law_Categoryname" caption="Category of Law" [visible]="false"></dxi-column>
+    <dxi-column dataField="regulatory_authority_name" caption="Regulatory Authority Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="country" caption="Country Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="state" caption="State Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="JurisdictionLocationDistrict" caption="Jurisdiction Location District" [visible]="false"></dxi-column>
+    <dxi-column dataField="compliance_record_name" caption="Compliance Record Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="compliance_group_name" caption="Compliance Group Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="compliance_notified_name" caption="Compliance Notified Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="compliance_risk_criteria_name" caption="Compliance Risk Criteria Name" [visible]="false"></dxi-column>
               <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
               <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
               <dxo-filter-row [visible]="true"></dxo-filter-row>

@@ -15,7 +15,7 @@
               [showBorders]="true"
               [allowColumnResizing]="true"
               [columnAutoWidth]="true"
-         
+          (onExporting)="exportGrid1($event)"
               [showBorders]="true"
               [allowColumnReordering]="true"
             >
@@ -41,7 +41,15 @@
               </dxi-column>
               <dxi-column dataField="status" caption="company_compliance_mapping_Status">
             </dxi-column>
-          
+           <dxi-column dataField="regulatory_authority_name" caption="Regulatory Authority Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="country" caption="Country Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="state" caption="State Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="law_Categoryname" caption="Category of Law" [visible]="false"></dxi-column>
+    <dxi-column dataField="JurisdictionLocationDistrict" caption="Jurisdiction Location District" [visible]="false"></dxi-column>
+    <dxi-column dataField="compliance_record_name" caption="Compliance Record Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="compliance_group_name" caption="Compliance Group Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="compliance_notified_name" caption="Compliance Notified Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="compliance_risk_criteria_name" caption="Compliance Risk Criteria Name" [visible]="false"></dxi-column>
          
         
               <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
@@ -67,7 +75,11 @@
                     [allowDeleting]="true"
                   ></dxo-editing>
 
-        
+              <dxo-export
+            [enabled]="true"
+            [formats]="['xlsx', 'pdf']"
+          >
+          </dxo-export>
               <dxo-summary>
                 <dxi-total-item column="compliance_location_Mapping_id" summaryType="count">
                 </dxi-total-item>
