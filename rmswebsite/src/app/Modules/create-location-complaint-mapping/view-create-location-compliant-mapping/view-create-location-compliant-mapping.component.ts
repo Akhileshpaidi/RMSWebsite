@@ -94,4 +94,34 @@ sendRequest1(url: string, method: string = 'GET', data1: any = {}): any {
             });
             
       }}
+
+      exportGrid1(e:any) {
+        if (e.format === 'xlsx') {
+          const workbook = new Workbook(); 
+          const worksheet = workbook.addWorksheet("Main sheet"); 
+          worksheet.addRow(['View location Compliance Mapping']);
+          worksheet.addRow([]);
+          exportDataGrid({ 
+            worksheet: worksheet, 
+            component: e.component,
+          }).then(function() {
+            workbook.xlsx.writeBuffer().then(function(buffer) { 
+              saveAs(new Blob([buffer], { type: "application/octet-stream" }), "ViewLocationComplianceMapping.xlsx"); 
+            }); 
+          }); 
+          e.cancel = true;
+        } 
+        else if (e.format === 'pdf') {
+          //alert("test")
+          const doc = new jsPDF();
+          doc.text('View location Compliance Mapping',75,10);
+          doc.setFontSize(12);
+          exportDataGridToPdf({
+            jsPDFDocument: doc,
+            component: e.component,
+          }).then(() => {
+            doc.save('ViewLocationComplianceMapping.pdf');
+          });
+        }
+        }
 }

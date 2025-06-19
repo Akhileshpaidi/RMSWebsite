@@ -148,6 +148,7 @@ minDate: Date = new Date();
 
   ngOnInit(): void {
     this.import = this.fb.group({
+      department:[],
       Actname:[''],
       categorylaw:[''],
       naturelaw:[''],
@@ -248,15 +249,15 @@ this.updateusername={
          console.log("userid", this.userdata.profile.userid);
     
          this.actname={
-          paginate: true,
+     paginate: true,
           store: new CustomStore({
-              key: 'actregulatoryid',
+              key: 'act_rule_regulatory_id',
               loadMode: 'raw',
               load:()=>{return new Promise((resolve, reject) => {
-                this.http.get(URL + '/Actregulatory/GetActregulatory', {headers})
+                this.http.get(URL + '/rulesandregulatory/GetrulesandregulatoryDetails', {headers})
                   .subscribe(res => {
                    (resolve(res));
-    
+        
                   }, (err) => {
                     reject(err);
                   });
@@ -351,13 +352,14 @@ this.updateusername={
             },
           }),
          };
+
          this.frequency={
           paginate: true,
           store: new CustomStore({
               key: 'Value',
               loadMode: 'raw',
               load:()=>{return new Promise((resolve, reject) => {
-                this.http.get(URL + '/frequencymaster/GetfrequencyDetail', {headers})
+                this.http.get(URL + '/frequencymasterforuser/GetfrequencyDetailsuser', {headers})
                   .subscribe(res => {
                    (resolve(res));
     
@@ -582,22 +584,22 @@ this.panelvisible=true;
   }
   search(value:any){
     const payload = {
-      Actname: value.Actname,
-      categorylaw: value.categorylaw,
-      naturelaw: value.naturelaw,
-      regulatoryAuthority: value.regulatoryAuthority,
-      jurisdictioncategory: value.jurisdictioncategory,
-      country: value.country,
-      state: value.state,
-      distict: value.distict,
-      frequency: value.frequency,
-      complaincetype: value.complaincetype,
+      rule_id: value.Actname,
+      category_of_law_id: value.categorylaw,
+      law_type_id: value.naturelaw,
+      regulatory_authority_id: value.regulatoryAuthority,
+      jursdiction_category_id: value.jurisdictioncategory,
+      country_id: value.country,
+      state_id: value.state,
+      jursdiction_Location_id: value.distict,
+      frequency_period_id: value.frequency,
+      compliance_type_id: value.complaincetype,
       createdby:this.userdata.profile.userid,
-      department:value.department
+      locationdepartmentmappingid:value.department
     };
 
     console .log( payload)
-
+alert('Search Data:'+JSON.stringify(payload))
     this.dataSource = this.makeAsyncDataSource3(this.http, payload);
 }
   makeAsyncDataSource3(http:HttpClient,params:any) {

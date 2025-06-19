@@ -60,14 +60,28 @@
               </div>
               <div class="box" *ngIf="Selection() ">
                 <div>
-                  <dx-select-box formControlName="Actname" label="Select Act Name" labelMode="floating"
+                  <!-- <dx-select-box formControlName="Actname" label="Select Act Name" labelMode="floating"
                     valueExpr="actregulatoryid" displayExpr="actregulatoryname" [dataSource]="actname" search="true"
                     height="40px" [searchEnabled]="true" selectionMode="single" placeholder="" disableOptionCentering>
-                  </dx-select-box>
+                  </dx-select-box> -->
+                     <dx-select-box 
+      formControlName="Actname"
+      label="Select Act/Rule Name"
+      labelMode="floating"
+      valueExpr="act_rule_regulatory_id"
+      displayExpr="actrulename"
+      [dataSource]="actname"
+      search="true"
+      height="40px"
+      [searchEnabled]="true"
+      selectionMode="single" 
+     placeholder=""
+     disableOptionCentering >
+</dx-select-box>
 
                 </div>
                 <div>
-                  <dx-select-box formControlName="categorylaw" label="category of Law" labelMode="floating"
+                  <dx-select-box formControlName="categorylaw" label="Category of Law" labelMode="floating"
                     search="true" valueExpr="category_of_law_ID" displayExpr="law_Categoryname"
                     [dataSource]="categorylaw" height="40px" [searchEnabled]="true" selectionMode="single"
                     placeholder="" disableOptionCentering>
@@ -104,7 +118,7 @@
                 <br>
                 <div class="row">
                   <div class="box">
-                    <dx-select-box formControlName="jurisdictioncategory" label="Jurisdiction  category "
+                    <dx-select-box formControlName="jurisdictioncategory" label="Jurisdiction  Category "
                       labelMode="floating" valueExpr="jurisdiction_category_id" displayExpr="jurisdiction_categoryname"
                       [dataSource]="jurisdiction" height="40px" [searchEnabled]="true" selectionMode="single"
                       placeholder="" disableOptionCentering>
@@ -121,7 +135,7 @@
                 <br>
                 <div class="row">
                   <div class="box">
-                    <dx-select-box formControlName="state" label="state /Region " labelMode="floating" valueExpr="id"
+                    <dx-select-box formControlName="state" label="State /Region " labelMode="floating" valueExpr="id"
                       displayExpr="name" [dataSource]="state" height="40px" [searchEnabled]="true"
                       selectionMode="single" placeholder="" (onValueChanged)="getdistrict($event)"
                       disableOptionCentering>
@@ -148,14 +162,24 @@
 
               <div class="row" *ngIf="Selection2()">
                 <div class="box">
-                  <dx-select-box formControlName="frequency" label="Select frequency" labelMode="floating"
-                    valueExpr="frequencyid" displayExpr="frequencyperiod" [dataSource]="frequency" search="true"
-                    height="40px" [searchEnabled]="true" selectionMode="single" placeholder="" disableOptionCentering>
+                  <dx-select-box 
+                  formControlName="frequency"
+                   label="Select Frequency"
+                    labelMode="floating"
+                    valueExpr="frequencyid"
+                     displayExpr="frequencyperiod"
+                      [dataSource]="frequency" 
+                      search="true"
+                    height="40px" 
+                    [searchEnabled]="true"
+                     selectionMode="single"
+                      placeholder=""
+                       disableOptionCentering>
                   </dx-select-box>
 
                 </div>
                 <div class="box">
-                  <dx-select-box formControlName="complaincetype" label="Select Compliance type" labelMode="floating"
+                  <dx-select-box formControlName="complaincetype" label="Select Compliance Type" labelMode="floating"
                     search="true" valueExpr="compliance_type_id" displayExpr="compliance_type_name"
                     [dataSource]="complaincetype" height="40px" [searchEnabled]="true" selectionMode="single"
                     placeholder="" disableOptionCentering>
@@ -213,8 +237,17 @@
                   </dxi-column>
                   <dxi-column dataField="companycompliancemappingid" caption="Company Compliance Mapping Id">
                   </dxi-column>
-                  <!-- <dxi-column dataField="status" caption="company_compliance_mapping_Status">
-                </dxi-column> -->
+                  <dxi-column dataField="frequencyperiod" caption="Frequency Period" [visible]="false">
+                </dxi-column>
+                 <dxi-column dataField="regulatory_authority_name" caption="Regulatory Authority Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="country" caption="Country Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="state" caption="State Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="law_Categoryname" caption="Category of Law" [visible]="false"></dxi-column>
+    <dxi-column dataField="JurisdictionLocationDistrict" caption="Jurisdiction Location District" [visible]="false"></dxi-column>
+    <dxi-column dataField="compliance_record_name" caption="Compliance Record Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="compliance_group_name" caption="Compliance Group Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="compliance_notified_name" caption="Compliance Notified Name" [visible]="false"></dxi-column>
+    <dxi-column dataField="compliance_risk_criteria_name" caption="Compliance Risk Criteria Name" [visible]="false"></dxi-column>
 
                   <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
                   <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
