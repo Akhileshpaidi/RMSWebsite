@@ -99,7 +99,7 @@ updateusername:any;
 reviewusername:any;
 approveusername:any;users: any[] = [];
   monitoredselected:any[]=[];
-  monitorusername:any; 
+  monitorusername:any;
 auditorusername:any;
 viewusername:any;viewuserselected:any[]=[];
 Remediationusername:any;
@@ -136,7 +136,7 @@ minDate: Date = new Date();
     //private service:ExitNav,
   )
   {
-    
+
 
 
   this.yourForm = this.fb.group({
@@ -165,7 +165,7 @@ minDate: Date = new Date();
       pdf:'', doc:'',  xls:'',  ppt:'',  com_zip:'',
       auditworkflow:'',
       checker_auth:'',reviewactivity:'',approveactivity:'',bothreviewapprove:'',
-      checkbox_no_of_escalations:'',noofescalations:['', 
+      checkbox_no_of_escalations:'',noofescalations:['',
         [
         Validators.required,
         Validators.min(2),
@@ -180,7 +180,7 @@ minDate: Date = new Date();
         Validators.required,
         Validators.min(2),
         Validators.max(10)]],
-      
+
       scheduleron: ['OriginalDueDate'],
       Periodicityofoverduereminder: ['',Validators.required],
       level_1_username:['',Validators.required],
@@ -203,7 +203,7 @@ minDate: Date = new Date();
       { id:'ODD',text:'ODD – On Due Date (t)'  },
       { id:'ADD(ex)',text:'ADD(ex) – After Due Date (t+) excluding due date'  },
       { id:'ADD(in)',text:'ADD(in) – After Due Date (t+) including due date'  }
-    
+
  ];
  this.Notificationmailds={
   paginate: true,
@@ -221,33 +221,56 @@ minDate: Date = new Date();
   });
   },
 }),
-  
+
 };
-this.updateusername={ 
+// change of api
+this.updateusername = { 
   paginate: true,
   store: new CustomStore({
     key: 'usR_ID',
     loadMode: 'raw',
-    load:()=>{return new Promise((resolve, reject) => {
-      this.http.get(URL + '/createuser/getuserdetails', {headers})
-        .subscribe(res => {
-         (resolve(res));
-
-        }, (err) => {
-          reject(err);
-        });
-  });
-  },
-}),
-  
+    load: () => {
+      return new Promise((resolve, reject) => {
+        this.http.get(
+          URL + '/ComplainceUserMappingController/GetcomplainceendUsers?rolename=End User' +
+          "&&locationdepartmentmappingids=" + localStorage.getItem('complianceLocationPairs') +
+          "&&companycomplianceids=" + localStorage.getItem('companycomplianceids') ,
+          { headers }
+        ).subscribe(
+          res => resolve(res),
+          err => reject(err)
+        );
+      });
+    },
+  }),
 };
+
+// api by kavya
+// this.updateusername={
+//   paginate: true,
+//   store: new CustomStore({
+//     key: 'usR_ID',
+//     loadMode: 'raw',
+//     load:()=>{return new Promise((resolve, reject) => {
+//       this.http.get(URL + '/createuser/getuserdetails', {headers})
+//         .subscribe(res => {
+//          (resolve(res));
+
+//         }, (err) => {
+//           reject(err);
+//         });
+//   });
+//   },
+// }),
+
+// };
 
     let user: any = this.session.getUser();
     // console.log(user)
          this.userdata = JSON.parse(user); //userdata.profile.userid
        //  alert(JSON.stringify(this.userdata))
          console.log("userid", this.userdata.profile.userid);
-    
+
          this.actname={
      paginate: true,
           store: new CustomStore({
@@ -257,7 +280,7 @@ this.updateusername={
                 this.http.get(URL + '/rulesandregulatory/GetrulesandregulatoryDetails', {headers})
                   .subscribe(res => {
                    (resolve(res));
-        
+
                   }, (err) => {
                     reject(err);
                   });
@@ -274,7 +297,7 @@ this.updateusername={
                 this.http.get(URL + '/catageorylaw/Getcatageorylaws', {headers})
                   .subscribe(res => {
                    (resolve(res));
-    
+
                   }, (err) => {
                     reject(err);
                   });
@@ -291,7 +314,7 @@ this.updateusername={
                 this.http.get(URL + '/LawType/GetLawTypeDetails', {headers})
                   .subscribe(res => {
                    (resolve(res));
-    
+
                   }, (err) => {
                     reject(err);
                   });
@@ -308,7 +331,7 @@ this.updateusername={
                 this.http.get(URL + '/regulatoryauthority/GetregulatoryauthorityDetails', {headers})
                   .subscribe(res => {
                    (resolve(res));
-    
+
                   }, (err) => {
                     reject(err);
                   });
@@ -316,7 +339,7 @@ this.updateusername={
             },
           }),
          };
-    
+
          this.jurisdiction={
           paginate: true,
           store: new CustomStore({
@@ -326,7 +349,7 @@ this.updateusername={
                 this.http.get(URL + '/Jurisdiction/GetJurisdiction', {headers})
                   .subscribe(res => {
                    (resolve(res));
-    
+
                   }, (err) => {
                     reject(err);
                   });
@@ -334,7 +357,7 @@ this.updateusername={
             },
           }),
          };
-    
+
          this.complaincetype={
           paginate: true,
           store: new CustomStore({
@@ -344,7 +367,7 @@ this.updateusername={
                 this.http.get(URL + '/Compliance/GetCompliancetypeDetails', {headers})
                   .subscribe(res => {
                    (resolve(res));
-    
+
                   }, (err) => {
                     reject(err);
                   });
@@ -362,7 +385,7 @@ this.updateusername={
                 this.http.get(URL + '/frequencymasterforuser/GetfrequencyDetailsuser', {headers})
                   .subscribe(res => {
                    (resolve(res));
-    
+
                   }, (err) => {
                     reject(err);
                   });
@@ -370,7 +393,7 @@ this.updateusername={
             },
           }),
          };
-    
+
          this.country={
           paginate: true,
           store: new CustomStore({
@@ -380,7 +403,7 @@ this.updateusername={
                 this.http.get(URL + '/Country/GetCountries', {headers})
                   .subscribe(res => {
                    (resolve(res));
-    
+
                   }, (err) => {
                     reject(err);
                   });
@@ -397,14 +420,14 @@ this.updateusername={
               this.http.get(URL + '/locationdepartmentmapping/GetlocationdepartmentmappingDetailsbyid/'+this.userdata.profile.userid, {headers})
                 .subscribe(res => {
                  (resolve(res));
-      
+
                 }, (err) => {
                   reject(err);
                 });
           });
           },
         }),
-          
+
         };
     }
 
@@ -418,7 +441,7 @@ this.updateusername={
       const selectedDate = new Date(control.value);
       const today = new Date();
       today.setHours(0, 0, 0, 0); // Set time to midnight
-  
+
       if (selectedDate < today) {
         return { invalidDate: true }; // Invalid if date is before today
       }
@@ -438,14 +461,14 @@ this.updateusername={
                 this.http.get(URL + '/StateModels/GetStateDetails/'+this.CountryId, {headers})
                   .subscribe(res => {
                    (resolve(res));
-      
+
                   }, (err) => {
                     reject(err);
                   });
             });
             },
           }),
-      
+
           };
         }
         getdistrict(event:any){
@@ -461,14 +484,14 @@ this.updateusername={
                 this.http.get(URL + '/JurisdictionLocationModel/GetDistrictDetails/'+this.stateId, {headers})
                   .subscribe(res => {
                    (resolve(res));
-      
+
                   }, (err) => {
                     reject(err);
                   });
             });
             },
           }),
-      
+
           };
         }
         getdepartment(event:any){
@@ -476,11 +499,13 @@ this.updateusername={
          localStorage.setItem('locationdepartmentmappingids',event.value);
         // alert(localStorage.getItem('locationdepartmentmappingids'))
         }
-       
+
         handleSelectionChanges(event:any){
 
 
           const companyComplianceIds:any=[];
+           
+          
           (event.selectedRowsData as any[]).forEach((item:any)=>{
            // companyComplianceIds.push(item.create_company_compliance_id);
            if (!companyComplianceIds.includes(item.create_company_compliance_id)) {
@@ -503,6 +528,40 @@ this.updateusername={
         // let locationarray:any=[]
         // locationarray.push(localStorage.getItem('locationdepartmentmappingids'))
         // alert(locationarray);
+
+
+         // ✅ ADDITION: Storeing of departmentlocationmapping id
+ const compliancelocationMappingPairs: any[] = [];
+(event.selectedRowsData as any[]).forEach((item: any) => {
+  if (item.locationdepartmentmappingid && !compliancelocationMappingPairs.includes(item.locationdepartmentmappingid)) {
+    compliancelocationMappingPairs.push(item.locationdepartmentmappingid);
+  }
+});
+const locMappingString = compliancelocationMappingPairs.join(',');
+localStorage.setItem('complianceLocationPairs', locMappingString);
+//alert(locMappingString);
+this.updateusername = {
+  paginate: true,
+  store: new CustomStore({
+    key: 'usR_ID',
+    loadMode: 'raw',
+    load: () => {
+      return new Promise((resolve, reject) => {
+        this.http.get(
+          URL + '/ComplainceUserMappingController/GetcomplainceendUsers?rolename=End User' +
+          "&&locationdepartmentmappingids=" + localStorage.getItem('complianceLocationPairs') +
+          "&&companycomplianceids=" + localStorage.getItem('companycomplianceids'),
+          { headers }
+        ).subscribe(
+          res => resolve(res),
+          err => reject(err)
+        );
+      });
+    },
+  }),
+};
+
+
 this.panelvisible=true;
 //alert(locdepcommaSeparatedString)
         }
@@ -522,7 +581,7 @@ this.panelvisible=true;
         }
         levelremainderss(index:number):FormArray{
           return this.levels().at(index).get('reminders') as FormArray;
-          
+
         }
   showInvalidFieldsAlert() {
     let invalidFields = '';
@@ -579,8 +638,8 @@ this.panelvisible=true;
 
     }
 
-   
-    
+
+
   }
   search(value:any){
     const payload = {
@@ -599,7 +658,7 @@ this.panelvisible=true;
     };
 
     console .log( payload)
-alert('Search Data:'+JSON.stringify(payload))
+//alert('Search Data:'+JSON.stringify(payload))
     this.dataSource = this.makeAsyncDataSource3(this.http, payload);
 }
   makeAsyncDataSource3(http:HttpClient,params:any) {
@@ -614,7 +673,7 @@ alert('Search Data:'+JSON.stringify(payload))
       },
     });
   }
-  
+
   Selection(): boolean {
 
     return this.selection === 'visible';
@@ -637,7 +696,7 @@ alert('Search Data:'+JSON.stringify(payload))
   setSelection2(event:any ) {
     this.selection2 = event.target.checked?'visible2':'';
   }
-  
+
   Selection4(): boolean {
 
     return this.selection4 === 'visible4';
@@ -687,7 +746,7 @@ this.approveactivity=event.target.checked?'approvevisible':'';
 }
 updateuser(event: any) {
   this.updated_user = event.target.checked ? 'updatevisible' : '';
-  this.updateusername={ 
+  this.updateusername={
     paginate: true,
     store: new CustomStore({
       key: 'usR_ID',
@@ -703,7 +762,7 @@ updateuser(event: any) {
     });
     },
   }),
-    
+
   };
 }
 getupdateuser(event:any){
@@ -722,7 +781,7 @@ store.load({ filter: ['usR_ID', '=', event.value] })
       // Check if the firstItem has the property 'firstname'
       if (firstItem && 'firstname' in firstItem) {
         let firstname: any = firstItem.firstname;
-        
+
         // Set the value of the control 'level_1_username'
         this.import.controls['level_1_username'].setValue(firstname);
         this.level_1_userid=event.value;
@@ -739,7 +798,7 @@ store.load({ filter: ['usR_ID', '=', event.value] })
     console.error('An error occurred while loading data:', error);
   });
 
-   this.level2ds={ 
+   this.level2ds={
     paginate: true,
     store: new CustomStore({
       key: 'usR_ID',
@@ -755,33 +814,33 @@ store.load({ filter: ['usR_ID', '=', event.value] })
     });
     },
   }),
-    
+
   };
-   
+
   if(this.updateuserid!=''||this.updateuserid!=undefined){
-    this.Remediationusername={ 
+    this.Remediationusername={
       paginate: true,
       store: new CustomStore({
         key: 'usR_ID',
         loadMode: 'raw',
         load:()=>{return new Promise((resolve, reject) => {
-          this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceRemidiationUsers?userid='+this.updateuserid+"&&locationdepartmentmappingids="+localStorage.getItem('locationdepartmentmappingids'), {headers})
+          this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceendUsers?rolename=Remediator'+"&&locationdepartmentmappingids="+localStorage.getItem('complianceLocationPairs')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids'), {headers})
             .subscribe(res => {
              (resolve(res));
-  
+
             }, (err) => {
               reject(err);
             });
       });
       },
     }),
-      
+
     };}
     else{
       alert('Please Select Update User')
     }
 
-    
+
 }
 // updateuser(checked: boolean) {
 //     this.updated_user = checked ? 'updatevisible' : '';
@@ -792,15 +851,15 @@ store.load({ filter: ['usR_ID', '=', event.value] })
   }
   reviewuser(event:any ) {
   this.review_user = event.target.checked ? 'reviewvisible' : '';
-let rolename:any='reviewer';
+let rolename:any='Reviewer';
 
-  this.reviewusername={ 
+  this.reviewusername={
     paginate: true,
     store: new CustomStore({
       key: 'usR_ID',
       loadMode: 'raw',
       load:()=>{return new Promise((resolve, reject) => {
-        this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceUsers?rolename='+rolename+"&&locationdepartmentmappingids="+localStorage.getItem('locationdepartmentmappingids')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids')+"&&userid="+this.updateuserid, {headers})
+        this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceUsers?rolename='+rolename+"&&locationdepartmentmappingids="+localStorage.getItem('complianceLocationPairs')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids')+"&&userid="+this.updateuserid, {headers})
           .subscribe(res => {
            (resolve(res));
 
@@ -810,7 +869,7 @@ let rolename:any='reviewer';
     });
     },
   }),
-    
+
   };
   }
   getupdatereviewuser(event:any){
@@ -821,7 +880,7 @@ this.updatereviewapproveuser=this.updateuserid+','+this.review_username
 
     return this.approve_user === 'approvevisible';
   }
- 
+
 
   approveuser(event:any ) {
   this.approve_user = event.target.checked ? 'approvevisible' : '';
@@ -830,27 +889,27 @@ this.updatereviewapproveuser=this.updateuserid+','+this.review_username
   this.bothreviewapprove=this.import.get('bothreviewapprove').value;
 
   if(this.bothreviewapprove==true){
-  
+
     // rolename='reviewer'
     // this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceUsers?rolename='+rolename+"&&locationdepartmentmappingids="+localStorage.getItem('locationdepartmentmappingids')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids')+"&&userid="+this.updateuserid, {headers})
     // .subscribe(res => {
     // let resdata:any[]=res as any;
-   
 
-    //   this.approveusername={ 
+
+    //   this.approveusername={
     //     paginate: true,
     //     store: new CustomStore({
     //       key: 'usR_ID',
     //       loadMode: 'raw',
     //       load:()=>resdata.filter((item)=>{
-       
+
     //         return item.usR_ID==this.import.get('reviewuser').value})
-          
+
     //     })
     //     }
     //   });
-      
-    this.approveusername = { 
+
+    this.approveusername = {
       paginate: true,
       store: new CustomStore({
         key: 'usR_ID',
@@ -858,16 +917,16 @@ this.updatereviewapproveuser=this.updateuserid+','+this.review_username
         load: () => {
           return new Promise((resolve, reject) => {
             this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceUsers?rolename=' + rolename +
-              "&&locationdepartmentmappingids=" + localStorage.getItem('locationdepartmentmappingids') +
+              "&&locationdepartmentmappingids=" + localStorage.getItem('complianceLocationPairs') +
               "&&companycomplianceids=" + localStorage.getItem('companycomplianceids') +
               "&&userid=" + this.review_username, { headers })
               .subscribe(res => {
                 let resdata: any[] = res as any[];
-    
+
                 // Get the additional user ID from somewhere, for example from the form control
-                const additionalUserId = this.import.get('reviewuser').value; 
-        
-      
+                const additionalUserId = this.import.get('reviewuser').value;
+
+
     let rolename:any='reviewer'
     this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceUsers?rolename='+rolename+"&&locationdepartmentmappingids="+localStorage.getItem('locationdepartmentmappingids')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids')+"&&userid="+this.updateuserid, {headers})
     .subscribe((res: any) => {
@@ -876,9 +935,9 @@ this.updatereviewapproveuser=this.updateuserid+','+this.review_username
       console.log(user)
       console.log(user.firstname)
 
-   
+
       const userExists = resdata.some(item => item.usR_ID === additionalUserId);
-    
+
                 // If the user does not exist, add it to the response data
                 if (!userExists) {
                   console.log("username:" + user.firstname)
@@ -887,30 +946,30 @@ this.updatereviewapproveuser=this.updateuserid+','+this.review_username
                     firstname:  user.firstname
                   });
                 }
-    
+
                 resolve(resdata);
-              }, 
+              },
               err => {
                 reject(err);
               });
     });
                 // Check if the additional user ID exists in the response data
-              
+
           });
         }
       })
     };
-    
-   
+
+
     }
   else{
-  this.approveusername={ 
+  this.approveusername={
     paginate: true,
     store: new CustomStore({
       key: 'usR_ID',
       loadMode: 'raw',
       load:()=>{return new Promise((resolve, reject) => {
-        this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceUsers?rolename='+rolename+"&&locationdepartmentmappingids="+localStorage.getItem('locationdepartmentmappingids')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids')+"&&userid="+this.review_username, {headers})
+        this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceUsers?rolename='+rolename+"&&locationdepartmentmappingids="+localStorage.getItem('complianceLocationPairs')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids')+"&&userid="+this.review_username, {headers})
           .subscribe(res => {
            (resolve(res));
 
@@ -920,7 +979,7 @@ this.updatereviewapproveuser=this.updateuserid+','+this.review_username
     });
     },
   }),
-    
+
   };
 }
   }
@@ -935,13 +994,13 @@ this.updatereviewapproveuser=this.updateuserid+','+this.review_username+','+even
     this.monitor_user = event.target.checked ? 'monitorvisible' : '';
     let rolename:any='Monitor';
 
-  this.monitorusername={ 
+  this.monitorusername={
     paginate: true,
     store: new CustomStore({
       key: 'usR_ID',
       loadMode: 'raw',
       load:()=>{return new Promise((resolve, reject) => {
-        this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceUsers?rolename='+rolename+"&&locationdepartmentmappingids="+localStorage.getItem('locationdepartmentmappingids')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids')+"&&userid="+this.updateuserid, {headers})
+        this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceUsers?rolename='+rolename+"&&locationdepartmentmappingids="+localStorage.getItem('complianceLocationPairs')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids')+"&&userid="+this.updateuserid, {headers})
           .subscribe(res => {
            (resolve(res));
 
@@ -951,9 +1010,9 @@ this.updatereviewapproveuser=this.updateuserid+','+this.review_username+','+even
     });
     },
   }),
-    
+
   };
-  
+
 
   }
   getmonitoruserid(event:any){
@@ -966,23 +1025,23 @@ this.monitoruserid=event.value
   Audituser( event:any ) {
     this.Audit_user = event.target.checked ?'Auditvisible':'';
     let rolename:any='Compliance Auditor';
-    this.auditorusername={ 
+    this.auditorusername={
       paginate: true,
       store: new CustomStore({
         key: 'usR_ID',
         loadMode: 'raw',
         load:()=>{return new Promise((resolve, reject) => {
-          this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceUsers?rolename='+rolename+"&&locationdepartmentmappingids="+localStorage.getItem('locationdepartmentmappingids')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids')+"&&userid="+this.updatereviewapproveuser, {headers})
+          this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceUsers?rolename='+rolename+"&&locationdepartmentmappingids="+localStorage.getItem('complianceLocationPairs')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids')+"&&userid="+this.updatereviewapproveuser, {headers})
             .subscribe(res => {
              (resolve(res));
-  
+
             }, (err) => {
               reject(err);
             });
       });
       },
     }),
-      
+
     };
   }
   getupdatereviewapproveaudituser(event:any){
@@ -996,13 +1055,13 @@ this.monitoruserid=event.value
     this.view_user = event.target.checked ?'viewvisible':'';
     let rolename:any='Viewer';
 //alert(this.updatereviewapproveaudituser)
-  this.viewusername={ 
+  this.viewusername={
     paginate: true,
     store: new CustomStore({
       key: 'usR_ID',
       loadMode: 'raw',
       load:()=>{return new Promise((resolve, reject) => {
-        this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceUsers?rolename='+rolename+"&&locationdepartmentmappingids="+localStorage.getItem('locationdepartmentmappingids')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids')+"&&userid="+this.updatereviewapproveaudituser, {headers})
+        this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceUsers?rolename='+rolename+"&&locationdepartmentmappingids="+localStorage.getItem('complianceLocationPairs')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids')+"&&userid="+this.updatereviewapproveaudituser, {headers})
           .subscribe(res => {
            (resolve(res));
 
@@ -1012,7 +1071,7 @@ this.monitoruserid=event.value
     });
     },
   }),
-    
+
   };
   }
   remidationuserselection(): boolean {
@@ -1021,31 +1080,31 @@ this.monitoruserid=event.value
   }
   Remediationuser(event:any) {
     this.Remediation_user = event.target.checked?'Remediationvisible':'';
-   
 
+   let rolename:any='Remediator';
 if(this.updateuserid!=''||this.updateuserid!=undefined){
-    this.Remediationusername={ 
+    this.Remediationusername={
       paginate: true,
       store: new CustomStore({
         key: 'usR_ID',
         loadMode: 'raw',
         load:()=>{return new Promise((resolve, reject) => {
-          this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceRemidiationUsers?userid='+this.updateuserid+"&&locationdepartmentmappingids="+localStorage.getItem('locationdepartmentmappingids'), {headers})
+          this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceendUsers?rolename='+rolename+"&&locationdepartmentmappingids="+localStorage.getItem('complianceLocationPairs')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids'), {headers})
             .subscribe(res => {
              (resolve(res));
-  
+
             }, (err) => {
               reject(err);
             });
       });
       },
     }),
-      
+
     };}
     else{
       alert('Please Select Update User')
     }
-    
+
   }
   getremideuser(event:any){
     this.remediupdateuserid=event.value+','+this.updateuserid
@@ -1056,14 +1115,15 @@ if(this.updateuserid!=''||this.updateuserid!=undefined){
   }
   backupuser(event:any ) {
     this.backup_user = event.target.checked?'backupvisible':'';
-
-  this.backupusername={ 
+let rolename:any='End User';
+  this.backupusername={
     paginate: true,
     store: new CustomStore({
       key: 'usR_ID',
       loadMode: 'raw',
       load:()=>{return new Promise((resolve, reject) => {
-        this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceRemidiationUsers?userid='+this.updateuserid+"&&locationdepartmentmappingids="+localStorage.getItem('locationdepartmentmappingids'), {headers})
+     //   this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceRemidiationUsers?userid='+this.updateuserid+"&&locationdepartmentmappingids="+localStorage.getItem('complianceLocationPairs'), {headers})
+     this.http.get(URL + '/ComplainceUserMappingController/GetcomplainceUsers?rolename='+rolename+"&&locationdepartmentmappingids="+localStorage.getItem('complianceLocationPairs')+"&&companycomplianceids="+localStorage.getItem('companycomplianceids')+"&&userid="+this.updateuserid, {headers})
           .subscribe(res => {
            (resolve(res));
 
@@ -1073,7 +1133,7 @@ if(this.updateuserid!=''||this.updateuserid!=undefined){
     });
     },
   }),
-    
+
   };
   }
   reloadComponent() {
@@ -1093,7 +1153,7 @@ if(this.updateuserid!=''||this.updateuserid!=undefined){
    this.bothreviewapprove=this.import.get('bothreviewapprove').value;
   //  alert(this.import.get('holiday_factor').value)
     this.generateRowsAndColumns();
-    
+
 if(this.approveactivity==true)
     this.approveactivity==='approvevisible';
 else
@@ -1162,15 +1222,15 @@ if(this.import.get('noofremindersrequired').value>10){
     //   this.reloadComponent();
     // },
     // (error: any) => {
-     
+
     //   window.alert('Error Saving Data');
     // });
 
-    
+
 
   }
   useractivitymap(){
-   
+
     //alert(this.import.get('updateuser').value)
     let formdata:any[]=[];
     formdata.push({
@@ -1224,7 +1284,7 @@ if(this.import.get('noofremindersrequired').value>10){
       ViewActivity:this.import.get('viewuser').value!=""?this.import.get('viewuser').value.join(','):0,
       RemediationActivity:this.import.get('remidationuser').value!=""?parseInt(this.import.get('remidationuser').value):0,
       BackupUserActivity:this.import.get('backupuser').value!=""?parseInt(this.import.get('backupuser').value):0,
-      
+
     })
     //alert(JSON.stringify(useractivityformdata))
     let savedata={'ComplainceUserMapping':formdata[0],'ComplainceUserActivityMapping':useractivityformdata[0]};
@@ -1236,7 +1296,7 @@ if(this.import.get('noofremindersrequired').value>10){
     //   this.reloadComponent();
     // },
     // (error: any) => {
-     
+
     //   window.alert('Error Saving Data');
     // });
   }
@@ -1327,7 +1387,7 @@ staticlevelvalues.push(...this.levels().value)
       ViewActivity:this.import.get('viewuser').value!=""?this.import.get('viewuser').value.join(','):0,
       RemediationActivity:this.import.get('remidationuser').value!=""?parseInt(this.import.get('remidationuser').value):0,
       BackupUserActivity:this.import.get('backupuser').value!=""?parseInt(this.import.get('backupuser').value):0,
-      
+
     })
     let escalationformdata:any=[];
     escalationformdata.push({
@@ -1346,14 +1406,14 @@ console.log(JSON.stringify(escalationformdata))
   //     this.reloadComponent();
   //   },
   //   (error: any) => {
-     
+
   //     window.alert('Error Saving Data');
   //   });
 
   }
 
   Submit(){
-  
+
     this.forminvalidfields=[];
     let invalidFields: any[] = [];
     invalidFields = invalidFields.concat(
@@ -1392,23 +1452,23 @@ console.log(JSON.stringify(escalationformdata))
        case 'Apply_Scheduler_On': return 'Apply Scheduler On';
        case 'Effective_StartDate': return 'Effective Start Date';
       // case 'Effective_EndDate': return 'Effective End Date';
-      
+
        default: return key;
      }
    }));
-  
+
 
    invalidFields=invalidFields.filter((item:string)=>item.trim()!="");
  this.forminvalidfields=invalidFields;
  if(this.forminvalidfields.length>0){
    this.erroMessage = `Please provide valid information for the following fields: ${this.forminvalidfields.join(', ')}`;
-   
+
    // Open the DaidailogeComponent with the error message
    this.dialog.open(DaidailogeComponent, {
      width: '900px',
      data: { message: this.erroMessage }
    });
-   
+
  }
  else{
   let formdata: any[] = [];
@@ -1511,7 +1571,7 @@ staticlevelvalues.push(...this.levels().value)
       ViewActivity:this.import.get('viewuser').value!=""?this.import.get('viewuser').value.join(','):0,
       RemediationActivity:this.import.get('remidationuser').value!=""?parseInt(this.import.get('remidationuser').value):0,
       BackupUserActivity:this.import.get('backupuser').value!=""?parseInt(this.import.get('backupuser').value):0,
-      
+
     })
     let escalationformdata:any=[];
     escalationformdata.push({
@@ -1532,7 +1592,7 @@ console.log(JSON.stringify(savedata))
       this.reloadComponent();
     },
     (error: any) => {
-     
+
       window.alert('Error Saving Data');
     });
   }
@@ -1550,7 +1610,7 @@ get noofescalations() {
   //------------- Escalation Matrix ---------------------- //
 
   generateRowsAndColumns() {
-    
+
     if(this.no_of_Reminders=="" || this.no_of_Reminders==undefined){
     this.no_of_Reminders=this.import.get('noofremindersrequired').value;
     this.no_of_Reminderheadings=this.import.get('noofremindersrequired').value;
@@ -1633,7 +1693,7 @@ get noofescalations() {
   getlevel2user(event:any){
 this.level2users=this.updateuserid+','+event.value
 
-    this.levelsds={ 
+    this.levelsds={
       paginate: true,
       store: new CustomStore({
         key: 'usR_ID',
@@ -1642,16 +1702,16 @@ this.level2users=this.updateuserid+','+event.value
           this.http.get(URL + '/ComplainceUserMappingController/GetEscalationUsers?userid='+this.level2users, {headers})
             .subscribe(res => {
              (resolve(res));
-  
+
             }, (err) => {
               reject(err);
             });
       });
       },
     }),
-      
+
     };
-    const emptyds={ 
+    const emptyds={
       paginate: true,
       store: new CustomStore({
         key: 'usR_ID',
@@ -1660,21 +1720,21 @@ this.level2users=this.updateuserid+','+event.value
           this.http.get(URL + '/ComplainceUserMappingController/GetEmptyEscalationUsers?userid='+1, {headers})
             .subscribe(res => {
              (resolve(res));
-  
+
             }, (err) => {
               reject(err);
             });
       });
       },
     }),
-      
+
     };
     this.levelcolumns.forEach((element:any)=>{
       this.levelsdsarray.push([]);
     });
     this.levelsdsarray.push(this.levelsds);
     this.levelsdsarray[0]=this.levelsds;
-    
+
   }
 
    getlevelsuser(event:any,row1:number){
@@ -1686,8 +1746,8 @@ this.level2users=this.updateuserid+','+event.value
     this.levelsusers=this.levelsusers+','+event.value
   else
   this.levelsusers=this.level2users+','+this.updateuserid+','+event.value
-  
-  this.levelsds={ 
+
+  this.levelsds={
     paginate: true,
     store: new CustomStore({
       key: 'usR_ID',
@@ -1703,16 +1763,16 @@ this.level2users=this.updateuserid+','+event.value
     });
     },
   }),
-    
+
   };
-  
-   
+
+
  for(var i=row1+1;i<this.levelcolumns.length;i++){
   this.levelsdsarray[i]=[];
  }
  this.levelsdsarray[row1+1]=this.levelsds;
  //this.import.controls["levelcheck"+row1+1]?.setValue('');
-  
+
   }
 
 
