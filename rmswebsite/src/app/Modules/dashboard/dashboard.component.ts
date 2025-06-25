@@ -13,7 +13,11 @@ import { RoleService } from 'src/app/core/services/role/role.service';
 import { EncryptionService } from 'src/app/core/encryption.service';
 import { MatSidenav } from '@angular/material/sidenav';
 import { DxPopupModule  } from 'devextreme-angular';
-
+import { BASE_URL } from 'src/app/core/Constant/apiConstant';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+const URL = BASE_URL;
+const headers = new HttpHeaders();
+headers.append('Content-Type', 'text/plain');
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -32,7 +36,7 @@ export class DashboardComponent implements OnInit {
   dashboardData: any;
   filderData: any;
   isMenuOpen = false;
-  constructor(
+  constructor(private http: HttpClient,
     private session: SessionService,
     private router: Router,
     private authService: AuthService,
@@ -40,8 +44,19 @@ export class DashboardComponent implements OnInit {
     private encrypt: EncryptionService
   ) {
   
-
-
+// for generating batch compliance
+ this.http.get(URL + '/BatchComplianceGeneration/CreateBatchCompanyCompliance', {})
+     .subscribe((response: any) => {
+       console.log('Data Updated Succefully ', response);
+       // Handle the response from the server if needed
+      // window.alert('Data Updated Successfully');
+     
+    
+     },
+     (error: any) => {
+      
+      console.log('Error Saving Data');
+     });
 
   }
 

@@ -102,7 +102,7 @@ format:'dd-MMM-yyyy'
      },
      (error: any) => {
       
-       window.alert('Error Saving Data');
+      console.log('Error Saving Data');
      });
 
       

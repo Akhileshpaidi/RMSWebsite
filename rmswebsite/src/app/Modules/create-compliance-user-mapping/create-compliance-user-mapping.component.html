@@ -198,8 +198,11 @@
               <div id="app-container">
 
                 <dx-data-grid id="dataGrid" key="create_company_compliance_id" formControlName="complianceid"
-                  [dataSource]="dataSource" [showBorders]="true" [allowColumnResizing]="true" [columnAutoWidth]="true"
-                  (onSelectionChanged)="handleSelectionChanges($event)" [showBorders]="true"
+                  [dataSource]="dataSource"[showBorders]="true"
+          [allowColumnResizing]="true"
+          [columnAutoWidth]="true"
+          [allowColumnReordering]="true"
+                  (onSelectionChanged)="handleSelectionChanges($event)" 
                   [allowColumnReordering]="true">
 
                   <!-- <dxi-column dataField="create_company_compliance_id" caption=" Global Compliance ID">
@@ -249,12 +252,13 @@
     <dxi-column dataField="compliance_notified_name" caption="Compliance Notified Name" [visible]="false"></dxi-column>
     <dxi-column dataField="compliance_risk_criteria_name" caption="Compliance Risk Criteria Name" [visible]="false"></dxi-column>
 <dxi-column dataField="locationdepartmentmappingid" caption="Department Location Mapping ID" [visible]="false"></dxi-column>
-                  <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
-                  <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
-                  <dxo-filter-row [visible]="true"></dxo-filter-row>
-                  <dxo-search-panel [visible]="true"></dxo-search-panel>
-                  <dxo-group-panel [visible]="true"></dxo-group-panel>
-
+                   <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+          <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+          <dxo-filter-row [visible]="true"></dxo-filter-row>
+          <dxo-search-panel [visible]="true"></dxo-search-panel>
+          <dxo-group-panel [visible]="true"></dxo-group-panel>
+              
+          <dxo-header-filter [visible]="true"></dxo-header-filter>
                   <dxo-selection mode="multiple">
 
                   </dxo-selection>
